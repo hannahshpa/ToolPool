@@ -1,5 +1,5 @@
 import Vapor
-
+import PostgresKit
 // configures your application
 public func configure(_ app: Application) throws {
     // uncomment to serve files from /Public folder
@@ -7,4 +7,6 @@ public func configure(_ app: Application) throws {
 
     // register routes
     try routes(app)
+    
 }
+

@@ -3,8 +3,6 @@ import GraphQL
 import Graphiti
 import Vapor
 let resolver = Resolver()
-let context = Context()
-let api = try! GQLAPI(resolver: resolver)
 
 struct GraphQLHTTPBody: Decodable {
     let query: String
@@ -13,6 +11,8 @@ struct GraphQLHTTPBody: Decodable {
 }
 
 func routes(_ app: Application) throws {
+    let context = Context(loop: app.eventLoopGroup)
+    let api = try! GQLAPI(resolver: resolver)
     app.get { req in
         return "It works!"
     }

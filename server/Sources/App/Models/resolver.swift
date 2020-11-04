@@ -7,14 +7,16 @@
 
 import Foundation
 import Graphiti
+import NIO
+
 public struct Resolver{
-    public func `self`(context: Context, arguments: NoArguments) -> User?{
-        return context.getUser(id: 5)
+    public func `self`(context: Context, arguments: NoArguments) -> EventLoopFuture<User?>{
+        context.getUser(id: 5)
     }
     public struct ToolArgs: Codable{
         public let id: Int
     }
     public func tool(context: Context, arguments: ToolArgs) -> Tool?{
-        return context.getTool(id: arguments.id)
+        context.getTool(id: arguments.id)
     }
 }

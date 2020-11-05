@@ -19,6 +19,10 @@
 		28A7ECBF25437411007423B0 /* RentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECBE25437411007423B0 /* RentalView.swift */; };
 		28A7ECC42543741D007423B0 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECC32543741D007423B0 /* ProfileView.swift */; };
 		28A7ECC925437428007423B0 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECC825437428007423B0 /* SearchView.swift */; };
+		F58B264525536965000389E3 /* Landing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B264425536965000389E3 /* Landing.swift */; };
+		F58B26562553758A000389E3 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B26552553758A000389E3 /* SignInView.swift */; };
+		F58B265B25538E5C000389E3 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B265A25538E5C000389E3 /* CreateAccountView.swift */; };
+		F58B26602553AAA7000389E3 /* InAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B265F2553AAA7000389E3 /* InAppView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +61,10 @@
 		28A7ECBE25437411007423B0 /* RentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentalView.swift; sourceTree = "<group>"; };
 		28A7ECC32543741D007423B0 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		28A7ECC825437428007423B0 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		F58B264425536965000389E3 /* Landing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.swift; sourceTree = "<group>"; };
+		F58B26552553758A000389E3 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		F58B265A25538E5C000389E3 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
+		F58B265F2553AAA7000389E3 /* InAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +116,9 @@
 			isa = PBXGroup;
 			children = (
 				28A7EC6C2543688E007423B0 /* ToolPoolApp.swift */,
+				F58B264925537509000389E3 /* Login */,
 				28A7EC6E2543688E007423B0 /* ContentView.swift */,
+				F58B265F2553AAA7000389E3 /* InAppView.swift */,
 				28A7ECBE25437411007423B0 /* RentalView.swift */,
 				28A7ECC32543741D007423B0 /* ProfileView.swift */,
 				28A7ECC825437428007423B0 /* SearchView.swift */,
@@ -146,6 +156,16 @@
 				28A7EC8B2543688F007423B0 /* Info.plist */,
 			);
 			path = ToolPoolUITests;
+			sourceTree = "<group>";
+		};
+		F58B264925537509000389E3 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				F58B264425536965000389E3 /* Landing.swift */,
+				F58B26552553758A000389E3 /* SignInView.swift */,
+				F58B265A25538E5C000389E3 /* CreateAccountView.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,12 +297,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F58B265B25538E5C000389E3 /* CreateAccountView.swift in Sources */,
+				F58B26602553AAA7000389E3 /* InAppView.swift in Sources */,
 				28A7EC6F2543688E007423B0 /* ContentView.swift in Sources */,
 				28A7EC9E25436D6F007423B0 /* Rental\ViewController.swift in Sources */,
 				28A7ECA825436DA7007423B0 /* ProfileViewController.swift in Sources */,
 				28A7ECA325436D7F007423B0 /* SearchViewController.swift in Sources */,
+				F58B26562553758A000389E3 /* SignInView.swift in Sources */,
 				28A7ECC925437428007423B0 /* SearchView.swift in Sources */,
 				28A7ECBF25437411007423B0 /* RentalView.swift in Sources */,
+				F58B264525536965000389E3 /* Landing.swift in Sources */,
 				28A7ECC42543741D007423B0 /* ProfileView.swift in Sources */,
 				28A7EC6D2543688E007423B0 /* ToolPoolApp.swift in Sources */,
 			);

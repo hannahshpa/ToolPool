@@ -26,7 +26,8 @@ struct InAppView: View {
                 Image(systemName: "person")
                 Text("Profile")
             }
-    }.navigationBarBackButtonHidden(true)
+    }
+    .navigationBarBackButtonHidden(true)
   }
 }
 

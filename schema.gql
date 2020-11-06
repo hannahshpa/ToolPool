@@ -1,0 +1,70 @@
+
+queries{}
+mutations{}
+
+type User{
+  id: ID!
+  name: String!
+  phoneNumber: String!
+  email: String!
+  location: GeoCoordinate
+  ownedTools: [Tool!]!
+  borrowHistory: [Borrow!]!
+  userRating: [UserRating!]! # All ratings where `this” is the target
+}
+
+type Tool{
+  id: ID!
+  name: String!
+  description: String!
+  condition: ToolCondition!
+  cost: Double!
+  location: GeoCoordinate!
+  owner: User!
+  availability: [TimeSlot!]!
+  ratings: [ToolRating!]!
+  borrowHistory: [Borrow!]!
+}
+
+type GeoCoordinate{
+  lat: Double!
+  lon: Double!
+}
+
+type UserRating{
+  reviewer: User!
+  reviewee: User!
+  rating: Integer!
+  review: String
+}
+
+type ToolRating{
+  tool: Tool!
+  user: User!
+  rating: Integer!
+  review: String
+}
+
+type Borrow{
+  id: ID!
+  tool: Tool!
+  user: User!
+  cost: Double!
+  loanPeriod: TimeSlot!
+  timeReturned: Date
+}
+
+enum Condition{
+  POOR
+  FAIR
+  GOOD
+  EXCELLENT
+  NEW
+}
+
+type TimeSlot{
+  start: Date!
+  end: Date!
+}
+scalar Date
+# https://github.com/GraphQLSwift/GraphQL

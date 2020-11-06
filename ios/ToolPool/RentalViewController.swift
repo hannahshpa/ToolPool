@@ -2,7 +2,7 @@
 //  RentalViewController.swift
 //  ToolPool
 //
-//  CS 130 Group 8
+//  Created by Hannah Park on 11/6/20.
 //
 
 import UIKit
@@ -13,7 +13,5 @@ class RentalViewController: UIViewController {
         super.viewDidLoad()
 
     }
-    
-    
     
 }

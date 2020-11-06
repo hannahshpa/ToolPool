@@ -13,7 +13,7 @@
 		28A7EC742543688F007423B0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28A7EC732543688F007423B0 /* Preview Assets.xcassets */; };
 		28A7EC7F2543688F007423B0 /* ToolPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC7E2543688F007423B0 /* ToolPoolTests.swift */; };
 		28A7EC8A2543688F007423B0 /* ToolPoolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC892543688F007423B0 /* ToolPoolUITests.swift */; };
-		28A7EC9E25436D6F007423B0 /* Rental\ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC9D25436D6F007423B0 /* Rental\ViewController.swift */; };
+		28A7EC9E25436D6F007423B0 /* RentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC9D25436D6F007423B0 /* RentalViewController.swift */; };
 		28A7ECA325436D7F007423B0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECA225436D7F007423B0 /* SearchViewController.swift */; };
 		28A7ECA825436DA7007423B0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECA725436DA7007423B0 /* ProfileViewController.swift */; };
 		28A7ECBF25437411007423B0 /* RentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECBE25437411007423B0 /* RentalView.swift */; };
@@ -51,7 +51,7 @@
 		28A7EC852543688F007423B0 /* ToolPoolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToolPoolUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A7EC892543688F007423B0 /* ToolPoolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolPoolUITests.swift; sourceTree = "<group>"; };
 		28A7EC8B2543688F007423B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		28A7EC9D25436D6F007423B0 /* Rental\ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rental\\ViewController.swift"; sourceTree = "<group>"; };
+		28A7EC9D25436D6F007423B0 /* RentalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentalViewController.swift; sourceTree = "<group>"; };
 		28A7ECA225436D7F007423B0 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		28A7ECA725436DA7007423B0 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		28A7ECBE25437411007423B0 /* RentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentalView.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 				28A7ECBE25437411007423B0 /* RentalView.swift */,
 				28A7ECC32543741D007423B0 /* ProfileView.swift */,
 				28A7ECC825437428007423B0 /* SearchView.swift */,
-				28A7EC9D25436D6F007423B0 /* Rental\ViewController.swift */,
+				28A7EC9D25436D6F007423B0 /* RentalViewController.swift */,
 				28A7ECA225436D7F007423B0 /* SearchViewController.swift */,
 				28A7ECA725436DA7007423B0 /* ProfileViewController.swift */,
 				28A7EC702543688F007423B0 /* Assets.xcassets */,
@@ -278,7 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28A7EC6F2543688E007423B0 /* ContentView.swift in Sources */,
-				28A7EC9E25436D6F007423B0 /* Rental\ViewController.swift in Sources */,
+				28A7EC9E25436D6F007423B0 /* RentalViewController.swift in Sources */,
 				28A7ECA825436DA7007423B0 /* ProfileViewController.swift in Sources */,
 				28A7ECA325436D7F007423B0 /* SearchViewController.swift in Sources */,
 				28A7ECC925437428007423B0 /* SearchView.swift in Sources */,

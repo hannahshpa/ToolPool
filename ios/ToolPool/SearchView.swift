@@ -15,7 +15,7 @@ struct SearchView: View {
                     Text("Hello World")
                 }
             }
-            .navigationBarTitle(Text("Find Tools", displayMode:.center))
+            .navigationBarTitle("Find Tools", displayMode:.inline)
         }
     }
 }

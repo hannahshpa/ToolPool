@@ -28,6 +28,8 @@ struct GQLAPI : API {
                 Field("id", at:\.id)
                 Field("condition", at: \.condition)
                 Field("owner", at: \.owner)
+                Field("name", at: \.name)
+                Field("description", at: \.description)
             }
             Query {
                 Field("self", at: Resolver.`self`)

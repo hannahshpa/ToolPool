@@ -2,27 +2,26 @@ import Foundation
 import GraphQL
 import Graphiti
 import Vapor
-let resolver = Resolver()
 
 struct GraphQLHTTPBody: Decodable {
     let query: String
     let operationName: String?
     let variables: [String: Map]
 }
-
+var db: DatabaseConnection? = nil
 func routes(_ app: Application) throws {
-    let context = Context(loop: app.eventLoopGroup)
+    db = DatabaseConnection(loop: app.eventLoopGroup)
+    let resolver = Resolver(conn: db!)
     let api = try! GQLAPI(resolver: resolver)
     app.get { req in
         return "It works!"
     }
 
-    app.get("hello") { req -> String in
-        return "Hello, world!"
-    }
     app.post("graphql"){req -> EventLoopFuture<Response> in
         let httpBody = try req.content.decode(GraphQLHTTPBody.self)
         let promise = req.eventLoop.makePromise(of: Response.self)
+        let context = Context(conn: db!, authedUser: nil) // TODO: User authentication
+        
         let graphQLFuture = api.schema.execute(
             request: httpBody.query,
             resolver: resolver,

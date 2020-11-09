@@ -28,7 +28,11 @@ public struct Tool: Codable{
     public let description: String
     public let name: String
     public let condition: ToolCondition
+    public let location: GeoLocation
     public let owner: User?
+    public var borrowHistory: [Borrow]?
+    public let images: [String]
+    public let tags: [String]
 }
 
 public struct Borrow: Codable{
@@ -45,7 +49,17 @@ public struct GeoLocation: Codable{
     public let lon: Double
 }
 
+public struct GeoLocationInput: Codable{
+    public let lat: Double
+    public let lon: Double
+}
+
 public struct TimeSlot: Codable{
     public let start: Date
     public let end: Date
+}
+
+public struct NewToolInput: Codable{
+    public let name: String
+    public let description: String
 }

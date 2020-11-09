@@ -16,6 +16,16 @@ INSERT INTO borrow (tool, "user", cost, loan_period, time_returned) VALUES
 INSERT INTO tool_schedule (tool, period) VALUES 
     (1, '[2020-11-07 14:30, 2020-11-20 14:30]');
 
+INSERT INTO tool_tags (tool, tag) VALUES
+    (1, 'outdoor'), (1, 'power washer'),
+    (2, 'outdoor'), (2, 'lawn mower'),
+    (3, 'blender'), (3, 'kitchen');
+
+INSERT INTO tool_images (tool, image_uri) VALUES
+    (1, 'https://images.homedepot-static.com/productImages/407b8230-f2f5-497f-9ec6-6c04f237d781/svn/ryobi-gas-pressure-washers-ry803001-64_1000.jpg'),
+    (2, 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/mower-1568302588.jpg?crop=1.00xw:0.669xh;0,0.318xh&resize=1200:*'),
+    (4, 'https://images-na.ssl-images-amazon.com/images/I/61fnMMgkGIL._AC_SL1098_.jpg');
+
 INSERT INTO tool_ratings (tool, "user", rating, review) VALUES
     (1, 2, 5, 'Lawn Mower was excellent, 10/10');
 

@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS borrow(
 );
 
 CREATE VIEW fulltool_v AS 
-    SELECT tool_id, t.name, t.description, t.condition, t.location[0] as lat, t.location[1] as lon, 
+    SELECT tool_id, t.name, t.description, t.condition, t.location[0] as lat, t.location[1] as lon, t.location as location,
         u.user_id as owner_id, u.name as owner_name, u.phone_number as owner_phone_number, u.email as owner_email,
         array_remove(array_agg(ti.image_uri), NULL) as images,
         array_remove(array_agg(tt.tag), NULL) as tags

@@ -30,8 +30,6 @@ struct GQLAPI : API {
                 Field("start", at: \.start, as: Date.self)
                 Field("end", at: \.end, as: Date.self)
             }
-//            DateScalar(as: "Date", formatter: ISO8601DateFormatter())
-//            DateScalar(formatter: ISO8601DateFormatter())
             
             Type(User.self){
                 Field("id", at:\.id)
@@ -49,7 +47,7 @@ struct GQLAPI : API {
                 Field("description", at: \.description)
                 Field("location", at: \.location)
                 Field("owner", at: \.owner)
-                Field("borrowHistory", at: \.borrowHistory, as: Optional<[TypeReference<Borrow>]>.self)
+                Field("borrowHistory", at: \.borrowHistory, as: Optional<[TypeReference<Borrow>]>.self).description("The history of this tool being loaned out")
                 Field("images", at: \.images)
                 Field("tags", at: \.tags)
             }
@@ -60,6 +58,14 @@ struct GQLAPI : API {
                 Field("user", at: \.user)
                 Field("loanPeriod", at: \.loanPeriod)
             }
+            Input(NewToolInput.self) {
+                InputField("name", at: \.name)
+                InputField("description", at: \.description)
+            }
+            Input(GeoLocationInput.self){
+                InputField("lat", at: \.lat)
+                InputField("lon", at: \.lon)
+            }
             Query {
                 Field("self", at: Resolver.`self`)
                 Field("tool", at: Resolver.tool){
@@ -68,11 +74,10 @@ struct GQLAPI : API {
                 Field("borrow", at: Resolver.borrow){
                     Argument("id", at: \.id)
                 }
-            }
-            
-            Input(NewToolInput.self) {
-                InputField("name", at: \.name)
-                InputField("description", at: \.description)
+                Field("nearby", at: Resolver.nearby){
+                    Argument("center", at: \.center)
+                    Argument("radius", at: \.radius)
+                }
             }
             
             Mutation{

@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ToolListingPage: View {
+    let listingName: String
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text(listingName)
     }
 }
 
 struct ToolListingPage_Previews: PreviewProvider {
     static var previews: some View {
-        ToolListingPage()
+        ToolListingPage(listingName:"Sample Tool")
     }
 }

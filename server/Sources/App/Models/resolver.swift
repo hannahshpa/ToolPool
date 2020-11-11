@@ -141,6 +141,21 @@ public struct Resolver{
                             }
                            }
     }
+    public struct NearbyArgs: Codable{
+        public let center: GeoLocationInput
+        public let radius: Double
+    }
+    public func nearby(context: Context, arguments: NearbyArgs) -> EventLoopFuture<[Tool]>{
+        // This is pretty insecure, but unfortunately there is no support for polygons in Postgrekit
+        // Graphql *should* prevent anything other than the correct data types from coming in, but still...
+        conn.getDB().query(
+            "SELECT * FROM fulltool_v WHERE circle '<(\(arguments.center.lat),\(arguments.center.lon)) \(arguments.radius)>' @> location;").map{result -> [Tool] in
+                return result.rows.map{row -> Tool in
+                    let tr = try! row.sql().decode(model: ToolResult.self)
+                    return Tool(id: tr.tool_id, description: tr.description, name: tr.name, condition: tr.condition, location: .init(lat: tr.lat, lon: tr.lon), owner: .init(id: tr.owner_id, name: tr.owner_name, phoneNumber: tr.owner_phone_number, email: tr.owner_email, ownedTools: nil, borrowHistory: nil), borrowHistory: nil, images: tr.images, tags: tr.tags)
+                }
+             }
+    }
     public struct NewToolArgs: Codable{
         public let tool: NewToolInput
     }

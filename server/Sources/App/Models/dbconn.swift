@@ -12,9 +12,10 @@ import NIO
 class DatabaseConnection{
     let db: PostgresDatabase;
     let pools: EventLoopGroupConnectionPool<PostgresConnectionSource>;
+    private static let instance: DatabaseConnection? = nil
     init(loop: EventLoopGroup) {
         let configuration = PostgresConfiguration(
-            hostname: "127.0.0.1",
+            hostname: ProcessInfo.processInfo.environment["ENV"] == "production" ? "psql" : "localhost",
             port: 5432,
             username: "postgres",
             password: "FIef#9ipSFE9*",
@@ -29,6 +30,6 @@ class DatabaseConnection{
     }
     
     public func getDB() -> PostgresDatabase{
-        return db;
+        db
     }
 }

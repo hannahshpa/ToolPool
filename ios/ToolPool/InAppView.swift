@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct InAppView: View {
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(entity: Tool.entity(), sortDescriptors: []) var tools: FetchedResults<Tool>
+
+    @State private var showingAddScreen = false
    var body: some View {
     TabView {
         SearchView()

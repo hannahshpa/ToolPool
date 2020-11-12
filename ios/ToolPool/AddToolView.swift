@@ -10,12 +10,17 @@ import SwiftUI
 struct AddToolView: View {
   
   @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+  @Environment(\.managedObjectContext) var moc
+
 
   @State var name: String = ""
   @State var cost: String = ""
   @State var description: String = ""
   @State var city: String = ""
   @State var state: String = ""
+  @State var category: String = ""
+  @State var condition: String = ""
+  var categoryOptions = ["Camping", "Cleaning", "Cleaning", "Gardening", "Hand Tools", "Kitchen", "Outdoor", "Painting", "Power Tools", "Safety", "Miscellaneous"]
   
     var body: some View {
       VStack {
@@ -25,11 +30,18 @@ struct AddToolView: View {
           Section(header: Text("Tool information")) {
             TextField("Tool Name", text: $name)
             TextField("Cost Per Hour", text: $cost)
+            TextField("City", text: $city)
+            TextField("State", text: $state)
             TextField("Description", text: $description)
               .frame(height: 100.0)
+            Picker(selection: $category, label: Text("Category")) {
+              ForEach(0 ..< categoryOptions.count) {
+                Text(self.categoryOptions[$0])
+              }
+            }
           }
           Section(header: Text("Condition")) {
-            Picker(selection: .constant(1), label: Text("Condition")) /*@START_MENU_TOKEN@*/{
+            Picker(selection: $condition, label: Text("Condition")) /*@START_MENU_TOKEN@*/{
               Text("Brand New").tag(1)
               Text("Good").tag(2)
               Text("Poor").tag(3)
@@ -40,7 +52,24 @@ struct AddToolView: View {
             Text("Add Images here")
           }
         }
-        Button(action: {self.mode.wrappedValue.dismiss()}) {
+        Button(action: {
+          
+          self.mode.wrappedValue.dismiss()
+          /*
+          let newTool = Tool(context: self.moc)
+          newTool.category = self.category
+          newTool.city = self.city
+          newTool.condition = self.state
+          newTool.descriptiontext = self.description
+          newTool.owner = "test"
+          newTool.price = 0
+          newTool.rating = 0
+          newTool.state = ""
+          newTool.title = self.name
+
+          //try? self.moc.save()
+          */
+        }) {
           Text("Submit Tool")
         }
         /*

@@ -10,7 +10,22 @@ import SwiftUI
 struct ToolListingPage: View {
     let listingName: String
     var body: some View {
-        Text(listingName)
+      ScrollView {
+        GeometryReader {
+            geometry in
+          VStack {
+            Image("tool")
+                .resizable()
+                .frame(width: geometry.size.width * 0.6, height: geometry.size.width * 0.6)
+                .aspectRatio(contentMode: .fit)
+            Text(listingName).font(.largeTitle)
+            Divider()
+            Text("Price:")
+            Text("Condition:")
+            Text("Description:")
+          }
+        }
+      }
     }
 }
 

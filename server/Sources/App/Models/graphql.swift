@@ -10,7 +10,6 @@ import Foundation
 struct GQLAPI : API {
     let resolver: Resolver
     let schema: Schema<Resolver, Context>
-    
     init(resolver: Resolver) throws {
         self.resolver = resolver
         self.schema = try Schema<Resolver, Context> {
@@ -21,7 +20,7 @@ struct GQLAPI : API {
                 Value(.great)
                 Value(.new)
             }
-            Scalar(Date.self)
+            Scalar(Date.self).description("Returns the number of seconds since January, 1st, 2001: 12:00 am, ie Date(timeIntervalSinceReferenceDate: )")
             Type(GeoLocation.self){
                 Field("lat", at: \.lat)
                 Field("lon", at: \.lon)
@@ -36,28 +35,45 @@ struct GQLAPI : API {
                 Field("name", at: \.name)
                 Field("phoneNumber", at: \.phoneNumber)
                 Field("email", at: \.email)
-                Field("ownedTools", at: \.ownedTools, as: Optional<[TypeReference<Tool>]>.self)
-                Field("borrowHistory", at: \.borrowHistory, as: Optional<[TypeReference<Borrow>]>.self)
-            }
-            Type(Tool.self){
-                Field("id", at:\.id)
-                Field("condition", at: \.condition)
-                Field("owner", at: \.owner)
-                Field("name", at: \.name)
-                Field("description", at: \.description)
-                Field("location", at: \.location)
-                Field("owner", at: \.owner)
-                Field("borrowHistory", at: \.borrowHistory, as: Optional<[TypeReference<Borrow>]>.self).description("The history of this tool being loaned out")
-                Field("images", at: \.images)
-                Field("tags", at: \.tags)
+                Field("ownedTools", at: User.getOwnedTools, as: [TypeReference<Tool>].self)
+                Field("borrowHistory", at: User.getBorrowHistory, as: [TypeReference<Borrow>].self)
+                Field("ratings", at: User.getRatings, as: [TypeReference<UserRating>].self)
             }
             Type(Borrow.self){
                 Field("id", at: \.id)
                 Field("cost", at: \.cost)
-                Field("tool", at: \.tool)
-                Field("user", at: \.user)
+                Field("tool", at: Borrow.getTool, as: TypeReference<Tool>.self)
+                Field("user", at: Borrow.getUser, as: TypeReference<User>.self)
                 Field("loanPeriod", at: \.loanPeriod)
+                Field("timeReturned", at: \.timeReturned)
             }
+            Type(ToolRating.self){
+                Field("rating", at: \.rating)
+                Field("review", at: \.review)
+                Field("tool", at: ToolRating.getTool, as: TypeReference<Tool>.self)
+                Field("user", at: ToolRating.getUser, as: TypeReference<User>.self)
+            }
+            Type(UserRating.self){
+                Field("rating", at: \.rating)
+                Field("review", at: \.review)
+                Field("reviewer", at: UserRating.getReviewer)
+                Field("reviewee", at: UserRating.getReviewee)
+            }
+            Type(Tool.self){
+                Field("id", at:\.id)
+                Field("condition", at: \.condition)
+                Field("owner", at: Tool.getOwner)
+                Field("name", at: \.name)
+                Field("description", at: \.description)
+                Field("location", at: \.location)
+                Field("borrowHistory", at: Tool.getBorrowHistory, as: [Borrow].self)
+                    .description("The history of this tool being loaned out")
+                Field("images", at: Tool.getImages)
+                Field("tags", at: Tool.getTags)
+                Field("ratings", at: Tool.getRatings)
+                Field("schedule", at: Tool.getSchedule)
+            }
+
             Input(NewToolInput.self) {
                 InputField("name", at: \.name)
                 InputField("description", at: \.description)
@@ -69,9 +85,6 @@ struct GQLAPI : API {
             Query {
                 Field("self", at: Resolver.`self`)
                 Field("tool", at: Resolver.tool){
-                    Argument("id", at: \.id)
-                }
-                Field("borrow", at: Resolver.borrow){
                     Argument("id", at: \.id)
                 }
                 Field("nearby", at: Resolver.nearby){

@@ -10,136 +10,199 @@ import Graphiti
 import NIO
 import PostgresKit
 import Vapor
+private struct DBUser: Codable{
+    public let user_id: Int
+    public let name: String
+    public let phone_number: String
+    public let email: String
+    public func toUser() -> User{
+        User(id: user_id, name: name, phoneNumber: phone_number, email: email)
+    }
+}
+private struct DBUserRating: Codable{
+    public let reviewer: Int
+    public let reviewee: Int
+    public let rating: Int
+    public let review: String?
+    public func toUserRating() -> UserRating{
+        UserRating(reviewerId: reviewer, revieweeId: reviewee, rating: rating, review: review)
+    }
+}
+private struct DBTool: Codable{
+    public let tool_id: Int
+    public let name: String
+    public let description: String
+    public let condition: ToolCondition
+    public let lat: Double
+    public let lon: Double
+    public let owner: Int
+    public func toTool() -> Tool{
+        Tool(id: tool_id, description: description, name: name, condition: condition, location: .init(lat: lat, lon: lon), ownerId: owner)
+    }
+}
+private struct DBToolImages: Codable{
+    public let tool: Int
+    public let image_uri: String
+}
+private struct DBToolTags: Codable{
+    public let tool: Int
+    public let tag: String
+}
+private struct DBToolSchedule: Codable{
+    public let tool: Int
+    public let slot_start: Date
+    public let slot_end: Date
+    public func toTimeSlot()->TimeSlot{
+        TimeSlot(start: slot_start, end: slot_end)
+    }
+}
+private struct DBToolRating: Codable{
+    public let tool: Int
+    public let user: Int
+    public let rating: Int
+    public let review: String?
+    public func toToolRating() -> ToolRating{
+        ToolRating(toolId: tool, userId: user, rating: rating, review: review)
+    }
+}
+private struct DBBorrow: Codable{
+    public let borrow_id: Int
+    public let tool: Int
+    public let user: Int
+    public let cost: Float
+    public let loan_start: Date
+    public let loan_end: Date
+    public let time_returned: Date?
+    public func toBorrow() -> Borrow{
+        Borrow(id: borrow_id, toolId: tool, userId: user, cost: Double(cost), loanPeriod: .init(start: loan_start, end: loan_end), timeReturned: time_returned)
+    }
+}
+extension User{
+    public func getOwnedTools(context: Context, arguments: NoArguments) -> EventLoopFuture<[Tool]>{
+        context.getDB().query("SELECT *, location[0] as lat, location[1] as lon FROM tools WHERE owner = $1",
+                              [PostgresData(int: self.id)]).map{result in
+            result.rows.map{ row in
+                try! row.sql().decode(model: DBTool.self).toTool()
+            }
+        }
+    }
+    public func getBorrowHistory(context: Context, arguments: NoArguments) -> EventLoopFuture<[Borrow]>{
+        context.getDB().query("SELECT *, LOWER(loan_period) AS loan_start, UPPER(loan_period) as loan_end FROM borrow WHERE \"user\" = $1",
+                              [PostgresData(int: self.id)]).map{result in
+            result.rows.map{row in
+                try! row.sql().decode(model: DBBorrow.self).toBorrow()
+            }
+        }
+    }
+    public func getRatings(context: Context, arguments: NoArguments) -> EventLoopFuture<[UserRating]>{
+        context.getDB().query("SELECT * FROM user_ratings WHERE reviewee = $1", [PostgresData(int: self.id)]).map{result in
+            result.rows.map{row in
+                try! row.sql().decode(model: DBUserRating.self).toUserRating()
+            }
+        }
+    }
+}
+extension Tool{
+    public func getOwner(context: Context, arguments: NoArguments) -> EventLoopFuture<User>{
+        context.getDB().query("SELECT * FROM users WHERE user_id = $1", [PostgresData(int: self.ownerId)]).map{ result in
+            try! result.first!.sql().decode(model: DBUser.self).toUser()
+        }
+    }
+    public func getImages(context: Context, arguments: NoArguments) -> EventLoopFuture<[String]>{
+        context.getDB().query("SELECT * FROM tool_images WHERE tool = $1", [PostgresData(int: self.id)]).map{ result in
+            result.rows.map{row in
+                try! row.sql().decode(model: DBToolImages.self).image_uri
+            }
+        }
+    }
+    public func getTags(context: Context, arguments: NoArguments) -> EventLoopFuture<[String]>{
+        context.getDB().query("SELECT * FROM tool_tags WHERE tool = $1", [PostgresData(int: self.id)]).map{ result in
+            result.rows.map{row in
+                try! row.sql().decode(model: DBToolTags.self).tag
+            }
+        }
+    }
+    public func getBorrowHistory(context: Context, arguments: NoArguments) -> EventLoopFuture<[Borrow]>{
+        context.getDB().query("SELECT *, LOWER(loan_period) AS loan_start, UPPER(loan_period) as loan_end FROM borrow WHERE tool = $1",
+                              [PostgresData(int: self.id)]).map{ result in
+            result.rows.map{row in
+                try! row.sql().decode(model: DBBorrow.self).toBorrow()
+            }
+        }
+    }
+    public func getRatings(context: Context, arguments: NoArguments) -> EventLoopFuture<[ToolRating]>{
+        context.getDB().query("SELECT * FROM tool_ratings WHERE tool = $1", [PostgresData(int: self.id)]).map{result in
+            result.rows.map{row in
+                try! row.sql().decode(model: DBToolRating.self).toToolRating()
+            }
+        }
+    }
+    public func getSchedule(context: Context, arguments: NoArguments) -> EventLoopFuture<[TimeSlot]>{
+        context.getDB().query("SELECT *, LOWER(period) as slot_start, UPPER(period) as slot_end FROM tool_schedule WHERE tool = $1", [PostgresData(int: self.id)]).map{result in
+            result.rows.map{ row in
+                try! row.sql().decode(model: DBToolSchedule.self).toTimeSlot()
+            }
+        }
+    }
+}
+extension Borrow{
+    public func getTool(context: Context, arguments: NoArguments) -> EventLoopFuture<Tool>{
+        context.getDB().query("SELECT *, location[0] as lat, location[1] as lon FROM tools WHERE tool_id = $1", [PostgresData(int: self.toolId)]).map{ result in
+            try! result.first!.sql().decode(model: DBTool.self).toTool()
+        }
+    }
+    public func getUser(context: Context, arguments: NoArguments) -> EventLoopFuture<User>{
+        context.getDB().query("SELECT * FROM users WHERE user_id = $1", [PostgresData(int: self.userId)]).map{ result in
+            try! result.first!.sql().decode(model: DBUser.self).toUser()
+        }
+    }
+}
+extension ToolRating{
+    public func getTool(context: Context, arguments: NoArguments) -> EventLoopFuture<Tool>{
+        context.getDB().query("SELECT *, location[0] as lat, location[1] as lon FROM tools WHERE tool_id = $1",
+                              [PostgresData(int: self.toolId)]).map{ result in
+            try! result.first!.sql().decode(model: DBTool.self).toTool()
+        }
+    }
+    public func getUser(context: Context, arguments: NoArguments) -> EventLoopFuture<User>{
+        context.getDB().query("SELECT * FROM users WHERE user_id = $1", [PostgresData(int: self.userId)]).map{ result in
+            try! result.first!.sql().decode(model: DBUser.self).toUser()
+        }
+    }
+}
+extension UserRating{
+    public func getReviewer(context: Context, arguments: NoArguments) -> EventLoopFuture<User>{
+        context.getDB().query("SELECT * FROM users WHERE user_id = $1", [PostgresData(int: self.reviewerId)]).map{ result in
+            try! result.first!.sql().decode(model: DBUser.self).toUser()
+        }
+    }
+    public func getReviewee(context: Context, arguments: NoArguments) -> EventLoopFuture<User>{
+        context.getDB().query("SELECT * FROM users WHERE user_id = $1", [PostgresData(int: self.revieweeId)]).map{ result in
+            try! result.first!.sql().decode(model: DBUser.self).toUser()
+        }
+    }
+}
 public struct Resolver{
     let conn: DatabaseConnection;
     
     public func `self`(context: Context, arguments: NoArguments) -> User?{
         context.getUser()
     }
+    
     public struct ToolArgs: Codable{
         public let id: Int
     }
-    private struct ToolResult: Codable{
-        public let tool_id: Int
-        public let name: String
-        public let description: String
-        public let condition: ToolCondition
-        public let owner_id: Int
-        public let owner_name: String
-        public let owner_phone_number: String
-        public let owner_email: String
-        public let lat: Double
-        public let lon: Double
-        public let images: [String]
-        public let tags: [String]
-    }
-    
-    private struct BorrowResult: Codable{
-        public let borrow_id: Int
-        public let cost: Float
-        public let loan_start: Date
-        public let loan_end: Date
-        public let time_returned: Date?
-        public let user_id: Int
-        public let user_name: String
-        public let user_email: String
-        public let user_phone_number: String
-    }
     public func tool(context: Context, arguments: ToolArgs) -> EventLoopFuture<Tool?>{
         let db = conn.getDB()
-        return db.query("SELECT * FROM fulltool_v WHERE tool_id = $1;", [PostgresData(int64: Int64(arguments.id))]).map{ result -> ToolResult? in
-            return try! result.first?.sql().decode(model: ToolResult.self)
-        }.flatMap{ tool in
-            // Saturate with borrow values
-            if let tool = tool{
-                return db.query("""
-                    SELECT borrow_id, cost, u.user_id as user_id, u.email as user_email, u.name as user_name, u.phone_number as user_phone_number, LOWER(loan_period) AS loan_start, UPPER(loan_period) as loan_end, time_returned
-                    FROM borrow
-                    JOIN users u ON u.user_id = "user"
-                    WHERE tool = $1;
-                    """, [PostgresData(int64: Int64(arguments.id))]).map{ result in
-                        var t = Tool(id: tool.tool_id,
-                                     description: tool.description,
-                                     name: tool.name,
-                                     condition: tool.condition,
-                                     location: .init(lat: tool.lat, lon: tool.lon),
-                                     owner: User(id: tool.owner_id,
-                                                 name: tool.owner_name,
-                                                 phoneNumber: tool.owner_phone_number,
-                                                 email: tool.owner_email,
-                                                 ownedTools: nil,
-                                                 borrowHistory: nil),
-                                     borrowHistory: nil,
-                                     images: tool.images,
-                                     tags: tool.tags)
-                        t.borrowHistory = result.rows.map{ row -> Borrow in
-                            let borrowResult = try! row.sql().decode(model: BorrowResult.self)
-                            return Borrow(id: borrowResult.borrow_id,
-                                          tool: t,
-                                          user: User(id: borrowResult.user_id,
-                                                     name: borrowResult.user_name,
-                                                     phoneNumber: borrowResult.user_phone_number,
-                                                     email: borrowResult.user_email,
-                                                     ownedTools: nil,
-                                                     borrowHistory: nil),
-                                          cost: Double(borrowResult.cost),
-                                          loanPeriod:.init(start: Date(), end: Date()),
-                                          timeReturned: nil)
-                        }
-                        return t
-                    }
+        return db.query("SELECT *, location[0] as lat, location[1] as lon FROM tools WHERE tool_id = $1;",
+                        [PostgresData(int64: Int64(arguments.id))]).map{ result -> Tool? in
+            if let dbTool = try? result.first?.sql().decode(model: DBTool.self){
+                return dbTool.toTool()
             }else{
-                return db.eventLoop.makeSucceededFuture(nil)
+                return nil
             }
         }
         
-    }
-    private struct BorrowToolUser: Codable{
-        public let borrow_id: Int
-        public let cost: Float
-        public let loan_start: Date
-        public let loan_end: Date
-        public let time_returned: Date?
-        public let user_id: Int
-        public let user_name: String
-        public let user_email: String
-        public let user_phone_number: String
-        public let tool_id: Int
-        public let tool_name: String
-        public let tool_description: String
-        public let tool_condition: ToolCondition
-        public let tool_lat: Double
-        public let tool_lon: Double
-        public let tool_images: [String]
-        public let tool_tags: [String]
-    }
-    public func borrow(context: Context, arguments: ToolArgs) -> EventLoopFuture<Borrow?>{
-        conn.getDB().query("SELECT * from fullborrow_v WHERE borrow_id = $1;",
-                           [PostgresData(int64: Int64(arguments.id))]).map{ result -> Borrow? in
-                            if let borrow = try? result.first?.sql().decode(model: BorrowToolUser.self){
-                                return Borrow(id: borrow.borrow_id,
-                                              tool: .init(id: borrow.tool_id,
-                                                          description: borrow.tool_description,
-                                                          name: borrow.tool_name,
-                                                          condition: borrow.tool_condition,
-                                                          location: .init(lat: borrow.tool_lat, lon: borrow.tool_lon),
-                                                          owner: nil,
-                                                          borrowHistory: nil,
-                                                          images: borrow.tool_images,
-                                                          tags: borrow.tool_tags),
-                                              user: .init(id: borrow.user_id,
-                                                          name: borrow.user_name,
-                                                          phoneNumber: borrow.user_phone_number,
-                                                          email: borrow.user_email,
-                                                          ownedTools: nil,
-                                                          borrowHistory: nil),
-                                              cost: Double(borrow.cost),
-                                              loanPeriod: .init(start: borrow.loan_start, end: borrow.loan_end),
-                                              timeReturned: borrow.time_returned)
-                            }else{
-                                return nil
-                            }
-                           }
     }
     public struct NearbyArgs: Codable{
         public let center: GeoLocationInput
@@ -149,13 +212,14 @@ public struct Resolver{
         // This is pretty insecure, but unfortunately there is no support for polygons in Postgrekit
         // Graphql *should* prevent anything other than the correct data types from coming in, but still...
         conn.getDB().query(
-            "SELECT * FROM fulltool_v WHERE circle '<(\(arguments.center.lat),\(arguments.center.lon)) \(arguments.radius)>' @> location;").map{result -> [Tool] in
+            "SELECT * FROM tools WHERE circle '<(\(arguments.center.lat),\(arguments.center.lon)) \(arguments.radius)>' @> location;").map{result -> [Tool] in
                 return result.rows.map{row -> Tool in
-                    let tr = try! row.sql().decode(model: ToolResult.self)
-                    return Tool(id: tr.tool_id, description: tr.description, name: tr.name, condition: tr.condition, location: .init(lat: tr.lat, lon: tr.lon), owner: .init(id: tr.owner_id, name: tr.owner_name, phoneNumber: tr.owner_phone_number, email: tr.owner_email, ownedTools: nil, borrowHistory: nil), borrowHistory: nil, images: tr.images, tags: tr.tags)
+                    try! row.sql().decode(model: DBTool.self).toTool()
                 }
              }
     }
+    
+    // Mutations
     public struct NewToolArgs: Codable{
         public let tool: NewToolInput
     }

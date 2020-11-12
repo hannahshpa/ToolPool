@@ -20,7 +20,7 @@ func routes(_ app: Application) throws {
     app.post("graphql"){req -> EventLoopFuture<Response> in
         let httpBody = try req.content.decode(GraphQLHTTPBody.self)
         let promise = req.eventLoop.makePromise(of: Response.self)
-        let context = Context(authedUser: nil) // TODO: User authentication
+        let context = Context(authedUser: nil, conn: db!) // TODO: User authentication
         
         let graphQLFuture = api.schema.execute(
             request: httpBody.query,

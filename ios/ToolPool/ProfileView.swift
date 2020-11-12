@@ -18,25 +18,29 @@ struct ProfileView: View {
   
     var body: some View {
       NavigationView{
-        VStack {
-          HStack {
-            Text("Image")
-            Text("Welcome Joe")
-              .font(.largeTitle)
+        GeometryReader {
+            geometry in
+          VStack {
+            HStack {
+              Image("profile")
+                  .resizable()
+                  .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
+                  .aspectRatio(contentMode: .fit)
+              Text("Joe's ToolBox")
+                .font(.largeTitle)
+            }
+            Divider()
+            ScrollView {
+                VStack {
+                    MyToolCategoryRow(geometry: geometry, toolNameLeft: "tool", toolNameMiddle: "tool", toolNameRight: "tool")
+                      MyToolCategoryRow(geometry: geometry, toolNameLeft: "tool", toolNameMiddle: "tool", toolNameRight: "tool")
+                      MyToolCategoryRow(geometry: geometry, toolNameLeft: "tool", toolNameMiddle: "tool", toolNameRight: "tool")
+                      MyToolCategoryRow(geometry: geometry, toolNameLeft: "tool", toolNameMiddle: "tool", toolNameRight: "tool")
+                      MyToolCategoryRow(geometry: geometry, toolNameLeft: "tool", toolNameMiddle: "tool", toolNameRight: "tool")
+                  }
+              }
+              //.padding()
           }
-          LazyVGrid(columns: columns) /*@START_MENU_TOKEN@*/{
-            
-            Text("Tool1")
-            Text("Tool2")
-            Text("Tool3")
-            Text("Tool4")
-            Text("Tool5")
-            Text("Tool6")
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
-              .fill(Color.white)
-              .frame(width: 100, height: 100)
-              .border(Color.black, width: 2)
-          }/*@END_MENU_TOKEN@*/
         }
         .navigationBarTitle("Your ToolBox", displayMode: .inline)
         .navigationBarItems(trailing:
@@ -47,6 +51,46 @@ struct ProfileView: View {
       }
     }
 }
+
+
+struct MyToolCategoryRow: View {
+    let geometry: GeometryProxy
+    let toolNameLeft: String
+    let toolNameMiddle: String
+    let toolNameRight: String
+    var body: some View {
+        HStack { // position views horizontally
+            NavigationLink(destination: ToolListingPage(listingName: toolNameLeft)) {
+                MyToolCategorySquare(geometry: geometry, categoryName: toolNameLeft)
+            }
+            NavigationLink(destination: ToolListingPage(listingName: toolNameMiddle)) {
+                MyToolCategorySquare(geometry: geometry, categoryName: toolNameMiddle)
+            }
+            NavigationLink(destination: ToolListingPage(listingName: toolNameRight)) {
+                MyToolCategorySquare(geometry: geometry, categoryName: toolNameRight)
+            }
+        }
+    }
+}
+
+struct MyToolCategorySquare: View {
+    let geometry: GeometryProxy
+    let categoryName: String
+    var body: some View {
+        ZStack(alignment: .bottomTrailing) {
+            Image(categoryName.lowercased())
+                .resizable()
+                .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
+                .aspectRatio(contentMode: .fit)
+            Text(categoryName).bold()
+                .padding(6)
+                .font(.headline)
+                .foregroundColor(Color.white)
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous)) // Add clip shape to the whole ZStack
+    }
+}
+
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {

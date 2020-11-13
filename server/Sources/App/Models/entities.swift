@@ -8,20 +8,66 @@
 import Foundation
 
 public enum ToolCondition : String, Codable, CaseIterable {
-    case poor = "POOR"
-    case fair = "FAIR"
-    case good = "GOOD"
-    case great = "GREAT"
-    case new = "NEW"
+    case poor = "poor"
+    case fair = "fair"
+    case good = "good"
+    case great = "great"
+    case new = "new"
 }
 public struct User : Codable {
     public let id: Int
     public let name: String
-//    public let phoneNumber: String
-//    public let email: String
+    public let phoneNumber: String
+    public let email: String
 }
+public struct UserRating: Codable{
+    public let reviewerId: Int
+    public let revieweeId: Int
+    public let rating: Int
+    public let review: String?
+}
+
 public struct Tool: Codable{
     public let id: Int
+    public let description: String
+    public let name: String
     public let condition: ToolCondition
-    public let owner: User
+    public let location: GeoLocation
+    public let ownerId: Int
+}
+
+public struct ToolRating: Codable{
+    public let toolId: Int
+    public let userId: Int
+    public let rating: Int
+    public let review: String?
+}
+
+public struct Borrow: Codable{
+    public let id: Int
+    public let toolId: Int
+    public let userId: Int
+    public let cost: Double
+    public let loanPeriod: TimeSlot
+    public let timeReturned: Date?
+}
+
+public struct GeoLocation: Codable{
+    public let lat: Double
+    public let lon: Double
+}
+
+public struct GeoLocationInput: Codable{
+    public let lat: Double
+    public let lon: Double
+}
+
+public struct TimeSlot: Codable{
+    public let start: Date
+    public let end: Date
+}
+
+public struct NewToolInput: Codable{
+    public let name: String
+    public let description: String
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ManageUpcomingResPage: View {
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     let toolName: String
     var body: some View {
       ScrollView {
@@ -25,7 +26,7 @@ struct ManageUpcomingResPage: View {
             Text("User:")
             Text("Cost:")
             Text("Location:")
-            NavigationLink(destination: RentalView()) {
+            NavigationLink(destination: RateRental(toolName: "tool1")) {
                 Text("Complete Rental")
             } //use simultaneous gesture to add time complete to rental obj & get rating
           }

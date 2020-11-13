@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct ManagePendingResPage: View {
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     let toolName: String
     var body: some View {
       ScrollView {
@@ -24,12 +25,12 @@ struct ManagePendingResPage: View {
             Text("User:")
             Text("Cost:")
             Text("Location:")
-            NavigationLink(destination: RentalView()) {
-                Text("Accept Rental")
-            } //simultaneously mutate rental obj to approve/deny?
-            NavigationLink(destination: RentalView()) {
-                Text("Deny Rental")
-            }
+            Button(action: {
+                self.mode.wrappedValue.dismiss()
+            }) { Text("Accept Rental")}//simultaneously mutate rental obj to approve/deny?
+            Button(action: {
+                self.mode.wrappedValue.dismiss()
+            }) { Text("Deny Rental")}
           }
         }
       }

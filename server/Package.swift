@@ -10,6 +10,8 @@ let package = Package(
         // 💧 A server-side Swift web framework.
         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
         .package(url: "https://github.com/GraphQLSwift/Graphiti.git", from: "0.22.0"),
+        .package(url: "https://github.com/vapor/postgres-kit.git", from: "2.0.0"),
+        .package(url: "https://github.com/apple/swift-nio.git", from: "2.0.0")
     ],
     targets: [
         .target(
@@ -17,6 +19,9 @@ let package = Package(
             dependencies: [
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "Graphiti", package: "Graphiti"),
+                .product(name: "PostgresKit", package: "postgres-kit"),
+                .product(name: "NIO", package: "swift-nio")
+                    
             ],
             swiftSettings: [
                 // Enable better optimizations when building in Release configuration. Despite the use of

@@ -7,6 +7,7 @@
 
 import Graphiti
 import Foundation
+
 struct GQLAPI : API {
     let resolver: Resolver
     let schema: Schema<Resolver, Context>

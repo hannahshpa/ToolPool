@@ -7,12 +7,35 @@
 
 import SwiftUI
 
+
+
 struct Landing: View {
+  
+    func greet() {
+      Network.shared.apollo.fetch(query: ToolByIdQuery(id: 1)) { result in
+        switch result {
+        case .success(let graphQLResult):
+          print("Success! Result: \(graphQLResult)")
+        case .failure(let error):
+          print("Failure! Error: \(error)")
+        }
+      }
+      
+      //var test = Network.shared.apollo.fetch(query: ToolByIdQuery())
+      //test.
+    }
+  
+    //let variable = greet()
+  
     var body: some View {
       NavigationView {
         VStack {
           Text(/*@START_MENU_TOKEN@*/"ToolPool"/*@END_MENU_TOKEN@*/)
             .font(.largeTitle)
+            .onAppear {
+              self.greet()
+            }
+          
           NavigationLink(destination: SignInView()) {
             Text("Sign In")
               .foregroundColor(Color.black)

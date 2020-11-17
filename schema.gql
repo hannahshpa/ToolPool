@@ -1,70 +1,90 @@
-
-queries{}
-mutations{}
-
-type User{
-  id: ID!
-  name: String!
-  phoneNumber: String!
-  email: String!
-  location: GeoCoordinate
-  ownedTools: [Tool!]!
-  borrowHistory: [Borrow!]!
-  userRating: [UserRating!]! # All ratings where `this” is the target
-}
-
-type Tool{
-  id: ID!
-  name: String!
-  description: String!
-  condition: ToolCondition!
-  cost: Double!
-  location: GeoCoordinate!
-  owner: User!
-  availability: [TimeSlot!]!
-  ratings: [ToolRating!]!
-  borrowHistory: [Borrow!]!
-}
-
-type GeoCoordinate{
-  lat: Double!
-  lon: Double!
-}
-
-type UserRating{
-  reviewer: User!
-  reviewee: User!
-  rating: Integer!
-  review: String
-}
-
-type ToolRating{
-  tool: Tool!
-  user: User!
-  rating: Integer!
-  review: String
-}
-
-type Borrow{
-  id: ID!
-  tool: Tool!
-  user: User!
-  cost: Double!
+type Borrow {
+  cost: Float!
+  id: Int!
   loanPeriod: TimeSlot!
   timeReturned: Date
+  tool: Tool!
+  user: User!
 }
 
-enum Condition{
-  POOR
-  FAIR
-  GOOD
-  EXCELLENT
-  NEW
-}
-
-type TimeSlot{
-  start: Date!
-  end: Date!
-}
+# Returns the number of seconds since January, 1st, 2001: 12:00 am, ie Date(timeIntervalSinceReferenceDate: )
 scalar Date
-# https://github.com/GraphQLSwift/GraphQL
+
+type GeoLocation {
+  lat: Float!
+  lon: Float!
+}
+
+input GeoLocationInput {
+  lat: Float!
+  lon: Float!
+}
+
+type Mutation {
+  addTool(tool: NewToolInput!): Boolean!
+  updateTool: Boolean!
+}
+
+input NewToolInput {
+  description: String!
+  name: String!
+}
+
+type Query {
+  nearby(center: GeoLocationInput!, radius: Float!): [Tool!]!
+  self: User
+  tool(id: Int!): Tool
+}
+
+type TimeSlot {
+  end: Date!
+  start: Date!
+}
+
+type Tool {
+  # The history of this tool being loaned out
+  borrowHistory: [Borrow!]!
+  condition: ToolCondition!
+  description: String!
+  id: Int!
+  images: [String!]!
+  location: GeoLocation!
+  name: String!
+  owner: User!
+  ratings: [ToolRating!]!
+  schedule: [TimeSlot!]!
+  tags: [String!]!
+}
+
+enum ToolCondition {
+  new
+  fair
+  good
+  poor
+  great
+}
+
+type ToolRating {
+  rating: Int!
+  review: String
+  tool: Tool!
+  user: User!
+}
+
+type User {
+  borrowHistory: [Borrow!]!
+  email: String!
+  id: Int!
+  name: String!
+  ownedTools: [Tool!]!
+  phoneNumber: String!
+  ratings: [UserRating!]!
+}
+
+type UserRating {
+  rating: Int!
+  review: String
+  reviewee: User!
+  reviewer: User!
+}
+

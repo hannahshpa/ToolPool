@@ -17,6 +17,23 @@ func routes(_ app: Application) throws {
         return "It works!"
     }
 
+    // Login
+    app.post("login"){req -> EventLoopFuture<Response> in
+        let promise = req.eventLoop.makePromise(of: Response.self)
+//         let future = auth!.login(email: "", password: "")
+//         future.whenSuccess{ result in
+//             promise.succeed(.init(status: .ok, version: .init(major: 1, minor: 1), headers: .init([("Content-Type", "application/json")]), body: .init(string: "{\"token\":\"\(result)\"}")))
+//         }
+//         future.whenFailure{error in
+//             promise.succeed(.init(status: .ok, version: .init(major: 1, minor: 1), headers: .init([("Content-Type", "application/json")]), body: .init(string: "{\"error\":\"\(error)\"}")))
+//         }
+        let authenticator = Authenticator(conn: db!)
+        authenticator.tester()
+        promise.succeed(.init(status: .ok, version: .init(major: 1, minor: 1), headers: .init([("Content-Type", "application/json")]), body: .init(string: "sample")))
+        return promise.futureResult
+    }
+
+    // GraphQL queries
     app.post("graphql"){req -> EventLoopFuture<Response> in
         let httpBody = try req.content.decode(GraphQLHTTPBody.self)
         let promise = req.eventLoop.makePromise(of: Response.self)

@@ -4,10 +4,10 @@ import Vapor
 
 class Authenticator{
     private let conn: DatabaseConnection
-    private let jwt: JWT
+//    private let jwt: JWT
     init(conn: DatabaseConnection) {
         self.conn = conn
-        self.jwt = JWT()
+//        self.jwt = JWT()
     }
     func login(email: String, password: String) -> EventLoopFuture<String?>{
         let shadow = secureHashFunc(plaintext: password)
@@ -20,31 +20,36 @@ class Authenticator{
             }
         }
     func generateAuthToken() -> EventLoopFuture<String>{
-        // let token = "todo: generate jwt token"
-        let token = jwt.createToken()
-        print(token)
+         let token = "todo: generate jwt token"
+//        let token = jwt.createToken()
+//        print(token)
         return conn.getDB().query("INSERT INTO tokens (token, user_id) VALUES ($1, $2)", []).map{result in token}
     }
-    func userFromToken(token: String) -> EventLoopFuture<User?>{
-        return conn.getDB().query("SELECT * FROM tokens JOIN users WHERE expiration > NOW()").map{result in
-            return nil // TODO: Get the user, if exists
-        }
-    }
+
+//    func userFromToken(token: String) -> EventLoopFuture<User?>{
+//        return conn.getDB().query("SELECT * FROM tokens JOIN users WHERE expiration > NOW() AND $1 = tokens.token", [PostgresData(string: token)]).map{result in
+//            if let user = try? results.first!.sql().decode(model: User.self) {
+////                try! results.first!.sql().decode(model: SomeObject.self)
+//                return user
+//            } else
+//            return self.conn.getDB().eventLoop.makeSucceededFuture(nil)
+//        }
+//    }
 
     func secureHashFunc(plaintext: String) -> String{
         let digest = SHA256.hash(data: Data(plaintext.utf8))
         print(digest)
-        let stringHash = hash.map { String(format: "%02hhx", digest) }.joined()
+        let stringHash = digest.map { String(format: "%02hhx", $0) }.joined()
         return stringHash
     }
 
     func tester() -> Void{
-        let sampleJWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-        let myHeader = Header(kid: "KeyID1")
-        print(sampleJWT)
+//        let sampleJWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+//        let myHeader = Header(kid: "KeyID1")
+//        print(sampleJWT)
         let digest = SHA256.hash(data: Data("hello".utf8))
         print(digest)
-        let stringHash = hash.map { String(format: "%02hhx", digest) }.joined()
+        let stringHash = digest.map { String(format: "%02hhx", $0) }.joined()
         print(stringHash)
     }
 }

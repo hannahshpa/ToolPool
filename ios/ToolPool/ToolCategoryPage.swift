@@ -10,7 +10,6 @@ import SwiftUI
 struct ToolCategoryPage: View {
     let categoryName: String
     var body: some View {
-        NavigationView {
             GeometryReader {
                 geometry in
                 ScrollView {
@@ -27,9 +26,7 @@ struct ToolCategoryPage: View {
                                   }
             )
         }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .edgesIgnoringSafeArea(.top)
-    }
+    
 }
 
 struct ToolListingRow: View {

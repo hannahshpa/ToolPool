@@ -16,6 +16,7 @@ version: '3.7'
 
 x-shared_environment: &shared_environment
   LOG_LEVEL: ${LOG_LEVEL:-debug}
+  ENV: 'production'
 
 services:
   app:
@@ -24,10 +25,19 @@ services:
       context: .
     environment:
       <<: *shared_environment
+    command: ["serve", "--env", "production", "--hostname", "0.0.0.0", "--port", "8000"]
+    depends_on: 
+      - 'psql'
+  psql:
+    image: "postgres"
+    env_file:
+      - database.env
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./testData.sql:/docker-entrypoint-initdb.d/testData.sql
     ports:
-      - '8080:8080'
-    # user: '0' # uncomment to run as root for testing purposes even though Dockerfile defines 'vapor' user.
-    command: ["serve", "--env", "production", "--hostname", "0.0.0.0", "--port", "8080"]
+      - '5432:5432'
   nginx:
     image: nginx:latest
     volumes:
@@ -35,3 +45,7 @@ services:
     ports:
       - 80:80
       - 443:443
+    depends_on: 
+      - app
+volumes:
+  database-data:

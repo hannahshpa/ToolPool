@@ -56,26 +56,7 @@ CREATE TABLE IF NOT EXISTS borrow(
     tool BIGINT NOT NULL REFERENCES tools (tool_id),
     "user" BIGINT NOT NULL REFERENCES users (user_id),
     cost FLOAT NOT NULL,
+    approved BOOLEAN NOT NULL,
     loan_period TSTZRANGE NOT NULL,
     time_returned TIMESTAMPTZ
 );
-
-CREATE VIEW fulltool_v AS 
-    SELECT tool_id, t.name, t.description, t.condition, t.location[0] as lat, t.location[1] as lon, t.location as location,
-        u.user_id as owner_id, u.name as owner_name, u.phone_number as owner_phone_number, u.email as owner_email,
-        array_remove(array_agg(ti.image_uri), NULL) as images,
-        array_remove(array_agg(tt.tag), NULL) as tags
-    FROM tools t
-    LEFT JOIN tool_images ti ON ti.tool = t.tool_id
-    LEFT JOIN tool_tags tt ON tt.tool = t.tool_id
-    JOIN users u ON u.user_id = t.owner
-    GROUP BY t.tool_id, u.user_id;
-
-CREATE VIEW fullborrow_v AS
-    SELECT borrow_id, cost, LOWER(loan_period) AS loan_start, UPPER(loan_period) as loan_end, time_returned,
-        user_id, u.name as user_name, u.phone_number as user_phone_number, u.email as user_email,
-        tool_id, t.name as tool_name, t.description as tool_description, t.condition as tool_condition,
-        t.lat as tool_lat, t.lon as tool_lon, t.images as tool_images, t.tags as tool_tags
-    FROM borrow
-    JOIN users u ON u.user_id = borrow.user
-    JOIN fulltool_v t ON t.tool_id = tool;

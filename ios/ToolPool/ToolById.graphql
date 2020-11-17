@@ -1,0 +1,5 @@
+query ToolById {
+  tool(id: 1){
+      name
+  }
+}

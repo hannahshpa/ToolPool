@@ -235,4 +235,17 @@ public struct Resolver{
             return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
         }
     }
+    public func updateTool(context: Context, arguments: NewToolArgs) -> EventLoopFuture<Bool>{
+        return context.getDB().eventLoop.makeSucceededFuture(true)
+    }
+    
+    public struct BorrowArgs: Codable{
+        public let toolId: Int
+        public let userId: Int
+        public let startTime: Date
+        public let endTime: Date
+    }
+    public func borrowTool(context: Context, arguments: BorrowArgs) -> EventLoopFuture<Bool>{
+        return context.getDB().eventLoop.makeSucceededFuture(true)
+    }
 }

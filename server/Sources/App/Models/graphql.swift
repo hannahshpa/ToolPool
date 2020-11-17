@@ -29,7 +29,12 @@ struct GQLAPI : API {
                 Field("start", at: \.start, as: Date.self)
                 Field("end", at: \.end, as: Date.self)
             }
-            
+            Type(UserRating.self){
+                Field("rating", at: \.rating)
+                Field("review", at: \.review)
+                Field("reviewer", at: UserRating.getReviewer, as: TypeReference<User>.self)
+                Field("reviewee", at: UserRating.getReviewee, as: TypeReference<User>.self)
+            }
             Type(User.self){
                 Field("id", at:\.id)
                 Field("name", at: \.name)
@@ -37,7 +42,7 @@ struct GQLAPI : API {
                 Field("email", at: \.email)
                 Field("ownedTools", at: User.getOwnedTools, as: [TypeReference<Tool>].self)
                 Field("borrowHistory", at: User.getBorrowHistory, as: [TypeReference<Borrow>].self)
-                Field("ratings", at: User.getRatings, as: [TypeReference<UserRating>].self)
+                Field("ratings", at: User.getRatings, as: [UserRating].self)
             }
             Type(Borrow.self){
                 Field("id", at: \.id)
@@ -52,12 +57,6 @@ struct GQLAPI : API {
                 Field("review", at: \.review)
                 Field("tool", at: ToolRating.getTool, as: TypeReference<Tool>.self)
                 Field("user", at: ToolRating.getUser, as: TypeReference<User>.self)
-            }
-            Type(UserRating.self){
-                Field("rating", at: \.rating)
-                Field("review", at: \.review)
-                Field("reviewer", at: UserRating.getReviewer)
-                Field("reviewee", at: UserRating.getReviewee)
             }
             Type(Tool.self){
                 Field("id", at:\.id)
@@ -96,6 +95,9 @@ struct GQLAPI : API {
             Mutation{
                 Field("addTool", at: Resolver.addTool){
                     Argument("tool", at: \.tool)
+                }
+                Field("updateTool", at: Resolver.updateTool){
+                    
                 }
             }
         }

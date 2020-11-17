@@ -8,8 +8,8 @@ public final class ToolByIdQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    query ToolById {
-      tool(id: 1) {
+    query ToolById($id: Int) {
+      tool(id: $id) {
         __typename
         name
       }
@@ -18,7 +18,14 @@ public final class ToolByIdQuery: GraphQLQuery {
 
   public let operationName: String = "ToolById"
 
-  public init() {
+  public var id: Int?
+
+  public init(id: Int? = nil) {
+    self.id = id
+  }
+
+  public var variables: GraphQLMap? {
+    return ["id": id]
   }
 
   public struct Data: GraphQLSelectionSet {
@@ -26,7 +33,7 @@ public final class ToolByIdQuery: GraphQLQuery {
 
     public static var selections: [GraphQLSelection] {
       return [
-        GraphQLField("tool", arguments: ["id": 1], type: .object(Tool.selections)),
+        GraphQLField("tool", arguments: ["id": GraphQLVariable("id")], type: .object(Tool.selections)),
       ]
     }
 

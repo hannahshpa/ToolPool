@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SearchView: View {
     var body: some View {
-        NavigationView {
             GeometryReader {
                 geometry in
                 ScrollView {
@@ -23,8 +22,8 @@ struct SearchView: View {
                 }
                 .padding()
             }
-            .navigationBarTitle("Find Tools", displayMode: .automatic)
-        }
+            .navigationBarTitle("Find Tools", displayMode: .large)
+            .labelsHidden()
     }
 }
 

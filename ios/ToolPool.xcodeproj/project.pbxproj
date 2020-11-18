@@ -7,18 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2869E2BE255C82AA00AB2DA2 /* ToolPool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2869E2BC255C82AA00AB2DA2 /* ToolPool.xcdatamodeld */; };
+		28943E14255C69480042533E /* ToolListingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28943E13255C69480042533E /* ToolListingPage.swift */; };
+		28943E19255C6F3F0042533E /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28943E18255C6F3F0042533E /* StarRatingView.swift */; };
 		28A7EC6D2543688E007423B0 /* ToolPoolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC6C2543688E007423B0 /* ToolPoolApp.swift */; };
 		28A7EC6F2543688E007423B0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC6E2543688E007423B0 /* ContentView.swift */; };
 		28A7EC712543688F007423B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28A7EC702543688F007423B0 /* Assets.xcassets */; };
 		28A7EC742543688F007423B0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28A7EC732543688F007423B0 /* Preview Assets.xcassets */; };
 		28A7EC7F2543688F007423B0 /* ToolPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC7E2543688F007423B0 /* ToolPoolTests.swift */; };
 		28A7EC8A2543688F007423B0 /* ToolPoolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC892543688F007423B0 /* ToolPoolUITests.swift */; };
-		28A7EC9E25436D6F007423B0 /* RentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC9D25436D6F007423B0 /* RentalViewController.swift */; };
 		28A7ECA325436D7F007423B0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECA225436D7F007423B0 /* SearchViewController.swift */; };
 		28A7ECA825436DA7007423B0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECA725436DA7007423B0 /* ProfileViewController.swift */; };
 		28A7ECBF25437411007423B0 /* RentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECBE25437411007423B0 /* RentalView.swift */; };
 		28A7ECC42543741D007423B0 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECC32543741D007423B0 /* ProfileView.swift */; };
 		28A7ECC925437428007423B0 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECC825437428007423B0 /* SearchView.swift */; };
+		28D0B0BF2555F28B00276D07 /* RentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D0B0BE2555F28B00276D07 /* RentalViewController.swift */; };
+		28D0B0CA2555F32400276D07 /* RentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D0B0C92555F32400276D07 /* RentalViewController.swift */; };
+		28D0B0DF2558C18B00276D07 /* ToolCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D0B0DE2558C18B00276D07 /* ToolCategoryPage.swift */; };
+		28D0B0E42558CEAA00276D07 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D0B0E32558CEAA00276D07 /* FilterView.swift */; };
+		28E94A2E2564A4C800540386 /* MakeReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E94A2D2564A4C800540386 /* MakeReservationView.swift */; };
 		F58B264525536965000389E3 /* Landing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B264425536965000389E3 /* Landing.swift */; };
 		F58B26562553758A000389E3 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B26552553758A000389E3 /* SignInView.swift */; };
 		F58B265B25538E5C000389E3 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B265A25538E5C000389E3 /* CreateAccountView.swift */; };
@@ -44,6 +51,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2869E2BD255C82AA00AB2DA2 /* ToolPool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToolPool.xcdatamodel; sourceTree = "<group>"; };
+		28943E13255C69480042533E /* ToolListingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolListingPage.swift; sourceTree = "<group>"; };
+		28943E18255C6F3F0042533E /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		28A7EC692543688E007423B0 /* ToolPool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToolPool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A7EC6C2543688E007423B0 /* ToolPoolApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolPoolApp.swift; sourceTree = "<group>"; };
 		28A7EC6E2543688E007423B0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -56,12 +66,16 @@
 		28A7EC852543688F007423B0 /* ToolPoolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToolPoolUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A7EC892543688F007423B0 /* ToolPoolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolPoolUITests.swift; sourceTree = "<group>"; };
 		28A7EC8B2543688F007423B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		28A7EC9D25436D6F007423B0 /* RentalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentalViewController.swift; sourceTree = "<group>"; };
 		28A7ECA225436D7F007423B0 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		28A7ECA725436DA7007423B0 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		28A7ECBE25437411007423B0 /* RentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentalView.swift; sourceTree = "<group>"; };
 		28A7ECC32543741D007423B0 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		28A7ECC825437428007423B0 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		28D0B0BE2555F28B00276D07 /* RentalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RentalViewController.swift; sourceTree = "<group>"; };
+		28D0B0C92555F32400276D07 /* RentalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentalViewController.swift; sourceTree = "<group>"; };
+		28D0B0DE2558C18B00276D07 /* ToolCategoryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolCategoryPage.swift; sourceTree = "<group>"; };
+		28D0B0E32558CEAA00276D07 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		28E94A2D2564A4C800540386 /* MakeReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeReservationView.swift; sourceTree = "<group>"; };
 		F58B264425536965000389E3 /* Landing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.swift; sourceTree = "<group>"; };
 		F58B26552553758A000389E3 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		F58B265A25538E5C000389E3 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
@@ -122,12 +136,19 @@
 				28A7EC6E2543688E007423B0 /* ContentView.swift */,
 				F58B265F2553AAA7000389E3 /* InAppView.swift */,
 				28A7ECBE25437411007423B0 /* RentalView.swift */,
+				28D0B0E32558CEAA00276D07 /* FilterView.swift */,
+				28E94A2D2564A4C800540386 /* MakeReservationView.swift */,
 				F58B2667255478BB000389E3 /* AddToolView.swift */,
 				28A7ECC32543741D007423B0 /* ProfileView.swift */,
 				28A7ECC825437428007423B0 /* SearchView.swift */,
-				28A7EC9D25436D6F007423B0 /* RentalViewController.swift */,
+				28D0B0DE2558C18B00276D07 /* ToolCategoryPage.swift */,
+				28943E18255C6F3F0042533E /* StarRatingView.swift */,
+				28943E13255C69480042533E /* ToolListingPage.swift */,
+				28D0B0BE2555F28B00276D07 /* RentalViewController.swift */,
+				28D0B0C92555F32400276D07 /* RentalViewController.swift */,
 				28A7ECA225436D7F007423B0 /* SearchViewController.swift */,
 				28A7ECA725436DA7007423B0 /* ProfileViewController.swift */,
+				2869E2BC255C82AA00AB2DA2 /* ToolPool.xcdatamodeld */,
 				28A7EC702543688F007423B0 /* Assets.xcassets */,
 				28A7EC752543688F007423B0 /* Info.plist */,
 				28A7EC722543688F007423B0 /* Preview Content */,
@@ -300,19 +321,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28943E14255C69480042533E /* ToolListingPage.swift in Sources */,
+				28D0B0CA2555F32400276D07 /* RentalViewController.swift in Sources */,
+				28D0B0DF2558C18B00276D07 /* ToolCategoryPage.swift in Sources */,
 				F58B265B25538E5C000389E3 /* CreateAccountView.swift in Sources */,
+				28D0B0BF2555F28B00276D07 /* RentalViewController.swift in Sources */,
 				F58B26602553AAA7000389E3 /* InAppView.swift in Sources */,
 				F58B2668255478BB000389E3 /* AddToolView.swift in Sources */,
+				28E94A2E2564A4C800540386 /* MakeReservationView.swift in Sources */,
 				28A7EC6F2543688E007423B0 /* ContentView.swift in Sources */,
-				28A7EC9E25436D6F007423B0 /* RentalViewController.swift in Sources */,
 				28A7ECA825436DA7007423B0 /* ProfileViewController.swift in Sources */,
 				28A7ECA325436D7F007423B0 /* SearchViewController.swift in Sources */,
 				F58B26562553758A000389E3 /* SignInView.swift in Sources */,
 				28A7ECC925437428007423B0 /* SearchView.swift in Sources */,
 				28A7ECBF25437411007423B0 /* RentalView.swift in Sources */,
+				28D0B0E42558CEAA00276D07 /* FilterView.swift in Sources */,
 				F58B264525536965000389E3 /* Landing.swift in Sources */,
 				28A7ECC42543741D007423B0 /* ProfileView.swift in Sources */,
 				28A7EC6D2543688E007423B0 /* ToolPoolApp.swift in Sources */,
+				2869E2BE255C82AA00AB2DA2 /* ToolPool.xcdatamodeld in Sources */,
+				28943E19255C6F3F0042533E /* StarRatingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,6 +656,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2869E2BC255C82AA00AB2DA2 /* ToolPool.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2869E2BD255C82AA00AB2DA2 /* ToolPool.xcdatamodel */,
+			);
+			currentVersion = 2869E2BD255C82AA00AB2DA2 /* ToolPool.xcdatamodel */;
+			path = ToolPool.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 28A7EC612543688E007423B0 /* Project object */;
 }

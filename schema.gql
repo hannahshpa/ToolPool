@@ -9,8 +9,8 @@ type Borrow {
 }
 
 enum BorrowStatus {
-  pending
   rejected
+  pending
   accepted
 }
 
@@ -31,9 +31,13 @@ type Mutation {
   # Adds a new tool with the given properties, and returns the integer ID of the new tool
   addTool(tool: NewToolInput!): Int!
   approveBorrow(id: Int!): Boolean!
+  createToolRating(rating: Int!, toolId: Int!, userId: Int!, review: String): ToolRating!
+  createUserRating(reviewerId: Int!, revieweeId: Int!, review: String, rating: Int!): UserRating!
   deleteTool(toolId: Int!): Boolean!
+  deleteToolRating(userId: Int!, toolId: Int!): Boolean!
+  deleteUserRating(reviewerId: Int!, revieweeId: Int!): Boolean!
   denyBorrow(id: Int!): Boolean!
-  requestBorrow(userId: Int!, toolId: Int!, startTime: Date!, endTime: Date!): Int!
+  requestBorrow(toolId: Int!, userId: Int!, startTime: Date!, endTime: Date!): Int!
   updateTool: Boolean!
 }
 
@@ -46,9 +50,14 @@ input NewToolInput {
 }
 
 type Query {
+  # Get a given borrow by id
   borrow(id: Int!): Borrow
-  nearby(radius: Float!, center: GeoLocationInput!): [Tool!]!
+
+  # Find all tools within a given radius, centered at a point
+  nearby(center: GeoLocationInput!, radius: Float!): [Tool!]!
   self: User
+
+  # Get a tool by id
   tool(id: Int!): Tool
 }
 
@@ -74,11 +83,11 @@ type Tool {
 }
 
 enum ToolCondition {
-  fair
-  good
   new
   great
+  fair
   poor
+  good
 }
 
 type ToolRating {

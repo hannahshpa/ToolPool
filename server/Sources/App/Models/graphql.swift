@@ -97,14 +97,14 @@ struct GQLAPI : API {
                 Field("self", at: Resolver.`self`)
                 Field("tool", at: Resolver.tool){
                     Argument("id", at: \.id)
-                }
+                }.description("Get a tool by id")
                 Field("borrow", at: Resolver.borrow){
                     Argument("id", at: \.id)
-                }
+                }.description("Get a given borrow by id")
                 Field("nearby", at: Resolver.nearby){
                     Argument("center", at: \.center)
                     Argument("radius", at: \.radius)
-                }
+                }.description("Find all tools within a given radius, centered at a point")
             }
             
             Mutation{
@@ -128,6 +128,26 @@ struct GQLAPI : API {
                 }
                 Field("denyBorrow", at: Resolver.denyBorrow){
                     Argument("id", at: \.id)
+                }
+                Field("createUserRating", at: Resolver.createUserRating){
+                    Argument("reviewerId", at: \.reviewerId)
+                    Argument("revieweeId", at: \.revieweeId)
+                    Argument("review", at: \.review)
+                    Argument("rating", at: \.rating)
+                }
+                Field("deleteUserRating", at: Resolver.deleteUserRating){
+                    Argument("reviewerId", at: \.reviewerId)
+                    Argument("revieweeId", at: \.revieweeId)
+                }
+                Field("createToolRating", at: Resolver.createToolRating){
+                    Argument("userId", at: \.reviewerId)
+                    Argument("toolId", at: \.revieweeId)
+                    Argument("review", at: \.review)
+                    Argument("rating", at: \.rating)
+                }
+                Field("deleteToolRating", at: Resolver.deleteToolRating){
+                    Argument("userId", at: \.reviewerId)
+                    Argument("toolId", at: \.revieweeId)
                 }
             }
         }

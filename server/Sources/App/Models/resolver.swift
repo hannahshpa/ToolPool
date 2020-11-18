@@ -51,32 +51,30 @@ public struct Resolver{
     }
     public func addTool(context: Context, arguments: NewToolArgs) -> EventLoopFuture<Int>{
         let tool = arguments.tool
-        if let user = context.getUser(){
-            if  user.id != tool.ownerId{
-                return self.conn.getDB().eventLoop.makeFailedFuture(Abort(.badRequest))
-            }
-            return conn.getDB().query("""
-                INSERT INTO tools (name, description, condition, location, owner) VALUES ($1, $2, $3::toolcondition, point($4, $5), $6) RETURNING tool_id;
-                """,
-                                      [PostgresData(string: tool.name),
-                                       PostgresData(string: tool.description),
-                                       PostgresData(string: tool.condition.rawValue),
-                                       PostgresData(double: tool.location.lat), PostgresData(double: tool.location.lon),
-                                       PostgresData(int: tool.ownerId)]
-            ).map{result in result.first!.column("tool_id")!.int! }
-        }else{
+        guard let user = context.getUser() else{
             return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
         }
+        if  user.id != tool.ownerId{
+            return self.conn.getDB().eventLoop.makeFailedFuture(Abort(.badRequest))
+        }
+        return conn.getDB().query("""
+            INSERT INTO tools (name, description, condition, location, owner) VALUES ($1, $2, $3::toolcondition, point($4, $5), $6) RETURNING tool_id;
+            """,
+                                  [PostgresData(string: tool.name),
+                                   PostgresData(string: tool.description),
+                                   PostgresData(string: tool.condition.rawValue),
+                                   PostgresData(double: tool.location.lat), PostgresData(double: tool.location.lon),
+                                   PostgresData(int: tool.ownerId)]
+        ).map{result in result.first!.column("tool_id")!.int! }
     }
     public func deleteTool(context: Context, arguments: IdArg) -> EventLoopFuture<Bool>{
-        if let user = context.getUser(){
-            return conn.getDB().query("DELETE FROM tools WHERE tool_id = $1 AND owner = $2 RETURNING tool_id",
-                                      [arguments.id.postgresData!, user.id.postgresData!]).map{ results in
-                                        results.count == 1
-                                      }
-        }else{
+        guard let user = context.getUser() else{
             return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
         }
+        return conn.getDB().query("DELETE FROM tools WHERE tool_id = $1 AND owner = $2 RETURNING tool_id",
+                                  [arguments.id.postgresData!, user.id.postgresData!]).map{ results in
+                                    results.count == 1
+                                  }
     }
     
     public func updateTool(context: Context, arguments: NewToolArgs) -> EventLoopFuture<Bool>{
@@ -129,5 +127,28 @@ public struct Resolver{
             """, [arguments.id.postgresData!, user.id.postgresData!]).map{result in
                 result.count == 1
             }
+    }
+    
+    public struct RatingArgs: Codable{
+        public let reviewerId: Int
+        public let revieweeId: Int
+        public let review: String?
+        public let rating: Int
+    }
+    public struct DeleteRatingArgs: Codable{
+        public let reviewerId: Int
+        public let revieweeId: Int
+    }
+    public func createUserRating(context: Context, arguments: RatingArgs) -> EventLoopFuture<UserRating>{
+        conn.getDB().eventLoop.makeFailedFuture(Abort(.notImplemented))
+    }
+    public func deleteUserRating(context: Context, arguments: DeleteRatingArgs) -> EventLoopFuture<Bool>{
+        conn.getDB().eventLoop.makeFailedFuture(Abort(.notImplemented))
+    }
+    public func createToolRating(context: Context, arguments: RatingArgs) -> EventLoopFuture<ToolRating>{
+        conn.getDB().eventLoop.makeFailedFuture(Abort(.notImplemented))
+    }
+    public func deleteToolRating(context: Context, arguments: DeleteRatingArgs) -> EventLoopFuture<Bool>{
+        conn.getDB().eventLoop.makeFailedFuture(Abort(.notImplemented))
     }
 }

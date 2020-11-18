@@ -1,5 +1,8 @@
-CREATE TYPE ToolCondition AS ENUM ('poor', 'fair', 'good', 'great', 'new');
+-- Required to create exclusion of times
+CREATE EXTENSION btree_gist;
 
+CREATE TYPE ToolCondition AS ENUM ('poor', 'fair', 'good', 'great', 'new');
+CREATE TYPE BorrowStatus AS ENUM ('accepted', 'rejected', 'pending');
 
 CREATE TABLE IF NOT EXISTS users(
     user_id BIGSERIAL PRIMARY KEY,
@@ -11,11 +14,12 @@ CREATE TABLE IF NOT EXISTS users(
 CREATE TABLE IF NOT EXISTS tools(
     tool_id BIGSERIAL PRIMARY KEY,
     name VARCHAR(64) NOT NULL,
+    hourly_cost FLOAT NOT NULL,
     description TEXT NOT NULL,
     condition ToolCondition NOT NULL,
     location POINT NOT NULL,
     owner BIGINT NOT NULL REFERENCES users (user_id)
-);
+    );
 
 CREATE TABLE IF NOT EXISTS tool_schedule(
     tool BIGINT NOT NULL REFERENCES tools (tool_id),
@@ -56,7 +60,11 @@ CREATE TABLE IF NOT EXISTS borrow(
     tool BIGINT NOT NULL REFERENCES tools (tool_id),
     "user" BIGINT NOT NULL REFERENCES users (user_id),
     cost FLOAT NOT NULL,
-    approved BOOLEAN NOT NULL,
+    status BorrowStatus NOT NULL DEFAULT 'pending',
     loan_period TSTZRANGE NOT NULL,
-    time_returned TIMESTAMPTZ
+    time_returned TIMESTAMPTZ,
+    CONSTRAINT overlapping_times EXCLUDE USING GIST (
+        tool WITH =,
+        loan_period WITH &&
+    ) WHERE (status = 'accepted')
 );

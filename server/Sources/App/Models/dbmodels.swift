@@ -35,11 +35,12 @@ public struct DBTool: Codable{
     public let name: String
     public let description: String
     public let condition: ToolCondition
+    public let hourly_cost: Double
     public let lat: Double
     public let lon: Double
     public let owner: Int
     public func toTool() -> Tool{
-        Tool(id: tool_id, description: description, name: name, condition: condition, location: .init(lat: lat, lon: lon), ownerId: owner)
+        Tool(id: tool_id, description: description, name: name, condition: condition, location: .init(lat: lat, lon: lon), ownerId: owner, hourlyCost: hourly_cost)
     }
     public static func getById(id: Int, db: PostgresDatabase) -> EventLoopFuture<Tool?>{
         db.query("SELECT *, location[0] as lat, location[1] as lon FROM tools WHERE tool_id = $1", [PostgresData(int: id)]).map{ result in
@@ -80,7 +81,8 @@ public struct DBBorrow: Codable{
     public let loan_start: Date
     public let loan_end: Date
     public let time_returned: Date?
+    public let status: BorrowStatus
     public func toBorrow() -> Borrow{
-        Borrow(id: borrow_id, toolId: tool, userId: user, cost: Double(cost), loanPeriod: .init(start: loan_start, end: loan_end), timeReturned: time_returned)
+        Borrow(id: borrow_id, toolId: tool, userId: user, cost: Double(cost), loanPeriod: .init(start: loan_start, end: loan_end), timeReturned: time_returned, status: status)
     }
 }

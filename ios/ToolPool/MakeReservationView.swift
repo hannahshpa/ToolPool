@@ -9,27 +9,29 @@ import SwiftUI
 
 struct MakeReservationView: View {
     let date: Date
-    @State var selectedDate = Date()
+    @State var startDate = Date()
+    @State var endDate = Date()
     init(date: Date) {
         self.date = date
-        self._selectedDate = State(initialValue: date)
+        self._startDate = State(initialValue: date)
+        self._endDate = State(initialValue: date)
     }
     var body: some View {
         VStack {
             Form {
                 Section {
-                    DatePicker("Start Date", selection: $selectedDate, displayedComponents: .date)
+                    DatePicker("Start Date", selection: $startDate, in: Date()..., displayedComponents: .date)
                 }
                 Section {
-                    DatePicker("Start Time", selection: $selectedDate, displayedComponents: .hourAndMinute)
+                    DatePicker("Start Time", selection: $startDate, in: Date()..., displayedComponents: .hourAndMinute)
                 }
                 Section {
-                    DatePicker("End Date", selection: $selectedDate, displayedComponents: .date)
-
+                    DatePicker("End Date", selection: $endDate, in: Date()..., displayedComponents: .date)
                 }
                 Section {
-                    DatePicker("End Time", selection: $selectedDate, displayedComponents: .hourAndMinute)
+                    DatePicker("End Time", selection: $endDate, in: Date()..., displayedComponents: .hourAndMinute)
                 }
+                
             }
             NavigationLink(destination:SearchView()) { // todo: change to make reservation
                 Text("Make Reservation")

@@ -37,9 +37,9 @@ struct ToolListingPage: View {
                           displayedComponents: [.date]
                       )
                         .datePickerStyle(GraphicalDatePickerStyle())
-                    NavigationLink(destination: MakeReservationView()) {
-                        Text("Make Reservation")
-                            .frame(minWidth:0, maxWidth:300)
+                    NavigationLink(destination: MakeReservationView(date:self.date)) {
+                        Text("Set Reservation Details")
+                            .frame(minWidth:0, maxWidth:325)
                             .background(Color.orange)
                             .font(.title)
                             .foregroundColor(.white)

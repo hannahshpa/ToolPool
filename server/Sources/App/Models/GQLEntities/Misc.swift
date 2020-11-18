@@ -15,6 +15,11 @@ public enum ToolCondition : String, Codable, CaseIterable {
     case great = "great"
     case new = "new"
 }
+public enum BorrowStatus : String, Codable, CaseIterable {
+    case accepted = "accepted"
+    case rejected = "rejected"
+    case pending = "pending"
+}
 
 public struct GeoLocation: Codable{
     public let lat: Double
@@ -34,4 +39,7 @@ public struct TimeSlot: Codable{
 public struct NewToolInput: Codable{
     public let name: String
     public let description: String
+    public let condition: ToolCondition
+    public let location: GeoLocationInput
+    public let ownerId: Int
 }

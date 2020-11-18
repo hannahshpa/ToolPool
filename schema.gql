@@ -2,9 +2,16 @@ type Borrow {
   cost: Float!
   id: Int!
   loanPeriod: TimeSlot!
+  status: BorrowStatus!
   timeReturned: Date
   tool: Tool!
   user: User!
+}
+
+enum BorrowStatus {
+  pending
+  rejected
+  accepted
 }
 
 # Returns the number of seconds since January, 1st, 2001: 12:00 am, ie Date(timeIntervalSinceReferenceDate: )
@@ -21,17 +28,26 @@ input GeoLocationInput {
 }
 
 type Mutation {
-  addTool(tool: NewToolInput!): Boolean!
+  # Adds a new tool with the given properties, and returns the integer ID of the new tool
+  addTool(tool: NewToolInput!): Int!
+  approveBorrow(id: Int!): Boolean!
+  deleteTool(toolId: Int!): Boolean!
+  denyBorrow(id: Int!): Boolean!
+  requestBorrow(userId: Int!, toolId: Int!, startTime: Date!, endTime: Date!): Int!
   updateTool: Boolean!
 }
 
 input NewToolInput {
+  condition: ToolCondition!
   description: String!
+  location: GeoLocationInput!
   name: String!
+  ownerId: Int!
 }
 
 type Query {
-  nearby(center: GeoLocationInput!, radius: Float!): [Tool!]!
+  borrow(id: Int!): Borrow
+  nearby(radius: Float!, center: GeoLocationInput!): [Tool!]!
   self: User
   tool(id: Int!): Tool
 }
@@ -46,6 +62,7 @@ type Tool {
   borrowHistory: [Borrow!]!
   condition: ToolCondition!
   description: String!
+  hourly_cost: Float!
   id: Int!
   images: [String!]!
   location: GeoLocation!
@@ -57,11 +74,11 @@ type Tool {
 }
 
 enum ToolCondition {
-  new
   fair
   good
-  poor
+  new
   great
+  poor
 }
 
 type ToolRating {

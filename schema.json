@@ -84,6 +84,25 @@
             "__typename": "__Field"
           },
           {
+            "name": "status",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "BorrowStatus",
+                "ofType": null,
+                "__typename": "__Type"
+              },
+              "__typename": "__Type"
+            },
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__Field"
+          },
+          {
             "name": "timeReturned",
             "description": null,
             "args": [],
@@ -139,6 +158,39 @@
         "inputFields": null,
         "interfaces": [],
         "enumValues": null,
+        "possibleTypes": null,
+        "__typename": "__Type"
+      },
+      {
+        "kind": "ENUM",
+        "name": "BorrowStatus",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "pending",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__EnumValue"
+          },
+          {
+            "name": "rejected",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__EnumValue"
+          },
+          {
+            "name": "accepted",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__EnumValue"
+          }
+        ],
         "possibleTypes": null,
         "__typename": "__Type"
       },
@@ -278,7 +330,7 @@
         "fields": [
           {
             "name": "addTool",
-            "description": null,
+            "description": "Adds a new tool with the given properties, and returns the integer ID of the new tool",
             "args": [
               {
                 "name": "tool",
@@ -303,7 +355,206 @@
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null,
+                "__typename": "__Type"
+              },
+              "__typename": "__Type"
+            },
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__Field"
+          },
+          {
+            "name": "approveBorrow",
+            "description": null,
+            "args": [
+              {
+                "name": "id",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null,
+                    "__typename": "__Type"
+                  },
+                  "__typename": "__Type"
+                },
+                "defaultValue": null,
+                "__typename": "__InputValue"
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
                 "name": "Boolean",
+                "ofType": null,
+                "__typename": "__Type"
+              },
+              "__typename": "__Type"
+            },
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__Field"
+          },
+          {
+            "name": "deleteTool",
+            "description": null,
+            "args": [
+              {
+                "name": "toolId",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null,
+                    "__typename": "__Type"
+                  },
+                  "__typename": "__Type"
+                },
+                "defaultValue": null,
+                "__typename": "__InputValue"
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null,
+                "__typename": "__Type"
+              },
+              "__typename": "__Type"
+            },
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__Field"
+          },
+          {
+            "name": "denyBorrow",
+            "description": null,
+            "args": [
+              {
+                "name": "id",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null,
+                    "__typename": "__Type"
+                  },
+                  "__typename": "__Type"
+                },
+                "defaultValue": null,
+                "__typename": "__InputValue"
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null,
+                "__typename": "__Type"
+              },
+              "__typename": "__Type"
+            },
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__Field"
+          },
+          {
+            "name": "requestBorrow",
+            "description": null,
+            "args": [
+              {
+                "name": "userId",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null,
+                    "__typename": "__Type"
+                  },
+                  "__typename": "__Type"
+                },
+                "defaultValue": null,
+                "__typename": "__InputValue"
+              },
+              {
+                "name": "toolId",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null,
+                    "__typename": "__Type"
+                  },
+                  "__typename": "__Type"
+                },
+                "defaultValue": null,
+                "__typename": "__InputValue"
+              },
+              {
+                "name": "startTime",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Date",
+                    "ofType": null,
+                    "__typename": "__Type"
+                  },
+                  "__typename": "__Type"
+                },
+                "defaultValue": null,
+                "__typename": "__InputValue"
+              },
+              {
+                "name": "endTime",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Date",
+                    "ofType": null,
+                    "__typename": "__Type"
+                  },
+                  "__typename": "__Type"
+                },
+                "defaultValue": null,
+                "__typename": "__InputValue"
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
                 "ofType": null,
                 "__typename": "__Type"
               },
@@ -346,6 +597,23 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "condition",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "ToolCondition",
+                "ofType": null,
+                "__typename": "__Type"
+              },
+              "__typename": "__Type"
+            },
+            "defaultValue": null,
+            "__typename": "__InputValue"
+          },
+          {
             "name": "description",
             "description": null,
             "type": {
@@ -354,6 +622,23 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null,
+                "__typename": "__Type"
+              },
+              "__typename": "__Type"
+            },
+            "defaultValue": null,
+            "__typename": "__InputValue"
+          },
+          {
+            "name": "location",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "GeoLocationInput",
                 "ofType": null,
                 "__typename": "__Type"
               },
@@ -378,6 +663,23 @@
             },
             "defaultValue": null,
             "__typename": "__InputValue"
+          },
+          {
+            "name": "ownerId",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null,
+                "__typename": "__Type"
+              },
+              "__typename": "__Type"
+            },
+            "defaultValue": null,
+            "__typename": "__InputValue"
           }
         ],
         "interfaces": null,
@@ -391,18 +693,18 @@
         "description": null,
         "fields": [
           {
-            "name": "nearby",
+            "name": "borrow",
             "description": null,
             "args": [
               {
-                "name": "center",
+                "name": "id",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "GeoLocationInput",
+                    "kind": "SCALAR",
+                    "name": "Int",
                     "ofType": null,
                     "__typename": "__Type"
                   },
@@ -410,7 +712,22 @@
                 },
                 "defaultValue": null,
                 "__typename": "__InputValue"
-              },
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Borrow",
+              "ofType": null,
+              "__typename": "__Type"
+            },
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__Field"
+          },
+          {
+            "name": "nearby",
+            "description": null,
+            "args": [
               {
                 "name": "radius",
                 "description": null,
@@ -420,6 +737,23 @@
                   "ofType": {
                     "kind": "SCALAR",
                     "name": "Float",
+                    "ofType": null,
+                    "__typename": "__Type"
+                  },
+                  "__typename": "__Type"
+                },
+                "defaultValue": null,
+                "__typename": "__InputValue"
+              },
+              {
+                "name": "center",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "GeoLocationInput",
                     "ofType": null,
                     "__typename": "__Type"
                   },
@@ -641,6 +975,25 @@
             "__typename": "__Field"
           },
           {
+            "name": "hourly_cost",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null,
+                "__typename": "__Type"
+              },
+              "__typename": "__Type"
+            },
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__Field"
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -848,13 +1201,6 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "new",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null,
-            "__typename": "__EnumValue"
-          },
-          {
             "name": "fair",
             "description": null,
             "isDeprecated": false,
@@ -869,7 +1215,7 @@
             "__typename": "__EnumValue"
           },
           {
-            "name": "poor",
+            "name": "new",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null,
@@ -877,6 +1223,13 @@
           },
           {
             "name": "great",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__EnumValue"
+          },
+          {
+            "name": "poor",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null,
@@ -1339,8 +1692,8 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "SUBSCRIPTION",
-            "description": "Location adjacent to a subscription operation.",
+            "name": "UNION",
+            "description": "Location adjacent to a union definition.",
             "isDeprecated": false,
             "deprecationReason": null,
             "__typename": "__EnumValue"
@@ -1353,29 +1706,36 @@
             "__typename": "__EnumValue"
           },
           {
-            "name": "ENUM",
-            "description": "Location adjacent to an enum definition.",
+            "name": "FIELD_DEFINITION",
+            "description": "Location adjacent to a field definition.",
             "isDeprecated": false,
             "deprecationReason": null,
             "__typename": "__EnumValue"
           },
           {
-            "name": "OBJECT",
-            "description": "Location adjacent to an object type definition.",
+            "name": "INPUT_FIELD_DEFINITION",
+            "description": "Location adjacent to an input object field definition.",
             "isDeprecated": false,
             "deprecationReason": null,
             "__typename": "__EnumValue"
           },
           {
-            "name": "MUTATION",
-            "description": "Location adjacent to a mutation operation.",
+            "name": "QUERY",
+            "description": "Location adjacent to a query operation.",
             "isDeprecated": false,
             "deprecationReason": null,
             "__typename": "__EnumValue"
           },
           {
-            "name": "SCALAR",
-            "description": "Location adjacent to a scalar definition.",
+            "name": "FRAGMENT_DEFINITION",
+            "description": "Location adjacent to a fragment definition.",
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__EnumValue"
+          },
+          {
+            "name": "FRAGMENT_SPREAD",
+            "description": "Location adjacent to a fragment spread.",
             "isDeprecated": false,
             "deprecationReason": null,
             "__typename": "__EnumValue"
@@ -1395,57 +1755,15 @@
             "__typename": "__EnumValue"
           },
           {
-            "name": "FRAGMENT_SPREAD",
-            "description": "Location adjacent to a fragment spread.",
+            "name": "ENUM",
+            "description": "Location adjacent to an enum definition.",
             "isDeprecated": false,
             "deprecationReason": null,
             "__typename": "__EnumValue"
           },
           {
-            "name": "UNION",
-            "description": "Location adjacent to a union definition.",
-            "isDeprecated": false,
-            "deprecationReason": null,
-            "__typename": "__EnumValue"
-          },
-          {
-            "name": "ENUM_VALUE",
-            "description": "Location adjacent to an enum value definition.",
-            "isDeprecated": false,
-            "deprecationReason": null,
-            "__typename": "__EnumValue"
-          },
-          {
-            "name": "FRAGMENT_DEFINITION",
-            "description": "Location adjacent to a fragment definition.",
-            "isDeprecated": false,
-            "deprecationReason": null,
-            "__typename": "__EnumValue"
-          },
-          {
-            "name": "ARGUMENT_DEFINITION",
-            "description": "Location adjacent to an argument definition.",
-            "isDeprecated": false,
-            "deprecationReason": null,
-            "__typename": "__EnumValue"
-          },
-          {
-            "name": "QUERY",
-            "description": "Location adjacent to a query operation.",
-            "isDeprecated": false,
-            "deprecationReason": null,
-            "__typename": "__EnumValue"
-          },
-          {
-            "name": "FIELD",
-            "description": "Location adjacent to a field.",
-            "isDeprecated": false,
-            "deprecationReason": null,
-            "__typename": "__EnumValue"
-          },
-          {
-            "name": "INPUT_FIELD_DEFINITION",
-            "description": "Location adjacent to an input object field definition.",
+            "name": "SCALAR",
+            "description": "Location adjacent to a scalar definition.",
             "isDeprecated": false,
             "deprecationReason": null,
             "__typename": "__EnumValue"
@@ -1458,8 +1776,43 @@
             "__typename": "__EnumValue"
           },
           {
-            "name": "FIELD_DEFINITION",
-            "description": "Location adjacent to a field definition.",
+            "name": "ARGUMENT_DEFINITION",
+            "description": "Location adjacent to an argument definition.",
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__EnumValue"
+          },
+          {
+            "name": "SUBSCRIPTION",
+            "description": "Location adjacent to a subscription operation.",
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__EnumValue"
+          },
+          {
+            "name": "MUTATION",
+            "description": "Location adjacent to a mutation operation.",
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__EnumValue"
+          },
+          {
+            "name": "FIELD",
+            "description": "Location adjacent to a field.",
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__EnumValue"
+          },
+          {
+            "name": "ENUM_VALUE",
+            "description": "Location adjacent to an enum value definition.",
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__EnumValue"
+          },
+          {
+            "name": "OBJECT",
+            "description": "Location adjacent to an object type definition.",
             "isDeprecated": false,
             "deprecationReason": null,
             "__typename": "__EnumValue"
@@ -2095,15 +2448,8 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "ENUM",
-            "description": "Indicates this type is an enum. `enumValues` is a valid field.",
-            "isDeprecated": false,
-            "deprecationReason": null,
-            "__typename": "__EnumValue"
-          },
-          {
-            "name": "SCALAR",
-            "description": "Indicates this type is a scalar.",
+            "name": "OBJECT",
+            "description": "Indicates this type is an object. `fields` and `interfaces` are valid fields.",
             "isDeprecated": false,
             "deprecationReason": null,
             "__typename": "__EnumValue"
@@ -2116,22 +2462,15 @@
             "__typename": "__EnumValue"
           },
           {
-            "name": "LIST",
-            "description": "Indicates this type is a list. `ofType` is a valid field.",
-            "isDeprecated": false,
-            "deprecationReason": null,
-            "__typename": "__EnumValue"
-          },
-          {
-            "name": "OBJECT",
-            "description": "Indicates this type is an object. `fields` and `interfaces` are valid fields.",
-            "isDeprecated": false,
-            "deprecationReason": null,
-            "__typename": "__EnumValue"
-          },
-          {
             "name": "UNION",
             "description": "Indicates this type is a union. `possibleTypes` is a valid field.",
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__EnumValue"
+          },
+          {
+            "name": "SCALAR",
+            "description": "Indicates this type is a scalar.",
             "isDeprecated": false,
             "deprecationReason": null,
             "__typename": "__EnumValue"
@@ -2144,8 +2483,22 @@
             "__typename": "__EnumValue"
           },
           {
+            "name": "LIST",
+            "description": "Indicates this type is a list. `ofType` is a valid field.",
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__EnumValue"
+          },
+          {
             "name": "NON_NULL",
             "description": "Indicates this type is a non-null. `ofType` is a valid field.",
+            "isDeprecated": false,
+            "deprecationReason": null,
+            "__typename": "__EnumValue"
+          },
+          {
+            "name": "ENUM",
+            "description": "Indicates this type is an enum. `enumValues` is a valid field.",
             "isDeprecated": false,
             "deprecationReason": null,
             "__typename": "__EnumValue"

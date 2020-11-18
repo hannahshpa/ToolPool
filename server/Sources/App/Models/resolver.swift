@@ -18,20 +18,17 @@ public struct Resolver{
         context.getUser()
     }
     
-    public struct ToolArgs: Codable{
+    public struct IdArg: Codable{
         public let id: Int
     }
-    public func tool(context: Context, arguments: ToolArgs) -> EventLoopFuture<Tool?>{
-        let db = conn.getDB()
-        return db.query("SELECT *, location[0] as lat, location[1] as lon FROM tools WHERE tool_id = $1;",
-                        [PostgresData(int64: Int64(arguments.id))]).map{ result -> Tool? in
-            if let dbTool = try? result.first?.sql().decode(model: DBTool.self){
-                return dbTool.toTool()
-            }else{
-                return nil
-            }
+    public func tool(context: Context, arguments: IdArg) -> EventLoopFuture<Tool?>{
+        DBTool.getById(id: arguments.id, db: conn.getDB())
+    }
+
+    public func borrow(context: Context, arguments: IdArg) -> EventLoopFuture<Borrow?>{
+        conn.getDB().query("SELECT *, LOWER(loan_period) AS loan_start, UPPER(loan_period) as loan_end FROM borrow WHERE borrow_id = $1", [arguments.id.postgresData!]).map{result in
+            try? result.first?.sql().decode(model: DBBorrow.self).toBorrow()
         }
-        
     }
     public struct NearbyArgs: Codable{
         public let center: GeoLocationInput
@@ -45,25 +42,43 @@ public struct Resolver{
                 return result.rows.map{row -> Tool in
                     try! row.sql().decode(model: DBTool.self).toTool()
                 }
-             }
+            }
     }
-
+    
     // Mutations
     public struct NewToolArgs: Codable{
         public let tool: NewToolInput
     }
-    public func addTool(context: Context, arguments: NewToolArgs) -> EventLoopFuture<Bool>{
+    public func addTool(context: Context, arguments: NewToolArgs) -> EventLoopFuture<Int>{
         let tool = arguments.tool
         if let user = context.getUser(){
-            return conn.getDB().query("INSERT INTO tools (name, description, owner) VALUES ($1, $2, $3);",
+            if  user.id != tool.ownerId{
+                return self.conn.getDB().eventLoop.makeFailedFuture(Abort(.badRequest))
+            }
+            return conn.getDB().query("""
+                INSERT INTO tools (name, description, condition, location, owner) VALUES ($1, $2, $3::toolcondition, point($4, $5), $6) RETURNING tool_id;
+                """,
                                       [PostgresData(string: tool.name),
                                        PostgresData(string: tool.description),
-                                       PostgresData(int64: Int64(user.id))]
-            ).map{_ in true }
+                                       PostgresData(string: tool.condition.rawValue),
+                                       PostgresData(double: tool.location.lat), PostgresData(double: tool.location.lon),
+                                       PostgresData(int: tool.ownerId)]
+            ).map{result in result.first!.column("tool_id")!.int! }
         }else{
             return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
         }
     }
+    public func deleteTool(context: Context, arguments: IdArg) -> EventLoopFuture<Bool>{
+        if let user = context.getUser(){
+            return conn.getDB().query("DELETE FROM tools WHERE tool_id = $1 AND owner = $2 RETURNING tool_id",
+                                      [arguments.id.postgresData!, user.id.postgresData!]).map{ results in
+                                        results.count == 1
+                                      }
+        }else{
+            return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+        }
+    }
+    
     public func updateTool(context: Context, arguments: NewToolArgs) -> EventLoopFuture<Bool>{
         return context.getDB().eventLoop.makeSucceededFuture(true)
     }
@@ -74,7 +89,45 @@ public struct Resolver{
         public let startTime: Date
         public let endTime: Date
     }
-    public func borrowTool(context: Context, arguments: BorrowArgs) -> EventLoopFuture<Bool>{
-        return context.getDB().eventLoop.makeSucceededFuture(true)
+    
+    public func requestBorrow(context: Context, arguments: BorrowArgs) -> EventLoopFuture<Int>{
+        guard let user = context.getUser() else{
+            return context.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+        }
+        if(user.id != arguments.userId){
+            return context.getDB().eventLoop.makeFailedFuture(Abort(.badRequest))
+        }
+        return DBTool.getById(id: arguments.toolId, db: conn.getDB()).map{result in
+            result!.hourlyCost * arguments.endTime.timeIntervalSince(arguments.startTime) / 3600
+        }.flatMap{cost in
+            context.getDB().query("INSERT INTO borrow (tool, \"user\", cost, loan_period) VALUES ($1, $2, $3, tstzrange($4, $5)) RETURNING borrow_id",
+                                  [arguments.toolId.postgresData!, arguments.userId.postgresData!, cost.postgresData!, arguments.startTime.postgresData!, arguments.endTime.postgresData!])
+        }.map{result in
+            result.first!.column("borrow_id")!.int!
+        }
+    }
+    
+    public func approveBorrow(context: Context, arguments: IdArg) -> EventLoopFuture<Bool>{
+        guard let user = context.getUser() else {
+            return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+        }
+        return conn.getDB().query("""
+            WITH t as (SELECT 1 FROM borrow JOIN tools ON tool_id = tool WHERE borrow_id = $1 AND owner = $2)
+            UPDATE borrow SET status = 'accepted' FROM t WHERE borrow.borrow_id = $1;
+            """, [arguments.id.postgresData!, user.id.postgresData!]).map{result in
+                result.count == 1
+            }
+    }
+    
+    public func denyBorrow(context: Context, arguments: IdArg) -> EventLoopFuture<Bool>{
+        guard let user = context.getUser() else{
+            return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+        }
+        return conn.getDB().query("""
+            WITH t as (SELECT 1 FROM borrow JOIN tools ON tool_id = tool WHERE borrow_id = $1 AND owner = $2)
+            UPDATE borrow SET status = 'rejected' FROM t WHERE borrow.borrow_id = $1;
+            """, [arguments.id.postgresData!, user.id.postgresData!]).map{result in
+                result.count == 1
+            }
     }
 }

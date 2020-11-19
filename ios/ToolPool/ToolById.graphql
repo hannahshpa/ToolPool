@@ -3,3 +3,42 @@ query ToolById($id: Int) {
       name
   }
 }
+query GetBorrows {
+    self {
+        borrowHistory {
+            loanPeriod {
+                start
+            }
+            tool {
+                name
+            }
+        }
+    }
+}
+query BorrowById($id: Int) {
+    borrow(id: $id){
+        cost
+        id
+        loanPeriod {
+            start
+            end
+        }
+        tool {
+            id
+            name
+        }
+        user {
+            name
+            phoneNumber
+            email
+        }
+    }
+}
+query BorrowDummy($id: Int) {
+    borrow(id: $id){
+        id
+        tool {
+            name
+        }
+    }
+}

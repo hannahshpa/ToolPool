@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ManagePastResPage: View {
-    let toolName: String
+    let borrow: BorrowByIdQuery.Data.Borrow!
     var body: some View {
       ScrollView {
         GeometryReader {
@@ -18,14 +18,14 @@ struct ManagePastResPage: View {
                 .resizable()
                 .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
                 .aspectRatio(contentMode: .fit)
-            Text(toolName).font(.largeTitle)
+            Text(borrow.tool.name).font(.largeTitle)
             Divider()
-            Text("Date:")
-            Text("User:")
-            Text("Cost:")
-            Text("Location:")
-            Text("Rental Rating:")
-            NavigationLink(destination: ToolListingPage(listingName: toolName)) {
+            Text("Date: " + borrow.loanPeriod.start)
+            Text("User: " + borrow.user.name)
+            Text("Cost: \(borrow.cost)")
+            Text("Location: (insert map)")
+            Text("Rental Rating: (insert rating)")
+            NavigationLink(destination: ToolListingPage(listingName: borrow.tool.name)) {
                 Text("Rent Again")
             }
           }
@@ -36,6 +36,6 @@ struct ManagePastResPage: View {
 
 struct ManagePastResPage_Previews: PreviewProvider {
     static var previews: some View {
-        ManagePastResPage(toolName:"Sample Tool")
+        ManagePastResPage(borrow: nil)
     }
 }

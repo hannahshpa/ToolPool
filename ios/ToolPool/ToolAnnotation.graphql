@@ -1,0 +1,8 @@
+query ToolCoordinate($id: Int) {
+    tool(id: $id){
+    name
+    owner
+    location
+ }
+}
+

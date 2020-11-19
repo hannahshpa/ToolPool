@@ -46,32 +46,37 @@ class Coordinator: NSObject, MKMapViewDelegate {
 }
 
 struct MapView: UIViewRepresentable {
-    
+    // stores tool object which defines names, location, etc
     let tools: [Tool]
-    
+
+
     func makeUIView(context: Context) -> MKMapView {
+        // initializes MapUI
         let map = MKMapView()
         map.showsUserLocation = true
         map.delegate = context.coordinator
         return map
     }
-    
+
     func makeCoordinator() -> Coordinator {
+        // handles Map UI interactions, like scrolling in, clicking, zooming in.
         Coordinator(self)
     }
-    
+
     func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<MapView>) {
-        //
+        // is called whenever need to update UI
         updateAnnotation(from: uiView)
     }
-    
+
     private func updateAnnotation(from mapView: MKMapView) {
+        // redraws annotations when new annotations are available
         mapView.removeAnnotations(mapView.annotations)
         let annotations = self.tools.map(ToolAnnotation.init)
         mapView.addAnnotations(annotations)
     }
 
 }
+
 //
 //struct MapView_Previews: PreviewProvider {
 //    static var previews: some View {

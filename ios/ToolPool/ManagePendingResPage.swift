@@ -16,24 +16,43 @@ struct ManagePendingResPage: View {
           VStack {
             Image("tool")
                 .resizable()
-                .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
+                .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
                 .aspectRatio(contentMode: .fit)
-            Text(borrow.tool.name).font(.largeTitle)
+            Text(borrow.tool.name)
+                .font(.title)
+                .foregroundColor(.black)
             Divider()
-            Text("Date/Time: " + borrow.loanPeriod.start)
-            Text("Duration: " + borrow.loanPeriod.end)
-            Text("User: " + borrow.user.name)
-            Text("Cost: \(borrow.cost)")
-            Text("Location: (insert map)")
+            Group {
+                Text("Date/Time: " + borrow.loanPeriod.start)
+                Text("Duration: " + borrow.loanPeriod.end)
+                Text("User: " + borrow.user.name)
+                Text("Cost: \(borrow.cost)")
+                Text("Location: (insert map)")
+            }
+            Divider()
             Button(action: {
                 self.mode.wrappedValue.dismiss()
-            }) { Text("Accept Rental")}//simultaneously mutate rental obj to approve/deny?
+            }) { Text("Accept Rental")
+                .frame(minWidth:0, maxWidth:325)
+                .background(Color.orange)
+                .font(.title)
+                .foregroundColor(.white)
+                .cornerRadius(40)
+            }//simultaneously mutate rental obj to approve/deny?
+            Text(" ")
             Button(action: {
                 self.mode.wrappedValue.dismiss()
-            }) { Text("Deny Rental")}
+            }) { Text("Deny Rental")
+                .frame(minWidth:0, maxWidth:325)
+                .background(Color.gray)
+                .font(.title)
+                .foregroundColor(.white)
+                .cornerRadius(40)
+            }
           }
         }
       }
+      .navigationBarTitle(Text("Pending Rental"), displayMode: .inline)
     }
 }
 

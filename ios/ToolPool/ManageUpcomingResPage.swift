@@ -17,21 +17,32 @@ struct ManageUpcomingResPage: View {
           VStack {
             Image("tool")
                 .resizable()
-                .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
+                .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
                 .aspectRatio(contentMode: .fit)
-            Text(borrow.tool.name).font(.largeTitle)
+            Text(borrow.tool.name)
+                .font(.title)
+                .foregroundColor(.black)
             Divider()
-            Text("Date/Time: " + borrow.loanPeriod.start)
-            Text("Duration: " + borrow.loanPeriod.end)
-            Text("User: " + borrow.user.name)
-            Text("Cost: \(borrow.cost)")
-            Text("Location: (insert map)")
+            Group {
+                Text("Date/Time: " + borrow.loanPeriod.start)
+                Text("Duration: " + borrow.loanPeriod.end)
+                Text("User: " + borrow.user.name)
+                Text("Cost: \(borrow.cost)")
+                Text("Location: (insert map)")
+            }
+            Divider()
             NavigationLink(destination: RateRental(toolName: "tool1")) {
                 Text("Complete Rental")
-            } //use simultaneous gesture to add time complete to rental obj & get rating
+                    .frame(minWidth:0, maxWidth:325)
+                    .background(Color.orange)
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .cornerRadius(40)
+            }
           }
         }
       }
+      .navigationBarTitle(Text("Upcoming Rental"), displayMode: .inline)
     }
 }
 

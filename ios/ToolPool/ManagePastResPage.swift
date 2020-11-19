@@ -16,21 +16,32 @@ struct ManagePastResPage: View {
           VStack {
             Image("tool")
                 .resizable()
-                .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
+                .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
                 .aspectRatio(contentMode: .fit)
-            Text(borrow.tool.name).font(.largeTitle)
+            Text(borrow.tool.name)
+                .font(.title)
+                .foregroundColor(.black)
             Divider()
-            Text("Date: " + borrow.loanPeriod.start)
-            Text("User: " + borrow.user.name)
-            Text("Cost: \(borrow.cost)")
-            Text("Location: (insert map)")
-            Text("Rental Rating: (insert rating)")
+            Group {
+                Text("Date: " + borrow.loanPeriod.start)
+                Text("User: " + borrow.user.name)
+                Text("Cost: \(borrow.cost)")
+                Text("Location: (insert map)")
+                Text("Rental Rating: (insert rating)")
+            }
+            Divider()
             NavigationLink(destination: ToolListingPage(listingName: borrow.tool.name)) {
                 Text("Rent Again")
+                    .frame(minWidth:0, maxWidth:325)
+                    .background(Color.orange)
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .cornerRadius(40)
             }
           }
         }
       }
+      .navigationBarTitle(Text("Past Rental"), displayMode: .inline)
     }
 }
 

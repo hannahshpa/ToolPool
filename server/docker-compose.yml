@@ -38,6 +38,9 @@ services:
         "--port",
         "8000",
       ]
+    volumes:
+      - ./privateKey.key:/app/privateKey.key:ro
+      - ./privateKey.key.pub:/app/privateKey.key.pub:ro
     depends_on:
       - "psql"
   psql:

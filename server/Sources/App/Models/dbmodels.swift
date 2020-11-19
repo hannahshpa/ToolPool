@@ -10,6 +10,7 @@ import PostgresKit
 public struct DBUser: Codable{
     public let user_id: Int
     public let name: String
+    public let password: String
     public let phone_number: String
     public let email: String
     public func toUser() -> User{

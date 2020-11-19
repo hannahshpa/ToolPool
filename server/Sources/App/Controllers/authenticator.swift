@@ -1,45 +1,81 @@
 import Foundation
 import PostgresKit
 import Vapor
+import SwiftJWT
+
 
 class Authenticator{
     private let conn: DatabaseConnection
-    private let jwt: JWTUtil
-    init(conn: DatabaseConnection) {
-        self.conn = conn
-        self.jwt = try! JWTUtil()
+
+    private let privateKey: Data
+    private let publicKey: Data
+    private let jwtSigner: JWTSigner
+    private let jwtVerifier: JWTVerifier
+
+    struct tokenClaims: Claims {
+        let id: String
+        let exp: Date
     }
-    // func login(email: String, password: String) -> EventLoopFuture<String?>{
-    //     let shadow = secureHashFunc(plaintext: password)
-    //     return conn.getDB().query("SELECT password FROM users WHERE email = $1", [PostgresData(string: email)]).flatMap{result in
-    //         let dbshadow = result.first!.column("password")!.string!
-    //         if dbshadow != shadow{
-    //             return self.conn.getDB().eventLoop.makeSucceededFuture(nil)
-    //         }
-    //         return self.generateAuthToken().map{result in result}
-    //     }
-    // }
-//     func generateAuthToken() -> EventLoopFuture<String>{
-//         // let token = "todo: generate jwt token"
-//         let token = jwt.createToken()
-//         print(token)
-//         return conn.getDB().query("INSERT INTO tokens (token, user_id) VALUES ($1, $2)", []).map{result in token}
-//     }
-    func userFromToken(token: String) -> EventLoopFuture<User?>{
-        return conn.getDB().query("SELECT * FROM tokens JOIN users WHERE expiration > NOW()").map{result in
-            return nil // TODO: Get the user, if exists
+
+    init(conn: DatabaseConnection) throws {
+        self.conn = conn
+        let env = ProcessInfo.processInfo.environment["ENV"]
+        var privateKeyPath: URL
+        var publicKeyPath: URL
+        do {
+            if env == "production" {
+                privateKeyPath = URL(fileURLWithPath: "/app/privateKey.key")
+                publicKeyPath = URL(fileURLWithPath: "/app/privateKey.key.pub")
+            } else {
+                privateKeyPath = URL(fileURLWithPath: "./privateKey.key")
+                publicKeyPath = URL(fileURLWithPath: "./privateKey.key.pub")
+            }
+            self.privateKey = try Data(contentsOf: privateKeyPath, options: .alwaysMapped)
+            self.publicKey = try Data(contentsOf: publicKeyPath, options: .alwaysMapped)
+            self.jwtSigner = JWTSigner.rs256(privateKey: self.privateKey)
+            self.jwtVerifier = JWTVerifier.rs256(publicKey: self.publicKey)
+        } catch let error as NSError {
+            print("public/private keys not initialized, check README for generating RSA keyfiles")
+            throw error
         }
     }
 
-//     func secureHashFunc(plaintext: String) -> String{
-//         let digest = SHA256.hash(data: Data(plaintext.utf8))
-//         print(digest)
-//         let stringHash = hash.map { String(format: "%02hhx", digest) }.joined()
-//         return stringHash
-//     }
+    func createToken(userId: String) throws -> String {
+        let header =  Header()
+        let tokenPayload = tokenClaims(id:userId, exp: Date(timeIntervalSinceNow: 3600))
+        var jwt = JWT(header: header, claims: tokenPayload)
+        do {
+            let signedJWT = try jwt.sign(using: self.jwtSigner)
+            return signedJWT
+        } catch {
+            throw AuthenticationError.authenticatorInternalError
+        }
+    }
 
-    func tester() -> Void{
-        let sampleJWT = self.jwt.createToken(userId: "fakeId")
-        print(self.jwt.validateToken(token: sampleJWT))
+    func validateToken(token: String) throws -> EventLoopFuture<User?> {
+        do {
+            let decodedJWT = try JWT<tokenClaims>(jwtString: token, verifier: self.jwtVerifier)
+
+            let date = Date()
+            if date > decodedJWT.claims.exp {
+                throw AuthenticationError.invalidToken
+            }
+
+            let userEmail = decodedJWT.claims.id
+
+            let userFuture = self.conn.getDB()
+                .query("SELECT * FROM users WHERE email = $1",[PostgresData(string: userEmail)])
+                .map{
+                    result -> User? in
+                    if let dbUser = try? result.first?.sql().decode(model: DBUser.self) {
+                        return dbUser.toUser()
+                    } else {
+                        return nil
+                    }
+                }
+            return userFuture
+        } catch {
+            throw AuthenticationError.invalidToken
+        }
     }
 }

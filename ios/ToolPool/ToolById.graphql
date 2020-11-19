@@ -3,3 +3,16 @@ query ToolById($id: Int) {
       name
   }
 }
+
+query GetBorrows{
+  self {
+    borrowHistory {
+      loanPeriod {
+        start
+      }
+      tool {
+        name
+      }
+    }
+  }
+}

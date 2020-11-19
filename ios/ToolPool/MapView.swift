@@ -13,7 +13,7 @@ class Coordinator: NSObject, MKMapViewDelegate {
     init(_ control: MapView) {
         self.control = control
     }
-    
+    // initializes map to view of user's location
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         
         if let annotationView = views.first {
@@ -26,6 +26,23 @@ class Coordinator: NSObject, MKMapViewDelegate {
             }
         }
     }
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("selected annotation")
+        guard let annotation = view.annotation else {
+            return
+        }
+        
+        let source = MKMapItem.forCurrentLocation()
+        source.name = "Source"
+        
+        let destination = MKMapItem(placemark: MKPlacemark(coordinate: annotation.coordinate))
+        destination.name = "Destination"
+        
+        MKMapItem.openMaps(with: [source, destination], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+
+    }
+    
+
 }
 
 struct MapView: UIViewRepresentable {

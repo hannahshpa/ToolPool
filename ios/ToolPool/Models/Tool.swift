@@ -12,10 +12,10 @@ struct Tool {
     
     let placemark: MKPlacemark
 
-    
-    var id: UUID {
-        return UUID()
-    }
+    //TODO: remove, don't need
+//    var id: UUID {
+//        return UUID()
+//    }
     
     var name: String {
         self.placemark.name ?? ""

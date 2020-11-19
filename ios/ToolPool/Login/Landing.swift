@@ -12,15 +12,22 @@ import SwiftUI
 struct Landing: View {
   
     func greet() {
-      Network.shared.apollo.fetch(query: ToolByIdQuery(id: 1)) { result in
-        switch result {
-        case .success(let graphQLResult):
-          print("Success! Result: \(graphQLResult)")
-        case .failure(let error):
-          print("Failure! Error: \(error)")
-        }
-      }
-      
+        Network.shared.apollo.fetch(query: ToolByIdQuery(id: 1)) { result in
+            switch result {
+            case .success(let graphQLResult):
+              print("Success! Result: \(graphQLResult)")
+            case .failure(let error):
+              print("Failure! Error: \(error)")
+            }
+          }
+        /*Network.shared.apollo.fetch(query: GetBorrowsQuery()) { result in //doesnt work bc self is null rn. need to create users?
+          switch result {
+          case .success(let graphQLResult):
+            print("Success! Result: \(graphQLResult)")
+          case .failure(let error):
+            print("Failure! Error: \(error)")
+          }
+        }*/
       //var test = Network.shared.apollo.fetch(query: ToolByIdQuery())
       //test.
     }

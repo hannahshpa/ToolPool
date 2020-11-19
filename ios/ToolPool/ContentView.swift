@@ -19,6 +19,7 @@ struct ContentView: View {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = search
         
+        //look up local places, TODO: chagne this to look up locatiosn in database
         let search = MKLocalSearch(request: request)
         search.start { (response, error) in
             if let response = response {

@@ -42,7 +42,8 @@ struct ProfileView: View {
               //.padding()
           }
         }
-        .navigationBarTitle("Your ToolBox", displayMode: .inline)
+        .navigationBarTitle("Your ToolBox", displayMode: .large)
+        .labelsHidden()
         .navigationBarItems(trailing:
                               NavigationLink(destination: AddToolView()) {
                                 Text("Add Tool")

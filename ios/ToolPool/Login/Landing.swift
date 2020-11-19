@@ -21,8 +21,8 @@ struct Landing: View {
             //.onAppear {
             //  self.greet()
             //}
-          Text(toolData.data.name)
-          Text(toolData.data.description)
+          //Text(toolData.data.name)
+          //Text(toolData.data.description)
           NavigationLink(destination: SignInView()) {
             Text("Sign In")
               .foregroundColor(Color.black)

@@ -30,11 +30,11 @@ func routes(_ app: Application) throws {
             variables: httpBody.variables,
             operationName: httpBody.operationName
         )
-
+        
         graphQLFuture.whenFailure({ error in
             promise.fail(error)
         })
-
+        
         graphQLFuture.whenSuccess({ map in
             promise.succeed(Response(status: .ok,
                                      version: .init(major: 1, minor: 1),

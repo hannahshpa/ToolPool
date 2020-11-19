@@ -10,32 +10,8 @@ import SwiftUI
 
 
 struct Landing: View {
-    /*
-    class Tool {
-        var name: String = ""
-        var description: String = ""
-    }
-    var myTool = Tool()
-  
-    func greet() {
-      Network.shared.apollo.fetch(query: ToolByIdQuery(id: 1)) { result in
-        switch result {
-        case .success(let graphQLResult):
-          print("Success! Result: \(graphQLResult)")
-          if let tool_name = graphQLResult.data?.tool?.name {
-            myTool.name = tool_name
-            //myTool.description = graphQLResult.data?.tool?.description!
-          }
-        case .failure(let error):
-          print("Failure! Error: \(error)")
-        }
-      }
-      //var test = Network.shared.apollo.fetch(query: ToolByIdQuery())
-      //test.
-    }*/
+ 
     @ObservedObject var toolData = ToolData()
-  
-    //let variable = greet()
   
     var body: some View {
       NavigationView {

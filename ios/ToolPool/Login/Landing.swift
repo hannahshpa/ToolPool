@@ -10,20 +10,30 @@ import SwiftUI
 
 
 struct Landing: View {
+    /*
+    class Tool {
+        var name: String = ""
+        var description: String = ""
+    }
+    var myTool = Tool()
   
     func greet() {
       Network.shared.apollo.fetch(query: ToolByIdQuery(id: 1)) { result in
         switch result {
         case .success(let graphQLResult):
           print("Success! Result: \(graphQLResult)")
+          if let tool_name = graphQLResult.data?.tool?.name {
+            myTool.name = tool_name
+            //myTool.description = graphQLResult.data?.tool?.description!
+          }
         case .failure(let error):
           print("Failure! Error: \(error)")
         }
       }
-      
       //var test = Network.shared.apollo.fetch(query: ToolByIdQuery())
       //test.
-    }
+    }*/
+    @ObservedObject var toolData = ToolData()
   
     //let variable = greet()
   
@@ -32,10 +42,11 @@ struct Landing: View {
         VStack {
           Text(/*@START_MENU_TOKEN@*/"ToolPool"/*@END_MENU_TOKEN@*/)
             .font(.largeTitle)
-            .onAppear {
-              self.greet()
-            }
-          
+            //.onAppear {
+            //  self.greet()
+            //}
+          Text(toolData.data.name)
+          Text(toolData.data.description)
           NavigationLink(destination: SignInView()) {
             Text("Sign In")
               .foregroundColor(Color.black)
@@ -66,4 +77,39 @@ struct Landing_Previews: PreviewProvider {
         .padding(.bottom, 100.0)
         
     }
+}
+
+class TestTool {
+    var name: String = ""
+    var description: String = ""
+  
+  init(n: String, d: String) {
+    self.name = n
+    self.description = d
+  }
+}
+
+class ToolData: ObservableObject {
+
+    @Published var data: TestTool
+
+    init() {
+      self.data = TestTool(n: "test", d: "test")
+      self.load()
+    }
+  
+    func load() {
+     Network.shared.apollo.fetch(query: ToolByIdQuery(id: 1)) { result in
+       switch result {
+       case .success(let graphQLResult):
+         print("Success! Result: \(graphQLResult)")
+         if let tool_temp = graphQLResult.data?.tool {
+           self.data = TestTool(n: tool_temp.name, d: tool_temp.description)
+         }
+       case .failure(let error):
+         print("Failure! Error: \(error)")
+       }
+     }
+    }
+  
 }

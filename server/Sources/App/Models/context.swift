@@ -6,11 +6,20 @@
 //
 
 import Foundation
+import PostgresKit
+
 public final class Context {
-    public func getUser(id: Int) -> User? {
-        User(id: id, name: "Foobar")
+    private let authedUser: User?
+    private let conn: DatabaseConnection
+    init(authedUser: User?, conn: DatabaseConnection){
+        self.authedUser = authedUser
+        self.conn = conn
     }
-    public func getTool(id: Int) -> Tool?{
-        Tool(id: id, condition: .new, owner: .init(id: 0, name: "Test User"))
+    
+    public func getUser() -> User? {
+        self.authedUser
+    }
+    public func getDB() -> PostgresDatabase{
+        self.conn.getDB()
     }
 }

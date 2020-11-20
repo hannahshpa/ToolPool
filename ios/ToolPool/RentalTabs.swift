@@ -1,10 +1,11 @@
 //
-//  InAppView.swift
+//  RentalTabs.swift
 //  ToolPool
 //
-//  Created by Olsen on 11/4/20.
+//  Created by Alissa McNerney on 11/20/20.
 //
 
+import Foundation
 import SwiftUI
 import CoreData
 
@@ -22,13 +23,8 @@ struct InAppView: View {
             }
         RentalView()
             .tabItem {
-                Image(systemName: "briefcase") // or toolbox "briefcase"
-                Text("My Rentals")
-            }
-        OtherRentalView()
-            .tabItem {
                 Image(systemName: "wrench") // or toolbox "briefcase"
-                Text("Others' Rentals")
+                Text("Rentals")
             }
         ProfileView()
             .tabItem {
@@ -43,5 +39,24 @@ struct InAppView: View {
 struct InAppView_Previews: PreviewProvider {
     static var previews: some View {
         InAppView()
+    }
+}
+
+struct TabbedView: View {
+
+    @State private var selectedTab: Int = 0
+
+    var body: some View {
+        HStack {
+            SegmentedControl(selection: $selectedTab) {
+                Text("My Rentals").tag(0)
+                Text("Other's Rentals").tag(1)
+            }
+
+            switch(selectedTab) {
+                case 0:RentalView()
+                case 1: RentalView()
+            }
+        }
     }
 }

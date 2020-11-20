@@ -23,6 +23,7 @@
 		45817F58255E24E70045EB3E /* ManagePastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F57255E24E70045EB3E /* ManagePastResPage.swift */; };
 		45817F66255EFE210045EB3E /* RateRental.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F65255EFE210045EB3E /* RateRental.swift */; };
 		45C44FDD25674BDE008529A9 /* OtherProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */; };
+		45C44FF025685EE4008529A9 /* OtherRentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FEF25685EE4008529A9 /* OtherRentalView.swift */; };
 		F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */; };
 		F545E739255DD89700CEC060 /* ToolListingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E737255DD89700CEC060 /* ToolListingPage.swift */; };
 		F545E73A255DD89700CEC060 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E738255DD89700CEC060 /* FilterView.swift */; };
@@ -86,6 +87,7 @@
 		45817F57255E24E70045EB3E /* ManagePastResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePastResPage.swift; sourceTree = "<group>"; };
 		45817F65255EFE210045EB3E /* RateRental.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateRental.swift; sourceTree = "<group>"; };
 		45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfilePage.swift; sourceTree = "<group>"; };
+		45C44FEF25685EE4008529A9 /* OtherRentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherRentalView.swift; sourceTree = "<group>"; };
 		F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolCategoryPage.swift; sourceTree = "<group>"; };
 		F545E737255DD89700CEC060 /* ToolListingPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolListingPage.swift; sourceTree = "<group>"; };
 		F545E738255DD89700CEC060 /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				28A7EC6E2543688E007423B0 /* ContentView.swift */,
 				F58B265F2553AAA7000389E3 /* InAppView.swift */,
 				28A7ECBE25437411007423B0 /* RentalView.swift */,
+				45C44FEF25685EE4008529A9 /* OtherRentalView.swift */,
 				F58B2667255478BB000389E3 /* AddToolView.swift */,
 				28A7ECC32543741D007423B0 /* ProfileView.swift */,
 				28A7ECC825437428007423B0 /* SearchView.swift */,
@@ -406,6 +409,7 @@
 				F5755E5825670C7E004ADBD4 /* MakeReservationView.swift in Sources */,
 				28A7ECC925437428007423B0 /* SearchView.swift in Sources */,
 				28A7ECBF25437411007423B0 /* RentalView.swift in Sources */,
+				45C44FF025685EE4008529A9 /* OtherRentalView.swift in Sources */,
 				F5755E3B2563A792004ADBD4 /* API.swift in Sources */,
 				45817F66255EFE210045EB3E /* RateRental.swift in Sources */,
 				F545E73A255DD89700CEC060 /* FilterView.swift in Sources */,

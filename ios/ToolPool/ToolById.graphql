@@ -28,6 +28,7 @@ query BorrowById($id: Int) {
             name
         }
         user {
+            id
             name
             phoneNumber
             email

@@ -24,10 +24,12 @@ struct ManagePastResPage: View {
             Divider()
             Group {
                 Text("Date: " + borrow.loanPeriod.start)
-                Text("User: " + borrow.user.name)
                 Text("Cost: \(borrow.cost)")
                 Text("Location: (insert map)")
                 Text("Rental Rating: (insert rating)")
+                NavigationLink(destination:OtherProfilePage(user: borrow.user)) {
+                    Text("User: " + borrow.user.name)
+                }
             }
             Divider()
             NavigationLink(destination: ToolListingPage(listingName: borrow.tool.name)) {

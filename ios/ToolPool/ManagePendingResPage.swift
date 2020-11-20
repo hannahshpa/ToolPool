@@ -25,9 +25,11 @@ struct ManagePendingResPage: View {
             Group {
                 Text("Date/Time: " + borrow.loanPeriod.start)
                 Text("Duration: " + borrow.loanPeriod.end)
-                Text("User: " + borrow.user.name)
                 Text("Cost: \(borrow.cost)")
                 Text("Location: (insert map)")
+                NavigationLink(destination:OtherProfilePage(user: borrow.user)) {
+                    Text("User: " + borrow.user.name)
+                }
             }
             Divider()
             Button(action: {

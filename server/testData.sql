@@ -1,7 +1,7 @@
 INSERT INTO users (name, password, phone_number, email) VALUES
-    ('John Doe', 'anotherfratsong' ,'15555555555', 'john@example.com'),
-    ('Jane Doe', 'mobamba','12345678990', 'jane@example.org'),
-    ('Eric Smith', 'mrbrightside','14238462003', 'esmith@gmail.com');
+    ('John Doe', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8' ,'15555555555', 'john@example.com'),
+    ('Jane Doe', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','12345678990', 'jane@example.org'),
+    ('Eric Smith', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','14238462003', 'esmith@gmail.com');
 
 INSERT INTO tools (name, description, condition, location, owner) VALUES
     ('Power Washer', 'Power washes with water, electricity. Very good', 'good', point(34.0447, -118.4487), 1),

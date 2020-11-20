@@ -25,7 +25,7 @@ struct ManagePastResPage: View {
             Text("Cost:")
             Text("Location:")
             Text("Rental Rating:")
-            NavigationLink(destination: ToolListingPage(listingName: toolName)) {
+            NavigationLink(destination: ToolListingPage(listingName: toolName, categoryName: "tool")) {
                 Text("Rent Again")
             }
           }

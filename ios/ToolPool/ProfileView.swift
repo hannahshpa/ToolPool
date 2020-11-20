@@ -29,6 +29,7 @@ struct ProfileView: View {
               Text("Joe's ToolBox")
                 .font(.largeTitle)
             }
+            
             Divider()
             ScrollView {
                 VStack {
@@ -39,15 +40,18 @@ struct ProfileView: View {
                       MyToolCategoryRow(geometry: geometry, toolNameLeft: "tool", toolNameMiddle: "tool", toolNameRight: "tool")
                   }
               }
-              //.padding()
-          }
+              
+          }//.padding()
         }
-        .navigationBarTitle("Your ToolBox", displayMode: .inline)
-        .navigationBarItems(trailing:
-                              NavigationLink(destination: AddToolView()) {
-                                Text("Add Tool")
-                              }
-        )
+        .navigationBarTitle(Text("Your toolbox"), displayMode: .inline)
+        .navigationBarHidden(false)
+        //.navigationBarTitle("Your ToolBox", displayMode: .inline)
+        //.labelsHidden()
+        //.navigationBarItems(trailing:
+        //                      NavigationLink(destination: AddToolView()) {
+        //                        Text("Add Tool")
+        //                      }
+        //)
       }
     }
 }
@@ -60,13 +64,13 @@ struct MyToolCategoryRow: View {
     let toolNameRight: String
     var body: some View {
         HStack { // position views horizontally
-            NavigationLink(destination: ToolListingPage(listingName: toolNameLeft)) {
+          NavigationLink(destination: ToolListingPage(listingName: toolNameLeft, categoryName: "tool")) {
                 MyToolCategorySquare(geometry: geometry, categoryName: toolNameLeft)
             }
-            NavigationLink(destination: ToolListingPage(listingName: toolNameMiddle)) {
+            NavigationLink(destination: ToolListingPage(listingName: toolNameMiddle, categoryName: "tool")) {
                 MyToolCategorySquare(geometry: geometry, categoryName: toolNameMiddle)
             }
-            NavigationLink(destination: ToolListingPage(listingName: toolNameRight)) {
+            NavigationLink(destination: ToolListingPage(listingName: toolNameRight, categoryName: "tool")) {
                 MyToolCategorySquare(geometry: geometry, categoryName: toolNameRight)
             }
         }
@@ -94,7 +98,10 @@ struct MyToolCategorySquare: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
+      Group {
         ProfileView()
+        ProfileView()
+      }
     }
 }
 

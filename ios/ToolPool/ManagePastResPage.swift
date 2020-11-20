@@ -32,7 +32,7 @@ struct ManagePastResPage: View {
                 }
             }
             Divider()
-            NavigationLink(destination: ToolListingPage(listingName: borrow.tool.name)) {
+            NavigationLink(destination: ToolListingPage(listingName: borrow.tool.name, categoryName: "")) {
                 Text("Rent Again")
                     .frame(minWidth:0, maxWidth:325)
                     .background(Color.orange)

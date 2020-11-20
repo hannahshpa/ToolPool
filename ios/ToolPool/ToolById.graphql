@@ -1,6 +1,8 @@
 query ToolById($id: Int) {
   tool(id: $id){
       name
+      description
+      condition
   }
 }
 query GetBorrows {
@@ -42,4 +44,16 @@ query BorrowDummy($id: Int) {
             name
         }
     }
+}
+
+query GetMyTools {
+  self {
+    ownedTools {
+      name
+    }
+  }
+}
+
+mutation AddTool($input: NewToolInput!) {
+  addTool(tool: $input)
 }

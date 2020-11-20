@@ -13,7 +13,6 @@
 		28A7EC742543688F007423B0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28A7EC732543688F007423B0 /* Preview Assets.xcassets */; };
 		28A7EC7F2543688F007423B0 /* ToolPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC7E2543688F007423B0 /* ToolPoolTests.swift */; };
 		28A7EC8A2543688F007423B0 /* ToolPoolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC892543688F007423B0 /* ToolPoolUITests.swift */; };
-		28A7EC9E25436D6F007423B0 /* RentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC9D25436D6F007423B0 /* RentalViewController.swift */; };
 		28A7ECA325436D7F007423B0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECA225436D7F007423B0 /* SearchViewController.swift */; };
 		28A7ECA825436DA7007423B0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECA725436DA7007423B0 /* ProfileViewController.swift */; };
 		28A7ECBF25437411007423B0 /* RentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECBE25437411007423B0 /* RentalView.swift */; };
@@ -34,6 +33,10 @@
 		F5755E332563A6FE004ADBD4 /* ToolById.graphql in Resources */ = {isa = PBXBuildFile; fileRef = F5755E322563A6FE004ADBD4 /* ToolById.graphql */; };
 		F5755E3B2563A792004ADBD4 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E3A2563A792004ADBD4 /* API.swift */; };
 		F5755E402563AB95004ADBD4 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E3F2563AB95004ADBD4 /* Network.swift */; };
+		F5755E4B25662D79004ADBD4 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = F5755E4A25662D78004ADBD4 /* schema.json */; };
+		F5755E5625670C7E004ADBD4 /* RentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E5225670C7E004ADBD4 /* RentalViewController.swift */; };
+		F5755E5725670C7E004ADBD4 /* ToolPool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F5755E5325670C7E004ADBD4 /* ToolPool.xcdatamodeld */; };
+		F5755E5825670C7E004ADBD4 /* MakeReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E5525670C7E004ADBD4 /* MakeReservationView.swift */; };
 		F58B264525536965000389E3 /* Landing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B264425536965000389E3 /* Landing.swift */; };
 		F58B26562553758A000389E3 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B26552553758A000389E3 /* SignInView.swift */; };
 		F58B265B25538E5C000389E3 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B265A25538E5C000389E3 /* CreateAccountView.swift */; };
@@ -59,6 +62,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		28943E13255C69480042533E /* ToolListingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolListingPage.swift; sourceTree = "<group>"; };
+		28943E18255C6F3F0042533E /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		28A7EC692543688E007423B0 /* ToolPool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToolPool.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A7EC6C2543688E007423B0 /* ToolPoolApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolPoolApp.swift; sourceTree = "<group>"; };
 		28A7EC6E2543688E007423B0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,7 +76,6 @@
 		28A7EC852543688F007423B0 /* ToolPoolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToolPoolUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A7EC892543688F007423B0 /* ToolPoolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolPoolUITests.swift; sourceTree = "<group>"; };
 		28A7EC8B2543688F007423B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		28A7EC9D25436D6F007423B0 /* RentalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentalViewController.swift; sourceTree = "<group>"; };
 		28A7ECA225436D7F007423B0 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		28A7ECA725436DA7007423B0 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		28A7ECBE25437411007423B0 /* RentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentalView.swift; sourceTree = "<group>"; };
@@ -87,10 +91,13 @@
 		F545E738255DD89700CEC060 /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		F545E73E255DD8A100CEC060 /* StarRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		F545E744255DD8AD00CEC060 /* ToolPool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToolPool.xcdatamodel; sourceTree = "<group>"; };
-		F5755E2B2563A152004ADBD4 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		F5755E322563A6FE004ADBD4 /* ToolById.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = ToolById.graphql; sourceTree = "<group>"; };
 		F5755E3A2563A792004ADBD4 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		F5755E3F2563AB95004ADBD4 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		F5755E4A25662D78004ADBD4 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
+		F5755E5225670C7E004ADBD4 /* RentalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RentalViewController.swift; sourceTree = "<group>"; };
+		F5755E5425670C7E004ADBD4 /* ToolPool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToolPool.xcdatamodel; sourceTree = "<group>"; };
+		F5755E5525670C7E004ADBD4 /* MakeReservationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeReservationView.swift; sourceTree = "<group>"; };
 		F58B264425536965000389E3 /* Landing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.swift; sourceTree = "<group>"; };
 		F58B26552553758A000389E3 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		F58B265A25538E5C000389E3 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
@@ -148,8 +155,11 @@
 		28A7EC6B2543688E007423B0 /* ToolPool */ = {
 			isa = PBXGroup;
 			children = (
+				F5755E5525670C7E004ADBD4 /* MakeReservationView.swift */,
+				F5755E5225670C7E004ADBD4 /* RentalViewController.swift */,
+				F5755E5325670C7E004ADBD4 /* ToolPool.xcdatamodeld */,
+				F5755E4A25662D78004ADBD4 /* schema.json */,
 				F5755E3A2563A792004ADBD4 /* API.swift */,
-				F5755E2B2563A152004ADBD4 /* schema.json */,
 				F5755E3F2563AB95004ADBD4 /* Network.swift */,
 				F5755E322563A6FE004ADBD4 /* ToolById.graphql */,
 				F545E743255DD8AD00CEC060 /* ToolPool.xcdatamodeld */,
@@ -170,7 +180,8 @@
 				F58B2667255478BB000389E3 /* AddToolView.swift */,
 				28A7ECC32543741D007423B0 /* ProfileView.swift */,
 				28A7ECC825437428007423B0 /* SearchView.swift */,
-				28A7EC9D25436D6F007423B0 /* RentalViewController.swift */,
+				28943E18255C6F3F0042533E /* StarRatingView.swift */,
+				28943E13255C69480042533E /* ToolListingPage.swift */,
 				28A7ECA225436D7F007423B0 /* SearchViewController.swift */,
 				28A7ECA725436DA7007423B0 /* ProfileViewController.swift */,
 				28A7EC702543688F007423B0 /* Assets.xcassets */,
@@ -327,6 +338,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5755E4B25662D79004ADBD4 /* schema.json in Resources */,
 				28A7EC742543688F007423B0 /* Preview Assets.xcassets in Resources */,
 				F5755E332563A6FE004ADBD4 /* ToolById.graphql in Resources */,
 				28A7EC712543688F007423B0 /* Assets.xcassets in Resources */,
@@ -383,13 +395,15 @@
 				F58B2668255478BB000389E3 /* AddToolView.swift in Sources */,
 				28A7EC6F2543688E007423B0 /* ContentView.swift in Sources */,
 				F545E745255DD8AD00CEC060 /* ToolPool.xcdatamodeld in Sources */,
-				28A7EC9E25436D6F007423B0 /* RentalViewController.swift in Sources */,
 				28A7ECA825436DA7007423B0 /* ProfileViewController.swift in Sources */,
 				45817F58255E24E70045EB3E /* ManagePastResPage.swift in Sources */,
 				28A7ECA325436D7F007423B0 /* SearchViewController.swift in Sources */,
+				F5755E5625670C7E004ADBD4 /* RentalViewController.swift in Sources */,
 				F545E739255DD89700CEC060 /* ToolListingPage.swift in Sources */,
 				F58B26562553758A000389E3 /* SignInView.swift in Sources */,
 				F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */,
+				F5755E5725670C7E004ADBD4 /* ToolPool.xcdatamodeld in Sources */,
+				F5755E5825670C7E004ADBD4 /* MakeReservationView.swift in Sources */,
 				28A7ECC925437428007423B0 /* SearchView.swift in Sources */,
 				28A7ECBF25437411007423B0 /* RentalView.swift in Sources */,
 				F5755E3B2563A792004ADBD4 /* API.swift in Sources */,
@@ -747,6 +761,16 @@
 				F545E744255DD8AD00CEC060 /* ToolPool.xcdatamodel */,
 			);
 			currentVersion = F545E744255DD8AD00CEC060 /* ToolPool.xcdatamodel */;
+			path = ToolPool.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		F5755E5325670C7E004ADBD4 /* ToolPool.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F5755E5425670C7E004ADBD4 /* ToolPool.xcdatamodel */,
+			);
+			currentVersion = F5755E5425670C7E004ADBD4 /* ToolPool.xcdatamodel */;
 			path = ToolPool.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

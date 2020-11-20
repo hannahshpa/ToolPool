@@ -10,12 +10,11 @@ import SwiftUI
 struct ToolCategoryPage: View {
     let categoryName: String
     var body: some View {
-        NavigationView {
             GeometryReader {
                 geometry in
                 ScrollView {
                     VStack {
-                        ToolListingRow(geometry: geometry, listingNameLeft: "Hammer", listingNameRight: "Wrench")
+                        ToolListingRow(geometry: geometry, listingNameLeft: "Hammer", listingNameRight: "Wrench", categoryName: categoryName)
                     }
                 }
                 .padding()
@@ -27,19 +26,20 @@ struct ToolCategoryPage: View {
                                   }
             )
         }
-    }
+    
 }
 
 struct ToolListingRow: View {
     let geometry: GeometryProxy
     let listingNameLeft: String
     let listingNameRight: String
+    let categoryName: String
     var body: some View {
         HStack { // position views horizontally
-            NavigationLink(destination: ToolListingPage(listingName:listingNameLeft)) {
+            NavigationLink(destination: ToolListingPage(listingName:listingNameLeft, categoryName:categoryName)) {
                 ToolListingSquare(geometry: geometry, listingName: listingNameLeft)
             }
-            NavigationLink(destination: ToolListingPage(listingName:listingNameRight)) {
+            NavigationLink(destination: ToolListingPage(listingName:listingNameRight, categoryName:categoryName)) {
                 ToolListingSquare(geometry: geometry, listingName: listingNameRight)
             }
         }
@@ -49,16 +49,21 @@ struct ToolListingRow: View {
 struct ToolListingSquare: View {
     let geometry: GeometryProxy
     let listingName: String
+
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             Image(listingName.lowercased())
                 .resizable()
                 .frame(width: geometry.size.width * 0.45, height: geometry.size.width * 0.45)
                 .aspectRatio(contentMode: .fit)
-            Text(listingName).bold()
-                .padding(12)
-                .font(.headline)
-                .foregroundColor(Color.white)
+            VStack {
+                Text(listingName).bold()
+                    .padding(1)
+                    .font(.headline)
+                    .foregroundColor(Color.white)
+                StarRatingView(rating: .constant(Int(4)))
+                    .font(.headline)
+                }.padding(12)
         }
         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous)) // Add clip shape to the whole ZStack
     }

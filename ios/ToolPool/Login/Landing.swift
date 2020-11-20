@@ -10,39 +10,19 @@ import SwiftUI
 
 
 struct Landing: View {
-  
-    func greet() {
-        Network.shared.apollo.fetch(query: ToolByIdQuery(id: 1)) { result in
-            switch result {
-            case .success(let graphQLResult):
-              print("Success! Result: \(graphQLResult)")
-            case .failure(let error):
-              print("Failure! Error: \(error)")
-            }
-          }
-        /*Network.shared.apollo.fetch(query: GetBorrowsQuery()) { result in //doesnt work bc self is null rn. need to create users?
-          switch result {
-          case .success(let graphQLResult):
-            print("Success! Result: \(graphQLResult)")
-          case .failure(let error):
-            print("Failure! Error: \(error)")
-          }
-        }*/
-      //var test = Network.shared.apollo.fetch(query: ToolByIdQuery())
-      //test.
-    }
-  
-    //let variable = greet()
+ 
+    @ObservedObject var toolData = ToolData()
   
     var body: some View {
       NavigationView {
         VStack {
           Text(/*@START_MENU_TOKEN@*/"ToolPool"/*@END_MENU_TOKEN@*/)
             .font(.largeTitle)
-            .onAppear {
-              self.greet()
-            }
-          
+            //.onAppear {
+            //  self.greet()
+            //}
+          //Text(toolData.data.name)
+          //Text(toolData.data.description)
           NavigationLink(destination: SignInView()) {
             Text("Sign In")
               .foregroundColor(Color.black)
@@ -73,4 +53,39 @@ struct Landing_Previews: PreviewProvider {
         .padding(.bottom, 100.0)
         
     }
+}
+
+class TestTool {
+    var name: String = ""
+    var description: String = ""
+  
+  init(n: String, d: String) {
+    self.name = n
+    self.description = d
+  }
+}
+
+class ToolData: ObservableObject {
+
+    @Published var data: TestTool
+
+    init() {
+      self.data = TestTool(n: "test", d: "test")
+      self.load()
+    }
+  
+    func load() {
+     Network.shared.apollo.fetch(query: ToolByIdQuery(id: 1)) { result in
+       switch result {
+       case .success(let graphQLResult):
+         print("Success! Result: \(graphQLResult)")
+         if let tool_temp = graphQLResult.data?.tool {
+           self.data = TestTool(n: tool_temp.name, d: tool_temp.description)
+         }
+       case .failure(let error):
+         print("Failure! Error: \(error)")
+       }
+     }
+    }
+  
 }

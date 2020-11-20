@@ -91,3 +91,15 @@ struct AddToolView_Previews: PreviewProvider {
         AddToolView()
     }
 }
+
+/*
+func addTool() {
+  Network.shared.apollo.perform(mutation: AddToolMutation(tool: ["test", "test"])) { result in
+    switch result {
+    case .success(let graphQLResult):
+      print("Success! Result: \(graphQLResult)")
+    case .failure(let error):
+      print("Failure! Error: \(error)")
+    }
+  }
+}*/

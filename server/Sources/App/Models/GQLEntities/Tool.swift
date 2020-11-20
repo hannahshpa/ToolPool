@@ -17,6 +17,7 @@ public struct Tool: Codable{
     public let condition: ToolCondition
     public let location: GeoLocation
     public let ownerId: Int
+    public let hourlyCost: Double
     
     public func getOwner(context: Context, arguments: NoArguments) -> EventLoopFuture<User>{
         DBUser.getById(id: self.ownerId, db: context.getDB()).map{user in user!}

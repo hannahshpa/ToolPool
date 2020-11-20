@@ -7,59 +7,101 @@
 
 import SwiftUI
 
+struct User: Identifiable {
+    var id = UUID()
+    var cost: Float
+}
 
 struct RentalView: View {
+    @ObservedObject private var borrowData: BorrowData = BorrowData()
     var body: some View {
         NavigationView {
             List{
                 //usually fetch list of rentals with this user id
                 //may have to makes seperate queries for rentals based on time/approval
                 //for each rental make navlink passing in rental obj
-                Section(header: Text("Pending Rentals")) //may need to make sections link to own pages if there are too many rentals
+                Section(header: Text("Pending Rentals"))  //may need to make sections link to own pages if there are too many rentals
                 {
-                    NavigationLink(destination: ManagePendingResPage(toolName: "tool1")) {
-                        Text("tool1")
+                    NavigationLink(destination: ManagePendingResPage(borrow: borrowData.borrows[0])) {
+                        Text((borrowData.borrows[0]?.loanPeriod.start)! + ": " + (borrowData.borrows[0]?.tool.name)! )
                     }
-                    NavigationLink(destination: ManagePendingResPage(toolName: "tool1")) {
-                        Text("tool2")
-                    }
-                    NavigationLink(destination: ManagePendingResPage(toolName: "tool1")) {
-                        Text("tool3")
+                    NavigationLink(destination: ManagePendingResPage(borrow: borrowData.borrows[1])) {
+                        Text((borrowData.borrows[1]?.loanPeriod.start)! + ": " + (borrowData.borrows[1]?.tool.name)! )
                     }
                 }
                 Section(header: Text("Upcoming Rentals"))
                 {
-                    NavigationLink(destination: ManageUpcomingResPage(toolName: "tool1")) {
-                        Text("tool4")
+                    NavigationLink(destination: ManageUpcomingResPage(borrow: borrowData.borrows[0])){
+                        Text((borrowData.borrows[0]?.loanPeriod.start)! + ": " + (borrowData.borrows[0]?.tool.name)! )
                     }
-                    NavigationLink(destination: ManageUpcomingResPage(toolName: "tool1")) {
-                        Text("tool5")
-                    }
-                    NavigationLink(destination: ManageUpcomingResPage(toolName: "tool1")) {
-                        Text("tool6")
+                    NavigationLink(destination: ManageUpcomingResPage(borrow: borrowData.borrows[1])){
+                        Text((borrowData.borrows[1]?.loanPeriod.start)! + ": " + (borrowData.borrows[1]?.tool.name)! )
                     }
                 }
                 Section(header: Text("Past Rentals"))
                 {
-                    NavigationLink(destination: ManagePastResPage(toolName: "tool1")) {
-                        Text("tool7")
+                    NavigationLink(destination: ManagePastResPage(borrow: borrowData.borrows[0])){
+                        Text((borrowData.borrows[0]?.loanPeriod.start)! + ": " + (borrowData.borrows[0]?.tool.name)! )
                     }
-                    NavigationLink(destination: ManagePastResPage(toolName: "tool1")) {
-                        Text("tool8")
-                    }
-                    NavigationLink(destination: ManagePastResPage(toolName: "tool1")) {
-                        Text("tool9")
+                    NavigationLink(destination: ManagePastResPage(borrow: borrowData.borrows[1])){
+                        Text((borrowData.borrows[1]?.loanPeriod.start)! + ": " + (borrowData.borrows[1]?.tool.name)! )
                     }
                 }
             }
-            .navigationBarTitle("My Rentals", displayMode: .large)
+            .navigationBarTitle("My Tool Rentals", displayMode: .automatic)
             .navigationBarBackButtonHidden(true)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .edgesIgnoringSafeArea(.top)
     }
 }
+
+/*List(borrowData.borrows, id: \.cost) { b in
+    NavigationLink(destination: ManageUpcomingResPage(toolName: "tool1")) {
+        Text(b!.tool.name)
+    }
+    
+}*/
 
 struct RentalView_Previews: PreviewProvider {
     static var previews: some View {
         RentalView()
+    }
+}
+
+class BorrowData: ObservableObject {
+    @Published var borrows: [BorrowByIdQuery.Data.Borrow?]!
+    
+    init() {
+        print("running loadData")
+        self.borrows = []
+        loadData()
+    }
+    
+    func loadData() {
+        Network.shared.apollo.fetch(query: BorrowByIdQuery(id: 1)) { result in
+          switch result {
+          case .success(let graphQLResult):
+            let cur = graphQLResult.data?.borrow
+            if cur != nil {
+                self.borrows.append(cur)
+            }
+            print("Success! Result: \(String(describing: self.borrows))")
+          case .failure(let error):
+            print("Failure! Error: \(error)")
+          }
+        }
+        Network.shared.apollo.fetch(query: BorrowByIdQuery(id: 2)) { result in
+          switch result {
+          case .success(let graphQLResult):
+            let cur = graphQLResult.data?.borrow
+            if cur != nil {
+                self.borrows.append(cur)
+            }
+            print("Success! Result: \(String(describing: self.borrows))")
+          case .failure(let error):
+            print("Failure! Error: \(error)")
+          }
+        }
     }
 }

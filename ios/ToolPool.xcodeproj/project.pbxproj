@@ -3,13 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2869E2BE255C82AA00AB2DA2 /* ToolPool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2869E2BC255C82AA00AB2DA2 /* ToolPool.xcdatamodeld */; };
-		28943E14255C69480042533E /* ToolListingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28943E13255C69480042533E /* ToolListingPage.swift */; };
-		28943E19255C6F3F0042533E /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28943E18255C6F3F0042533E /* StarRatingView.swift */; };
 		28A7EC6D2543688E007423B0 /* ToolPoolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC6C2543688E007423B0 /* ToolPoolApp.swift */; };
 		28A7EC6F2543688E007423B0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC6E2543688E007423B0 /* ContentView.swift */; };
 		28A7EC712543688F007423B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28A7EC702543688F007423B0 /* Assets.xcassets */; };
@@ -21,11 +18,24 @@
 		28A7ECBF25437411007423B0 /* RentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECBE25437411007423B0 /* RentalView.swift */; };
 		28A7ECC42543741D007423B0 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECC32543741D007423B0 /* ProfileView.swift */; };
 		28A7ECC925437428007423B0 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECC825437428007423B0 /* SearchView.swift */; };
-		28D0B0BF2555F28B00276D07 /* RentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D0B0BE2555F28B00276D07 /* RentalViewController.swift */; };
-		28D0B0CA2555F32400276D07 /* RentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D0B0C92555F32400276D07 /* RentalViewController.swift */; };
-		28D0B0DF2558C18B00276D07 /* ToolCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D0B0DE2558C18B00276D07 /* ToolCategoryPage.swift */; };
-		28D0B0E42558CEAA00276D07 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D0B0E32558CEAA00276D07 /* FilterView.swift */; };
-		28E94A2E2564A4C800540386 /* MakeReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E94A2D2564A4C800540386 /* MakeReservationView.swift */; };
+		45817F48255E214F0045EB3E /* ManagePendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F47255E214F0045EB3E /* ManagePendingResPage.swift */; };
+		45817F50255E23E50045EB3E /* ManageUpcomingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F4F255E23E50045EB3E /* ManageUpcomingResPage.swift */; };
+		45817F58255E24E70045EB3E /* ManagePastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F57255E24E70045EB3E /* ManagePastResPage.swift */; };
+		45817F66255EFE210045EB3E /* RateRental.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F65255EFE210045EB3E /* RateRental.swift */; };
+		F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */; };
+		F545E739255DD89700CEC060 /* ToolListingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E737255DD89700CEC060 /* ToolListingPage.swift */; };
+		F545E73A255DD89700CEC060 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E738255DD89700CEC060 /* FilterView.swift */; };
+		F545E73F255DD8A100CEC060 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E73E255DD8A100CEC060 /* StarRatingView.swift */; };
+		F545E745255DD8AD00CEC060 /* ToolPool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F545E743255DD8AD00CEC060 /* ToolPool.xcdatamodeld */; };
+		F545E74B255F11E000CEC060 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = F545E74A255F11E000CEC060 /* Apollo */; };
+		F545E74D255F11E000CEC060 /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = F545E74C255F11E000CEC060 /* ApolloWebSocket */; };
+		F5755E332563A6FE004ADBD4 /* ToolById.graphql in Resources */ = {isa = PBXBuildFile; fileRef = F5755E322563A6FE004ADBD4 /* ToolById.graphql */; };
+		F5755E3B2563A792004ADBD4 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E3A2563A792004ADBD4 /* API.swift */; };
+		F5755E402563AB95004ADBD4 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E3F2563AB95004ADBD4 /* Network.swift */; };
+		F5755E4B25662D79004ADBD4 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = F5755E4A25662D78004ADBD4 /* schema.json */; };
+		F5755E5625670C7E004ADBD4 /* RentalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E5225670C7E004ADBD4 /* RentalViewController.swift */; };
+		F5755E5725670C7E004ADBD4 /* ToolPool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F5755E5325670C7E004ADBD4 /* ToolPool.xcdatamodeld */; };
+		F5755E5825670C7E004ADBD4 /* MakeReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E5525670C7E004ADBD4 /* MakeReservationView.swift */; };
 		F58B264525536965000389E3 /* Landing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B264425536965000389E3 /* Landing.swift */; };
 		F58B26562553758A000389E3 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B26552553758A000389E3 /* SignInView.swift */; };
 		F58B265B25538E5C000389E3 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B265A25538E5C000389E3 /* CreateAccountView.swift */; };
@@ -51,7 +61,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2869E2BD255C82AA00AB2DA2 /* ToolPool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToolPool.xcdatamodel; sourceTree = "<group>"; };
 		28943E13255C69480042533E /* ToolListingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolListingPage.swift; sourceTree = "<group>"; };
 		28943E18255C6F3F0042533E /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		28A7EC692543688E007423B0 /* ToolPool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToolPool.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,11 +80,22 @@
 		28A7ECBE25437411007423B0 /* RentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentalView.swift; sourceTree = "<group>"; };
 		28A7ECC32543741D007423B0 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		28A7ECC825437428007423B0 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
-		28D0B0BE2555F28B00276D07 /* RentalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RentalViewController.swift; sourceTree = "<group>"; };
-		28D0B0C92555F32400276D07 /* RentalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentalViewController.swift; sourceTree = "<group>"; };
-		28D0B0DE2558C18B00276D07 /* ToolCategoryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolCategoryPage.swift; sourceTree = "<group>"; };
-		28D0B0E32558CEAA00276D07 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
-		28E94A2D2564A4C800540386 /* MakeReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeReservationView.swift; sourceTree = "<group>"; };
+		45817F47255E214F0045EB3E /* ManagePendingResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePendingResPage.swift; sourceTree = "<group>"; };
+		45817F4F255E23E50045EB3E /* ManageUpcomingResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageUpcomingResPage.swift; sourceTree = "<group>"; };
+		45817F57255E24E70045EB3E /* ManagePastResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePastResPage.swift; sourceTree = "<group>"; };
+		45817F65255EFE210045EB3E /* RateRental.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateRental.swift; sourceTree = "<group>"; };
+		F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolCategoryPage.swift; sourceTree = "<group>"; };
+		F545E737255DD89700CEC060 /* ToolListingPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolListingPage.swift; sourceTree = "<group>"; };
+		F545E738255DD89700CEC060 /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		F545E73E255DD8A100CEC060 /* StarRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
+		F545E744255DD8AD00CEC060 /* ToolPool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToolPool.xcdatamodel; sourceTree = "<group>"; };
+		F5755E322563A6FE004ADBD4 /* ToolById.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = ToolById.graphql; sourceTree = "<group>"; };
+		F5755E3A2563A792004ADBD4 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		F5755E3F2563AB95004ADBD4 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		F5755E4A25662D78004ADBD4 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
+		F5755E5225670C7E004ADBD4 /* RentalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RentalViewController.swift; sourceTree = "<group>"; };
+		F5755E5425670C7E004ADBD4 /* ToolPool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToolPool.xcdatamodel; sourceTree = "<group>"; };
+		F5755E5525670C7E004ADBD4 /* MakeReservationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeReservationView.swift; sourceTree = "<group>"; };
 		F58B264425536965000389E3 /* Landing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landing.swift; sourceTree = "<group>"; };
 		F58B26552553758A000389E3 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		F58B265A25538E5C000389E3 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
@@ -88,6 +108,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F545E74B255F11E000CEC060 /* Apollo in Frameworks */,
+				F545E74D255F11E000CEC060 /* ApolloWebSocket in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,24 +153,34 @@
 		28A7EC6B2543688E007423B0 /* ToolPool */ = {
 			isa = PBXGroup;
 			children = (
+				F5755E5525670C7E004ADBD4 /* MakeReservationView.swift */,
+				F5755E5225670C7E004ADBD4 /* RentalViewController.swift */,
+				F5755E5325670C7E004ADBD4 /* ToolPool.xcdatamodeld */,
+				F5755E4A25662D78004ADBD4 /* schema.json */,
+				F5755E3A2563A792004ADBD4 /* API.swift */,
+				F5755E3F2563AB95004ADBD4 /* Network.swift */,
+				F5755E322563A6FE004ADBD4 /* ToolById.graphql */,
+				F545E743255DD8AD00CEC060 /* ToolPool.xcdatamodeld */,
+				F545E73E255DD8A100CEC060 /* StarRatingView.swift */,
+				F545E738255DD89700CEC060 /* FilterView.swift */,
+				F545E737255DD89700CEC060 /* ToolListingPage.swift */,
+				F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */,
 				28A7EC6C2543688E007423B0 /* ToolPoolApp.swift */,
+				45817F65255EFE210045EB3E /* RateRental.swift */,
+				45817F47255E214F0045EB3E /* ManagePendingResPage.swift */,
+				45817F4F255E23E50045EB3E /* ManageUpcomingResPage.swift */,
+				45817F57255E24E70045EB3E /* ManagePastResPage.swift */,
 				F58B264925537509000389E3 /* Login */,
 				28A7EC6E2543688E007423B0 /* ContentView.swift */,
 				F58B265F2553AAA7000389E3 /* InAppView.swift */,
 				28A7ECBE25437411007423B0 /* RentalView.swift */,
-				28D0B0E32558CEAA00276D07 /* FilterView.swift */,
-				28E94A2D2564A4C800540386 /* MakeReservationView.swift */,
 				F58B2667255478BB000389E3 /* AddToolView.swift */,
 				28A7ECC32543741D007423B0 /* ProfileView.swift */,
 				28A7ECC825437428007423B0 /* SearchView.swift */,
-				28D0B0DE2558C18B00276D07 /* ToolCategoryPage.swift */,
 				28943E18255C6F3F0042533E /* StarRatingView.swift */,
 				28943E13255C69480042533E /* ToolListingPage.swift */,
-				28D0B0BE2555F28B00276D07 /* RentalViewController.swift */,
-				28D0B0C92555F32400276D07 /* RentalViewController.swift */,
 				28A7ECA225436D7F007423B0 /* SearchViewController.swift */,
 				28A7ECA725436DA7007423B0 /* ProfileViewController.swift */,
-				2869E2BC255C82AA00AB2DA2 /* ToolPool.xcdatamodeld */,
 				28A7EC702543688F007423B0 /* Assets.xcassets */,
 				28A7EC752543688F007423B0 /* Info.plist */,
 				28A7EC722543688F007423B0 /* Preview Content */,
@@ -199,6 +231,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 28A7EC8E2543688F007423B0 /* Build configuration list for PBXNativeTarget "ToolPool" */;
 			buildPhases = (
+				F5755E1225639BD2004ADBD4 /* Apollo CLI */,
 				28A7EC652543688E007423B0 /* Sources */,
 				28A7EC662543688E007423B0 /* Frameworks */,
 				28A7EC672543688E007423B0 /* Resources */,
@@ -208,6 +241,10 @@
 			dependencies = (
 			);
 			name = ToolPool;
+			packageProductDependencies = (
+				F545E74A255F11E000CEC060 /* Apollo */,
+				F545E74C255F11E000CEC060 /* ApolloWebSocket */,
+			);
 			productName = ToolPool;
 			productReference = 28A7EC692543688E007423B0 /* ToolPool.app */;
 			productType = "com.apple.product-type.application";
@@ -279,6 +316,9 @@
 				Base,
 			);
 			mainGroup = 28A7EC602543688E007423B0;
+			packageReferences = (
+				F545E749255F11E000CEC060 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+			);
 			productRefGroup = 28A7EC6A2543688E007423B0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -295,7 +335,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5755E4B25662D79004ADBD4 /* schema.json in Resources */,
 				28A7EC742543688F007423B0 /* Preview Assets.xcassets in Resources */,
+				F5755E332563A6FE004ADBD4 /* ToolById.graphql in Resources */,
 				28A7EC712543688F007423B0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -316,31 +358,58 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F5755E1225639BD2004ADBD4 /* Apollo CLI */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Apollo CLI";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" API.swift\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		28A7EC652543688E007423B0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28943E14255C69480042533E /* ToolListingPage.swift in Sources */,
-				28D0B0CA2555F32400276D07 /* RentalViewController.swift in Sources */,
-				28D0B0DF2558C18B00276D07 /* ToolCategoryPage.swift in Sources */,
+				F545E73F255DD8A100CEC060 /* StarRatingView.swift in Sources */,
 				F58B265B25538E5C000389E3 /* CreateAccountView.swift in Sources */,
-				28D0B0BF2555F28B00276D07 /* RentalViewController.swift in Sources */,
+				F5755E402563AB95004ADBD4 /* Network.swift in Sources */,
 				F58B26602553AAA7000389E3 /* InAppView.swift in Sources */,
 				F58B2668255478BB000389E3 /* AddToolView.swift in Sources */,
-				28E94A2E2564A4C800540386 /* MakeReservationView.swift in Sources */,
 				28A7EC6F2543688E007423B0 /* ContentView.swift in Sources */,
+				F545E745255DD8AD00CEC060 /* ToolPool.xcdatamodeld in Sources */,
 				28A7ECA825436DA7007423B0 /* ProfileViewController.swift in Sources */,
+				45817F58255E24E70045EB3E /* ManagePastResPage.swift in Sources */,
 				28A7ECA325436D7F007423B0 /* SearchViewController.swift in Sources */,
+				F5755E5625670C7E004ADBD4 /* RentalViewController.swift in Sources */,
+				F545E739255DD89700CEC060 /* ToolListingPage.swift in Sources */,
 				F58B26562553758A000389E3 /* SignInView.swift in Sources */,
+				F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */,
+				F5755E5725670C7E004ADBD4 /* ToolPool.xcdatamodeld in Sources */,
+				F5755E5825670C7E004ADBD4 /* MakeReservationView.swift in Sources */,
 				28A7ECC925437428007423B0 /* SearchView.swift in Sources */,
 				28A7ECBF25437411007423B0 /* RentalView.swift in Sources */,
-				28D0B0E42558CEAA00276D07 /* FilterView.swift in Sources */,
+				F5755E3B2563A792004ADBD4 /* API.swift in Sources */,
+				45817F66255EFE210045EB3E /* RateRental.swift in Sources */,
+				F545E73A255DD89700CEC060 /* FilterView.swift in Sources */,
 				F58B264525536965000389E3 /* Landing.swift in Sources */,
+				45817F50255E23E50045EB3E /* ManageUpcomingResPage.swift in Sources */,
 				28A7ECC42543741D007423B0 /* ProfileView.swift in Sources */,
 				28A7EC6D2543688E007423B0 /* ToolPoolApp.swift in Sources */,
-				2869E2BE255C82AA00AB2DA2 /* ToolPool.xcdatamodeld in Sources */,
-				28943E19255C6F3F0042533E /* StarRatingView.swift in Sources */,
+				45817F48255E214F0045EB3E /* ManagePendingResPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,13 +726,47 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		F545E749255F11E000CEC060 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F545E74A255F11E000CEC060 /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F545E749255F11E000CEC060 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
+		F545E74C255F11E000CEC060 /* ApolloWebSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F545E749255F11E000CEC060 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloWebSocket;
+		};
+/* End XCSwiftPackageProductDependency section */
+
 /* Begin XCVersionGroup section */
-		2869E2BC255C82AA00AB2DA2 /* ToolPool.xcdatamodeld */ = {
+		F545E743255DD8AD00CEC060 /* ToolPool.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				2869E2BD255C82AA00AB2DA2 /* ToolPool.xcdatamodel */,
+				F545E744255DD8AD00CEC060 /* ToolPool.xcdatamodel */,
 			);
-			currentVersion = 2869E2BD255C82AA00AB2DA2 /* ToolPool.xcdatamodel */;
+			currentVersion = F545E744255DD8AD00CEC060 /* ToolPool.xcdatamodel */;
+			path = ToolPool.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		F5755E5325670C7E004ADBD4 /* ToolPool.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F5755E5425670C7E004ADBD4 /* ToolPool.xcdatamodel */,
+			);
+			currentVersion = F5755E5425670C7E004ADBD4 /* ToolPool.xcdatamodel */;
 			path = ToolPool.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

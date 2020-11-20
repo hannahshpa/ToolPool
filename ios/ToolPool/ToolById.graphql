@@ -1,0 +1,32 @@
+query ToolById($id: Int) {
+  tool(id: $id){
+      name
+      description
+      condition
+  }
+}
+
+query GetBorrows{
+  self {
+    borrowHistory {
+      loanPeriod {
+        start
+      }
+      tool {
+        name
+      }
+    }
+  }
+}
+
+query GetMyTools {
+  self {
+    ownedTools {
+      name
+    }
+  }
+}
+
+mutation AddTool($input: NewToolInput!) {
+  addTool(tool: $input)
+}

@@ -39,7 +39,7 @@ Then within /server directory, build & run the server with:
 
 ### Signup
 
-route: /signup
+route: POST /signup
 
 required header: `None`
 
@@ -62,7 +62,7 @@ Return Value:
 
 ### Login
 
-route: /login
+route: POST /login
 
 required header: `None`
 
@@ -86,7 +86,7 @@ Return Value:
 
 ### GraphQL API
 
-route: /graphql
+route: POST /graphql
 
 required header:
 | Key | Value |

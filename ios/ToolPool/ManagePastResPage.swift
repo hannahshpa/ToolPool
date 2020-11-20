@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ManagePastResPage: View {
-    let toolName: String
+    let borrow: BorrowByIdQuery.Data.Borrow!
     var body: some View {
       ScrollView {
         GeometryReader {
@@ -16,26 +16,39 @@ struct ManagePastResPage: View {
           VStack {
             Image("tool")
                 .resizable()
-                .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
+                .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
                 .aspectRatio(contentMode: .fit)
-            Text(toolName).font(.largeTitle)
+            Text(borrow.tool.name)
+                .font(.title)
+                .foregroundColor(.black)
             Divider()
-            Text("Date:")
-            Text("User:")
-            Text("Cost:")
-            Text("Location:")
-            Text("Rental Rating:")
-            NavigationLink(destination: ToolListingPage(listingName: toolName, categoryName: "tool")) {
+            Group {
+                Text("Date: " + borrow.loanPeriod.start)
+                Text("Cost: \(borrow.cost)")
+                Text("Location: (insert map)")
+                Text("Rental Rating: (insert rating)")
+                NavigationLink(destination:OtherProfilePage(user: borrow.user)) {
+                    Text("User: " + borrow.user.name)
+                }
+            }
+            Divider()
+            NavigationLink(destination: ToolListingPage(listingName: borrow.tool.name, categoryName: "")) {
                 Text("Rent Again")
+                    .frame(minWidth:0, maxWidth:325)
+                    .background(Color.orange)
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .cornerRadius(40)
             }
           }
         }
       }
+      .navigationBarTitle(Text("Past Rental"), displayMode: .inline)
     }
 }
 
 struct ManagePastResPage_Previews: PreviewProvider {
     static var previews: some View {
-        ManagePastResPage(toolName:"Sample Tool")
+        ManagePastResPage(borrow: nil)
     }
 }

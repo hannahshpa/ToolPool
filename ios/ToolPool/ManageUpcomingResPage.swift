@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ManageUpcomingResPage: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    let toolName: String
+    let borrow: BorrowByIdQuery.Data.Borrow!
     var body: some View {
       ScrollView {
         GeometryReader {
@@ -17,26 +17,39 @@ struct ManageUpcomingResPage: View {
           VStack {
             Image("tool")
                 .resizable()
-                .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
+                .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
                 .aspectRatio(contentMode: .fit)
-            Text(toolName).font(.largeTitle)
+            Text(borrow.tool.name)
+                .font(.title)
+                .foregroundColor(.black)
             Divider()
-            Text("Date/Time:")
-            Text("Duration:")
-            Text("User:")
-            Text("Cost:")
-            Text("Location:")
+            Group {
+                Text("Date/Time: " + borrow.loanPeriod.start)
+                Text("Duration: " + borrow.loanPeriod.end)
+                Text("Cost: \(borrow.cost)")
+                Text("Location: (insert map)")
+                NavigationLink(destination:OtherProfilePage(user: borrow.user)) {
+                    Text("User: " + borrow.user.name)
+                }
+            }
+            Divider()
             NavigationLink(destination: RateRental(toolName: "tool1")) {
                 Text("Complete Rental")
-            } //use simultaneous gesture to add time complete to rental obj & get rating
+                    .frame(minWidth:0, maxWidth:325)
+                    .background(Color.orange)
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .cornerRadius(40)
+            }
           }
         }
       }
+      .navigationBarTitle(Text("Upcoming Rental"), displayMode: .inline)
     }
 }
 
 struct ManageUpcomingResPage_Previews: PreviewProvider {
     static var previews: some View {
-        ManageUpcomingResPage(toolName:"Sample Tool")
+        ManageUpcomingResPage(borrow: nil)
     }
 }

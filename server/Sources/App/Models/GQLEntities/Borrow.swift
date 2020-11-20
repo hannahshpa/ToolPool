@@ -16,6 +16,7 @@ public struct Borrow: Codable{
     public let cost: Double
     public let loanPeriod: TimeSlot
     public let timeReturned: Date?
+    public let status: BorrowStatus
     
     public func getTool(context: Context, arguments: NoArguments) -> EventLoopFuture<Tool>{
         DBTool.getById(id: self.toolId, db: context.getDB()).map{tool in tool!}

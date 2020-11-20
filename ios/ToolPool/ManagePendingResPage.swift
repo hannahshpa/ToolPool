@@ -8,7 +8,7 @@ import SwiftUI
 
 struct ManagePendingResPage: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    let toolName: String
+    let borrow: BorrowByIdQuery.Data.Borrow!
     var body: some View {
       ScrollView {
         GeometryReader {
@@ -16,29 +16,50 @@ struct ManagePendingResPage: View {
           VStack {
             Image("tool")
                 .resizable()
-                .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
+                .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
                 .aspectRatio(contentMode: .fit)
-            Text(toolName).font(.largeTitle)
+            Text(borrow.tool.name)
+                .font(.title)
+                .foregroundColor(.black)
             Divider()
-            Text("Date/Time:")
-            Text("Duration:")
-            Text("User:")
-            Text("Cost:")
-            Text("Location:")
+            Group {
+                Text("Date/Time: " + borrow.loanPeriod.start)
+                Text("Duration: " + borrow.loanPeriod.end)
+                Text("Cost: \(borrow.cost)")
+                Text("Location: (insert map)")
+                NavigationLink(destination:OtherProfilePage(user: borrow.user)) {
+                    Text("User: " + borrow.user.name)
+                }
+            }
+            Divider()
             Button(action: {
                 self.mode.wrappedValue.dismiss()
-            }) { Text("Accept Rental")}//simultaneously mutate rental obj to approve/deny?
+            }) { Text("Accept Rental")
+                .frame(minWidth:0, maxWidth:325)
+                .background(Color.orange)
+                .font(.title)
+                .foregroundColor(.white)
+                .cornerRadius(40)
+            }//simultaneously mutate rental obj to approve/deny?
+            Text(" ")
             Button(action: {
                 self.mode.wrappedValue.dismiss()
-            }) { Text("Deny Rental")}
+            }) { Text("Deny Rental")
+                .frame(minWidth:0, maxWidth:325)
+                .background(Color.gray)
+                .font(.title)
+                .foregroundColor(.white)
+                .cornerRadius(40)
+            }
           }
         }
       }
+      .navigationBarTitle(Text("Pending Rental"), displayMode: .inline)
     }
 }
 
 struct ManagePendingResPage_Previews: PreviewProvider {
     static var previews: some View {
-        ManagePendingResPage(toolName:"Sample Tool")
+        ManagePendingResPage(borrow: nil)
     }
 }

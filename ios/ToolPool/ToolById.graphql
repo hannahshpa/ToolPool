@@ -5,18 +5,45 @@ query ToolById($id: Int) {
       condition
   }
 }
-
-query GetBorrows{
-  self {
-    borrowHistory {
-      loanPeriod {
-        start
-      }
-      tool {
-        name
-      }
+query GetBorrows {
+    self {
+        borrowHistory {
+            loanPeriod {
+                start
+            }
+            tool {
+                name
+            }
+        }
     }
-  }
+}
+query BorrowById($id: Int) {
+    borrow(id: $id){
+        cost
+        id
+        loanPeriod {
+            start
+            end
+        }
+        tool {
+            id
+            name
+        }
+        user {
+            id
+            name
+            phoneNumber
+            email
+        }
+    }
+}
+query BorrowDummy($id: Int) {
+    borrow(id: $id){
+        id
+        tool {
+            name
+        }
+    }
 }
 
 query GetMyTools {

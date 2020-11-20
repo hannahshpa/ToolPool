@@ -2,9 +2,16 @@ type Borrow {
   cost: Float!
   id: Int!
   loanPeriod: TimeSlot!
+  status: BorrowStatus!
   timeReturned: Date
   tool: Tool!
   user: User!
+}
+
+enum BorrowStatus {
+  rejected
+  pending
+  accepted
 }
 
 # Returns the number of seconds since January, 1st, 2001: 12:00 am, ie Date(timeIntervalSinceReferenceDate: )
@@ -21,18 +28,36 @@ input GeoLocationInput {
 }
 
 type Mutation {
-  addTool(tool: NewToolInput!): Boolean!
+  # Adds a new tool with the given properties, and returns the integer ID of the new tool
+  addTool(tool: NewToolInput!): Int!
+  approveBorrow(id: Int!): Boolean!
+  createToolRating(rating: Int!, toolId: Int!, userId: Int!, review: String): ToolRating!
+  createUserRating(reviewerId: Int!, revieweeId: Int!, review: String, rating: Int!): UserRating!
+  deleteTool(toolId: Int!): Boolean!
+  deleteToolRating(userId: Int!, toolId: Int!): Boolean!
+  deleteUserRating(reviewerId: Int!, revieweeId: Int!): Boolean!
+  denyBorrow(id: Int!): Boolean!
+  requestBorrow(toolId: Int!, userId: Int!, startTime: Date!, endTime: Date!): Int!
   updateTool: Boolean!
 }
 
 input NewToolInput {
+  condition: ToolCondition!
   description: String!
+  location: GeoLocationInput!
   name: String!
+  ownerId: Int!
 }
 
 type Query {
+  # Get a given borrow by id
+  borrow(id: Int!): Borrow
+
+  # Find all tools within a given radius, centered at a point
   nearby(center: GeoLocationInput!, radius: Float!): [Tool!]!
   self: User
+
+  # Get a tool by id
   tool(id: Int!): Tool
 }
 
@@ -46,6 +71,7 @@ type Tool {
   borrowHistory: [Borrow!]!
   condition: ToolCondition!
   description: String!
+  hourly_cost: Float!
   id: Int!
   images: [String!]!
   location: GeoLocation!
@@ -58,10 +84,10 @@ type Tool {
 
 enum ToolCondition {
   new
-  fair
-  good
-  poor
   great
+  fair
+  poor
+  good
 }
 
 type ToolRating {

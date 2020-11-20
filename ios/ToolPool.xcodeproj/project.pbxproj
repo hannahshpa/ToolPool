@@ -22,6 +22,7 @@
 		45817F50255E23E50045EB3E /* ManageUpcomingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F4F255E23E50045EB3E /* ManageUpcomingResPage.swift */; };
 		45817F58255E24E70045EB3E /* ManagePastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F57255E24E70045EB3E /* ManagePastResPage.swift */; };
 		45817F66255EFE210045EB3E /* RateRental.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F65255EFE210045EB3E /* RateRental.swift */; };
+		45C44FDD25674BDE008529A9 /* OtherProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */; };
 		F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */; };
 		F545E739255DD89700CEC060 /* ToolListingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E737255DD89700CEC060 /* ToolListingPage.swift */; };
 		F545E73A255DD89700CEC060 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E738255DD89700CEC060 /* FilterView.swift */; };
@@ -84,6 +85,7 @@
 		45817F4F255E23E50045EB3E /* ManageUpcomingResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageUpcomingResPage.swift; sourceTree = "<group>"; };
 		45817F57255E24E70045EB3E /* ManagePastResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePastResPage.swift; sourceTree = "<group>"; };
 		45817F65255EFE210045EB3E /* RateRental.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateRental.swift; sourceTree = "<group>"; };
+		45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfilePage.swift; sourceTree = "<group>"; };
 		F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolCategoryPage.swift; sourceTree = "<group>"; };
 		F545E737255DD89700CEC060 /* ToolListingPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolListingPage.swift; sourceTree = "<group>"; };
 		F545E738255DD89700CEC060 /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */,
 				28A7EC6C2543688E007423B0 /* ToolPoolApp.swift */,
 				45817F65255EFE210045EB3E /* RateRental.swift */,
+				45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */,
 				45817F47255E214F0045EB3E /* ManagePendingResPage.swift */,
 				45817F4F255E23E50045EB3E /* ManageUpcomingResPage.swift */,
 				45817F57255E24E70045EB3E /* ManagePastResPage.swift */,
@@ -388,6 +391,7 @@
 				F58B265B25538E5C000389E3 /* CreateAccountView.swift in Sources */,
 				F5755E402563AB95004ADBD4 /* Network.swift in Sources */,
 				F58B26602553AAA7000389E3 /* InAppView.swift in Sources */,
+				45C44FDD25674BDE008529A9 /* OtherProfilePage.swift in Sources */,
 				F58B2668255478BB000389E3 /* AddToolView.swift in Sources */,
 				28A7EC6F2543688E007423B0 /* ContentView.swift in Sources */,
 				F545E745255DD8AD00CEC060 /* ToolPool.xcdatamodeld in Sources */,

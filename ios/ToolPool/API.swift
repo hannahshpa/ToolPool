@@ -342,6 +342,7 @@ public final class BorrowByIdQuery: GraphQLQuery {
         }
         user {
           __typename
+          id
           name
           phoneNumber
           email
@@ -573,6 +574,7 @@ public final class BorrowByIdQuery: GraphQLQuery {
         public static var selections: [GraphQLSelection] {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("id", type: .nonNull(.scalar(Int.self))),
             GraphQLField("name", type: .nonNull(.scalar(String.self))),
             GraphQLField("phoneNumber", type: .nonNull(.scalar(String.self))),
             GraphQLField("email", type: .nonNull(.scalar(String.self))),
@@ -585,8 +587,8 @@ public final class BorrowByIdQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(name: String, phoneNumber: String, email: String) {
-          self.init(unsafeResultMap: ["__typename": "User", "name": name, "phoneNumber": phoneNumber, "email": email])
+        public init(id: Int, name: String, phoneNumber: String, email: String) {
+          self.init(unsafeResultMap: ["__typename": "User", "id": id, "name": name, "phoneNumber": phoneNumber, "email": email])
         }
 
         public var __typename: String {
@@ -595,6 +597,15 @@ public final class BorrowByIdQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var id: Int {
+          get {
+            return resultMap["id"]! as! Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "id")
           }
         }
 

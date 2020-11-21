@@ -42,4 +42,7 @@ public struct NewToolInput: Codable{
     public let condition: ToolCondition
     public let location: GeoLocationInput
     public let ownerId: Int
+    public let hourlyCost: Double
+    public let images: [String]
+    public let tags: [String]
 }

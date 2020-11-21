@@ -79,6 +79,7 @@ struct GQLAPI : API {
                 Field("tags", at: Tool.getTags)
                 Field("ratings", at: Tool.getRatings)
                 Field("schedule", at: Tool.getSchedule)
+                Field("averageRating", at: Tool.getAverageRating)
             }
 
             Input(GeoLocationInput.self){
@@ -91,6 +92,9 @@ struct GQLAPI : API {
                 InputField("condition", at: \.condition)
                 InputField("ownerId", at: \.ownerId)
                 InputField("location", at: \.location)
+                InputField("hourlyCost", at: \.hourlyCost)
+                InputField("images", at: \.images).description("URL of uploaded image. Must have at least 1")
+                InputField("tags", at: \.tags).description("Tags (ie handtool, powertool, etc). Must have at least 1")
             }
 
             Query {
@@ -110,12 +114,9 @@ struct GQLAPI : API {
             Mutation{
                 Field("addTool", at: Resolver.addTool){
                     Argument("tool", at: \.tool)
-                }.description("Adds a new tool with the given properties, and returns the integer ID of the new tool")
+                }.description("Adds a new tool with the given properties, and returns the created Tool object")
                 Field("deleteTool", at: Resolver.deleteTool){
                     Argument("toolId", at: \.id)
-                }
-                Field("updateTool", at: Resolver.updateTool){
-                    
                 }
                 Field("requestBorrow", at: Resolver.requestBorrow){
                     Argument("toolId", at: \.toolId)

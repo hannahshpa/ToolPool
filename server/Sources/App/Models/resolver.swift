@@ -157,6 +157,7 @@ public struct Resolver{
         public let revieweeId: Int
     }
     public func createUserRating(context: Context, arguments: RatingArgs) -> EventLoopFuture<UserRating>{
+        
         conn.getDB().eventLoop.makeFailedFuture(Abort(.notImplemented))
     }
     public func deleteUserRating(context: Context, arguments: DeleteRatingArgs) -> EventLoopFuture<Bool>{

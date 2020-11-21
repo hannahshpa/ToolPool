@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @ObservedObject var selfData = mySelf()
     let columns = [
         GridItem(.fixed(100)),
         GridItem(.fixed(100)),
@@ -35,9 +36,10 @@ struct ProfileView: View {
                   } catch {
                       print("You can't use that password.")
                   }
+                  
                 }
             }
-            
+            Text(selfData.data.name)
             Divider()
             ScrollView {
                 VStack {
@@ -53,13 +55,11 @@ struct ProfileView: View {
         }
         .navigationBarTitle(Text("Your toolbox"), displayMode: .inline)
         .navigationBarHidden(false)
-        //.navigationBarTitle("Your ToolBox", displayMode: .inline)
-        //.labelsHidden()
-        //.navigationBarItems(trailing:
-        //                      NavigationLink(destination: AddToolView()) {
-        //                        Text("Add Tool")
-        //                      }
-        //)
+        .navigationBarItems(trailing:
+                              NavigationLink(destination: AddToolView()) {
+                                Text("Add Tool")
+                             }
+        )
       }
     }
 }
@@ -106,10 +106,57 @@ struct MyToolCategorySquare: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-      Group {
         ProfileView()
-        ProfileView()
-      }
     }
 }
 
+
+class selfObj {
+    var name: String = ""
+    var email: String = ""
+  
+  init(n: String, e: String) {
+    self.name = n
+    self.email = e
+  }
+}
+
+class mySelf: ObservableObject {
+
+    @Published var data: TestTool
+
+    init() {
+      self.data = TestTool(n: "test", d: "test")
+      self.load()
+    }
+  
+    func load() {
+      let temp = Network.shared.apollo
+      Network.shared.apollo.fetch(query: ToolByIdQuery(id: 1)) { result in
+        switch result {
+        case .success(let graphQLResult):
+          print("Success! Result: \(graphQLResult)")
+          if let tool_temp = graphQLResult.data?.tool {
+            self.data = TestTool(n: tool_temp.name, d: tool_temp.description)
+          }
+        case .failure(let error):
+          print("Failure! Error: \(error)")
+        }
+      }
+      /*
+     Network.shared.apollo.fetch(query: GetSelfQuery()) { result in
+       switch result {
+       case .success(let graphQLResult):
+          print("Success! Result: \(graphQLResult)")
+          if let self_temp = graphQLResult.data?.`self` {
+            self.data = selfObj(n: self_temp.name, e: self_temp.email)
+            print(self_temp.name)
+            print(self_temp.email)
+          }
+       case .failure(let error):
+         print("Failure! Error: \(error)")
+       }
+     }*/
+    }
+  
+}

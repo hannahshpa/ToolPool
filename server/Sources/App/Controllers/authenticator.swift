@@ -14,6 +14,9 @@ class Authenticator{
 
     struct tokenClaims: Claims {
         let id: String
+        let email: String
+        let name: String
+        let phoneNumber: String
         let exp: Date
     }
 
@@ -40,9 +43,15 @@ class Authenticator{
         }
     }
 
-    func createToken(userId: String) throws -> String {
+    func createToken(id: Int, name: String, email: String, phoneNumber: String) throws -> String {
         let header =  Header()
-        let tokenPayload = tokenClaims(id:userId, exp: Date(timeIntervalSinceNow: 3600))
+        let id_str = String(id)
+        let tokenPayload = tokenClaims(
+            id: id_str,
+            email: email,
+            name: name,
+            phoneNumber: phoneNumber,
+            exp: Date(timeIntervalSinceNow: 3600))
         var jwt = JWT(header: header, claims: tokenPayload)
         do {
             let signedJWT = try jwt.sign(using: self.jwtSigner)
@@ -52,28 +61,18 @@ class Authenticator{
         }
     }
 
-    func validateToken(token: String) throws -> EventLoopFuture<User?> {
+    func validateToken(token: String) throws -> User? {
         do {
             let decodedJWT = try JWT<tokenClaims>(jwtString: token, verifier: self.jwtVerifier)
-
+            let payload = decodedJWT.claims
             let date = Date()
-            if date > decodedJWT.claims.exp {
+            if date > payload.exp {
                 throw AuthenticationError.invalidToken
             }
+            let id_int = Int(payload.id)!
 
-            let userEmail = decodedJWT.claims.id
-
-            let userFuture = self.conn.getDB()
-                .query("SELECT * FROM users WHERE email = $1",[PostgresData(string: userEmail)])
-                .map{
-                    result -> User? in
-                    if let dbUser = try? result.first?.sql().decode(model: DBUser.self) {
-                        return dbUser.toUser()
-                    } else {
-                        return nil
-                    }
-                }
-            return userFuture
+            let user = User(id: id_int, name: payload.name, phoneNumber: payload.phoneNumber, email: payload.email)
+            return user
         } catch {
             throw AuthenticationError.invalidToken
         }

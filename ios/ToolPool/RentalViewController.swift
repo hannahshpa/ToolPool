@@ -14,14 +14,14 @@ class RentalViewController: UIViewController {
       
       
       // this is just a test
-      Network.shared.apollo.fetch(query: ToolByIdQuery()) { result in
+     /* Network.shared.apollo.fetch(query: ToolByIdQuery()) { result in
         switch result {
         case .success(let graphQLResult):
           print("Success! Result: \(graphQLResult)")
         case .failure(let error):
           print("Failure! Error: \(error)")
         }
-      }
+      }*/
 
     }
     

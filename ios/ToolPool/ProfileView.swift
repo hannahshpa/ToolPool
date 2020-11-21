@@ -28,6 +28,14 @@ struct ProfileView: View {
                   .aspectRatio(contentMode: .fit)
               Text("Joe's ToolBox")
                 .font(.largeTitle)
+                .onAppear() {
+                  do {
+                      try returnToken()
+                      print("token worked!")
+                  } catch {
+                      print("You can't use that password.")
+                  }
+                }
             }
             
             Divider()

@@ -100,6 +100,12 @@ func loginAuth (un: String, pw:String) {
       print("token: " + String(data: data, encoding: .utf8)!)
       semaphore.signal()
       
+      let secItemClasses = [kSecClassGenericPassword, kSecClassInternetPassword, kSecClassCertificate, kSecClassKey, kSecClassIdentity]
+      for itemClass in secItemClasses {
+          let spec: NSDictionary = [kSecClass: itemClass]
+          SecItemDelete(spec)
+      }
+      
       let query: [String: Any] = [kSecClass as String: kSecClassInternetPassword,
                                   kSecAttrServer as String: "test1",
                                   kSecValueData as String: data,
@@ -117,7 +123,7 @@ func loginAuth (un: String, pw:String) {
   
 }
 
-func returnToken() throws {
+func returnToken() throws -> String {
   let query: [String: Any] = [kSecClass as String: kSecClassInternetPassword,
                               kSecAttrServer as String: "test1",
                               kSecMatchLimit as String: kSecMatchLimitOne,
@@ -136,10 +142,14 @@ func returnToken() throws {
   else {
       print("failed here")
       throw KeychainError.unexpectedPasswordData
+      return ""
   }
+  /*
   print(existingItem)
   print("in return token")
   print(password)
+ */
+  return password
 }
 
 struct Credentials {

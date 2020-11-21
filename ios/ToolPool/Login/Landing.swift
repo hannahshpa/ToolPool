@@ -11,7 +11,7 @@ import SwiftUI
 
 struct Landing: View {
  
-    //@ObservedObject var toolData = ToolData()
+    @ObservedObject var toolData = ToolData()
   
     var body: some View {
       NavigationView {

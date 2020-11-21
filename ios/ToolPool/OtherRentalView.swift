@@ -58,7 +58,7 @@ struct OtherRentalView: View {
     
 }*/
 
-struct RentalView_Previews: PreviewProvider {
+struct OtherRentalView_Previews: PreviewProvider {
     static var previews: some View {
         OtherRentalView()
     }

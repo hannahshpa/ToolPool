@@ -17,7 +17,7 @@ class DatabaseConnection{
         let env = ProcessInfo.processInfo.environment["ENV"]
         let configuration = PostgresConfiguration(
             hostname: env == "production" ? "psql" : "localhost",
-            port: env == "production" ? 5432 : 5433,
+            port: env == "production" ? 5432 : 5432,
             username: "postgres",
             password: "FIef#9ipSFE9*",
             database: "postgres"

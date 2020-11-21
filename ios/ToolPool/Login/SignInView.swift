@@ -118,17 +118,10 @@ func loginAuth (un: String, pw:String) {
       if (status == errSecSuccess) {
         print("added successfully")
       }
-      print("here")
-      //let status =
-      //guard status == errSecSuccess else { throw KeychainError.unhandledError(status: status) }
     }
 
     task.resume()
     semaphore.wait()
-  
-  //let account = credentials.username
-  //let password = credentials.password.data(using: String.Encoding.utf8)!
-  
   
 }
 
@@ -152,10 +145,11 @@ func returnToken() throws {
       print("failed here")
       throw KeychainError.unexpectedPasswordData
   }
+  /*
   print(existingItem)
   print("in return token")
   print(password)
-  //let credentials = Credentials(username: account, password: password)
+ */
 }
 
 struct Credentials {

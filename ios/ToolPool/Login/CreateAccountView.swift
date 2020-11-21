@@ -13,26 +13,28 @@ struct CreateAccountView: View {
   @State var email: String = ""
   @State var city: String = ""
   @State var state: String = ""
+  @State var showInApp: Bool = false
 
   var body: some View {
       VStack {
-        Text(/*@START_MENU_TOKEN@*/"ToolPool"/*@END_MENU_TOKEN@*/)
-          .font(.largeTitle)
-        Form {
-          Section(header: Text("Log in information")) {
-            TextField("Username", text: $username)
-            TextField("Password", text: $password)
-            TextField("Email", text: $email)
-          }
-          Section(header: Text("Location information")) {
-            TextField("City", text: $city)
-            TextField("State", text: $state)
-          }
-        }
-        NavigationLink(destination: InAppView()) {
-          Text("In app")
-        } /*{
+        if showInApp {
+            InAppView()
+        } else {
+            Text(/*@START_MENU_TOKEN@*/"ToolPool"/*@END_MENU_TOKEN@*/)
+              .font(.largeTitle)
+            Form {
+              Section(header: Text("Log in information")) {
+                TextField("Username", text: $username)
+                TextField("Password", text: $password)
+                TextField("Email", text: $email)
+              }
+              Section(header: Text("Location information")) {
+                TextField("City", text: $city)
+                TextField("State", text: $state)
+              }
+            }
           Button(action: {
+            self.showInApp = true
             signUpAuth(em: email, pw: password, nm: "test", ph: "123456789")
             loginAuth(un: email, pw: password)
              // self.mode.wrappedValue.dismiss()
@@ -44,7 +46,8 @@ struct CreateAccountView: View {
               .padding()
               .border(Color.black, width:2)
           }
-        }*/
+            
+        }
       }
   }
 }

@@ -14,14 +14,16 @@ public final class Context {
     init(authToken: String, conn: DatabaseConnection) throws {
         self.conn = conn
         let authenticator = try! Authenticator(conn: self.conn)
-        let userFuture = try authenticator.validateToken(token: authToken)
-        userFuture.whenSuccess({map in
-            self.authedUser = map
-        })
+        self.authedUser = try authenticator.validateToken(token: authToken)
+    }
+
+    init(conn: DatabaseConnection) {
+        self.conn = conn
+        self.authedUser = nil
     }
     
     public func getUser() -> User? {
-        return self.authedUser
+        self.authedUser
     }
     public func getDB() -> PostgresDatabase{
         self.conn.getDB()

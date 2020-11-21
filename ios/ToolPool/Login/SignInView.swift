@@ -11,40 +11,32 @@ import Foundation
 struct SignInView: View {
     @State var username: String = ""
     @State var password: String = ""
+    @State var showInApp: Bool = false
     var body: some View {
         VStack {
-          Text(/*@START_MENU_TOKEN@*/"ToolPool"/*@END_MENU_TOKEN@*/)
-            .font(.largeTitle)
-           /* .onAppear() {
-                loginAuth()
-            }*/
-          Form {
-            Section(header: Text("Log in info")) {
-              TextField("Username", text: $username)
-              TextField("Password", text: $password)
+            if showInApp {
+                InAppView()
+            } else {
+                  Text(/*@START_MENU_TOKEN@*/"ToolPool"/*@END_MENU_TOKEN@*/)
+                    .font(.largeTitle)
+                  Form {
+                    Section(header: Text("Log in info")) {
+                      TextField("Username", text: $username)
+                      TextField("Password", text: $password)
+                    }
+                  }
+                    Button(action: {
+                        loginAuth(un: username, pw: password)
+                        self.showInApp = true
+                    }) { Text("Enter")
+                        .foregroundColor(Color.black)
+                        .lineLimit(nil)
+                        .frame(width: 200.0)
+                        .background(Color.white)
+                        .padding()
+                        .border(Color.black, width:2)
+                    }
             }
-          }
-          NavigationLink(destination: InAppView())  {
-            Button(action: {
-                loginAuth(un: username, pw: password)
-                do {
-                    try returnToken()
-                    print("token worked!")
-                } catch {
-                    print("You can't use that password.")
-                }
-                
-
-               // self.mode.wrappedValue.dismiss()
-            }) { Text("Enter")
-                .foregroundColor(Color.black)
-                .lineLimit(nil)
-                .frame(width: 200.0)
-                .background(Color.white)
-                .padding()
-                .border(Color.black, width:2)
-            }
-          }
         }
     }
 }
@@ -145,11 +137,9 @@ func returnToken() throws {
       print("failed here")
       throw KeychainError.unexpectedPasswordData
   }
-  /*
   print(existingItem)
   print("in return token")
   print(password)
- */
 }
 
 struct Credentials {

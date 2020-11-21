@@ -25,8 +25,8 @@ services:
       context: .
     environment:
       <<: *shared_environment
-    #ports:
-    #  - "8000:8000"
+    ports:
+      - "8000:8000"
     # user: '0' # uncomment to run as root for testing purposes even though Dockerfile defines 'vapor' user.
     command:
       [

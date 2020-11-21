@@ -157,16 +157,45 @@ public struct Resolver{
         public let revieweeId: Int
     }
     public func createUserRating(context: Context, arguments: RatingArgs) -> EventLoopFuture<UserRating>{
-        
-        conn.getDB().eventLoop.makeFailedFuture(Abort(.notImplemented))
+        if(context.getUser()?.id != arguments.reviewerId){
+            return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+        }
+        return conn.getDB().query("INSERT INTO user_ratings (reviewer, reviewee, rating, review) VALUES ($1, $2, $3, NULLIF($4, ''))", [
+            arguments.reviewerId.postgresData!,
+            arguments.revieweeId.postgresData!,
+            arguments.rating.postgresData!,
+            (arguments.review ?? "").postgresData!
+        ]).map{_ in
+            UserRating(reviewerId: arguments.reviewerId, revieweeId: arguments.revieweeId, rating: arguments.rating, review: arguments.review)
+        }
     }
     public func deleteUserRating(context: Context, arguments: DeleteRatingArgs) -> EventLoopFuture<Bool>{
-        conn.getDB().eventLoop.makeFailedFuture(Abort(.notImplemented))
+        if(context.getUser()?.id != arguments.reviewerId){
+            return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+        }
+        return conn.getDB().query("DELETE FROM user_ratings WHERE reviewer = $1 AND reviewee = $2",
+                                  [arguments.reviewerId.postgresData!, arguments.revieweeId.postgresData!]).map{_ in true}
     }
     public func createToolRating(context: Context, arguments: RatingArgs) -> EventLoopFuture<ToolRating>{
-        conn.getDB().eventLoop.makeFailedFuture(Abort(.notImplemented))
+        if(context.getUser()?.id != arguments.reviewerId){
+            return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+        }
+        return conn.getDB().query("INSERT INTO tool_ratings (\"user\", tool, rating, review) VALUES ($1, $2, $3, NULLIF($4, ''))",
+                                  [arguments.reviewerId.postgresData!,
+                                   arguments.revieweeId.postgresData!,
+                                   arguments.rating.postgresData!,
+                                   (arguments.review ?? "").postgresData!]).map{_ in
+                                    ToolRating(toolId: arguments.revieweeId,
+                                               userId: arguments.reviewerId,
+                                               rating: arguments.rating,
+                                               review: arguments.review)
+                                   }
     }
     public func deleteToolRating(context: Context, arguments: DeleteRatingArgs) -> EventLoopFuture<Bool>{
-        conn.getDB().eventLoop.makeFailedFuture(Abort(.notImplemented))
+        if(context.getUser()?.id != arguments.reviewerId){
+            return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+        }
+        return conn.getDB().query("DELETE FROM tool_ratings WHERE \"user\" = $1 AND tool = $2", [
+                                    arguments.reviewerId.postgresData!, arguments.revieweeId.postgresData!]).map{_ in true}
     }
 }

@@ -141,14 +141,14 @@ struct GQLAPI : API {
                     Argument("revieweeId", at: \.revieweeId)
                 }
                 Field("createToolRating", at: Resolver.createToolRating){
-                    Argument("userId", at: \.reviewerId)
-                    Argument("toolId", at: \.revieweeId)
+                    Argument("reviewerId", at: \.reviewerId)
+                    Argument("revieweeId", at: \.revieweeId)
                     Argument("review", at: \.review)
                     Argument("rating", at: \.rating)
                 }
                 Field("deleteToolRating", at: Resolver.deleteToolRating){
-                    Argument("userId", at: \.reviewerId)
-                    Argument("toolId", at: \.revieweeId)
+                    Argument("reviewerId", at: \.reviewerId)
+                    Argument("revieweeId", at: \.revieweeId)
                 }
             }
         }

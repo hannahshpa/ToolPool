@@ -23,10 +23,12 @@ struct GraphQLHTTPBody: Decodable {
 }
 
 var db: DatabaseConnection? = nil
+var userController: UserController? = nil
+
 func routes(_ app: Application) throws {
     db = DatabaseConnection(loop: app.eventLoopGroup)
-
-    let userController = UserController(conn: db!)
+    userController = UserController(conn: db!)
+    
     let resolver = Resolver(conn: db!)
     let api = try! GQLAPI(resolver: resolver)
     app.get { req in
@@ -38,13 +40,13 @@ func routes(_ app: Application) throws {
         let httpBody = try req.content.decode(SignupHTTPBody.self)
         let promise = req.eventLoop.makePromise(of: Response.self)
 
-        let signupFuture = userController.signup(httpBody)
+        let signupFuture = userController!.signup(httpBody)
 
         signupFuture.whenFailure({ error in
             promise.fail(error)
         })
 
-        signupFuture.whenSuccess({ error in
+        signupFuture.whenSuccess({ map in
             promise.succeed(.init(status: .ok, version: .init(major: 1, minor: 1), headers: .init([("Content-Type", "application/json")]), body: .init(string: "success")))
         })
 
@@ -56,7 +58,7 @@ func routes(_ app: Application) throws {
         let httpBody = try req.content.decode(LoginHTTPBody.self)
         let promise = req.eventLoop.makePromise(of: Response.self)
 
-        let loginFuture = userController.login(httpBody)
+        let loginFuture = userController!.login(httpBody)
 
         loginFuture.whenFailure({ error in
             promise.fail(error)
@@ -72,22 +74,28 @@ func routes(_ app: Application) throws {
     // GraphQL queries
     app.post("graphql"){req -> EventLoopFuture<Response> in
         let promise = req.eventLoop.makePromise(of: Response.self)
-        let tokenHeader = req.headers["Authorization"][0]
-        let httpBody = try req.content.decode(GraphQLHTTPBody.self)
+
         var context: Context
-        do {
-            let tokenStringArray = tokenHeader.components(separatedBy: " ")
-            if tokenStringArray.count != 2 || tokenStringArray[0] != "Bearer" {
-                throw RequestError.invalidAuthToken
+        let authTokenGiven: Bool = req.headers["Authorization"].count == 0 ? false: true
+        let httpBody = try req.content.decode(GraphQLHTTPBody.self)
+        if authTokenGiven {
+            let tokenHeader = req.headers["Authorization"][0]
+            do {
+                let tokenStringArray = tokenHeader.components(separatedBy: " ")
+                if tokenStringArray.count != 2 || tokenStringArray[0] != "Bearer" {
+                    throw RequestError.invalidAuthToken
+                }
+                let authToken = tokenStringArray[1]
+                context = try Context(authToken: authToken, conn: db!) // TODO: User authentication
+            } catch AuthenticationError.invalidToken, RequestError.invalidAuthToken {
+                promise.fail(RequestError.invalidAuthToken)
+                return promise.futureResult
+            } catch DecodingError.valueNotFound {
+                promise.fail(RequestError.missingAuthToken)
+                return promise.futureResult
             }
-            let authToken = tokenStringArray[1]
-            context = try Context(authToken: authToken, conn: db!) // TODO: User authentication
-        } catch AuthenticationError.invalidToken, RequestError.invalidAuthToken {
-            promise.fail(RequestError.invalidAuthToken)
-            return promise.futureResult
-        } catch DecodingError.valueNotFound {
-            promise.fail(RequestError.missingAuthToken)
-            return promise.futureResult
+        } else {
+            context = Context(conn: db!)
         }
 
         let graphQLFuture = api.schema.execute(

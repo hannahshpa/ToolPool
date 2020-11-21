@@ -6,6 +6,7 @@ CREATE TYPE BorrowStatus AS ENUM ('accepted', 'rejected', 'pending');
 
 CREATE TABLE IF NOT EXISTS users(
     user_id BIGSERIAL PRIMARY KEY,
+    password VARCHAR(64) NOT NULL,
     name VARCHAR(64) NOT NULL,
     phone_number VARCHAR(12),
     email VARCHAR(320) NOT NULL

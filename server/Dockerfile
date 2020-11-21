@@ -22,6 +22,8 @@ RUN swift package resolve
 # Copy entire repo into container
 COPY . .
 
+RUN apt-get update && apt-get -y install libssl-dev
+
 # Build everything, with optimizations and test discovery
 RUN swift build --enable-test-discovery -c release
 

@@ -14,8 +14,9 @@ class DatabaseConnection{
     let pools: EventLoopGroupConnectionPool<PostgresConnectionSource>;
     private static let instance: DatabaseConnection? = nil
     init(loop: EventLoopGroup) {
+        let env = ProcessInfo.processInfo.environment["ENV"]
         let configuration = PostgresConfiguration(
-            hostname: ProcessInfo.processInfo.environment["ENV"] == "production" ? "psql" : "localhost",
+            hostname: env == "production" ? "psql" : "localhost",
             port: 5432,
             username: "postgres",
             password: "FIef#9ipSFE9*",

@@ -125,7 +125,7 @@ func loginAuth (un: String, pw:String) {
   
 }
 
-func returnToken() throws {
+func returnToken() throws -> String {
   let query: [String: Any] = [kSecClass as String: kSecClassInternetPassword,
                               kSecAttrServer as String: "test1",
                               kSecMatchLimit as String: kSecMatchLimitOne,
@@ -144,12 +144,14 @@ func returnToken() throws {
   else {
       print("failed here")
       throw KeychainError.unexpectedPasswordData
+      return ""
   }
   /*
   print(existingItem)
   print("in return token")
   print(password)
  */
+  return password
 }
 
 struct Credentials {

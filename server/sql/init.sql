@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS tool_schedule(
 CREATE TABLE IF NOT EXISTS tool_ratings(
     tool BIGINT NOT NULL REFERENCES tools (tool_id),
     "user" BIGINT NOT NULL REFERENCES users (user_id),
-    rating SMALLINT NOT NULL,
+    rating SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 5),
     review TEXT,
     PRIMARY KEY(tool, "user")
 );
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS tool_tags(
 CREATE TABLE IF NOT EXISTS user_ratings(
     reviewer BIGINT NOT NULL REFERENCES users (user_id),
     reviewee BIGINT NOT NULL REFERENCES users (user_id),
-    rating SMALLINT NOT NULL,
+    rating SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 5),
     review TEXT,
     PRIMARY KEY(reviewer, reviewee)
 );

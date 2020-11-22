@@ -30,4 +30,4 @@ INSERT INTO tool_ratings (tool, "user", rating, review) VALUES
     (1, 2, 5, 'Lawn Mower was excellent, 10/10');
 
 INSERT INTO user_ratings (reviewer, reviewee, rating, review) VALUES
-    (2, 3, 1, 'They broke my hammer! what a jerk...');
+    (1, 2, 1, 'They broke my power washer! what a jerk...');

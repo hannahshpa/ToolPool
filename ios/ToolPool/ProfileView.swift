@@ -27,19 +27,10 @@ struct ProfileView: View {
                   .resizable()
                   .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
                   .aspectRatio(contentMode: .fit)
-              Text("Joe's ToolBox")
+              Text(selfData.data.name + "'s ToolBox")
                 .font(.largeTitle)
-                .onAppear() {
-                  do {
-                      try returnToken()
-                      print("token worked!")
-                  } catch {
-                      print("You can't use that password.")
-                  }
-                  
-                }
             }
-            Text(selfData.data.name)
+            //Text(selfData.data.name)
             Divider()
             ScrollView {
                 VStack {
@@ -123,27 +114,14 @@ class selfObj {
 
 class mySelf: ObservableObject {
 
-    @Published var data: TestTool
+    @Published var data: selfObj
 
     init() {
-      self.data = TestTool(n: "test", d: "test")
+      self.data = selfObj(n: "test", e: "test")
       self.load()
     }
   
     func load() {
-      let temp = Network.shared.apollo
-      Network.shared.apollo.fetch(query: ToolByIdQuery(id: 1)) { result in
-        switch result {
-        case .success(let graphQLResult):
-          print("Success! Result: \(graphQLResult)")
-          if let tool_temp = graphQLResult.data?.tool {
-            self.data = TestTool(n: tool_temp.name, d: tool_temp.description)
-          }
-        case .failure(let error):
-          print("Failure! Error: \(error)")
-        }
-      }
-      /*
      Network.shared.apollo.fetch(query: GetSelfQuery()) { result in
        switch result {
        case .success(let graphQLResult):
@@ -156,7 +134,7 @@ class mySelf: ObservableObject {
        case .failure(let error):
          print("Failure! Error: \(error)")
        }
-     }*/
+     }
     }
   
 }

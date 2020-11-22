@@ -58,5 +58,12 @@ query GetSelf {
   self {
     name
     email
+    id
   }
+}
+
+mutation AddTool($tool: NewToolInput!){
+    addTool(tool: $tool){
+        id
+    }
 }

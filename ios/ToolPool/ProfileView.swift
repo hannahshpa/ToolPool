@@ -18,7 +18,7 @@ struct ProfileView: View {
     let numbers1 = [Int](repeating: 0, count: 100)
   
     var body: some View {
-      NavigationView{
+      //NavigationView{
         GeometryReader {
             geometry in
           VStack {
@@ -30,7 +30,15 @@ struct ProfileView: View {
               Text(selfData.data.name + "'s ToolBox")
                 .font(.largeTitle)
             }
-            //Text(selfData.data.name)
+            Divider()
+            NavigationLink(destination: AddToolView(ownerId: selfData.data.id)) {
+                Text("Add New Tool")
+                    .frame(minWidth:0, maxWidth:325)
+                    .background(Color.orange)
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .cornerRadius(40)
+            }
             Divider()
             ScrollView {
                 VStack {
@@ -47,12 +55,11 @@ struct ProfileView: View {
         .navigationBarTitle(Text("Your toolbox"), displayMode: .inline)
         .navigationBarHidden(false)
         .navigationBarItems(trailing:
-                              NavigationLink(destination: AddToolView()) {
+                              NavigationLink(destination: AddToolView(ownerId: selfData.data.id)) {
                                 Text("Add Tool")
                              }
         )
       }
-    }
 }
 
 
@@ -103,12 +110,14 @@ struct ProfileView_Previews: PreviewProvider {
 
 
 class selfObj {
-    var name: String = ""
-    var email: String = ""
+  var name: String = ""
+  var email: String = ""
+  var id: Int = 0
   
-  init(n: String, e: String) {
+  init(n: String, e: String, i: Int) {
     self.name = n
     self.email = e
+    self.id = i
   }
 }
 
@@ -117,7 +126,7 @@ class mySelf: ObservableObject {
     @Published var data: selfObj
 
     init() {
-      self.data = selfObj(n: "test", e: "test")
+      self.data = selfObj(n: "test", e: "test", i: 0)
       self.load()
     }
   
@@ -127,7 +136,7 @@ class mySelf: ObservableObject {
        case .success(let graphQLResult):
           print("Success! Result: \(graphQLResult)")
           if let self_temp = graphQLResult.data?.`self` {
-            self.data = selfObj(n: self_temp.name, e: self_temp.email)
+            self.data = selfObj(n: self_temp.name, e: self_temp.email, i: self_temp.id)
             print(self_temp.name)
             print(self_temp.email)
           }

@@ -11,7 +11,9 @@ struct AddToolView: View {
   
   @Environment(\.presentationMode) var mode: Binding<PresentationMode>
   @Environment(\.managedObjectContext) var moc
-
+  
+  let ownerId: Int
+  @State var showInApp: Bool = false
 
   @State var name: String = ""
   @State var cost: String = ""
@@ -22,7 +24,27 @@ struct AddToolView: View {
   @State var condition: String = ""
   var categoryOptions = ["Camping", "Cleaning", "Cleaning", "Gardening", "Hand Tools", "Kitchen", "Outdoor", "Painting", "Power Tools", "Safety", "Miscellaneous"]
   
+  func toJson() -> [String: Any] {
+    let jsonObject: [String: Any] = [
+        "name": name,
+        "description": "test",
+        "location": [
+            "lat": 10,
+            "lon": 10
+        ],
+        "condition": "fair",
+        "hourlyCost": 1.28,
+        "tags": ["test"],
+        "images": ["http://foo.bar"],
+        "ownerId": ownerId
+    ]
+    return jsonObject
+  }
+  
     var body: some View {
+      if showInApp {
+          ProfileView()
+      } else {
       VStack {
         Text("Add a New Tool")
           .font(.largeTitle)
@@ -52,49 +74,55 @@ struct AddToolView: View {
             Text("Add Images here")
           }
         }
+        
         Button(action: {
           
-          self.mode.wrappedValue.dismiss()
-          /*
-          let newTool = Tool(context: self.moc)
-          newTool.category = self.category
-          newTool.city = self.city
-          newTool.condition = self.state
-          newTool.descriptiontext = self.description
-          newTool.owner = "test"
-          newTool.price = 0
-          newTool.rating = 0
-          newTool.state = ""
-          newTool.title = self.name
+          let loca = GeoLocationInput(lat: 10, lon: 10)
+          
+          let cond = ToolCondition(rawValue: "fair")
+          
+          let newInput = NewToolInput(condition: cond!, description: "test", hourlyCost: 1.28, images: ["test"], location: loca, name: "test", ownerId: ownerId, tags: ["test"])
+          
+          addTool(input: newInput)
+          
+          //self.mode.wrappedValue.dismiss()
+          self.showInApp = true
 
-          //try? self.moc.save()
-          */
-        }) {
+        }){
           Text("Submit Tool")
         }
-        /*
-        NavigationLink(destination: ProfileView()) {
-          Text("Submit New Tool")
-            .foregroundColor(Color.black)
-            .lineLimit(nil)
-            .frame(width: 200.0)
-            .background(Color.white)
-            .padding()
-            .border(Color.black, width:2)
-        }*/
+        }
       }
     }
 }
 
 struct AddToolView_Previews: PreviewProvider {
     static var previews: some View {
-        AddToolView()
+      AddToolView(ownerId: 1)
     }
 }
 
 /*
-func addTool() {
-  Network.shared.apollo.perform(mutation: AddToolMutation(tool: ["test", "test"])) { result in
+class ToolToAdd {
+  var name: String = ""
+  var description: String = ""
+  var lon: Float = 0
+  var lat: Float = 0
+  var condition: String = ""
+  var hourlyCost: Float = 0
+  var tags: String = ""
+  var images: String = ""
+  var ownerID: String = ""
+  
+  init() {
+    
+  }
+
+}*/
+
+func addTool(input: NewToolInput) {
+  
+  Network.shared.apollo.perform(mutation: AddToolMutation(tool: input)) { result in
     switch result {
     case .success(let graphQLResult):
       print("Success! Result: \(graphQLResult)")
@@ -102,4 +130,4 @@ func addTool() {
       print("Failure! Error: \(error)")
     }
   }
-}*/
+}

@@ -6,43 +6,43 @@ import Foundation
 
 public enum ToolCondition: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
   public typealias RawValue = String
-  case new
-  case great
-  case fair
   case poor
+  case fair
+  case new
   case good
+  case great
   /// Auto generated constant for unknown enum values
   case __unknown(RawValue)
 
   public init?(rawValue: RawValue) {
     switch rawValue {
-      case "new": self = .new
-      case "great": self = .great
-      case "fair": self = .fair
       case "poor": self = .poor
+      case "fair": self = .fair
+      case "new": self = .new
       case "good": self = .good
+      case "great": self = .great
       default: self = .__unknown(rawValue)
     }
   }
 
   public var rawValue: RawValue {
     switch self {
-      case .new: return "new"
-      case .great: return "great"
-      case .fair: return "fair"
       case .poor: return "poor"
+      case .fair: return "fair"
+      case .new: return "new"
       case .good: return "good"
+      case .great: return "great"
       case .__unknown(let value): return value
     }
   }
 
   public static func == (lhs: ToolCondition, rhs: ToolCondition) -> Bool {
     switch (lhs, rhs) {
-      case (.new, .new): return true
-      case (.great, .great): return true
-      case (.fair, .fair): return true
       case (.poor, .poor): return true
+      case (.fair, .fair): return true
+      case (.new, .new): return true
       case (.good, .good): return true
+      case (.great, .great): return true
       case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
       default: return false
     }
@@ -50,100 +50,12 @@ public enum ToolCondition: RawRepresentable, Equatable, Hashable, CaseIterable, 
 
   public static var allCases: [ToolCondition] {
     return [
-      .new,
-      .great,
-      .fair,
       .poor,
+      .fair,
+      .new,
       .good,
+      .great,
     ]
-  }
-}
-
-public struct NewToolInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
-
-  /// - Parameters:
-  ///   - condition
-  ///   - description
-  ///   - location
-  ///   - name
-  ///   - ownerId
-  public init(condition: ToolCondition, description: String, location: GeoLocationInput, name: String, ownerId: Int) {
-    graphQLMap = ["condition": condition, "description": description, "location": location, "name": name, "ownerId": ownerId]
-  }
-
-  public var condition: ToolCondition {
-    get {
-      return graphQLMap["condition"] as! ToolCondition
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "condition")
-    }
-  }
-
-  public var description: String {
-    get {
-      return graphQLMap["description"] as! String
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "description")
-    }
-  }
-
-  public var location: GeoLocationInput {
-    get {
-      return graphQLMap["location"] as! GeoLocationInput
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "location")
-    }
-  }
-
-  public var name: String {
-    get {
-      return graphQLMap["name"] as! String
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "name")
-    }
-  }
-
-  public var ownerId: Int {
-    get {
-      return graphQLMap["ownerId"] as! Int
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "ownerId")
-    }
-  }
-}
-
-public struct GeoLocationInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
-
-  /// - Parameters:
-  ///   - lat
-  ///   - lon
-  public init(lat: Double, lon: Double) {
-    graphQLMap = ["lat": lat, "lon": lon]
-  }
-
-  public var lat: Double {
-    get {
-      return graphQLMap["lat"] as! Double
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "lat")
-    }
-  }
-
-  public var lon: Double {
-    get {
-      return graphQLMap["lon"] as! Double
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "lon")
-    }
   }
 }
 
@@ -1075,58 +987,6 @@ public final class GetMyToolsQuery: GraphQLQuery {
             resultMap.updateValue(newValue, forKey: "name")
           }
         }
-      }
-    }
-  }
-}
-
-public final class AddToolMutation: GraphQLMutation {
-  /// The raw GraphQL definition of this operation.
-  public let operationDefinition: String =
-    """
-    mutation AddTool($input: NewToolInput!) {
-      addTool(tool: $input)
-    }
-    """
-
-  public let operationName: String = "AddTool"
-
-  public var input: NewToolInput
-
-  public init(input: NewToolInput) {
-    self.input = input
-  }
-
-  public var variables: GraphQLMap? {
-    return ["input": input]
-  }
-
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes: [String] = ["Mutation"]
-
-    public static var selections: [GraphQLSelection] {
-      return [
-        GraphQLField("addTool", arguments: ["tool": GraphQLVariable("input")], type: .nonNull(.scalar(Int.self))),
-      ]
-    }
-
-    public private(set) var resultMap: ResultMap
-
-    public init(unsafeResultMap: ResultMap) {
-      self.resultMap = unsafeResultMap
-    }
-
-    public init(addTool: Int) {
-      self.init(unsafeResultMap: ["__typename": "Mutation", "addTool": addTool])
-    }
-
-    /// Adds a new tool with the given properties, and returns the integer ID of the new tool
-    public var addTool: Int {
-      get {
-        return resultMap["addTool"]! as! Int
-      }
-      set {
-        resultMap.updateValue(newValue, forKey: "addTool")
       }
     }
   }

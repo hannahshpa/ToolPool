@@ -54,10 +54,6 @@ query GetMyTools {
   }
 }
 
-mutation AddTool($input: NewToolInput!) {
-  addTool(tool: $input)
-}
-
 query GetSelf {
   self {
     name

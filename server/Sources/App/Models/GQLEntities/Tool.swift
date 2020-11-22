@@ -58,4 +58,9 @@ public struct Tool: Codable{
             }
         }
     }
+    public func getAverageRating(context: Context, arguments: NoArguments) -> EventLoopFuture<Double>{
+        context.getDB().query("SELECT COALESCE(AVG(rating), 0) as avg FROM tool_ratings WHERE tool = $1;", [self.id.postgresData!]).map{result in
+            result.first!.column("avg")!.double!
+        }
+    }
 }

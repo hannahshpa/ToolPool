@@ -24,7 +24,7 @@ public struct Resolver{
     public func tool(context: Context, arguments: IdArg) -> EventLoopFuture<Tool?>{
         DBTool.getById(id: arguments.id, db: conn.getDB())
     }
-
+    
     public func borrow(context: Context, arguments: IdArg) -> EventLoopFuture<Borrow?>{
         conn.getDB().query("SELECT *, LOWER(loan_period) AS loan_start, UPPER(loan_period) as loan_end FROM borrow WHERE borrow_id = $1", [arguments.id.postgresData!]).map{result in
             try? result.first?.sql().decode(model: DBBorrow.self).toBorrow()
@@ -49,24 +49,41 @@ public struct Resolver{
     public struct NewToolArgs: Codable{
         public let tool: NewToolInput
     }
-    public func addTool(context: Context, arguments: NewToolArgs) -> EventLoopFuture<Int>{
+    public func addTool(context: Context, arguments: NewToolArgs) -> EventLoopFuture<Tool>{
         let tool = arguments.tool
         guard let user = context.getUser() else{
             return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
         }
-        if  user.id != tool.ownerId{
+        if user.id != tool.ownerId{
             return self.conn.getDB().eventLoop.makeFailedFuture(Abort(.badRequest))
         }
-        return conn.getDB().query("""
-            INSERT INTO tools (name, description, condition, location, owner) VALUES ($1, $2, $3::toolcondition, point($4, $5), $6) RETURNING tool_id;
-            """,
-                                  [PostgresData(string: tool.name),
-                                   PostgresData(string: tool.description),
-                                   PostgresData(string: tool.condition.rawValue),
-                                   PostgresData(double: tool.location.lat), PostgresData(double: tool.location.lon),
-                                   PostgresData(int: tool.ownerId)]
-        ).map{result in result.first!.column("tool_id")!.int! }
+        if tool.tags.count == 0 || tool.images.count == 0{
+            return self.conn.getDB().eventLoop.makeFailedFuture(Abort(.badRequest,
+                                                                      headers: .init(),
+                                                                      reason: "At least 1 tag and 1 image must be attached!",
+                                                                      suggestedFixes: []))
+        }
+        
+        let query = """
+            WITH id AS (INSERT INTO tools (name, description, condition, hourly_cost, location, owner) VALUES
+                       ($1, $2, $3::toolcondition, $4, POINT($5, $6), $7) RETURNING tool_id),
+                _ AS (INSERT INTO tool_tags (tool, tag) VALUES
+                    \(tool.tags.enumerated().map{(i, _) in "((SELECT tool_id FROM id), $\(i + 8))"}.joined(separator: ",")))
+            INSERT INTO tool_images (tool, image_uri) VALUES
+                    \(tool.images.enumerated().map{(i, _) in "((SELECT tool_id FROM id), $\(i + 8 + tool.tags.count))"}.joined(separator: ",")) RETURNING tool;
+        """
+        return conn.getDB().query(query, [ tool.name.postgresData!,
+                                           tool.description.postgresData!,
+                                           tool.condition.rawValue.postgresData!,
+                                           tool.hourlyCost.postgresData!,
+                                           tool.location.lat.postgresData!, tool.location.lon.postgresData!,
+                                           tool.ownerId.postgresData!]
+                                    + tool.tags.map{tag in tag.postgresData!}
+                                    + tool.images.map{img in img.postgresData!}).map{result in
+                                        Tool(id: result.first!.column("tool")!.int!, description: tool.description, name: tool.name, condition: tool.condition, location: .init(lat: tool.location.lon, lon: tool.location.lon), ownerId: tool.ownerId, hourlyCost: tool.hourlyCost)
+                                    }
     }
+    
     public func deleteTool(context: Context, arguments: IdArg) -> EventLoopFuture<Bool>{
         guard let user = context.getUser() else{
             return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
@@ -140,15 +157,45 @@ public struct Resolver{
         public let revieweeId: Int
     }
     public func createUserRating(context: Context, arguments: RatingArgs) -> EventLoopFuture<UserRating>{
-        conn.getDB().eventLoop.makeFailedFuture(Abort(.notImplemented))
+        if(context.getUser()?.id != arguments.reviewerId){
+            return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+        }
+        return conn.getDB().query("INSERT INTO user_ratings (reviewer, reviewee, rating, review) VALUES ($1, $2, $3, NULLIF($4, ''))", [
+            arguments.reviewerId.postgresData!,
+            arguments.revieweeId.postgresData!,
+            arguments.rating.postgresData!,
+            (arguments.review ?? "").postgresData!
+        ]).map{_ in
+            UserRating(reviewerId: arguments.reviewerId, revieweeId: arguments.revieweeId, rating: arguments.rating, review: arguments.review)
+        }
     }
     public func deleteUserRating(context: Context, arguments: DeleteRatingArgs) -> EventLoopFuture<Bool>{
-        conn.getDB().eventLoop.makeFailedFuture(Abort(.notImplemented))
+        if(context.getUser()?.id != arguments.reviewerId){
+            return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+        }
+        return conn.getDB().query("DELETE FROM user_ratings WHERE reviewer = $1 AND reviewee = $2",
+                                  [arguments.reviewerId.postgresData!, arguments.revieweeId.postgresData!]).map{_ in true}
     }
     public func createToolRating(context: Context, arguments: RatingArgs) -> EventLoopFuture<ToolRating>{
-        conn.getDB().eventLoop.makeFailedFuture(Abort(.notImplemented))
+        if(context.getUser()?.id != arguments.reviewerId){
+            return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+        }
+        return conn.getDB().query("INSERT INTO tool_ratings (\"user\", tool, rating, review) VALUES ($1, $2, $3, NULLIF($4, ''))",
+                                  [arguments.reviewerId.postgresData!,
+                                   arguments.revieweeId.postgresData!,
+                                   arguments.rating.postgresData!,
+                                   (arguments.review ?? "").postgresData!]).map{_ in
+                                    ToolRating(toolId: arguments.revieweeId,
+                                               userId: arguments.reviewerId,
+                                               rating: arguments.rating,
+                                               review: arguments.review)
+                                   }
     }
     public func deleteToolRating(context: Context, arguments: DeleteRatingArgs) -> EventLoopFuture<Bool>{
-        conn.getDB().eventLoop.makeFailedFuture(Abort(.notImplemented))
+        if(context.getUser()?.id != arguments.reviewerId){
+            return conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+        }
+        return conn.getDB().query("DELETE FROM tool_ratings WHERE \"user\" = $1 AND tool = $2", [
+                                    arguments.reviewerId.postgresData!, arguments.revieweeId.postgresData!]).map{_ in true}
     }
 }

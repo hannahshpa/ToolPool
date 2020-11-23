@@ -6,43 +6,43 @@ import Foundation
 
 public enum ToolCondition: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
   public typealias RawValue = String
-  case new
-  case great
-  case fair
   case poor
+  case fair
+  case new
   case good
+  case great
   /// Auto generated constant for unknown enum values
   case __unknown(RawValue)
 
   public init?(rawValue: RawValue) {
     switch rawValue {
-      case "new": self = .new
-      case "great": self = .great
-      case "fair": self = .fair
       case "poor": self = .poor
+      case "fair": self = .fair
+      case "new": self = .new
       case "good": self = .good
+      case "great": self = .great
       default: self = .__unknown(rawValue)
     }
   }
 
   public var rawValue: RawValue {
     switch self {
-      case .new: return "new"
-      case .great: return "great"
-      case .fair: return "fair"
       case .poor: return "poor"
+      case .fair: return "fair"
+      case .new: return "new"
       case .good: return "good"
+      case .great: return "great"
       case .__unknown(let value): return value
     }
   }
 
   public static func == (lhs: ToolCondition, rhs: ToolCondition) -> Bool {
     switch (lhs, rhs) {
-      case (.new, .new): return true
-      case (.great, .great): return true
-      case (.fair, .fair): return true
       case (.poor, .poor): return true
+      case (.fair, .fair): return true
+      case (.new, .new): return true
       case (.good, .good): return true
+      case (.great, .great): return true
       case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
       default: return false
     }
@@ -50,11 +50,11 @@ public enum ToolCondition: RawRepresentable, Equatable, Hashable, CaseIterable, 
 
   public static var allCases: [ToolCondition] {
     return [
-      .new,
-      .great,
-      .fair,
       .poor,
+      .fair,
+      .new,
       .good,
+      .great,
     ]
   }
 }
@@ -65,11 +65,14 @@ public struct NewToolInput: GraphQLMapConvertible {
   /// - Parameters:
   ///   - condition
   ///   - description
+  ///   - hourlyCost
+  ///   - images: URL of uploaded image. Must have at least 1
   ///   - location
   ///   - name
   ///   - ownerId
-  public init(condition: ToolCondition, description: String, location: GeoLocationInput, name: String, ownerId: Int) {
-    graphQLMap = ["condition": condition, "description": description, "location": location, "name": name, "ownerId": ownerId]
+  ///   - tags: Tags (ie handtool, powertool, etc). Must have at least 1
+  public init(condition: ToolCondition, description: String, hourlyCost: Double, images: [String], location: GeoLocationInput, name: String, ownerId: Int, tags: [String]) {
+    graphQLMap = ["condition": condition, "description": description, "hourlyCost": hourlyCost, "images": images, "location": location, "name": name, "ownerId": ownerId, "tags": tags]
   }
 
   public var condition: ToolCondition {
@@ -87,6 +90,25 @@ public struct NewToolInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "description")
+    }
+  }
+
+  public var hourlyCost: Double {
+    get {
+      return graphQLMap["hourlyCost"] as! Double
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "hourlyCost")
+    }
+  }
+
+  /// URL of uploaded image. Must have at least 1
+  public var images: [String] {
+    get {
+      return graphQLMap["images"] as! [String]
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "images")
     }
   }
 
@@ -114,6 +136,16 @@ public struct NewToolInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "ownerId")
+    }
+  }
+
+  /// Tags (ie handtool, powertool, etc). Must have at least 1
+  public var tags: [String] {
+    get {
+      return graphQLMap["tags"] as! [String]
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "tags")
     }
   }
 }
@@ -1080,58 +1112,6 @@ public final class GetMyToolsQuery: GraphQLQuery {
   }
 }
 
-public final class AddToolMutation: GraphQLMutation {
-  /// The raw GraphQL definition of this operation.
-  public let operationDefinition: String =
-    """
-    mutation AddTool($input: NewToolInput!) {
-      addTool(tool: $input)
-    }
-    """
-
-  public let operationName: String = "AddTool"
-
-  public var input: NewToolInput
-
-  public init(input: NewToolInput) {
-    self.input = input
-  }
-
-  public var variables: GraphQLMap? {
-    return ["input": input]
-  }
-
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes: [String] = ["Mutation"]
-
-    public static var selections: [GraphQLSelection] {
-      return [
-        GraphQLField("addTool", arguments: ["tool": GraphQLVariable("input")], type: .nonNull(.scalar(Int.self))),
-      ]
-    }
-
-    public private(set) var resultMap: ResultMap
-
-    public init(unsafeResultMap: ResultMap) {
-      self.resultMap = unsafeResultMap
-    }
-
-    public init(addTool: Int) {
-      self.init(unsafeResultMap: ["__typename": "Mutation", "addTool": addTool])
-    }
-
-    /// Adds a new tool with the given properties, and returns the integer ID of the new tool
-    public var addTool: Int {
-      get {
-        return resultMap["addTool"]! as! Int
-      }
-      set {
-        resultMap.updateValue(newValue, forKey: "addTool")
-      }
-    }
-  }
-}
-
 public final class GetSelfQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
@@ -1141,6 +1121,7 @@ public final class GetSelfQuery: GraphQLQuery {
         __typename
         name
         email
+        id
       }
     }
     """
@@ -1186,6 +1167,7 @@ public final class GetSelfQuery: GraphQLQuery {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
           GraphQLField("email", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(Int.self))),
         ]
       }
 
@@ -1195,8 +1177,8 @@ public final class GetSelfQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(name: String, email: String) {
-        self.init(unsafeResultMap: ["__typename": "User", "name": name, "email": email])
+      public init(name: String, email: String, id: Int) {
+        self.init(unsafeResultMap: ["__typename": "User", "name": name, "email": email, "id": id])
       }
 
       public var __typename: String {
@@ -1223,6 +1205,109 @@ public final class GetSelfQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "email")
+        }
+      }
+
+      public var id: Int {
+        get {
+          return resultMap["id"]! as! Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
+        }
+      }
+    }
+  }
+}
+
+public final class AddToolMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    mutation AddTool($tool: NewToolInput!) {
+      addTool(tool: $tool) {
+        __typename
+        id
+      }
+    }
+    """
+
+  public let operationName: String = "AddTool"
+
+  public var tool: NewToolInput
+
+  public init(tool: NewToolInput) {
+    self.tool = tool
+  }
+
+  public var variables: GraphQLMap? {
+    return ["tool": tool]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Mutation"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("addTool", arguments: ["tool": GraphQLVariable("tool")], type: .nonNull(.object(AddTool.selections))),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(addTool: AddTool) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "addTool": addTool.resultMap])
+    }
+
+    /// Adds a new tool with the given properties, and returns the created Tool object
+    public var addTool: AddTool {
+      get {
+        return AddTool(unsafeResultMap: resultMap["addTool"]! as! ResultMap)
+      }
+      set {
+        resultMap.updateValue(newValue.resultMap, forKey: "addTool")
+      }
+    }
+
+    public struct AddTool: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["Tool"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(Int.self))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: Int) {
+        self.init(unsafeResultMap: ["__typename": "Tool", "id": id])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: Int {
+        get {
+          return resultMap["id"]! as! Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
         }
       }
     }

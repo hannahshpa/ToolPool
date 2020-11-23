@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-struct Tool {
+struct ToolModel {
     
     let placemark: MKPlacemark
 

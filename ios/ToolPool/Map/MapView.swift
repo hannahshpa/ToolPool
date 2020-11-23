@@ -47,7 +47,7 @@ class Coordinator: NSObject, MKMapViewDelegate {
 
 struct MapView: UIViewRepresentable {
     // stores tool object which defines names, location, etc
-    let tools: [Tool]
+    let tools: [ToolModel]
 
 
     func makeUIView(context: Context) -> MKMapView {

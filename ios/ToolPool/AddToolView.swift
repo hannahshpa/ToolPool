@@ -24,23 +24,6 @@ struct AddToolView: View {
   @State var condition: String = ""
   var categoryOptions = ["Camping", "Cleaning", "Cleaning", "Gardening", "Hand Tools", "Kitchen", "Outdoor", "Painting", "Power Tools", "Safety", "Miscellaneous"]
   
-  func toJson() -> [String: Any] {
-    let jsonObject: [String: Any] = [
-        "name": name,
-        "description": "test",
-        "location": [
-            "lat": 10,
-            "lon": 10
-        ],
-        "condition": "fair",
-        "hourlyCost": 1.28,
-        "tags": ["test"],
-        "images": ["http://foo.bar"],
-        "ownerId": ownerId
-    ]
-    return jsonObject
-  }
-  
     var body: some View {
       if showInApp {
           ProfileView()
@@ -76,18 +59,12 @@ struct AddToolView: View {
         }
         
         Button(action: {
-          
           let loca = GeoLocationInput(lat: 10, lon: 10)
-          
           let cond = ToolCondition(rawValue: "fair")
-          
           let newInput = NewToolInput(condition: cond!, description: "test", hourlyCost: 1.28, images: ["test"], location: loca, name: "test", ownerId: ownerId, tags: ["test"])
           
           addTool(input: newInput)
-          
-          //self.mode.wrappedValue.dismiss()
           self.showInApp = true
-
         }){
           Text("Submit Tool")
         }
@@ -101,24 +78,6 @@ struct AddToolView_Previews: PreviewProvider {
       AddToolView(ownerId: 1)
     }
 }
-
-/*
-class ToolToAdd {
-  var name: String = ""
-  var description: String = ""
-  var lon: Float = 0
-  var lat: Float = 0
-  var condition: String = ""
-  var hourlyCost: Float = 0
-  var tags: String = ""
-  var images: String = ""
-  var ownerID: String = ""
-  
-  init() {
-    
-  }
-
-}*/
 
 func addTool(input: NewToolInput) {
   

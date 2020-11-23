@@ -1,0 +1,69 @@
+query ToolById($id: Int) {
+  tool(id: $id){
+      name
+      description
+      condition
+  }
+}
+query GetBorrows {
+    self {
+        borrowHistory {
+            loanPeriod {
+                start
+            }
+            tool {
+                name
+            }
+        }
+    }
+}
+query BorrowById($id: Int) {
+    borrow(id: $id){
+        cost
+        id
+        loanPeriod {
+            start
+            end
+        }
+        tool {
+            id
+            name
+        }
+        user {
+            id
+            name
+            phoneNumber
+            email
+        }
+    }
+}
+query BorrowDummy($id: Int) {
+    borrow(id: $id){
+        id
+        tool {
+            name
+        }
+    }
+}
+
+query GetMyTools {
+  self {
+    ownedTools {
+      name
+    }
+  }
+}
+
+query GetSelf {
+  self {
+    name
+    email
+    id
+  }
+}
+
+mutation AddTool($tool: NewToolInput!){
+    addTool(tool: $tool){
+        id
+    }
+}

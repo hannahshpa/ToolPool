@@ -9,11 +9,17 @@ import Foundation
 import PostgresKit
 
 public final class Context {
-    private let authedUser: User?
+    private var authedUser: User?
     private let conn: DatabaseConnection
-    init(authedUser: User?, conn: DatabaseConnection){
-        self.authedUser = authedUser
+    init(authToken: String, conn: DatabaseConnection) throws {
         self.conn = conn
+        let authenticator = try! Authenticator(conn: self.conn)
+        self.authedUser = try authenticator.validateToken(token: authToken)
+    }
+
+    init(conn: DatabaseConnection) {
+        self.conn = conn
+        self.authedUser = nil
     }
     
     public func getUser() -> User? {

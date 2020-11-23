@@ -16,6 +16,10 @@ struct SignupHTTPBody: Decodable {
     let phoneNumber: String
 }
 
+struct uploadImageHTTPBody: Decodable {
+    let toolId: String
+}
+
 struct GraphQLHTTPBody: Decodable {
     let query: String
     let operationName: String?
@@ -24,10 +28,12 @@ struct GraphQLHTTPBody: Decodable {
 
 var db: DatabaseConnection? = nil
 var userController: UserController? = nil
+var s3: S3Uploader? = nil
 
 func routes(_ app: Application) throws {
     db = DatabaseConnection(loop: app.eventLoopGroup)
     userController = UserController(conn: db!)
+    s3 = S3Uploader()
     
     let resolver = Resolver(conn: db!)
     let api = try! GQLAPI(resolver: resolver)
@@ -49,6 +55,26 @@ func routes(_ app: Application) throws {
         signupFuture.whenSuccess({ map in
             promise.succeed(.init(status: .ok, version: .init(major: 1, minor: 1), headers: .init([("Content-Type", "application/json")]), body: .init(string: "success")))
         })
+
+        return promise.futureResult
+    }
+
+    app.post("uploadImage") { req -> EventLoopFuture<Response> in
+        let httpBody = try req.content.decode(uploadImageHTTPBody.self)
+        let promise = req.eventLoop.makePromise(of: Response.self)
+
+        let uploadImage = s3!.uploadImage()
+
+        uploadImage.whenFailure({ error in
+            promise.fail(error)
+        })
+
+        uploadImage.whenSuccess { response in
+            if let body = response.body {
+                print(String(data: body, encoding: .utf8)!)
+            }
+            promise.succeed(.init(status: .ok, version: .init(major: 1, minor: 1), headers: .init([("Content-Type", "application/json")]), body: .init(string: "success")))
+        }
 
         return promise.futureResult
     }

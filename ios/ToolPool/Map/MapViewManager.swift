@@ -12,7 +12,7 @@ import MapKit
 struct MapViewManager: View {
     
     @ObservedObject var locationManager = LocationManager()
-    @State private var tools: [Tool] = [Tool]()
+    @State private var tools: [ToolModel] = [ToolModel]()
     @State private var search: String = ""
     
   
@@ -43,7 +43,7 @@ struct MapViewManager: View {
                 //array of mkitems
                 let mapItems = response.mapItems
                 self.tools = mapItems.map {
-                    Tool(placemark: $0.placemark)
+                    ToolModel(placemark: $0.placemark)
                 }
             }
         }

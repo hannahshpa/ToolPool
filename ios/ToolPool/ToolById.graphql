@@ -59,6 +59,9 @@ query GetSelf {
     name
     email
     id
+    ownedTools {
+      id
+    }
   }
 }
 

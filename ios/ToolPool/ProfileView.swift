@@ -50,15 +50,8 @@ struct ProfileView: View {
                   }
               }
               
-          }//.padding()
+          }
         }
-        .navigationBarTitle(Text("Your toolbox"), displayMode: .inline)
-        .navigationBarHidden(false)
-        .navigationBarItems(trailing:
-                              NavigationLink(destination: AddToolView(ownerId: selfData.data.id)) {
-                                Text("Add Tool")
-                             }
-        )
       }
 }
 
@@ -113,11 +106,13 @@ class selfObj {
   var name: String = ""
   var email: String = ""
   var id: Int = 0
+  var ownedTools: [Any] = []
   
-  init(n: String, e: String, i: Int) {
+  init(n: String, e: String, i: Int, ot: [Any]) {
     self.name = n
     self.email = e
     self.id = i
+    self.ownedTools = ot
   }
 }
 
@@ -126,7 +121,7 @@ class mySelf: ObservableObject {
     @Published var data: selfObj
 
     init() {
-      self.data = selfObj(n: "test", e: "test", i: 0)
+      self.data = selfObj(n: "test", e: "test", i: 0, ot: [])
       self.load()
     }
   
@@ -136,9 +131,10 @@ class mySelf: ObservableObject {
        case .success(let graphQLResult):
           print("Success! Result: \(graphQLResult)")
           if let self_temp = graphQLResult.data?.`self` {
-            self.data = selfObj(n: self_temp.name, e: self_temp.email, i: self_temp.id)
+            self.data = selfObj(n: self_temp.name, e: self_temp.email, i: self_temp.id, ot: self_temp.ownedTools)
             print(self_temp.name)
             print(self_temp.email)
+            print(self_temp.ownedTools)
           }
        case .failure(let error):
          print("Failure! Error: \(error)")

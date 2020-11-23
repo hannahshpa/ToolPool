@@ -54,13 +54,16 @@ query GetMyTools {
   }
 }
 
-mutation AddTool($input: NewToolInput!) {
-  addTool(tool: $input)
-}
-
 query GetSelf {
   self {
     name
     email
+    id
   }
+}
+
+mutation AddTool($tool: NewToolInput!){
+    addTool(tool: $tool){
+        id
+    }
 }

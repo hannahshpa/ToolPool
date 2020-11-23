@@ -6,6 +6,7 @@ CREATE TYPE BorrowStatus AS ENUM ('accepted', 'rejected', 'pending');
 
 CREATE TABLE IF NOT EXISTS users(
     user_id BIGSERIAL PRIMARY KEY,
+    password VARCHAR(64) NOT NULL,
     name VARCHAR(64) NOT NULL,
     phone_number VARCHAR(12),
     email VARCHAR(320) NOT NULL
@@ -30,7 +31,7 @@ CREATE TABLE IF NOT EXISTS tool_schedule(
 CREATE TABLE IF NOT EXISTS tool_ratings(
     tool BIGINT NOT NULL REFERENCES tools (tool_id),
     "user" BIGINT NOT NULL REFERENCES users (user_id),
-    rating SMALLINT NOT NULL,
+    rating SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 5),
     review TEXT,
     PRIMARY KEY(tool, "user")
 );
@@ -50,7 +51,7 @@ CREATE TABLE IF NOT EXISTS tool_tags(
 CREATE TABLE IF NOT EXISTS user_ratings(
     reviewer BIGINT NOT NULL REFERENCES users (user_id),
     reviewee BIGINT NOT NULL REFERENCES users (user_id),
-    rating SMALLINT NOT NULL,
+    rating SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 5),
     review TEXT,
     PRIMARY KEY(reviewer, reviewee)
 );

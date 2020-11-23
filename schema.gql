@@ -9,9 +9,9 @@ type Borrow {
 }
 
 enum BorrowStatus {
+  accepted
   rejected
   pending
-  accepted
 }
 
 # Returns the number of seconds since January, 1st, 2001: 12:00 am, ie Date(timeIntervalSinceReferenceDate: )
@@ -28,25 +28,31 @@ input GeoLocationInput {
 }
 
 type Mutation {
-  # Adds a new tool with the given properties, and returns the integer ID of the new tool
-  addTool(tool: NewToolInput!): Int!
+  # Adds a new tool with the given properties, and returns the created Tool object
+  addTool(tool: NewToolInput!): Tool!
   approveBorrow(id: Int!): Boolean!
-  createToolRating(rating: Int!, toolId: Int!, userId: Int!, review: String): ToolRating!
-  createUserRating(reviewerId: Int!, revieweeId: Int!, review: String, rating: Int!): UserRating!
+  createToolRating(review: String, rating: Int!, reviewerId: Int!, revieweeId: Int!): ToolRating!
+  createUserRating(rating: Int!, revieweeId: Int!, review: String, reviewerId: Int!): UserRating!
   deleteTool(toolId: Int!): Boolean!
-  deleteToolRating(userId: Int!, toolId: Int!): Boolean!
+  deleteToolRating(revieweeId: Int!, reviewerId: Int!): Boolean!
   deleteUserRating(reviewerId: Int!, revieweeId: Int!): Boolean!
   denyBorrow(id: Int!): Boolean!
-  requestBorrow(toolId: Int!, userId: Int!, startTime: Date!, endTime: Date!): Int!
-  updateTool: Boolean!
+  requestBorrow(userId: Int!, startTime: Date!, endTime: Date!, toolId: Int!): Int!
 }
 
 input NewToolInput {
   condition: ToolCondition!
   description: String!
+  hourlyCost: Float!
+
+  # URL of uploaded image. Must have at least 1
+  images: [String!]!
   location: GeoLocationInput!
   name: String!
   ownerId: Int!
+
+  # Tags (ie handtool, powertool, etc). Must have at least 1
+  tags: [String!]!
 }
 
 type Query {
@@ -67,6 +73,8 @@ type TimeSlot {
 }
 
 type Tool {
+  averageRating: Float!
+
   # The history of this tool being loaned out
   borrowHistory: [Borrow!]!
   condition: ToolCondition!
@@ -83,11 +91,11 @@ type Tool {
 }
 
 enum ToolCondition {
-  new
-  great
-  fair
   poor
+  fair
+  new
   good
+  great
 }
 
 type ToolRating {

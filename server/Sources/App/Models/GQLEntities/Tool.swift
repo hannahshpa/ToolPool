@@ -17,6 +17,7 @@ public struct Tool: Codable{
     public let condition: ToolCondition
     public let location: GeoLocation
     public let ownerId: Int
+    public let hourlyCost: Double
     
     public func getOwner(context: Context, arguments: NoArguments) -> EventLoopFuture<User>{
         DBUser.getById(id: self.ownerId, db: context.getDB()).map{user in user!}
@@ -55,6 +56,11 @@ public struct Tool: Codable{
             result.rows.map{ row in
                 try! row.sql().decode(model: DBToolSchedule.self).toTimeSlot()
             }
+        }
+    }
+    public func getAverageRating(context: Context, arguments: NoArguments) -> EventLoopFuture<Double>{
+        context.getDB().query("SELECT COALESCE(AVG(rating), 0) as avg FROM tool_ratings WHERE tool = $1;", [self.id.postgresData!]).map{result in
+            result.first!.column("avg")!.double!
         }
     }
 }

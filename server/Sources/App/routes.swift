@@ -17,7 +17,8 @@ struct SignupHTTPBody: Decodable {
 }
 
 struct uploadImageHTTPBody: Decodable {
-    let toolId: String
+    let toolId: Int
+    let imageFile: Data
 }
 
 struct GraphQLHTTPBody: Decodable {
@@ -28,15 +29,19 @@ struct GraphQLHTTPBody: Decodable {
 
 var db: DatabaseConnection? = nil
 var userController: UserController? = nil
-var s3: S3Uploader? = nil
+var imageController: ImageController? = nil
 
 func routes(_ app: Application) throws {
+
     db = DatabaseConnection(loop: app.eventLoopGroup)
     userController = UserController(conn: db!)
-    s3 = S3Uploader()
-    
+    imageController = ImageController(conn: db!)
     let resolver = Resolver(conn: db!)
     let api = try! GQLAPI(resolver: resolver)
+
+    let authenticator = try! Authenticator()
+
+    // test endpoint
     app.get { req in
         return "It works!"
     }
@@ -59,28 +64,8 @@ func routes(_ app: Application) throws {
         return promise.futureResult
     }
 
-    app.post("uploadImage") { req -> EventLoopFuture<Response> in
-        let httpBody = try req.content.decode(uploadImageHTTPBody.self)
-        let promise = req.eventLoop.makePromise(of: Response.self)
-
-        let uploadImage = s3!.uploadImage()
-
-        uploadImage.whenFailure({ error in
-            promise.fail(error)
-        })
-
-        uploadImage.whenSuccess { response in
-            if let body = response.body {
-                print(String(data: body, encoding: .utf8)!)
-            }
-            promise.succeed(.init(status: .ok, version: .init(major: 1, minor: 1), headers: .init([("Content-Type", "application/json")]), body: .init(string: "success")))
-        }
-
-        return promise.futureResult
-    }
-
     // Login
-    app.post("login"){req -> EventLoopFuture<Response> in
+    app.post("login") { req -> EventLoopFuture<Response> in
         let httpBody = try req.content.decode(LoginHTTPBody.self)
         let promise = req.eventLoop.makePromise(of: Response.self)
 
@@ -96,32 +81,56 @@ func routes(_ app: Application) throws {
         return promise.futureResult
     }
 
+    // Upload Tool Image
+    // uses app.on() to configure request body handling for modifying maxSize
+    app.on(.POST, "uploadImage", body: .collect(maxSize: "5mb")) { req -> EventLoopFuture<Response> in
+        let promise = req.eventLoop.makePromise(of: Response.self)
+        let httpBody = try req.content.decode(uploadImageHTTPBody.self)
+        var context: Context
+
+        do {
+            let userFromToken = try authenticator.validateToken(headers: req.headers)
+            if userFromToken == nil {
+                throw RequestError.missingAuthToken
+            }
+            context = Context(user: userFromToken, conn: db!)
+        } catch AuthenticationError.invalidToken {
+            promise.fail(AuthenticationError.invalidToken)
+            return promise.futureResult
+        } catch RequestError.missingAuthToken {
+            promise.fail(RequestError.missingAuthToken)
+            return promise.futureResult
+        }
+
+        let uploadImage = try imageController!.uploadImage(httpBody, context: context)
+
+        uploadImage.whenFailure({ error in
+            promise.fail(error)
+        })
+
+        uploadImage.whenSuccess { response in
+            promise.succeed(.init(status: .ok, version: .init(major: 1, minor: 1), headers: .init([("Content-Type", "application/json")]), body: .init(string: "success")))
+        }
+
+        return promise.futureResult
+    }
+
 
     // GraphQL queries
     app.post("graphql"){req -> EventLoopFuture<Response> in
         let promise = req.eventLoop.makePromise(of: Response.self)
-
-        var context: Context
-        let authTokenGiven: Bool = req.headers["Authorization"].count == 0 ? false: true
         let httpBody = try req.content.decode(GraphQLHTTPBody.self)
-        if authTokenGiven {
-            let tokenHeader = req.headers["Authorization"][0]
-            do {
-                let tokenStringArray = tokenHeader.components(separatedBy: " ")
-                if tokenStringArray.count != 2 || tokenStringArray[0] != "Bearer" {
-                    throw RequestError.invalidAuthToken
-                }
-                let authToken = tokenStringArray[1]
-                context = try Context(authToken: authToken, conn: db!) // TODO: User authentication
-            } catch AuthenticationError.invalidToken, RequestError.invalidAuthToken {
-                promise.fail(RequestError.invalidAuthToken)
-                return promise.futureResult
-            } catch DecodingError.valueNotFound {
-                promise.fail(RequestError.missingAuthToken)
-                return promise.futureResult
-            }
-        } else {
-            context = Context(conn: db!)
+        var context: Context
+
+        do {
+            let userFromToken = try authenticator.validateToken(headers: req.headers)
+            context = Context(user: userFromToken, conn: db!)
+        } catch AuthenticationError.invalidToken {
+            promise.fail(AuthenticationError.invalidToken)
+            return promise.futureResult
+        } catch DecodingError.valueNotFound {
+            promise.fail(RequestError.missingAuthToken)
+            return promise.futureResult
         }
 
         let graphQLFuture = api.schema.execute(

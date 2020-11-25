@@ -17,8 +17,8 @@ This keyfile will be used for both dockerized/ local dev setup.
 
 For AWS setup, we need to create a credentials file with AWS keys
 
-1. `cd` into your home directory, `cd ~`
-2. Create a aws directory, `mkdir .aws`
+1. `cd` into your laptop's home directory, `cd ~`
+2. Create a .aws directory, `mkdir .aws`
 3. `cd` into the directory, `cd .aws`
 4. create a 'credentials' file, `touch credentials`
 5. Open the credentials file, and add the following:
@@ -32,7 +32,7 @@ aws_secret_access_key = <assigned secret access key>
 - Just type the literal \[default] at the top, it's syntactical
 - Put in the assigned keys within <> tags
 
-6. AWS keys are set to go, they'll automatically be imported & used by the AWS SDK
+6. AWS keys are set to go, they'll automatically be imported & used by the AWS SDK in both local dev & docker
 
 ### **Client setup**
 

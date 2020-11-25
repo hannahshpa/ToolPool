@@ -12,21 +12,22 @@ struct AddToolView: View {
   @Environment(\.presentationMode) var mode: Binding<PresentationMode>
   @Environment(\.managedObjectContext) var moc
   
+  @State private var selectedCondition = Condition.new
   let ownerId: Int
   @State var showInApp: Bool = false
 
   @State var name: String = ""
   @State var cost: String = ""
   @State var description: String = ""
-  @State var city: String = ""
-  @State var state: String = ""
+  @State var lon: String = ""
+  @State var lat: String = ""
   @State var category: String = ""
   @State var condition: String = ""
   var categoryOptions = ["Camping", "Cleaning", "Cleaning", "Gardening", "Hand Tools", "Kitchen", "Outdoor", "Painting", "Power Tools", "Safety", "Miscellaneous"]
   
     var body: some View {
       if showInApp {
-          ProfileView()
+        InAppView()
       } else {
       VStack {
         Text("Add a New Tool")
@@ -34,9 +35,7 @@ struct AddToolView: View {
         Form {
           Section(header: Text("Tool information")) {
             TextField("Tool Name", text: $name)
-            TextField("Cost Per Hour", text: $cost)
-            TextField("City", text: $city)
-            TextField("State", text: $state)
+            TextField("Cost Per Hour", text: $cost).keyboardType(.decimalPad)
             TextField("Description", text: $description)
               .frame(height: 100.0)
             Picker(selection: $category, label: Text("Category")) {
@@ -45,12 +44,17 @@ struct AddToolView: View {
               }
             }
           }
+          Section(header: Text("Location")) {
+            TextField("Longitude", text: $lon).keyboardType(.decimalPad)
+            TextField("Latitude", text: $lat).keyboardType(.decimalPad)
+          }
           Section(header: Text("Condition")) {
-            Picker(selection: $condition, label: Text("Condition")) /*@START_MENU_TOKEN@*/{
-              Text("Brand New").tag(1)
-              Text("Good").tag(2)
-              Text("Poor").tag(3)
-              Text("Bad").tag(4)
+            Picker(selection: $selectedCondition, label: Text("Condition")) /*@START_MENU_TOKEN@*/{
+              Text("New").tag(Condition.new)
+              Text("Great").tag(Condition.great)
+              Text("Good").tag(Condition.good)
+              Text("Fair").tag(Condition.fair)
+              Text("Poor").tag(Condition.poor)
             }/*@END_MENU_TOKEN@*/
           }
           Section(header: Text("Images")) {
@@ -59,9 +63,9 @@ struct AddToolView: View {
         }
         
         Button(action: {
-          let loca = GeoLocationInput(lat: 10, lon: 10)
-          let cond = ToolCondition(rawValue: "fair")
-          let newInput = NewToolInput(condition: cond!, description: "test", hourlyCost: 1.28, images: ["test"], location: loca, name: "test", ownerId: ownerId, tags: ["test"])
+          let loca = GeoLocationInput(lat: Double(lat)!, lon: Double(lon)!)
+          let cond = ToolCondition(rawValue: selectedCondition.rawValue)
+          let newInput = NewToolInput(condition: cond!, description: description, hourlyCost: Double(cost)!, images: ["test"], location: loca, name: name, ownerId: ownerId, tags: ["test"])
           
           addTool(input: newInput)
           self.showInApp = true
@@ -89,4 +93,15 @@ func addTool(input: NewToolInput) {
       print("Failure! Error: \(error)")
     }
   }
+}
+
+
+enum Condition: String, CaseIterable, Identifiable {
+    case new
+    case great
+    case good
+    case fair
+    case poor
+
+    var id: String { self.rawValue }
 }

@@ -1124,6 +1124,7 @@ public final class GetSelfQuery: GraphQLQuery {
         id
         ownedTools {
           __typename
+          name
           id
         }
       }
@@ -1237,6 +1238,7 @@ public final class GetSelfQuery: GraphQLQuery {
         public static var selections: [GraphQLSelection] {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("name", type: .nonNull(.scalar(String.self))),
             GraphQLField("id", type: .nonNull(.scalar(Int.self))),
           ]
         }
@@ -1247,8 +1249,8 @@ public final class GetSelfQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(id: Int) {
-          self.init(unsafeResultMap: ["__typename": "Tool", "id": id])
+        public init(name: String, id: Int) {
+          self.init(unsafeResultMap: ["__typename": "Tool", "name": name, "id": id])
         }
 
         public var __typename: String {
@@ -1257,6 +1259,15 @@ public final class GetSelfQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var name: String {
+          get {
+            return resultMap["name"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
           }
         }
 

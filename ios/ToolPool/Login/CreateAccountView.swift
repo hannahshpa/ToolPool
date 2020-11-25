@@ -11,8 +11,7 @@ struct CreateAccountView: View {
   @State var username: String = ""
   @State var password: String = ""
   @State var email: String = ""
-  @State var city: String = ""
-  @State var state: String = ""
+  @State var phoneNumber: String = ""
   @State var showInApp: Bool = false
 
   var body: some View {
@@ -24,18 +23,15 @@ struct CreateAccountView: View {
               .font(.largeTitle)
             Form {
               Section(header: Text("Log in information")) {
-                TextField("Username", text: $username)
-                TextField("Password", text: $password)
                 TextField("Email", text: $email)
-              }
-              Section(header: Text("Location information")) {
-                TextField("City", text: $city)
-                TextField("State", text: $state)
+                TextField("Password", text: $password)
+                TextField("Name", text: $username)
+                TextField("Phone Number", text: $phoneNumber)
               }
             }
           Button(action: {
             self.showInApp = true
-            signUpAuth(em: email, pw: password, nm: "test", ph: "123456789")
+            signUpAuth(em: email, pw: password, nm: username, ph: phoneNumber)
             loginAuth(un: email, pw: password)
              // self.mode.wrappedValue.dismiss()
           }) { Text("Enter")

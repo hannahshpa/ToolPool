@@ -60,6 +60,7 @@ query GetSelf {
     email
     id
     ownedTools {
+      name
       id
     }
   }

@@ -188,7 +188,15 @@ public final class ToolByIdQuery: GraphQLQuery {
         __typename
         name
         description
+        location {
+          __typename
+          lat
+          lon
+        }
         condition
+        hourly_cost
+        tags
+        images
       }
     }
     """
@@ -242,7 +250,11 @@ public final class ToolByIdQuery: GraphQLQuery {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
           GraphQLField("description", type: .nonNull(.scalar(String.self))),
+          GraphQLField("location", type: .nonNull(.object(Location.selections))),
           GraphQLField("condition", type: .nonNull(.scalar(ToolCondition.self))),
+          GraphQLField("hourly_cost", type: .nonNull(.scalar(Double.self))),
+          GraphQLField("tags", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
+          GraphQLField("images", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
         ]
       }
 
@@ -252,8 +264,8 @@ public final class ToolByIdQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(name: String, description: String, condition: ToolCondition) {
-        self.init(unsafeResultMap: ["__typename": "Tool", "name": name, "description": description, "condition": condition])
+      public init(name: String, description: String, location: Location, condition: ToolCondition, hourlyCost: Double, tags: [String], images: [String]) {
+        self.init(unsafeResultMap: ["__typename": "Tool", "name": name, "description": description, "location": location.resultMap, "condition": condition, "hourly_cost": hourlyCost, "tags": tags, "images": images])
       }
 
       public var __typename: String {
@@ -283,12 +295,97 @@ public final class ToolByIdQuery: GraphQLQuery {
         }
       }
 
+      public var location: Location {
+        get {
+          return Location(unsafeResultMap: resultMap["location"]! as! ResultMap)
+        }
+        set {
+          resultMap.updateValue(newValue.resultMap, forKey: "location")
+        }
+      }
+
       public var condition: ToolCondition {
         get {
           return resultMap["condition"]! as! ToolCondition
         }
         set {
           resultMap.updateValue(newValue, forKey: "condition")
+        }
+      }
+
+      public var hourlyCost: Double {
+        get {
+          return resultMap["hourly_cost"]! as! Double
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "hourly_cost")
+        }
+      }
+
+      public var tags: [String] {
+        get {
+          return resultMap["tags"]! as! [String]
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "tags")
+        }
+      }
+
+      public var images: [String] {
+        get {
+          return resultMap["images"]! as! [String]
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "images")
+        }
+      }
+
+      public struct Location: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["GeoLocation"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("lat", type: .nonNull(.scalar(Double.self))),
+            GraphQLField("lon", type: .nonNull(.scalar(Double.self))),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(lat: Double, lon: Double) {
+          self.init(unsafeResultMap: ["__typename": "GeoLocation", "lat": lat, "lon": lon])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var lat: Double {
+          get {
+            return resultMap["lat"]! as! Double
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "lat")
+          }
+        }
+
+        public var lon: Double {
+          get {
+            return resultMap["lon"]! as! Double
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "lon")
+          }
         }
       }
     }

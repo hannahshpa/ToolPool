@@ -10,16 +10,19 @@ import CoreData
 
 struct InAppView: View {
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(entity: Tool.entity(), sortDescriptors: []) var tools: FetchedResults<Tool>
-
+    //@FetchRequest(entity: Tool.entity(), sortDescriptors: []) var tools: FetchedResults<Tool>
+    //let tabId: Int
+    @State private var selection = 0
+  
     @State private var showingAddScreen = false
    var body: some View {
-    TabView {
+    TabView(selection: $selection) {
         SearchView()
             .tabItem {
                 Image(systemName: "magnifyingglass")
                 Text("Search")
             }
+          .tag(0)
         /*RentalView()
             .tabItem {
                 Image(systemName: "briefcase") // or toolbox "briefcase"
@@ -35,6 +38,7 @@ struct InAppView: View {
                 Image(systemName: "person")
                 Text("Profile")
             }
+          .tag(1)
     }
     .navigationBarBackButtonHidden(true)
   }

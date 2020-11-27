@@ -1,14 +1,15 @@
 //
-//  ManageReservationPage.swift
+//  ManageOtherPendingResPage.swift
 //  ToolPool
 //
-//  Created by Alissa McNerney on 11/12/20.
+//  Created by Alissa McNerney on 11/26/20.
 //
+
 import SwiftUI
 
-struct ManagePendingResPage: View {
+struct ManageOtherPendingResPage: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    let borrow: GetBorrowsQuery.Data.Self.BorrowHistory!
+    let borrow: GetOtherBorrowsQuery.Data.Self.OwnedTool.BorrowHistory!
     var body: some View {
       ScrollView {
         GeometryReader {
@@ -33,9 +34,6 @@ struct ManagePendingResPage: View {
                 
             }
             Divider()
-            Text("Awaiting Owner Approval")
-                .font(.caption)
-            /*
             Button(action: {
                 self.mode.wrappedValue.dismiss()
             }) { Text("Accept Rental")
@@ -54,7 +52,7 @@ struct ManagePendingResPage: View {
                 .font(.title)
                 .foregroundColor(.white)
                 .cornerRadius(40)
-            }*/
+            }
           }
         }
       }
@@ -62,8 +60,8 @@ struct ManagePendingResPage: View {
     }
 }
 
-struct ManagePendingResPage_Previews: PreviewProvider {
+struct ManageOtherPendingResPage_Previews: PreviewProvider {
     static var previews: some View {
-        ManagePendingResPage(borrow: nil)
+        ManageOtherPendingResPage(borrow: nil)
     }
 }

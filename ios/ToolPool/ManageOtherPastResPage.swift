@@ -1,14 +1,14 @@
 //
-//  ManagePastRePage.swift
+//  ManageOtherPastResPage.swift
 //  ToolPool
 //
-//  Created by Alissa McNerney on 11/12/20.
+//  Created by Alissa McNerney on 11/26/20.
 //
 
 import SwiftUI
 
-struct ManagePastResPage: View {
-    let borrow: GetBorrowsQuery.Data.Self.BorrowHistory!
+struct ManageOtherPastResPage: View {
+    let borrow: GetOtherBorrowsQuery.Data.Self.OwnedTool.BorrowHistory!
     var body: some View {
       ScrollView {
         GeometryReader {
@@ -31,15 +31,6 @@ struct ManagePastResPage: View {
                 Text("Email: \( borrow.user.email)")
                 Text("Phone Number: \(borrow.user.phoneNumber)")
             }
-            Divider()
-            NavigationLink(destination: ToolListingPage(listingName: borrow.tool.name, categoryName: "")) {
-                Text("Rent Again")
-                    .frame(minWidth:0, maxWidth:325)
-                    .background(Color.orange)
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .cornerRadius(40)
-            }
           }
         }
       }
@@ -47,8 +38,8 @@ struct ManagePastResPage: View {
     }
 }
 
-struct ManagePastResPage_Previews: PreviewProvider {
+struct ManageOtherPastResPage_Previews: PreviewProvider {
     static var previews: some View {
-        ManagePastResPage(borrow: nil)
+        ManageOtherPastResPage(borrow: nil)
     }
 }

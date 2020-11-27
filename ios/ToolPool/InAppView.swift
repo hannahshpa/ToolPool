@@ -23,7 +23,7 @@ struct InAppView: View {
                 Text("Search")
             }
           .tag(0)
-        /*RentalView()
+        RentalView()
             .tabItem {
                 Image(systemName: "briefcase") // or toolbox "briefcase"
                 Text("My Rentals")
@@ -32,7 +32,7 @@ struct InAppView: View {
             .tabItem {
                 Image(systemName: "wrench") // or toolbox "briefcase"
                 Text("Others' Rentals")
-            }*/
+            }
         ProfileView()
             .tabItem {
                 Image(systemName: "person")

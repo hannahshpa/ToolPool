@@ -15,15 +15,45 @@ query ToolById($id: Int) {
 query GetBorrows {
     self {
         borrowHistory {
-            loanPeriod {
-                start
-            }
+            cost
+            id
             tool {
+                id
                 name
+            }
+            status
+            user {
+                id
+                name
+                phoneNumber
+                email
             }
         }
     }
 }
+
+query GetOtherBorrows {
+    self {
+        ownedTools {
+            borrowHistory {
+                cost
+                id
+                tool {
+                    id
+                    name
+                }
+                status
+                user {
+                    id
+                    name
+                    phoneNumber
+                    email
+                }
+            }
+        }
+    }
+}
+
 query BorrowById($id: Int) {
     borrow(id: $id){
         cost
@@ -77,4 +107,16 @@ mutation AddTool($tool: NewToolInput!){
     addTool(tool: $tool){
         id
     }
+}
+
+mutation RequestBorrow($userId: Int, $startTime: Date, $endTime: Date, $toolId: Int){
+    requestBorrow(userId: $userId, startTime: $startTime, endTime: $endTime, toolId: $toolId)
+}
+
+mutation DenyBorrow($id:Int) {
+    denyBorrow(id: $id)
+}
+
+mutation ApproveBorrow($id:Int) {
+    approveBorrow(id: $id)
 }

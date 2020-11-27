@@ -24,6 +24,14 @@ struct MyToolListingView: View {
         GeometryReader { geometry in
             ScrollView {
                 VStack {
+                  NavigationLink(destination: InAppView()) {
+                      Text("Back To My Toolbox")
+                          .frame(minWidth:0, maxWidth:325)
+                          .background(Color.orange)
+                          .font(.title)
+                          .foregroundColor(.white)
+                          .cornerRadius(40)
+                  }
                   Image("tool")
                         .resizable()
                         .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
@@ -34,8 +42,8 @@ struct MyToolListingView: View {
                   StarRatingView(rating: .constant(Int(4)))
                             .font(.largeTitle)
                             .padding(2)
-                  Text("Category: " + displayTool.data!.description)
-                  Text("Cost per hour: " + String(displayTool.data!.hourlyCost))
+                  Text("Description: " + displayTool.data!.description)
+                  Text("Cost per hour: $" + String(displayTool.data!.hourlyCost))
                   Text("Location: 0.3 mi")
                   Text("Condition: " + displayTool.data!.condition.rawValue)
 
@@ -44,6 +52,7 @@ struct MyToolListingView: View {
             }
         }
         .navigationBarTitle(Text("Tool Details"), displayMode: .inline)
+        .navigationBarHidden(true)
     }
 }
 

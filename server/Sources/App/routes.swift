@@ -24,7 +24,7 @@ struct uploadImageHTTPBody: Decodable {
 struct GraphQLHTTPBody: Decodable {
     let query: String
     let operationName: String?
-    let variables: [String: Map]
+    let variables: [String: Map]?
 }
 
 var db: DatabaseConnection? = nil
@@ -138,7 +138,7 @@ func routes(_ app: Application) throws {
             resolver: resolver,
             context: context,
             eventLoopGroup: req.eventLoop,
-            variables: httpBody.variables,
+            variables: httpBody.variables ?? [String: Map](),
             operationName: httpBody.operationName
         )
         

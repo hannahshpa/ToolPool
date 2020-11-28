@@ -35,6 +35,7 @@ struct ManageOtherPendingResPage: View {
             }
             Divider()
             Button(action: {
+                approveRental(borrow_id: borrow.id)
                 self.mode.wrappedValue.dismiss()
             }) { Text("Accept Rental")
                 .frame(minWidth:0, maxWidth:325)
@@ -45,6 +46,7 @@ struct ManageOtherPendingResPage: View {
             }//simultaneously mutate rental obj to approve/deny?
             Text(" ")
             Button(action: {
+                denyRental(borrow_id: borrow.id)
                 self.mode.wrappedValue.dismiss()
             }) { Text("Deny Rental")
                 .frame(minWidth:0, maxWidth:325)
@@ -64,4 +66,27 @@ struct ManageOtherPendingResPage_Previews: PreviewProvider {
     static var previews: some View {
         ManageOtherPendingResPage(borrow: nil)
     }
+}
+
+func approveRental(borrow_id: Int) {
+  
+  Network.shared.apollo.perform(mutation: ApproveBorrowMutation(id: borrow_id)) { result in
+    switch result {
+    case .success(let graphQLResult):
+      print("Success! Result: \(graphQLResult)")
+    case .failure(let error):
+      print("Failure! Error: \(error)")
+    }
+  }
+}
+func denyRental(borrow_id: Int) {
+  
+  Network.shared.apollo.perform(mutation: DenyBorrowMutation(id: borrow_id)) { result in
+    switch result {
+    case .success(let graphQLResult):
+      print("Success! Result: \(graphQLResult)")
+    case .failure(let error):
+      print("Failure! Error: \(error)")
+    }
+  }
 }

@@ -10,52 +10,51 @@ import SwiftUI
 struct OtherRentalView: View {
     @ObservedObject private var borrowsData: myOtherBorrows = myOtherBorrows()
     var body: some View {
-        GeometryReader {
-            geometry in
-            VStack {
-                Text("Others' Rentals")
-                    .font(.largeTitle)
-                    .onAppear() {
-                        self.borrowsData.objectWillChange.send()
-                    }
-            
-                Divider()
-                List {
-                    Section(header: Text("Pending Rentals"))
-                    {
-                        ForEach(borrowsData.data.borrows, id: \.id) { b in
-                            if b.status == .pending {
-                                NavigationLink(destination: ManageOtherPendingResPage(borrow: b)) {
+            NavigationView {
+                List{
+                    //usually fetch list of rentals with this user id
+                    //may have to makes seperate queries for rentals based on time/approval
+                    //for each rental make navlink passing in rental obj
+                        Section(header: Text("Pending Rentals"))
+                        {
+                            ForEach(borrowsData.data.borrows, id: \.id) { b in
+                                if b.status == .pending {
+                                    NavigationLink(destination: ManageOtherPendingResPage(borrow: b)) {
+                                        Text(b.tool.name)
+                                    }
+                                }
+                            }
+                        }
+                        Section(header: Text("Upcoming Rentals"))
+                        {
+                            ForEach(borrowsData.data.borrows, id: \.id) { b in
+                                if b.status == .accepted {
+                                    NavigationLink(destination: ManageOtherUpcomingResPage(borrow: b)) {
+                                        Text(b.tool.name)
+                                    }
+                                }
+                            }
+                        }
+                        Section(header: Text("Past Rentals"))
+                        {
+                            ForEach(borrowsData.data.borrows, id: \.id) { b in
+                                if b.status == .rejected {
+                                NavigationLink(destination: ManageOtherPastResPage(borrow: b)) {
                                     Text(b.tool.name)
                                 }
                             }
                         }
-                    }
-                    Section(header: Text("Upcoming Rentals"))
-                    {
-                        ForEach(borrowsData.data.borrows, id: \.id) { b in
-                            if b.status == .accepted {
-                                NavigationLink(destination: ManageOtherUpcomingResPage(borrow: b)) {
-                                    Text(b.tool.name)
-                                }
-                            }
                         }
-                    }
-                    Section(header: Text("Past Rentals"))
-                    {
-                        ForEach(borrowsData.data.borrows, id: \.id) { b in
-                            if b.status == .rejected {
-                            NavigationLink(destination: ManageOtherPastResPage(borrow: b)) {
-                                Text(b.tool.name)
-                            }
-                        }
-                    }
-                    }
                     
-                }
+                       .navigationBarTitle("Other Tool Rentals", displayMode: .automatic)
+                       .navigationBarBackButtonHidden(true)
+                    
+                   }
+                   .navigationViewStyle(StackNavigationViewStyle())
+                   .edgesIgnoringSafeArea(.top)
+               }
             }
-        }
-    }
+    
 }
 
 

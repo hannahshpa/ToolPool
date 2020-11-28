@@ -10,9 +10,9 @@ struct ManagePendingResPage: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     let borrow: GetBorrowsQuery.Data.Self.BorrowHistory!
     var body: some View {
-      ScrollView {
-        GeometryReader {
-            geometry in
+    GeometryReader {
+        geometry in
+        ScrollView {
           VStack {
             Image("tool")
                 .resizable()
@@ -35,26 +35,6 @@ struct ManagePendingResPage: View {
             Divider()
             Text("Awaiting Owner Approval")
                 .font(.caption)
-            /*
-            Button(action: {
-                self.mode.wrappedValue.dismiss()
-            }) { Text("Accept Rental")
-                .frame(minWidth:0, maxWidth:325)
-                .background(Color.orange)
-                .font(.title)
-                .foregroundColor(.white)
-                .cornerRadius(40)
-            }//simultaneously mutate rental obj to approve/deny?
-            Text(" ")
-            Button(action: {
-                self.mode.wrappedValue.dismiss()
-            }) { Text("Deny Rental")
-                .frame(minWidth:0, maxWidth:325)
-                .background(Color.gray)
-                .font(.title)
-                .foregroundColor(.white)
-                .cornerRadius(40)
-            }*/
           }
         }
       }

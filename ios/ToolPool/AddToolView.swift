@@ -17,9 +17,11 @@ struct AddToolView: View {
   @State private var selectedCondition = Condition.new
   let ownerId: Int
   @State var showInApp: Bool = false
+  @ObservedObject var newTool = NewTool()
   
   @State private var isShowPhotoLibrary = false
   @State private var image = UIImage()
+  @State var newToolID: Int = 0
 
   @State var name: String = ""
   @State var cost: String = ""
@@ -91,7 +93,19 @@ struct AddToolView: View {
           let cond = ToolCondition(rawValue: selectedCondition.rawValue)
           let newInput = NewToolInput(condition: cond!, description: description, hourlyCost: Double(cost)!, images: ["test"], location: loca, name: name, ownerId: ownerId, tags: ["test"])
           
-          addTool(input: newInput)
+          //let new_id = addTool(input: newInput)
+          self.newTool.load(input: newInput, newImage: self.image)
+          print("here")
+          
+          /*
+          //self.newTool.data
+          do {
+            try AddImage(tool_id: 5, addImage: self.image)
+            print("Adding Image worked?")
+            print(self.newTool.data)
+          } catch {
+              print("Adding Image Failed.")
+          }*/
           self.showInApp = true
         }){
           Text("Submit Tool")
@@ -109,16 +123,26 @@ struct AddToolView_Previews: PreviewProvider {
     }
 }
 
-func addTool(input: NewToolInput) {
+func addTool(input: NewToolInput) -> Int {
+  var newToolId = -1
   
-  Network.shared.apollo.perform(mutation: AddToolMutation(tool: input)) { result in
+  Network.shared.apollo.perform(mutation: AddToolMutation(tool: input)){ result in
     switch result {
     case .success(let graphQLResult):
       print("Success! Result: \(graphQLResult)")
+      if let newTool = graphQLResult.data?.addTool {
+        print("inn tool")
+        print(newTool.id)
+        newToolId = newTool.id
+      }
+      
     case .failure(let error):
       print("Failure! Error: \(error)")
     }
   }
+  print("TOOLID")
+  print(newToolId)
+  return newToolId
 }
 
 
@@ -178,3 +202,40 @@ final class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigation
         parent.presentationMode.wrappedValue.dismiss()
     }
 }
+
+
+class NewTool: ObservableObject {
+
+  @Published var data: Int
+    
+    init() {
+      self.data = 0
+    }
+  
+  func load(input: NewToolInput, newImage: UIImage) {
+      Network.shared.apollo.perform(mutation: AddToolMutation(tool: input)) { result in
+        switch result {
+        case .success(let graphQLResult):
+          print("Success! Result: \(graphQLResult)")
+          if let newTool = graphQLResult.data?.addTool {
+            print("in tool")
+            print(newTool.id)
+            self.data = newTool.id
+            
+            do {
+              try AddImage(tool_id: newTool.id, addImage: newImage)
+              print("Adding Image worked?")
+            } catch {
+                print("Adding Image Failed.")
+            }
+          }
+          
+        case .failure(let error):
+          print("Failure! Error: \(error)")
+        }
+      }
+    }
+  
+}
+
+

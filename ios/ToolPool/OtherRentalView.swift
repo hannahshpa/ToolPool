@@ -35,7 +35,7 @@ struct OtherRentalView: View {
                                 }
                             }
                         }
-                        Section(header: Text("Past Rentals"))
+                        Section(header: Text("Past (denied) Rentals"))
                         {
                             ForEach(borrowsData.data.borrows, id: \.id) { b in
                                 if b.status == .rejected {
@@ -56,6 +56,7 @@ struct OtherRentalView: View {
             }
     
 }
+
 
 
 class otherBorrowObj {

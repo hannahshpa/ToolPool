@@ -12,7 +12,7 @@ struct ContentView: View {
     
     var body: some View {
 
-//        TabView {
+        TabView {
 //            SearchView()
 //                .tabItem {
 //                    Image(systemName: "magnifyingglass")
@@ -29,14 +29,20 @@ struct ContentView: View {
 //                    Image(systemName: "person")
 //                    Text("Profile")
 //                }
-//            MapViewManager()
-//                .tabItem {
-//                    Image(systemName: "map")
-//                    Text("Map")
-//                }
-//        }
+            MapViewManager()
+                .tabItem {
+                    Image(systemName: "map")
+                    Text("Map")
+                }
+            Landing()
+                .tabItem {
+                    Image(systemName: "person")
+                    Text("profile")
+                }
+            
+        }
 
-        Landing()
+//        Landing()
 
     }
 }

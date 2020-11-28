@@ -71,6 +71,7 @@ struct MapView: UIViewRepresentable {
     private func updateAnnotation(from mapView: MKMapView) {
         // redraws annotations when new annotations are available
         mapView.removeAnnotations(mapView.annotations)
+        print("adding new annotation")
         let annotations = self.tools.map(ToolAnnotation.init)
         mapView.addAnnotations(annotations)
     }

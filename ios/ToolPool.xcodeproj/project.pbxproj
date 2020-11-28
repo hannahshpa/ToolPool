@@ -25,13 +25,15 @@
 		45C44FDD25674BDE008529A9 /* OtherProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */; };
 		45C44FF025685EE4008529A9 /* OtherRentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FEF25685EE4008529A9 /* OtherRentalView.swift */; };
 		F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */; };
+		F53CE371256E30970085415A /* MyToolListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53CE370256E30970085415A /* MyToolListingView.swift */; };
+		F53CE3792571C9C20085415A /* ImageUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53CE3782571C9C20085415A /* ImageUpload.swift */; };
 		F545E739255DD89700CEC060 /* ToolListingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E737255DD89700CEC060 /* ToolListingPage.swift */; };
 		F545E73A255DD89700CEC060 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E738255DD89700CEC060 /* FilterView.swift */; };
 		F545E73F255DD8A100CEC060 /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E73E255DD8A100CEC060 /* StarRatingView.swift */; };
 		F545E745255DD8AD00CEC060 /* ToolPool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F545E743255DD8AD00CEC060 /* ToolPool.xcdatamodeld */; };
 		F545E74B255F11E000CEC060 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = F545E74A255F11E000CEC060 /* Apollo */; };
 		F545E74D255F11E000CEC060 /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = F545E74C255F11E000CEC060 /* ApolloWebSocket */; };
-		F5755E332563A6FE004ADBD4 /* ToolById.graphql in Resources */ = {isa = PBXBuildFile; fileRef = F5755E322563A6FE004ADBD4 /* ToolById.graphql */; };
+		F5755E332563A6FE004ADBD4 /* ToolById.graphql in Resources */ = {isa = PBXBuildFile; fileRef = F5755E322563A6FE004ADBD4 /* ToolById.graphql */; settings = {ASSET_TAGS = (New, ); }; };
 		F5755E3B2563A792004ADBD4 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E3A2563A792004ADBD4 /* API.swift */; };
 		F5755E402563AB95004ADBD4 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E3F2563AB95004ADBD4 /* Network.swift */; };
 		F5755E4B25662D79004ADBD4 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = F5755E4A25662D78004ADBD4 /* schema.json */; };
@@ -43,6 +45,36 @@
 		F58B265B25538E5C000389E3 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B265A25538E5C000389E3 /* CreateAccountView.swift */; };
 		F58B26602553AAA7000389E3 /* InAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B265F2553AAA7000389E3 /* InAppView.swift */; };
 		F58B2668255478BB000389E3 /* AddToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B2667255478BB000389E3 /* AddToolView.swift */; };
+		F5A461552572F47D005F154A /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = F5A461542572F47D005F154A /* ViewInspector */; };
+		F5A461582572F6FD005F154A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECC32543741D007423B0 /* ProfileView.swift */; };
+		F5A4615B2572FE98005F154A /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E3A2563A792004ADBD4 /* API.swift */; };
+		F5A4615E2572FE9E005F154A /* AddToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B2667255478BB000389E3 /* AddToolView.swift */; };
+		F5A4615F2572FEA1005F154A /* MyToolListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53CE370256E30970085415A /* MyToolListingView.swift */; };
+		F5A461642572FEC7005F154A /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E3F2563AB95004ADBD4 /* Network.swift */; };
+		F5A461672572FEC9005F154A /* ToolById.graphql in Resources */ = {isa = PBXBuildFile; fileRef = F5755E322563A6FE004ADBD4 /* ToolById.graphql */; settings = {ASSET_TAGS = (New, ); }; };
+		F5A4616A2572FED1005F154A /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E73E255DD8A100CEC060 /* StarRatingView.swift */; };
+		F5A4616D2572FED6005F154A /* InAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B265F2553AAA7000389E3 /* InAppView.swift */; };
+		F5A461702572FED9005F154A /* ImageUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53CE3782571C9C20085415A /* ImageUpload.swift */; };
+		F5A461732572FEFE005F154A /* Landing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B264425536965000389E3 /* Landing.swift */; };
+		F5A461762572FF00005F154A /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B26552553758A000389E3 /* SignInView.swift */; };
+		F5A461792572FF02005F154A /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58B265A25538E5C000389E3 /* CreateAccountView.swift */; };
+		F5A4617C2572FF0B005F154A /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECC825437428007423B0 /* SearchView.swift */; };
+		F5A4617F2572FF37005F154A /* ToolCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */; };
+		F5A461822572FF3A005F154A /* ToolListingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E737255DD89700CEC060 /* ToolListingPage.swift */; };
+		F5A461852572FF3D005F154A /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E738255DD89700CEC060 /* FilterView.swift */; };
+		F5A461882572FF52005F154A /* ManagePendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F47255E214F0045EB3E /* ManagePendingResPage.swift */; };
+		F5A4618B2572FF54005F154A /* OtherProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */; };
+		F5A4618E2572FF57005F154A /* ManageUpcomingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F4F255E23E50045EB3E /* ManageUpcomingResPage.swift */; };
+		F5A461912572FF59005F154A /* ManagePastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F57255E24E70045EB3E /* ManagePastResPage.swift */; };
+		F5A461942572FF60005F154A /* MakeReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E5525670C7E004ADBD4 /* MakeReservationView.swift */; };
+		F5A461972572FF69005F154A /* ToolPool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F5755E5325670C7E004ADBD4 /* ToolPool.xcdatamodeld */; };
+		F5A4619A2572FF7E005F154A /* RateRental.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F65255EFE210045EB3E /* RateRental.swift */; };
+		F5A4619D2572FF8E005F154A /* RentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECBE25437411007423B0 /* RentalView.swift */; };
+		F5A461A02572FF91005F154A /* OtherRentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FEF25685EE4008529A9 /* OtherRentalView.swift */; };
+		F5A461B32573008C005F154A /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = F5A461B22573008C005F154A /* Apollo */; };
+		F5A461BF2573008C005F154A /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = F5A461BE2573008C005F154A /* ApolloWebSocket */; };
+		F5A461C1257300FF005F154A /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = F5755E4A25662D78004ADBD4 /* schema.json */; };
+		F5E716162572E8D500480DF0 /* ProfileViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E716152572E8D500480DF0 /* ProfileViewTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +93,29 @@
 			remoteInfo = ToolPool;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F5A461B62573008C005F154A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5E716242572ECCD00480DF0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		28943E13255C69480042533E /* ToolListingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolListingPage.swift; sourceTree = "<group>"; };
@@ -89,6 +144,8 @@
 		45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfilePage.swift; sourceTree = "<group>"; };
 		45C44FEF25685EE4008529A9 /* OtherRentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherRentalView.swift; sourceTree = "<group>"; };
 		F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolCategoryPage.swift; sourceTree = "<group>"; };
+		F53CE370256E30970085415A /* MyToolListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyToolListingView.swift; sourceTree = "<group>"; };
+		F53CE3782571C9C20085415A /* ImageUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUpload.swift; sourceTree = "<group>"; };
 		F545E737255DD89700CEC060 /* ToolListingPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolListingPage.swift; sourceTree = "<group>"; };
 		F545E738255DD89700CEC060 /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		F545E73E255DD8A100CEC060 /* StarRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
@@ -105,6 +162,7 @@
 		F58B265A25538E5C000389E3 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		F58B265F2553AAA7000389E3 /* InAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppView.swift; sourceTree = "<group>"; };
 		F58B2667255478BB000389E3 /* AddToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToolView.swift; sourceTree = "<group>"; };
+		F5E716152572E8D500480DF0 /* ProfileViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +186,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5A461552572F47D005F154A /* ViewInspector in Frameworks */,
+				F5A461B32573008C005F154A /* Apollo in Frameworks */,
+				F5A461BF2573008C005F154A /* ApolloWebSocket in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +202,7 @@
 				28A7EC7D2543688F007423B0 /* ToolPoolTests */,
 				28A7EC882543688F007423B0 /* ToolPoolUITests */,
 				28A7EC6A2543688E007423B0 /* Products */,
+				F5A461B12573008C005F154A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -177,11 +239,13 @@
 				45817F57255E24E70045EB3E /* ManagePastResPage.swift */,
 				F58B264925537509000389E3 /* Login */,
 				28A7EC6E2543688E007423B0 /* ContentView.swift */,
+				F53CE3782571C9C20085415A /* ImageUpload.swift */,
 				F58B265F2553AAA7000389E3 /* InAppView.swift */,
 				28A7ECBE25437411007423B0 /* RentalView.swift */,
 				45C44FEF25685EE4008529A9 /* OtherRentalView.swift */,
 				F58B2667255478BB000389E3 /* AddToolView.swift */,
 				28A7ECC32543741D007423B0 /* ProfileView.swift */,
+				F53CE370256E30970085415A /* MyToolListingView.swift */,
 				28A7ECC825437428007423B0 /* SearchView.swift */,
 				28943E18255C6F3F0042533E /* StarRatingView.swift */,
 				28943E13255C69480042533E /* ToolListingPage.swift */,
@@ -216,6 +280,7 @@
 			children = (
 				28A7EC892543688F007423B0 /* ToolPoolUITests.swift */,
 				28A7EC8B2543688F007423B0 /* Info.plist */,
+				F5E716152572E8D500480DF0 /* ProfileViewTest.swift */,
 			);
 			path = ToolPoolUITests;
 			sourceTree = "<group>";
@@ -230,6 +295,13 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		F5A461B12573008C005F154A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -241,6 +313,7 @@
 				28A7EC652543688E007423B0 /* Sources */,
 				28A7EC662543688E007423B0 /* Frameworks */,
 				28A7EC672543688E007423B0 /* Resources */,
+				F5E716242572ECCD00480DF0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -280,6 +353,7 @@
 				28A7EC812543688F007423B0 /* Sources */,
 				28A7EC822543688F007423B0 /* Frameworks */,
 				28A7EC832543688F007423B0 /* Resources */,
+				F5A461B62573008C005F154A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -287,6 +361,11 @@
 				28A7EC872543688F007423B0 /* PBXTargetDependency */,
 			);
 			name = ToolPoolUITests;
+			packageProductDependencies = (
+				F5A461542572F47D005F154A /* ViewInspector */,
+				F5A461B22573008C005F154A /* Apollo */,
+				F5A461BE2573008C005F154A /* ApolloWebSocket */,
+			);
 			productName = ToolPoolUITests;
 			productReference = 28A7EC852543688F007423B0 /* ToolPoolUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -297,6 +376,9 @@
 		28A7EC612543688E007423B0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					New,
+				);
 				LastSwiftUpdateCheck = 1210;
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
@@ -324,6 +406,7 @@
 			mainGroup = 28A7EC602543688E007423B0;
 			packageReferences = (
 				F545E749255F11E000CEC060 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				F5A461532572F47D005F154A /* XCRemoteSwiftPackageReference "ViewInspector" */,
 			);
 			productRefGroup = 28A7EC6A2543688E007423B0 /* Products */;
 			projectDirPath = "";
@@ -359,6 +442,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5A461C1257300FF005F154A /* schema.json in Resources */,
+				F5A461672572FEC9005F154A /* ToolById.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,10 +492,12 @@
 				F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */,
 				F5755E5725670C7E004ADBD4 /* ToolPool.xcdatamodeld in Sources */,
 				F5755E5825670C7E004ADBD4 /* MakeReservationView.swift in Sources */,
+				F53CE371256E30970085415A /* MyToolListingView.swift in Sources */,
 				28A7ECC925437428007423B0 /* SearchView.swift in Sources */,
 				28A7ECBF25437411007423B0 /* RentalView.swift in Sources */,
 				45C44FF025685EE4008529A9 /* OtherRentalView.swift in Sources */,
 				F5755E3B2563A792004ADBD4 /* API.swift in Sources */,
+				F53CE3792571C9C20085415A /* ImageUpload.swift in Sources */,
 				45817F66255EFE210045EB3E /* RateRental.swift in Sources */,
 				F545E73A255DD89700CEC060 /* FilterView.swift in Sources */,
 				F58B264525536965000389E3 /* Landing.swift in Sources */,
@@ -433,6 +520,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5E716162572E8D500480DF0 /* ProfileViewTest.swift in Sources */,
+				F5A4617F2572FF37005F154A /* ToolCategoryPage.swift in Sources */,
+				F5A461972572FF69005F154A /* ToolPool.xcdatamodeld in Sources */,
+				F5A461A02572FF91005F154A /* OtherRentalView.swift in Sources */,
+				F5A4616D2572FED6005F154A /* InAppView.swift in Sources */,
+				F5A461942572FF60005F154A /* MakeReservationView.swift in Sources */,
+				F5A4619A2572FF7E005F154A /* RateRental.swift in Sources */,
+				F5A461702572FED9005F154A /* ImageUpload.swift in Sources */,
+				F5A461732572FEFE005F154A /* Landing.swift in Sources */,
+				F5A461822572FF3A005F154A /* ToolListingPage.swift in Sources */,
+				F5A4618B2572FF54005F154A /* OtherProfilePage.swift in Sources */,
+				F5A4616A2572FED1005F154A /* StarRatingView.swift in Sources */,
+				F5A461582572F6FD005F154A /* ProfileView.swift in Sources */,
+				F5A461882572FF52005F154A /* ManagePendingResPage.swift in Sources */,
+				F5A461792572FF02005F154A /* CreateAccountView.swift in Sources */,
+				F5A461762572FF00005F154A /* SignInView.swift in Sources */,
+				F5A461852572FF3D005F154A /* FilterView.swift in Sources */,
+				F5A4615B2572FE98005F154A /* API.swift in Sources */,
+				F5A4615F2572FEA1005F154A /* MyToolListingView.swift in Sources */,
+				F5A4617C2572FF0B005F154A /* SearchView.swift in Sources */,
+				F5A4619D2572FF8E005F154A /* RentalView.swift in Sources */,
+				F5A4618E2572FF57005F154A /* ManageUpcomingResPage.swift in Sources */,
+				F5A4615E2572FE9E005F154A /* AddToolView.swift in Sources */,
+				F5A461912572FF59005F154A /* ManagePastResPage.swift in Sources */,
+				F5A461642572FEC7005F154A /* Network.swift in Sources */,
 				28A7EC8A2543688F007423B0 /* ToolPoolUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -551,6 +663,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -743,6 +856,14 @@
 				kind = branch;
 			};
 		};
+		F5A461532572F47D005F154A /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -752,6 +873,21 @@
 			productName = Apollo;
 		};
 		F545E74C255F11E000CEC060 /* ApolloWebSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F545E749255F11E000CEC060 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloWebSocket;
+		};
+		F5A461542572F47D005F154A /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5A461532572F47D005F154A /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
+		};
+		F5A461B22573008C005F154A /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F545E749255F11E000CEC060 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
+		F5A461BE2573008C005F154A /* ApolloWebSocket */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F545E749255F11E000CEC060 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloWebSocket;

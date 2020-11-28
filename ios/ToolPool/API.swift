@@ -187,6 +187,11 @@ public final class ToolByIdQuery: GraphQLQuery {
       tool(id: $id) {
         __typename
         name
+        location {
+          __typename
+          lat
+          lon
+        }
         description
         condition
       }
@@ -241,6 +246,7 @@ public final class ToolByIdQuery: GraphQLQuery {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
+          GraphQLField("location", type: .nonNull(.object(Location.selections))),
           GraphQLField("description", type: .nonNull(.scalar(String.self))),
           GraphQLField("condition", type: .nonNull(.scalar(ToolCondition.self))),
         ]
@@ -252,8 +258,8 @@ public final class ToolByIdQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(name: String, description: String, condition: ToolCondition) {
-        self.init(unsafeResultMap: ["__typename": "Tool", "name": name, "description": description, "condition": condition])
+      public init(name: String, location: Location, description: String, condition: ToolCondition) {
+        self.init(unsafeResultMap: ["__typename": "Tool", "name": name, "location": location.resultMap, "description": description, "condition": condition])
       }
 
       public var __typename: String {
@@ -274,6 +280,15 @@ public final class ToolByIdQuery: GraphQLQuery {
         }
       }
 
+      public var location: Location {
+        get {
+          return Location(unsafeResultMap: resultMap["location"]! as! ResultMap)
+        }
+        set {
+          resultMap.updateValue(newValue.resultMap, forKey: "location")
+        }
+      }
+
       public var description: String {
         get {
           return resultMap["description"]! as! String
@@ -289,6 +304,55 @@ public final class ToolByIdQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "condition")
+        }
+      }
+
+      public struct Location: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["GeoLocation"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("lat", type: .nonNull(.scalar(Double.self))),
+            GraphQLField("lon", type: .nonNull(.scalar(Double.self))),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(lat: Double, lon: Double) {
+          self.init(unsafeResultMap: ["__typename": "GeoLocation", "lat": lat, "lon": lon])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var lat: Double {
+          get {
+            return resultMap["lat"]! as! Double
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "lat")
+          }
+        }
+
+        public var lon: Double {
+          get {
+            return resultMap["lon"]! as! Double
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "lon")
+          }
         }
       }
     }

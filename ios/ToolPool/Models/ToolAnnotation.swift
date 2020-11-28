@@ -15,7 +15,7 @@ final class ToolAnnotation: NSObject, MKAnnotation {
     let title: String?
     let coordinate: CLLocationCoordinate2D
     
-    init(tool: Tool) {
+    init(tool: ToolModel) {
         self.title = tool.name
         self.coordinate = tool.coordinate
     }

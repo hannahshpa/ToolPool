@@ -16,51 +16,31 @@ struct MapViewManager: View {
     @State private var search: String = ""
     
   
-//    TODO: calling location data from database
-//    private func load() {
-//     Network.shared.apollo.fetch(query: ToolAnnotation(id: 1)) { result in
-//       switch result {
-//       case .success(let graphQLResult):
-//         print("Success! Result: \(graphQLResult)")
-//         if let tool_temp = graphQLResult.data?.tool {
-//            self.tools = [Tool(tool_temp.name, tool_temp.name, tool_temp.location)]
-//         }
-//       case .failure(let error):
-//         print("Failure! Error: \(error)")
-//       }
-//     }
-//    }
-    
-    private func getNearByTools() {
-        
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = search
-        
-        //look up local places, TODO: chagne this to look up locatiosn in database
-        let search = MKLocalSearch(request: request)
-        search.start { (response, error) in
-            if let response = response {
-                //array of mkitems
-                let mapItems = response.mapItems
-                self.tools = mapItems.map {
-                    ToolModel(placemark: $0.placemark)
-                }
-            }
-        }
-    }
+// instiantiaing ToolModel annotation from database
+private func loadTools() { Network.shared.apollo.fetch(query: ToolByIdQuery(id: 1)) { result in
+       switch result {
+       case .success(let graphQLResult):
+         print("Success! Result: \(graphQLResult)")
+//        let coordinate = CLLocationCoordinate2D(result)
+//        print("graphqlresult", graphQLResult)
+         if let tool_temp = graphQLResult.data?.tool {
+            self.tools = [ToolModel(name: tool_temp.name, title: tool_temp.name,
+//    self.tools = [ToolModel(name: "wrench", title: "wrench",
+        coordinate: CLLocationCoordinate2D(latitude: tool_temp.location.lat, longitude: tool_temp.location.lon))]
+//        coordinate: CLLocationCoordinate2D(latitude: 47.514980, longitude: -122.4194))]
+        print("printing new tool", self.$tools[0].coordinate)
+     }
+   case .failure(let error):
+     print("Failure! Error: \(error)")
+   }
+ }
+}
 
     var body: some View {
         ZStack(alignment: .top) {
-
-            MapView(tools: tools)
-//          TODO: remove search option because going to pull tool location data from DB
-//            TextField("Search For Tool", text: $search, onEditingChanged: {
-//                        _ in })
-//            {
-//                self.getNearByTools()
-//            }.textFieldStyle(RoundedBorderTextFieldStyle())
-//                    .padding()
-//                    .offset(y: 44)
+            MapView(tools: tools).onAppear {
+                self.loadTools()
+            }
         }
     }
 }

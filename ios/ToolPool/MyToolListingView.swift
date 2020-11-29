@@ -36,7 +36,7 @@ struct MyToolListingView: View {
                         .resizable()
                         .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
                         .aspectRatio(contentMode: .fit)
-                  Text(displayTool.data!.name)
+                  //Text(displayTool.data!.name)
                         .font(.title)
                         .foregroundColor(.black)
                   StarRatingView(rating: .constant(Int(4)))
@@ -45,7 +45,7 @@ struct MyToolListingView: View {
                   Text("Description: " + displayTool.data!.description)
                   Text("Cost per hour: $" + String(displayTool.data!.hourlyCost))
                   Text("Location: 0.3 mi")
-                  Text("Condition: " + displayTool.data!.condition.rawValue)
+                  //Text("Condition: " + displayTool.data!.condition.rawValue)
 
                 }
                 Spacer()

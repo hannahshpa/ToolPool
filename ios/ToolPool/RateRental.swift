@@ -18,7 +18,7 @@ struct RateRental: View {
             HStack { // position views horizontally
                 Button(action: {
                     self.mode.wrappedValue.dismiss()
-                    self.mode.wrappedValue.dismiss()
+                    //self.mode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "star.fill")
                         .resizable()
@@ -26,7 +26,7 @@ struct RateRental: View {
                         .aspectRatio(contentMode: .fit)}
                 Button(action: {
                     self.mode.wrappedValue.dismiss()
-                    self.mode.wrappedValue.dismiss()
+                    //self.mode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "star.fill")
                         .resizable()
@@ -34,7 +34,7 @@ struct RateRental: View {
                         .aspectRatio(contentMode: .fit)}
                 Button(action: {
                     self.mode.wrappedValue.dismiss()
-                    self.mode.wrappedValue.dismiss()
+                    //self.mode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "star.fill")
                         .resizable()
@@ -42,7 +42,7 @@ struct RateRental: View {
                         .aspectRatio(contentMode: .fit)}
                 Button(action: {
                     self.mode.wrappedValue.dismiss()
-                    self.mode.wrappedValue.dismiss()
+                    //self.mode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "star.fill")
                         .resizable()
@@ -50,7 +50,7 @@ struct RateRental: View {
                         .aspectRatio(contentMode: .fit)}
                 Button(action: {
                     self.mode.wrappedValue.dismiss()
-                    self.mode.wrappedValue.dismiss()
+                    //self.mode.wrappedValue.dismiss()
                 }) {
                     Image(systemName: "star.fill")
                         .resizable()

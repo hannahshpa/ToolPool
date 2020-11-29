@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OtherProfilePage: View {
-    let user: BorrowByIdQuery.Data.Borrow.User!
+    let user: GetBorrowsQuery.Data.Self.BorrowHistory.User!
     let columns = [
         GridItem(.fixed(100)),
         GridItem(.fixed(100)),

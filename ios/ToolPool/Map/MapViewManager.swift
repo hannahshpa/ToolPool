@@ -17,7 +17,8 @@ struct MapViewManager: View {
     
   
 // instiantiaing ToolModel annotation from database
-private func loadTools() { Network.shared.apollo.fetch(query: ToolByIdQuery(id: 1)) { result in
+private func loadTools() {
+    Network.shared.apollo.fetch(query: ToolByIdQuery(id: 9)) { result in
        switch result {
        case .success(let graphQLResult):
          print("Success! Result: \(graphQLResult)")

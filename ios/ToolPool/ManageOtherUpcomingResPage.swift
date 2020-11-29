@@ -1,15 +1,15 @@
 //
-//  ManageUpcomingResPage.swift
+//  ManageOtherUpcomingResPage.swift
 //  ToolPool
 //
-//  Created by Alissa McNerney on 11/12/20.
+//  Created by Alissa McNerney on 11/26/20.
 //
 
 import SwiftUI
 
-struct ManageUpcomingResPage: View {
+struct ManageOtherUpcomingResPage: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    let borrow: GetBorrowsQuery.Data.Self.BorrowHistory!
+    let borrow: GetOtherBorrowsQuery.Data.Self.OwnedTool.BorrowHistory!
     var body: some View {
       ScrollView {
         GeometryReader {
@@ -48,8 +48,8 @@ struct ManageUpcomingResPage: View {
     }
 }
 
-struct ManageUpcomingResPage_Previews: PreviewProvider {
+struct ManageOtherUpcomingResPage_Previews: PreviewProvider {
     static var previews: some View {
-        ManageUpcomingResPage(borrow: nil)
+        ManageOtherUpcomingResPage(borrow: nil)
     }
 }

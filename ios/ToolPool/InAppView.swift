@@ -12,7 +12,7 @@ struct InAppView: View {
     @Environment(\.managedObjectContext) var moc
     //@FetchRequest(entity: Tool.entity(), sortDescriptors: []) var tools: FetchedResults<Tool>
     //let tabId: Int
-    @State private var selection = 0
+    @State private var selection = 1
   
     @State private var showingAddScreen = false
    var body: some View {

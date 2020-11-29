@@ -11,6 +11,10 @@ struct ProfileView: View {
   
   @ObservedObject var selfData: mySelf = mySelf()
   
+  init() {
+    self.selfData.load()
+  }
+  
     var body: some View {
       //NavigationView{
         GeometryReader {
@@ -47,9 +51,9 @@ struct ProfileView: View {
                     }
                   }
                 }
-            }
+            }.onAppear(perform: selfData.load)
           }
-        }
+        }.onAppear(perform: selfData.load)
       }
 }
 

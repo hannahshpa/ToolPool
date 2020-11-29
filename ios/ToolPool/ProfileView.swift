@@ -9,7 +9,11 @@ import SwiftUI
 
 struct ProfileView: View {
   
-    @ObservedObject var selfData = mySelf()
+  @ObservedObject var selfData: mySelf = mySelf()
+  
+  init() {
+    self.selfData.load()
+  }
   
     var body: some View {
       //NavigationView{
@@ -42,13 +46,14 @@ struct ProfileView: View {
                 LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 3), alignment: .center) {
                   
                   ForEach(selfData.data.ownedTools, id: \.id) { t in
-                    MyToolCategorySquare(geometry: geometry, toolName: t.name, toolId: t.id)
+                    NavigationLink(destination: MyToolListingView(t.id)) {
+                      MyToolCategorySquare(geometry: geometry, toolName: t.name, toolId: t.id)
+                    }
                   }
-                  
                 }
-            }
+            }.onAppear(perform: selfData.load)
           }
-        }
+        }.onAppear(perform: selfData.load)
       }
 }
 
@@ -97,7 +102,11 @@ class selfObj {
 
 class mySelf: ObservableObject {
 
-  @Published var data: selfObj
+  @Published var data: selfObj {
+    willSet {
+        objectWillChange.send()
+    }
+  }
     
     init() {
       self.data = selfObj(n: "test", e: "test", i: 0, ot: [])
@@ -110,12 +119,10 @@ class mySelf: ObservableObject {
        case .success(let graphQLResult):
           print("Success! Result: \(graphQLResult)")
           if let self_temp = graphQLResult.data?.`self` {
-            
-            self.data = selfObj(n: self_temp.name, e: self_temp.email, i: self_temp.id, ot: self_temp.ownedTools)
             self.objectWillChange.send()
-            print(self_temp.name)
-            print(self_temp.email)
-            print(self_temp.ownedTools)
+            self.data = selfObj(n: self_temp.name, e: self_temp.email, i: self_temp.id, ot: self_temp.ownedTools)
+            print("updated-----------------")
+            
           }
        case .failure(let error):
          print("Failure! Error: \(error)")

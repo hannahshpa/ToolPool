@@ -5,7 +5,6 @@ import SwiftJWT
 
 
 class Authenticator{
-    private let conn: DatabaseConnection
 
     private let privateKey: Data
     private let publicKey: Data
@@ -20,8 +19,7 @@ class Authenticator{
         let exp: Date
     }
 
-    init(conn: DatabaseConnection) throws {
-        self.conn = conn
+    init() throws {
         let env = ProcessInfo.processInfo.environment["ENV"]
         var privateKeyPath: URL
         var publicKeyPath: URL
@@ -61,9 +59,24 @@ class Authenticator{
         }
     }
 
-    func validateToken(token: String) throws -> User? {
+    func validateToken(headers: HTTPHeaders) throws -> User? {
+        let authTokenGiven: Bool = headers["Authorization"].count == 0 ? false: true
+
+        if authTokenGiven {
+            let tokenStringArray = headers["Authorization"][0].components(separatedBy: " ")
+            if tokenStringArray.count != 2 || tokenStringArray[0] != "Bearer" {
+                throw AuthenticationError.invalidToken
+            }
+            let authToken = tokenStringArray[1]
+            return try self.decodeToken(authToken: authToken)
+        }
+        else {
+            return nil
+        }
+    }
+    func decodeToken(authToken: String) throws -> User {
         do {
-            let decodedJWT = try JWT<tokenClaims>(jwtString: token, verifier: self.jwtVerifier)
+            let decodedJWT = try JWT<tokenClaims>(jwtString: authToken, verifier: self.jwtVerifier)
             let payload = decodedJWT.claims
             let date = Date()
             if date > payload.exp {

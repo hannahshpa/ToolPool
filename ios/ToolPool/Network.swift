@@ -52,8 +52,8 @@ class CustomInterceptor: ApolloInterceptor {
         
         do {
             let token = try returnToken()
-            print("In Network")
-            print(token)
+            //print("In Network")
+            //print(token)
           
             request.addHeader(name: "authorization", value: "Bearer \(token)")
 

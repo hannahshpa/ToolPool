@@ -2,7 +2,14 @@ query ToolById($id: Int) {
   tool(id: $id){
       name
       description
+      location {
+        lat
+        lon
+      }
       condition
+      hourly_cost
+      tags
+      images
   }
 }
 query GetBorrows {

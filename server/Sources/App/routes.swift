@@ -16,9 +16,9 @@ struct SignupHTTPBody: Decodable {
     let phoneNumber: String
 }
 
-struct uploadImageHTTPBody: Decodable {
+struct uploadBase64ImageHTTPBody: Decodable {
     let toolId: Int
-    let imageFile: Data
+    let imageFile: String
 }
 
 struct GraphQLHTTPBody: Decodable {
@@ -81,11 +81,11 @@ func routes(_ app: Application) throws {
         return promise.futureResult
     }
 
-    // Upload Tool Image
-    // uses app.on() to configure request body handling for modifying maxSize
+    // // Upload Tool Image
+    // // uses app.on() to configure request body handling for modifying maxSize
     app.on(.POST, "uploadImage", body: .collect(maxSize: "5mb")) { req -> EventLoopFuture<Response> in
         let promise = req.eventLoop.makePromise(of: Response.self)
-        let httpBody = try req.content.decode(uploadImageHTTPBody.self)
+        let httpBody = try req.content.decode(uploadBase64ImageHTTPBody.self)
         var context: Context
 
         do {
@@ -94,11 +94,8 @@ func routes(_ app: Application) throws {
                 throw RequestError.missingAuthToken
             }
             context = Context(user: userFromToken, conn: db!)
-        } catch AuthenticationError.invalidToken {
-            promise.fail(AuthenticationError.invalidToken)
-            return promise.futureResult
-        } catch RequestError.missingAuthToken {
-            promise.fail(RequestError.missingAuthToken)
+        } catch {
+            promise.fail(error)
             return promise.futureResult
         }
 

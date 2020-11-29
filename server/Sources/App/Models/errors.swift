@@ -12,4 +12,5 @@ enum AuthenticationError: Error {
 
 enum ImageUploadError: Error {
     case invalidImageFileType
+    case invalidBase64ImageFormat
 }

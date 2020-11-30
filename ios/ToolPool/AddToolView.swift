@@ -223,7 +223,9 @@ class NewTool: ObservableObject {
             self.data = newTool.id
             
             do {
-              try AddImage(tool_id: newTool.id, addImage: newImage)
+              //try AddImage(tool_id: newTool.id, addImage: newImage)
+              let filename = save(image: newImage, name: String(newTool.id))
+              print(filename!.utf8)
               print("Adding Image worked?")
             } catch {
                 print("Adding Image Failed.")
@@ -238,4 +240,18 @@ class NewTool: ObservableObject {
   
 }
 
+var documentsUrl: URL {
+    return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+}
 
+func save(image: UIImage, name: String) -> String? {
+    let fileName = name
+    let fileURL = documentsUrl.appendingPathComponent(fileName)
+    print(fileURL)
+    if let imageData = image.jpegData(compressionQuality: 1.0) {
+       try? imageData.write(to: fileURL, options: .atomic)
+       return fileName // ----> Save fileName
+    }
+    print("Error saving image")
+    return nil
+}

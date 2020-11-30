@@ -32,10 +32,17 @@ struct MyToolListingView: View {
                           .foregroundColor(.white)
                           .cornerRadius(40)
                   }
-                  Image("tool")
-                        .resizable()
-                        .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
-                        .aspectRatio(contentMode: .fit)
+                  if (loadImage(fileName: String(toolId)) != nil) {
+                    Image(uiImage: loadImage(fileName: String(toolId))!)
+                      .resizable()
+                      .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
+                      .aspectRatio(contentMode: .fit)
+                  } else {
+                    Image("tool")
+                      .resizable()
+                      .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
+                      .aspectRatio(contentMode: .fit)
+                  }
                   Text(displayTool.data!.name)
                         .font(.title)
                         .foregroundColor(.black)

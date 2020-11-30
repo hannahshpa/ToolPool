@@ -48,16 +48,18 @@ struct RentalView: View {
                                     Text(b.tool.name)
                                 }
                             }
+                
                         }
                         }
                     
-                       .navigationBarTitle("My Tool Rentals", displayMode: .automatic)
-                       .navigationBarBackButtonHidden(true)
                     
                    }
-                   .navigationViewStyle(StackNavigationViewStyle())
+                .navigationBarTitle("My Tool Rentals", displayMode: .automatic)
+                //.navigationBarBackButtonHidden(true)
+                   //.navigationViewStyle(StackNavigationViewStyle())
                    .edgesIgnoringSafeArea(.top)
                }
+            .edgesIgnoringSafeArea(.top)
             }
     
 }

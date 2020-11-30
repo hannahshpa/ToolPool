@@ -20,14 +20,15 @@ query GetBorrows {
             tool {
                 id
                 name
+                owner {
+                    id
+                    name
+                    phoneNumber
+                    email
+                }
             }
             status
-            user {
-                id
-                name
-                phoneNumber
-                email
-            }
+
         }
     }
 }

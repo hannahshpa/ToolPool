@@ -27,9 +27,9 @@ struct ManagePendingResPage: View {
                 //Text("Duration: " + borrow.loanPeriod.end)
                 Text("Cost: \(borrow.cost)")
                 Text("Location: (insert map)")
-                Text("User: " + borrow.user.name)
-                Text("Email: \( borrow.user.email)")
-                Text("Phone Number: \(borrow.user.phoneNumber)")
+                Text("Owner: " + borrow.tool.owner.name)
+                Text("Email: \( borrow.tool.owner.email)")
+                Text("Phone Number: \(borrow.tool.owner.phoneNumber)")
                 
             }
             Divider()

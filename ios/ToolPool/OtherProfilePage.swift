@@ -5,7 +5,7 @@
 //  Created by Alissa McNerney on 11/19/20.
 //
 
-import SwiftUI
+/*import SwiftUI
 
 struct OtherProfilePage: View {
     let user: GetBorrowsQuery.Data.Self.BorrowHistory.User!
@@ -53,3 +53,4 @@ struct OtherProfilePage_Previews: PreviewProvider {
         OtherProfilePage(user: nil)
     }
 }
+*/

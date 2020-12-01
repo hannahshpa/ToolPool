@@ -35,7 +35,7 @@ struct ToolCategoryPage: View {
                     LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 2), alignment: .center) {
                       
                       ForEach(myCategoryTools.data.tools, id: \.id) { t in
-                        NavigationLink(destination: ToolListingPage(listingName:t.name, listingId: t.id, categoryName:categoryName)) {
+                        NavigationLink(destination: ToolListingPage(t.name, id: t.id, category:categoryName)) {
                             ToolListingSquare(geometry: geometry, listingName: t.name)
                         }
                       }
@@ -78,7 +78,7 @@ struct ToolListingSquare: View {
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            Image("tool")
+            Image("tool")   // hard coded right now, but can do listingName.lowercased() if it's one of the hard coded ones like hammer
                 .resizable()
                 .frame(width: geometry.size.width * 0.45, height: geometry.size.width * 0.45)
                 .aspectRatio(contentMode: .fit)
@@ -87,7 +87,8 @@ struct ToolListingSquare: View {
                     .padding(1)
                     .font(.headline)
                     .foregroundColor(Color.white)
-                StarRatingView(rating: .constant(Int(4)))
+                //StarRatingView(rating: .constant(Int(displayTool.data!.averageRating)))
+                StarRatingView(rating: .constant(Int(4)))   // hard coded for now
                     .font(.headline)
                 }.padding(12)
         }

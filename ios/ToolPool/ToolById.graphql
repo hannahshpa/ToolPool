@@ -10,6 +10,10 @@ query ToolById($id: Int) {
       hourly_cost
       tags
       images
+      averageRating
+      owner {
+        name
+        }
   }
 }
 query GetBorrows {
@@ -115,6 +119,7 @@ query GetNearby($center: GeoLocationInput!, $radius: Float!) {
           hourly_cost
           tags
           images
+          averageRating
     }
 }
 

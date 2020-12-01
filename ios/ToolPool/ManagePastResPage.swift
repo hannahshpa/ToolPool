@@ -23,7 +23,7 @@ struct ManagePastResPage: View {
                 .foregroundColor(.black)
             Divider()
             Group {
-                //Text("Date: " + borrow.loanPeriod.start)
+                Text("Start: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.start)!) )")
                 Text("Cost: \(borrow.cost)")
                 Text("Location: (insert map)")
                 Text("Rental Rating: (insert rating)")

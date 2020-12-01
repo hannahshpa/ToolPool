@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ToolListingPage: View {
     let listingName: String
+    let listingId: Int
     let categoryName:String
     @State private var date = Date()
     var body: some View {
@@ -55,6 +56,6 @@ struct ToolListingPage: View {
 
 struct ToolListingPage_Previews: PreviewProvider {
     static var previews: some View {
-        ToolListingPage(listingName:"Sample Tool", categoryName: "Tool Category")
+        ToolListingPage(listingName:"Sample Tool", listingId: 0, categoryName: "Tool Category")
     }
 }

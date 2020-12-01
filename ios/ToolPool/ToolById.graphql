@@ -63,7 +63,6 @@ query BorrowById($id: Int) {
             end
         }
         tool {
-            id
             name
         }
         user {
@@ -101,6 +100,22 @@ query GetSelf {
       id
     }
   }
+}
+
+query GetNearby($center: GeoLocationInput!, $radius: Float!) {
+    nearby(center: $center, radius: $radius) {
+          id
+          name
+          description
+          location {
+            lat
+            lon
+          }
+          condition
+          hourly_cost
+          tags
+          images
+    }
 }
 
 mutation AddTool($tool: NewToolInput!){

@@ -32,7 +32,7 @@ struct ManagePastResPage: View {
                 Text("Phone Number: \(borrow.user.phoneNumber)")
             }
             Divider()
-            NavigationLink(destination: ToolListingPage(listingName: borrow.tool.name, categoryName: "")) {
+            NavigationLink(destination: ToolListingPage(listingName: borrow.tool.name,listingId: borrow.tool.id, categoryName: "")) {
                 Text("Rent Again")
                     .frame(minWidth:0, maxWidth:325)
                     .background(Color.orange)

@@ -16,6 +16,9 @@ public struct Borrow: Codable{
     public let cost: Double
     public let loanPeriod: TimeSlot
     public let timeReturned: Date?
+    public var timeReturnedDouble: Double? {
+        get{return timeReturned?.timeIntervalSinceReferenceDate}
+    }
     public let status: BorrowStatus
     
     public func getTool(context: Context, arguments: NoArguments) -> EventLoopFuture<Tool>{

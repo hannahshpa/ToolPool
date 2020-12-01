@@ -55,7 +55,7 @@ struct ToolListingPage: View {
                     Text("Category: " + categoryName)
                     Text("Cost per hour: $" + String(displayTool.data!.hourlyCost))
                     Text("Distance: 0.3 mi") // hard coded for now
-                    Text("Condition: Good")
+                    Text("Condition: " + displayTool.data!.condition.rawValue.uppercased())
                     Text("Owner: " + displayTool.data!.owner.name)
                     DatePicker(
                           "Start Date",

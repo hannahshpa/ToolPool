@@ -26,14 +26,13 @@ struct GQLAPI : API {
                 Value(.rejected)
                 Value(.pending)
             }
-            Scalar(Date.self).description("Returns the number of seconds since January, 1st, 2001: 12:00 am, ie Date(timeIntervalSinceReferenceDate: )")
             Type(GeoLocation.self){
                 Field("lat", at: \.lat)
                 Field("lon", at: \.lon)
             }
             Type(TimeSlot.self){
-                Field("start", at: \.start, as: Date.self)
-                Field("end", at: \.end, as: Date.self)
+                Field("start", at: \.startDouble).description("Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate")
+                Field("end", at: \.endDouble).description("Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate")
             }
             Type(UserRating.self){
                 Field("rating", at: \.rating)
@@ -57,7 +56,7 @@ struct GQLAPI : API {
                 Field("user", at: Borrow.getUser, as: TypeReference<User>.self)
                 Field("status", at: \.status)
                 Field("loanPeriod", at: \.loanPeriod)
-                Field("timeReturned", at: \.timeReturned)
+                Field("timeReturned", at: \.timeReturnedDouble).description("Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate")
             }
             Type(ToolRating.self){
                 Field("rating", at: \.rating)
@@ -93,7 +92,6 @@ struct GQLAPI : API {
                 InputField("ownerId", at: \.ownerId)
                 InputField("location", at: \.location)
                 InputField("hourlyCost", at: \.hourlyCost)
-                InputField("images", at: \.images).description("URL of uploaded image. Must have at least 1")
                 InputField("tags", at: \.tags).description("Tags (ie handtool, powertool, etc). Must have at least 1")
             }
 
@@ -108,6 +106,7 @@ struct GQLAPI : API {
                 Field("nearby", at: Resolver.nearby){
                     Argument("center", at: \.center)
                     Argument("radius", at: \.radius)
+                    Argument("category", at: \.category).description("Optional string to specify a category to filter by (ie \"outdoor\")")
                 }.description("Find all tools within a given radius, centered at a point")
             }
             
@@ -121,8 +120,8 @@ struct GQLAPI : API {
                 Field("requestBorrow", at: Resolver.requestBorrow){
                     Argument("toolId", at: \.toolId)
                     Argument("userId", at: \.userId)
-                    Argument("startTime", at: \.startTime)
-                    Argument("endTime", at: \.endTime)
+                    Argument("startTime", at: \.startTime).description("Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate")
+                    Argument("endTime", at: \.endTime).description("Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate")
                 }
                 Field("approveBorrow", at: Resolver.approveBorrow){
                     Argument("id", at: \.id)

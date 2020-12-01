@@ -33,16 +33,31 @@ public struct Resolver{
     public struct NearbyArgs: Codable{
         public let center: GeoLocationInput
         public let radius: Double
+        public let category: String?
     }
     public func nearby(context: Context, arguments: NearbyArgs) -> EventLoopFuture<[Tool]>{
         // This is pretty insecure, but unfortunately there is no support for polygons in Postgrekit
         // Graphql *should* prevent anything other than the correct data types from coming in, but still...
-        conn.getDB().query(
-            "SELECT * FROM tools WHERE circle '<(\(arguments.center.lat),\(arguments.center.lon)) \(arguments.radius)>' @> location;").map{result -> [Tool] in
-                return result.rows.map{row -> Tool in
-                    try! row.sql().decode(model: DBTool.self).toTool()
+        if let category = arguments.category{
+            return conn.getDB().query("""
+                SELECT *, location[0] as lat, location[1] as lon
+                FROM tools
+                JOIN tool_tags ON tool = tool_id
+                WHERE circle '<(\(arguments.center.lat),\(arguments.center.lon)) \(arguments.radius)>' @> location
+                      AND tag = $1;
+                """, [category.postgresData!]).map{result in
+                    result.rows.map{row in
+                        try! row.sql().decode(model: DBTool.self).toTool()
+                    }
                 }
-            }
+        }else{
+            return conn.getDB().query(
+                "SELECT *, location[0] as lat, location[1] as lon FROM tools WHERE circle '<(\(arguments.center.lat),\(arguments.center.lon)) \(arguments.radius)>' @> location;").map{result -> [Tool] in
+                    result.rows.map{row -> Tool in
+                        try! row.sql().decode(model: DBTool.self).toTool()
+                    }
+                }
+        }
     }
     
     // Mutations
@@ -106,12 +121,12 @@ public struct Resolver{
         guard let user = context.getUser() else{
             return context.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
         }
-        if(user.id != arguments.userId){
+        if user.id != arguments.userId {
             return context.getDB().eventLoop.makeFailedFuture(Abort(.badRequest))
         }
         let start = Date(timeIntervalSinceReferenceDate: arguments.startTime)
         let end = Date(timeIntervalSinceReferenceDate: arguments.endTime)
-        if(start.distance(to: end) <= 0){
+        if end < start{
             return context.getDB().eventLoop.makeFailedFuture(Abort(.badRequest))
         }
         return DBTool.getById(id: arguments.toolId, db: conn.getDB()).map{result in

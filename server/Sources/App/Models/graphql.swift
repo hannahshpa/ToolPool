@@ -106,6 +106,7 @@ struct GQLAPI : API {
                 Field("nearby", at: Resolver.nearby){
                     Argument("center", at: \.center)
                     Argument("radius", at: \.radius)
+                    Argument("category", at: \.category).description("Optional string to specify a category to filter by (ie \"outdoor\")")
                 }.description("Find all tools within a given radius, centered at a point")
             }
             

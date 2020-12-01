@@ -13,6 +13,9 @@ struct CreateAccountView: View {
   @State var email: String = ""
   @State var phoneNumber: String = ""
   @State var showInApp: Bool = false
+  
+  @State private var isShowPhotoLibrary = false
+  @State private var image = UIImage()
 
   var body: some View {
       VStack {
@@ -27,12 +30,35 @@ struct CreateAccountView: View {
                 TextField("Password", text: $password)
                 TextField("Name", text: $username)
                 TextField("Phone Number", text: $phoneNumber)
+                Button(action: {
+                                self.isShowPhotoLibrary = true
+                            }) {
+                                HStack {
+                                    Image(systemName: "photo")
+                                        .font(.system(size: 20))
+                 
+                                    Text("Photo library")
+                                        .font(.headline)
+                                }
+                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 50)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(20)
+                                .padding(.horizontal)
+                            }
+                Image(uiImage: self.image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(minWidth: 0, maxWidth: .infinity)
+                                .edgesIgnoringSafeArea(.all)
               }
             }
           Button(action: {
             self.showInApp = true
             signUpAuth(em: email, pw: password, nm: username, ph: phoneNumber)
             loginAuth(un: email, pw: password)
+            let filename = save(image: image, name: username)
+            print(filename)
              // self.mode.wrappedValue.dismiss()
           }) { Text("Enter")
               .foregroundColor(Color.black)
@@ -44,7 +70,9 @@ struct CreateAccountView: View {
           }
             
         }
-      }
+      }.sheet(isPresented: $isShowPhotoLibrary) {
+        ImagePicker(selectedImage: self.$image, sourceType: .photoLibrary)
+    }
   }
 }
 
@@ -122,3 +150,4 @@ func signUpAuth (em: String, pw: String, nm: String, ph: String) {
     semaphore.wait()
 
 }
+

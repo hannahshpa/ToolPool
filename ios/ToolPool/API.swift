@@ -242,6 +242,11 @@ public final class ToolByIdQuery: GraphQLQuery {
         hourly_cost
         tags
         images
+        averageRating
+        owner {
+          __typename
+          name
+        }
       }
     }
     """
@@ -300,6 +305,8 @@ public final class ToolByIdQuery: GraphQLQuery {
           GraphQLField("hourly_cost", type: .nonNull(.scalar(Double.self))),
           GraphQLField("tags", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
           GraphQLField("images", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
+          GraphQLField("averageRating", type: .nonNull(.scalar(Double.self))),
+          GraphQLField("owner", type: .nonNull(.object(Owner.selections))),
         ]
       }
 
@@ -309,8 +316,8 @@ public final class ToolByIdQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(name: String, description: String, location: Location, condition: ToolCondition, hourlyCost: Double, tags: [String], images: [String]) {
-        self.init(unsafeResultMap: ["__typename": "Tool", "name": name, "description": description, "location": location.resultMap, "condition": condition, "hourly_cost": hourlyCost, "tags": tags, "images": images])
+      public init(name: String, description: String, location: Location, condition: ToolCondition, hourlyCost: Double, tags: [String], images: [String], averageRating: Double, owner: Owner) {
+        self.init(unsafeResultMap: ["__typename": "Tool", "name": name, "description": description, "location": location.resultMap, "condition": condition, "hourly_cost": hourlyCost, "tags": tags, "images": images, "averageRating": averageRating, "owner": owner.resultMap])
       }
 
       public var __typename: String {
@@ -385,6 +392,24 @@ public final class ToolByIdQuery: GraphQLQuery {
         }
       }
 
+      public var averageRating: Double {
+        get {
+          return resultMap["averageRating"]! as! Double
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "averageRating")
+        }
+      }
+
+      public var owner: Owner {
+        get {
+          return Owner(unsafeResultMap: resultMap["owner"]! as! ResultMap)
+        }
+        set {
+          resultMap.updateValue(newValue.resultMap, forKey: "owner")
+        }
+      }
+
       public struct Location: GraphQLSelectionSet {
         public static let possibleTypes: [String] = ["GeoLocation"]
 
@@ -430,6 +455,45 @@ public final class ToolByIdQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "lon")
+          }
+        }
+      }
+
+      public struct Owner: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["User"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("name", type: .nonNull(.scalar(String.self))),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(name: String) {
+          self.init(unsafeResultMap: ["__typename": "User", "name": name])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var name: String {
+          get {
+            return resultMap["name"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
           }
         }
       }
@@ -1854,6 +1918,7 @@ public final class GetNearbyQuery: GraphQLQuery {
         hourly_cost
         tags
         images
+        averageRating
       }
     }
     """
@@ -1915,6 +1980,7 @@ public final class GetNearbyQuery: GraphQLQuery {
           GraphQLField("hourly_cost", type: .nonNull(.scalar(Double.self))),
           GraphQLField("tags", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
           GraphQLField("images", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
+          GraphQLField("averageRating", type: .nonNull(.scalar(Double.self))),
         ]
       }
 
@@ -1924,8 +1990,8 @@ public final class GetNearbyQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: Int, name: String, description: String, location: Location, condition: ToolCondition, hourlyCost: Double, tags: [String], images: [String]) {
-        self.init(unsafeResultMap: ["__typename": "Tool", "id": id, "name": name, "description": description, "location": location.resultMap, "condition": condition, "hourly_cost": hourlyCost, "tags": tags, "images": images])
+      public init(id: Int, name: String, description: String, location: Location, condition: ToolCondition, hourlyCost: Double, tags: [String], images: [String], averageRating: Double) {
+        self.init(unsafeResultMap: ["__typename": "Tool", "id": id, "name": name, "description": description, "location": location.resultMap, "condition": condition, "hourly_cost": hourlyCost, "tags": tags, "images": images, "averageRating": averageRating])
       }
 
       public var __typename: String {
@@ -2006,6 +2072,15 @@ public final class GetNearbyQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "images")
+        }
+      }
+
+      public var averageRating: Double {
+        get {
+          return resultMap["averageRating"]! as! Double
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "averageRating")
         }
       }
 

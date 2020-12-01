@@ -21,10 +21,17 @@ struct ProfileView: View {
             geometry in
           VStack {
             HStack {
-              Image("profile")
+              if (loadImage(fileName: String(selfData.data.name)) != nil) {
+                Image(uiImage: loadImage(fileName: String(selfData.data.name))!)
                   .resizable()
-                  .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
+                  .frame(width: geometry.size.width * 0.35, height: geometry.size.width * 0.35)
                   .aspectRatio(contentMode: .fit)
+              } else {
+                Image("profile")
+                  .resizable()
+                  .frame(width: geometry.size.width * 0.35, height: geometry.size.width * 0.35)
+                  .aspectRatio(contentMode: .fit)
+              }
               Text(selfData.data.name + "'s ToolBox")
                 .font(.largeTitle)
                 .onAppear() {
@@ -64,10 +71,17 @@ struct MyToolCategorySquare: View {
     let toolId: Int
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
+          if (loadImage(fileName: String(toolId)) != nil) {
+            Image(uiImage: loadImage(fileName: String(toolId))!)
+                  .resizable()
+                  .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
+                  .aspectRatio(contentMode: .fit)
+          } else {
             Image("tool")
-                .resizable()
-                .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
-                .aspectRatio(contentMode: .fit)
+                  .resizable()
+                  .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
+                  .aspectRatio(contentMode: .fit)
+          }
             Text(toolName).bold()
                 .padding(6)
                 .font(.headline)
@@ -132,6 +146,16 @@ class mySelf: ObservableObject {
   
 }
 
+func loadImage(fileName: String) -> UIImage? {
+    let fileURL = documentsUrl.appendingPathComponent(fileName)
+    do {
+        let imageData = try Data(contentsOf: fileURL)
+        return UIImage(data: imageData)
+    } catch {
+        print("Error loading image : \(error)")
+    }
+    return nil
+}
 
 /*
 struct TestView: View {

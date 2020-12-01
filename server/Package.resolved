@@ -83,6 +83,15 @@
         }
       },
       {
+        "package": "HypertextApplicationLanguage",
+        "repositoryURL": "https://github.com/swift-aws/HypertextApplicationLanguage.git",
+        "state": {
+          "branch": null,
+          "revision": "aa2c9141d491682f17b2310aed17b9adfc006256",
+          "version": "1.1.1"
+        }
+      },
+      {
         "package": "KituraContracts",
         "repositoryURL": "https://github.com/Kitura/KituraContracts.git",
         "state": {
@@ -98,6 +107,15 @@
           "branch": null,
           "revision": "e82d34eab3f0b05391082b11ea07d3b70d2f65bb",
           "version": "1.9.200"
+        }
+      },
+      {
+        "package": "INIParser",
+        "repositoryURL": "https://github.com/swift-aws/Perfect-INIParser.git",
+        "state": {
+          "branch": null,
+          "revision": "42de0efc7a01105e19b80d533d3d282a98277f6c",
+          "version": "3.0.3"
         }
       },
       {
@@ -134,6 +152,24 @@
           "branch": null,
           "revision": "61c9776f47d2951bdc562486ad348e5e1ca2e180",
           "version": "2.1.1"
+        }
+      },
+      {
+        "package": "AWSSDKSwift",
+        "repositoryURL": "https://github.com/soto-project/soto.git",
+        "state": {
+          "branch": null,
+          "revision": "b402b8a434ca39f24d189289ab93fbee96664502",
+          "version": "4.9.0"
+        }
+      },
+      {
+        "package": "AWSSDKSwiftCore",
+        "repositoryURL": "https://github.com/soto-project/soto-core.git",
+        "state": {
+          "branch": null,
+          "revision": "856a7df0c15763de4f9f3e3d7baea4a8aa009d22",
+          "version": "4.7.2"
         }
       },
       {

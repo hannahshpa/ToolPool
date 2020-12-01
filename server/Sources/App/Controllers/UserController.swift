@@ -9,7 +9,7 @@ final class UserController {
 
     init(conn: DatabaseConnection) {
         self.conn = conn
-        self.authenticator = try! Authenticator(conn: self.conn)
+        self.authenticator = try! Authenticator()
     }
 
     func login(_ data: LoginHTTPBody) -> EventLoopFuture<String>{

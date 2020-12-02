@@ -64,7 +64,7 @@ struct ToolListingPage: View {
                           displayedComponents: [.date]
                       )
                         .datePickerStyle(GraphicalDatePickerStyle())
-                    NavigationLink(destination: MakeReservationView(date:self.date)) {
+                    NavigationLink(destination: MakeReservationView(date:self.date, toolId: self.listingId)) {
                         Text("Set Reservation Details")
                             .frame(minWidth:0, maxWidth:325)
                             .background(Color.orange)

@@ -46,13 +46,13 @@ struct OtherRentalView: View {
                         }
                         }
                     
-                       .navigationBarTitle("Other Tool Rentals", displayMode: .automatic)
-                       .navigationBarBackButtonHidden(true)
+                       
+                       //.navigationBarBackButtonHidden(true)
                     
                    }
-                   .navigationViewStyle(StackNavigationViewStyle())
-                   .edgesIgnoringSafeArea(.top)
+                .navigationBarTitle("Other Tool Rentals", displayMode: .automatic)
                }
+            .edgesIgnoringSafeArea(.top)
             }
     
 }

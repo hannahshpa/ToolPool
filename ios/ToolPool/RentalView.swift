@@ -17,9 +17,6 @@ struct RentalView: View {
     var body: some View {
             NavigationView {
                 List{
-                    //usually fetch list of rentals with this user id
-                    //may have to makes seperate queries for rentals based on time/approval
-                    //for each rental make navlink passing in rental obj
                         Section(header: Text("Pending Rentals"))
                         {
                             ForEach(borrowsData.data.borrows, id: \.id) { b in
@@ -48,73 +45,21 @@ struct RentalView: View {
                                     Text(b.tool.name)
                                 }
                             }
+                
                         }
                         }
                     
-                       .navigationBarTitle("My Tool Rentals", displayMode: .automatic)
-                       .navigationBarBackButtonHidden(true)
                     
                    }
-                   .navigationViewStyle(StackNavigationViewStyle())
+                .navigationBarTitle("My Tool Rentals", displayMode: .automatic)
+                //.navigationBarBackButtonHidden(true)
+                   //.navigationViewStyle(StackNavigationViewStyle())
                    .edgesIgnoringSafeArea(.top)
                }
+            .edgesIgnoringSafeArea(.top)
             }
     
 }
-                            
-    /*var body: some View {
-        GeometryReader {
-            geometry in
-            VStack {
-                /*Text("My Rentals")
-                    .font(.largeTitle)
-                    .onAppear() {
-                        self.borrowsData.objectWillChange.send()
-                    }
-            
-                Divider()*/
-                List {
-                    Section(header: Text("Pending Rentals"))
-                    {
-                        NavigationLink(destination: ToolListingPage(listingName:"hi", categoryName:"camping")) {
-                            Text("test")
-                        }
-                        ForEach(borrowsData.data.borrows, id: \.id) { b in
-                            if b.status == .pending {
-                                NavigationLink(destination: ManagePendingResPage(borrow: b)) {
-                                    Text(b.tool.name)
-                                }
-                            }
-                        }
-                    }
-                    Section(header: Text("Upcoming Rentals"))
-                    {
-                        ForEach(borrowsData.data.borrows, id: \.id) { b in
-                            if b.status == .accepted {
-                                NavigationLink(destination: ManageUpcomingResPage(borrow: b)) {
-                                    Text(b.tool.name)
-                                }
-                            }
-                        }
-                    }
-                    Section(header: Text("Past Rentals"))
-                    {
-                        ForEach(borrowsData.data.borrows, id: \.id) { b in
-                            if b.status == .rejected {
-                            NavigationLink(destination: ManagePastResPage(borrow: b)) {
-                                Text(b.tool.name)
-                            }
-                        }
-                    }
-                    
-                }
-            }
-        }
-    
-    }
-    .navigationBarTitle("My Rentals", displayMode: .large)
-}
-     }*/
 
 
 

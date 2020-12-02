@@ -54,7 +54,7 @@ services:
       - ./sql/triggers.sql:/docker-entrypoint-initdb.d/1001.sql
       - ./sql/testData.sql:/docker-entrypoint-initdb.d/9000.sql
     ports:
-      - '5433:5432'
+      - '5432:5432'
   nginx:
     image: nginx:alpine
     volumes:
@@ -62,7 +62,7 @@ services:
     ports:
       - 80:80
       - 443:443
-    depends_on: 
+    depends_on:
       - app
 volumes:
   database-data:

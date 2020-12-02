@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS borrow(
     status BorrowStatus NOT NULL DEFAULT 'pending',
     loan_period TSTZRANGE NOT NULL,
     time_returned TIMESTAMPTZ,
+    return_accepted BOOLEAN,
     CONSTRAINT overlapping_times EXCLUDE USING GIST (
         tool WITH =,
         loan_period WITH &&

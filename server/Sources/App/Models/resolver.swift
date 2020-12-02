@@ -81,7 +81,7 @@ public struct Resolver{
         
         let query = """
             WITH id AS (INSERT INTO tools (name, description, condition, hourly_cost, location, owner) VALUES
-                       ($1, $2, $3::toolcondition, $4, POINT($5, $6), $7) RETURNING tool_id),
+                       ($1, $2, $3::toolcondition, $4, POINT($5, $6), $7) RETURNING tool_id)
                 INSERT INTO tool_tags (tool, tag) VALUES
                     \(tool.tags.enumerated().map{(i, _) in "((SELECT tool_id FROM id), $\(i + 8))"}.joined(separator: ",")) RETURNING tool;
         """

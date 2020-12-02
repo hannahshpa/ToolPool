@@ -111,13 +111,12 @@ public struct NewToolInput: GraphQLMapConvertible {
   ///   - condition
   ///   - description
   ///   - hourlyCost
-  ///   - images: URL of uploaded image. Must have at least 1
   ///   - location
   ///   - name
   ///   - ownerId
   ///   - tags: Tags (ie handtool, powertool, etc). Must have at least 1
-  public init(condition: ToolCondition, description: String, hourlyCost: Double, images: [String], location: GeoLocationInput, name: String, ownerId: Int, tags: [String]) {
-    graphQLMap = ["condition": condition, "description": description, "hourlyCost": hourlyCost, "images": images, "location": location, "name": name, "ownerId": ownerId, "tags": tags]
+  public init(condition: ToolCondition, description: String, hourlyCost: Double, location: GeoLocationInput, name: String, ownerId: Int, tags: [String]) {
+    graphQLMap = ["condition": condition, "description": description, "hourlyCost": hourlyCost, "location": location, "name": name, "ownerId": ownerId, "tags": tags]
   }
 
   public var condition: ToolCondition {
@@ -144,16 +143,6 @@ public struct NewToolInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "hourlyCost")
-    }
-  }
-
-  /// URL of uploaded image. Must have at least 1
-  public var images: [String] {
-    get {
-      return graphQLMap["images"] as! [String]
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "images")
     }
   }
 
@@ -241,7 +230,6 @@ public final class ToolByIdQuery: GraphQLQuery {
         condition
         hourly_cost
         tags
-        images
       }
     }
     """
@@ -299,7 +287,6 @@ public final class ToolByIdQuery: GraphQLQuery {
           GraphQLField("condition", type: .nonNull(.scalar(ToolCondition.self))),
           GraphQLField("hourly_cost", type: .nonNull(.scalar(Double.self))),
           GraphQLField("tags", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
-          GraphQLField("images", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
         ]
       }
 
@@ -309,8 +296,8 @@ public final class ToolByIdQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(name: String, description: String, location: Location, condition: ToolCondition, hourlyCost: Double, tags: [String], images: [String]) {
-        self.init(unsafeResultMap: ["__typename": "Tool", "name": name, "description": description, "location": location.resultMap, "condition": condition, "hourly_cost": hourlyCost, "tags": tags, "images": images])
+      public init(name: String, description: String, location: Location, condition: ToolCondition, hourlyCost: Double, tags: [String]) {
+        self.init(unsafeResultMap: ["__typename": "Tool", "name": name, "description": description, "location": location.resultMap, "condition": condition, "hourly_cost": hourlyCost, "tags": tags])
       }
 
       public var __typename: String {
@@ -373,15 +360,6 @@ public final class ToolByIdQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "tags")
-        }
-      }
-
-      public var images: [String] {
-        get {
-          return resultMap["images"]! as! [String]
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "images")
         }
       }
 
@@ -2063,63 +2041,6 @@ public final class AddToolMutation: GraphQLMutation {
         set {
           resultMap.updateValue(newValue, forKey: "id")
         }
-      }
-    }
-  }
-}
-
-public final class RequestBorrowMutation: GraphQLMutation {
-  /// The raw GraphQL definition of this operation.
-  public let operationDefinition: String =
-    """
-    mutation RequestBorrow($userId: Int, $startTime: Date, $endTime: Date, $toolId: Int) {
-      requestBorrow(userId: $userId, startTime: $startTime, endTime: $endTime, toolId: $toolId)
-    }
-    """
-
-  public let operationName: String = "RequestBorrow"
-
-  public var userId: Int?
-  public var startTime: String?
-  public var endTime: String?
-  public var toolId: Int?
-
-  public init(userId: Int? = nil, startTime: String? = nil, endTime: String? = nil, toolId: Int? = nil) {
-    self.userId = userId
-    self.startTime = startTime
-    self.endTime = endTime
-    self.toolId = toolId
-  }
-
-  public var variables: GraphQLMap? {
-    return ["userId": userId, "startTime": startTime, "endTime": endTime, "toolId": toolId]
-  }
-
-  public struct Data: GraphQLSelectionSet {
-    public static let possibleTypes: [String] = ["Mutation"]
-
-    public static var selections: [GraphQLSelection] {
-      return [
-        GraphQLField("requestBorrow", arguments: ["userId": GraphQLVariable("userId"), "startTime": GraphQLVariable("startTime"), "endTime": GraphQLVariable("endTime"), "toolId": GraphQLVariable("toolId")], type: .nonNull(.scalar(Int.self))),
-      ]
-    }
-
-    public private(set) var resultMap: ResultMap
-
-    public init(unsafeResultMap: ResultMap) {
-      self.resultMap = unsafeResultMap
-    }
-
-    public init(requestBorrow: Int) {
-      self.init(unsafeResultMap: ["__typename": "Mutation", "requestBorrow": requestBorrow])
-    }
-
-    public var requestBorrow: Int {
-      get {
-        return resultMap["requestBorrow"]! as! Int
-      }
-      set {
-        resultMap.updateValue(newValue, forKey: "requestBorrow")
       }
     }
   }

@@ -22,10 +22,16 @@
 		45817F50255E23E50045EB3E /* ManageUpcomingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F4F255E23E50045EB3E /* ManageUpcomingResPage.swift */; };
 		45817F58255E24E70045EB3E /* ManagePastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F57255E24E70045EB3E /* ManagePastResPage.swift */; };
 		45817F66255EFE210045EB3E /* RateRental.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F65255EFE210045EB3E /* RateRental.swift */; };
+		45836786256F5A76002609A9 /* MyToolListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45836785256F5A76002609A9 /* MyToolListingView.swift */; };
+		4583678B2570DB5B002609A9 /* ManageOtherPendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */; };
+		458367902570DBBB002609A9 /* ManageOtherUpcomingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678F2570DBBB002609A9 /* ManageOtherUpcomingResPage.swift */; };
+		458367952570DBFE002609A9 /* ManageOtherPastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */; };
 		45C44FDD25674BDE008529A9 /* OtherProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */; };
 		45C44FF025685EE4008529A9 /* OtherRentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FEF25685EE4008529A9 /* OtherRentalView.swift */; };
+		45F62BAF2575777B00A0E685 /* ManageOtherPastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */; };
+		45F62BB12575778000A0E685 /* ManageOtherUpcomingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678F2570DBBB002609A9 /* ManageOtherUpcomingResPage.swift */; };
+		45F62BB32575778400A0E685 /* ManageOtherPendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */; };
 		F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */; };
-		F53CE371256E30970085415A /* MyToolListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53CE370256E30970085415A /* MyToolListingView.swift */; };
 		F53CE3792571C9C20085415A /* ImageUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53CE3782571C9C20085415A /* ImageUpload.swift */; };
 		F545E739255DD89700CEC060 /* ToolListingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E737255DD89700CEC060 /* ToolListingPage.swift */; };
 		F545E73A255DD89700CEC060 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E738255DD89700CEC060 /* FilterView.swift */; };
@@ -141,6 +147,10 @@
 		45817F4F255E23E50045EB3E /* ManageUpcomingResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageUpcomingResPage.swift; sourceTree = "<group>"; };
 		45817F57255E24E70045EB3E /* ManagePastResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePastResPage.swift; sourceTree = "<group>"; };
 		45817F65255EFE210045EB3E /* RateRental.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateRental.swift; sourceTree = "<group>"; };
+		45836785256F5A76002609A9 /* MyToolListingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyToolListingView.swift; sourceTree = "<group>"; };
+		4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageOtherPendingResPage.swift; sourceTree = "<group>"; };
+		4583678F2570DBBB002609A9 /* ManageOtherUpcomingResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageOtherUpcomingResPage.swift; sourceTree = "<group>"; };
+		458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageOtherPastResPage.swift; sourceTree = "<group>"; };
 		45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfilePage.swift; sourceTree = "<group>"; };
 		45C44FEF25685EE4008529A9 /* OtherRentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherRentalView.swift; sourceTree = "<group>"; };
 		F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolCategoryPage.swift; sourceTree = "<group>"; };
@@ -219,6 +229,7 @@
 		28A7EC6B2543688E007423B0 /* ToolPool */ = {
 			isa = PBXGroup;
 			children = (
+				45836785256F5A76002609A9 /* MyToolListingView.swift */,
 				F5755E5525670C7E004ADBD4 /* MakeReservationView.swift */,
 				F5755E5225670C7E004ADBD4 /* RentalViewController.swift */,
 				F5755E5325670C7E004ADBD4 /* ToolPool.xcdatamodeld */,
@@ -235,8 +246,11 @@
 				45817F65255EFE210045EB3E /* RateRental.swift */,
 				45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */,
 				45817F47255E214F0045EB3E /* ManagePendingResPage.swift */,
+				4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */,
 				45817F4F255E23E50045EB3E /* ManageUpcomingResPage.swift */,
+				4583678F2570DBBB002609A9 /* ManageOtherUpcomingResPage.swift */,
 				45817F57255E24E70045EB3E /* ManagePastResPage.swift */,
+				458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */,
 				F58B264925537509000389E3 /* Login */,
 				28A7EC6E2543688E007423B0 /* ContentView.swift */,
 				F53CE3782571C9C20085415A /* ImageUpload.swift */,
@@ -476,6 +490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F545E73F255DD8A100CEC060 /* StarRatingView.swift in Sources */,
+				458367952570DBFE002609A9 /* ManageOtherPastResPage.swift in Sources */,
 				F58B265B25538E5C000389E3 /* CreateAccountView.swift in Sources */,
 				F5755E402563AB95004ADBD4 /* Network.swift in Sources */,
 				F58B26602553AAA7000389E3 /* InAppView.swift in Sources */,
@@ -492,7 +507,7 @@
 				F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */,
 				F5755E5725670C7E004ADBD4 /* ToolPool.xcdatamodeld in Sources */,
 				F5755E5825670C7E004ADBD4 /* MakeReservationView.swift in Sources */,
-				F53CE371256E30970085415A /* MyToolListingView.swift in Sources */,
+				45836786256F5A76002609A9 /* MyToolListingView.swift in Sources */,
 				28A7ECC925437428007423B0 /* SearchView.swift in Sources */,
 				28A7ECBF25437411007423B0 /* RentalView.swift in Sources */,
 				45C44FF025685EE4008529A9 /* OtherRentalView.swift in Sources */,
@@ -501,7 +516,9 @@
 				45817F66255EFE210045EB3E /* RateRental.swift in Sources */,
 				F545E73A255DD89700CEC060 /* FilterView.swift in Sources */,
 				F58B264525536965000389E3 /* Landing.swift in Sources */,
+				4583678B2570DB5B002609A9 /* ManageOtherPendingResPage.swift in Sources */,
 				45817F50255E23E50045EB3E /* ManageUpcomingResPage.swift in Sources */,
+				458367902570DBBB002609A9 /* ManageOtherUpcomingResPage.swift in Sources */,
 				28A7ECC42543741D007423B0 /* ProfileView.swift in Sources */,
 				28A7EC6D2543688E007423B0 /* ToolPoolApp.swift in Sources */,
 				45817F48255E214F0045EB3E /* ManagePendingResPage.swift in Sources */,
@@ -525,6 +542,7 @@
 				F5A461972572FF69005F154A /* ToolPool.xcdatamodeld in Sources */,
 				F5A461A02572FF91005F154A /* OtherRentalView.swift in Sources */,
 				F5A4616D2572FED6005F154A /* InAppView.swift in Sources */,
+				45F62BB32575778400A0E685 /* ManageOtherPendingResPage.swift in Sources */,
 				F5A461942572FF60005F154A /* MakeReservationView.swift in Sources */,
 				F5A4619A2572FF7E005F154A /* RateRental.swift in Sources */,
 				F5A461702572FED9005F154A /* ImageUpload.swift in Sources */,
@@ -538,7 +556,9 @@
 				F5A461762572FF00005F154A /* SignInView.swift in Sources */,
 				F5A461852572FF3D005F154A /* FilterView.swift in Sources */,
 				F5A4615B2572FE98005F154A /* API.swift in Sources */,
+				45F62BB12575778000A0E685 /* ManageOtherUpcomingResPage.swift in Sources */,
 				F5A4615F2572FEA1005F154A /* MyToolListingView.swift in Sources */,
+				45F62BAF2575777B00A0E685 /* ManageOtherPastResPage.swift in Sources */,
 				F5A4617C2572FF0B005F154A /* SearchView.swift in Sources */,
 				F5A4619D2572FF8E005F154A /* RentalView.swift in Sources */,
 				F5A4618E2572FF57005F154A /* ManageUpcomingResPage.swift in Sources */,

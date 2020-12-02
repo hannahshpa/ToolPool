@@ -13,55 +13,55 @@ struct User: Identifiable {
 }
 
 struct RentalView: View {
-    @ObservedObject private var borrowData: BorrowData = BorrowData()
+    @ObservedObject private var borrowsData: myBorrows = myBorrows()
     var body: some View {
-        NavigationView {
-            List{
-                //usually fetch list of rentals with this user id
-                //may have to makes seperate queries for rentals based on time/approval
-                //for each rental make navlink passing in rental obj
-                Section(header: Text("Pending Rentals"))  //may need to make sections link to own pages if there are too many rentals
-                {
-                    NavigationLink(destination: ManagePendingResPage(borrow: borrowData.borrows[0])) {
-                        Text((borrowData.borrows[0]?.loanPeriod.start)! + ": " + (borrowData.borrows[0]?.tool.name)! )
-                    }
-                    NavigationLink(destination: ManagePendingResPage(borrow: borrowData.borrows[1])) {
-                        Text((borrowData.borrows[1]?.loanPeriod.start)! + ": " + (borrowData.borrows[1]?.tool.name)! )
-                    }
-                }
-                Section(header: Text("Upcoming Rentals"))
-                {
-                    NavigationLink(destination: ManageUpcomingResPage(borrow: borrowData.borrows[0])){
-                        Text((borrowData.borrows[0]?.loanPeriod.start)! + ": " + (borrowData.borrows[0]?.tool.name)! )
-                    }
-                    NavigationLink(destination: ManageUpcomingResPage(borrow: borrowData.borrows[1])){
-                        Text((borrowData.borrows[1]?.loanPeriod.start)! + ": " + (borrowData.borrows[1]?.tool.name)! )
-                    }
-                }
-                Section(header: Text("Past Rentals"))
-                {
-                    NavigationLink(destination: ManagePastResPage(borrow: borrowData.borrows[0])){
-                        Text((borrowData.borrows[0]?.loanPeriod.start)! + ": " + (borrowData.borrows[0]?.tool.name)! )
-                    }
-                    NavigationLink(destination: ManagePastResPage(borrow: borrowData.borrows[1])){
-                        Text((borrowData.borrows[1]?.loanPeriod.start)! + ": " + (borrowData.borrows[1]?.tool.name)! )
-                    }
-                }
+            NavigationView {
+                List{
+                        Section(header: Text("Pending Rentals"))
+                        {
+                            ForEach(borrowsData.data.borrows, id: \.id) { b in
+                                if b.status == .pending {
+                                    NavigationLink(destination: ManagePendingResPage(borrow: b)) {
+                                        Text(b.tool.name)
+                                    }
+                                }
+                            }
+                        }
+                        Section(header: Text("Upcoming Rentals"))
+                        {
+                            ForEach(borrowsData.data.borrows, id: \.id) { b in
+                                if b.status == .accepted {
+                                    NavigationLink(destination: ManageUpcomingResPage(borrow: b)) {
+                                        Text(b.tool.name)
+                                    }
+                                }
+                            }
+                        }
+                        Section(header: Text("Past Rentals"))
+                        {
+                            ForEach(borrowsData.data.borrows, id: \.id) { b in
+                                if b.status == .rejected {
+                                NavigationLink(destination: ManagePastResPage(borrow: b)) {
+                                    Text(b.tool.name)
+                                }
+                            }
+                
+                        }
+                        }
+                    
+                    
+                   }
+                .navigationBarTitle("My Tool Rentals", displayMode: .automatic)
+                //.navigationBarBackButtonHidden(true)
+                   //.navigationViewStyle(StackNavigationViewStyle())
+                   .edgesIgnoringSafeArea(.top)
+               }
+            .edgesIgnoringSafeArea(.top)
             }
-            .navigationBarTitle("My Tool Rentals", displayMode: .automatic)
-            .navigationBarBackButtonHidden(true)
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .edgesIgnoringSafeArea(.top)
-    }
+    
 }
 
-/*List(borrowData.borrows, id: \.cost) { b in
-    NavigationLink(destination: ManageUpcomingResPage(toolName: "tool1")) {
-        Text(b!.tool.name)
-    }
-    
-}*/
+
 
 struct RentalView_Previews: PreviewProvider {
     static var previews: some View {
@@ -69,39 +69,44 @@ struct RentalView_Previews: PreviewProvider {
     }
 }
 
-class BorrowData: ObservableObject {
-    @Published var borrows: [BorrowByIdQuery.Data.Borrow?]!
-    
-    init() {
-        print("running loadData")
-        self.borrows = []
-        loadData()
-    }
-    
-    func loadData() {
-        Network.shared.apollo.fetch(query: BorrowByIdQuery(id: 1)) { result in
-          switch result {
-          case .success(let graphQLResult):
-            let cur = graphQLResult.data?.borrow
-            if cur != nil {
-                self.borrows.append(cur)
-            }
-            print("Success! Result: \(String(describing: self.borrows))")
-          case .failure(let error):
-            print("Failure! Error: \(error)")
-          }
-        }
-        Network.shared.apollo.fetch(query: BorrowByIdQuery(id: 2)) { result in
-          switch result {
-          case .success(let graphQLResult):
-            let cur = graphQLResult.data?.borrow
-            if cur != nil {
-                self.borrows.append(cur)
-            }
-            print("Success! Result: \(String(describing: self.borrows))")
-          case .failure(let error):
-            print("Failure! Error: \(error)")
-          }
-        }
+class borrowObj {
+    var borrows: [GetBorrowsQuery.Data.Self.BorrowHistory] = []
+  
+    init(b: [GetBorrowsQuery.Data.Self.BorrowHistory]) {
+        self.borrows = b
     }
 }
+
+class myBorrows: ObservableObject {
+
+  @Published var data: borrowObj {
+    willSet {
+        objectWillChange.send()
+    }
+  }
+    
+    init() {
+        self.data = borrowObj(b: [])
+        self.load()
+    }
+  
+    func load() {
+     Network.shared.apollo.fetch(query: GetBorrowsQuery()) { result in
+       switch result {
+       case .success(let graphQLResult):
+          print("Success! Result: \(graphQLResult)")
+        if let temp_history = graphQLResult.data?.`self`?.borrowHistory {
+            self.objectWillChange.send()
+            self.data = borrowObj(b: temp_history)
+            print("updated-----------------")
+            
+          }
+       case .failure(let error):
+         print("Failure! Error: \(error)")
+       }
+     }
+    }
+  
+}
+ 
+ 

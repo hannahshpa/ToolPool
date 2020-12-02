@@ -52,7 +52,7 @@ struct MyToolListingView: View {
                   Text("Description: " + displayTool.data!.description)
                   Text("Cost per hour: $" + String(displayTool.data!.hourlyCost))
                   Text("Location: 0.3 mi")
-                  Text("Condition: " + displayTool.data!.condition.rawValue)
+                  //Text("Condition: " + displayTool.data!.condition.rawValue)
 
                 }
                 Spacer()

@@ -1,15 +1,15 @@
 //
-//  ManageUpcomingResPage.swift
+//  ManageOtherUpcomingResPage.swift
 //  ToolPool
 //
-//  Created by Alissa McNerney on 11/12/20.
+//  Created by Alissa McNerney on 11/26/20.
 //
 
 import SwiftUI
 
-struct ManageUpcomingResPage: View {
+struct ManageOtherUpcomingResPage: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    let borrow: GetBorrowsQuery.Data.Self.BorrowHistory!
+    let borrow: GetOtherBorrowsQuery.Data.Self.OwnedTool.BorrowHistory!
     var body: some View {
       ScrollView {
         GeometryReader {
@@ -28,9 +28,9 @@ struct ManageUpcomingResPage: View {
                 Text("End: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.end)!) )")
                 Text("Cost: \(borrow.cost)")
                 Text("Location: (insert map)")
-                Text("Owner: " + borrow.tool.owner.name)
-                Text("Email: \( borrow.tool.owner.email)")
-                Text("Phone Number: \(borrow.tool.owner.phoneNumber)")
+                Text("User: " + borrow.user.name)
+                Text("Email: \( borrow.user.email)")
+                Text("Phone Number: \(borrow.user.phoneNumber)")
             }
             Divider()
             NavigationLink(destination: RateRental(toolName: "tool1")) {
@@ -48,8 +48,8 @@ struct ManageUpcomingResPage: View {
     }
 }
 
-struct ManageUpcomingResPage_Previews: PreviewProvider {
+struct ManageOtherUpcomingResPage_Previews: PreviewProvider {
     static var previews: some View {
-        ManageUpcomingResPage(borrow: nil)
+        ManageOtherUpcomingResPage(borrow: nil)
     }
 }

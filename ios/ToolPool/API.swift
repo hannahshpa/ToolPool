@@ -2234,7 +2234,7 @@ public final class RequestBorrowMutation: GraphQLMutation {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    mutation RequestBorrow($userId: Int, $startTime: Date, $endTime: Date, $toolId: Int) {
+    mutation RequestBorrow($userId: Int, $startTime: String, $endTime: String, $toolId: Int) {
       requestBorrow(userId: $userId, startTime: $startTime, endTime: $endTime, toolId: $toolId)
     }
     """

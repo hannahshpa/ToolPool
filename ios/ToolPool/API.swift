@@ -6,43 +6,43 @@ import Foundation
 
 public enum ToolCondition: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
   public typealias RawValue = String
+  case great
+  case good
+  case new
   case poor
   case fair
-  case new
-  case good
-  case great
   /// Auto generated constant for unknown enum values
   case __unknown(RawValue)
 
   public init?(rawValue: RawValue) {
     switch rawValue {
+      case "great": self = .great
+      case "good": self = .good
+      case "new": self = .new
       case "poor": self = .poor
       case "fair": self = .fair
-      case "new": self = .new
-      case "good": self = .good
-      case "great": self = .great
       default: self = .__unknown(rawValue)
     }
   }
 
   public var rawValue: RawValue {
     switch self {
+      case .great: return "great"
+      case .good: return "good"
+      case .new: return "new"
       case .poor: return "poor"
       case .fair: return "fair"
-      case .new: return "new"
-      case .good: return "good"
-      case .great: return "great"
       case .__unknown(let value): return value
     }
   }
 
   public static func == (lhs: ToolCondition, rhs: ToolCondition) -> Bool {
     switch (lhs, rhs) {
+      case (.great, .great): return true
+      case (.good, .good): return true
+      case (.new, .new): return true
       case (.poor, .poor): return true
       case (.fair, .fair): return true
-      case (.new, .new): return true
-      case (.good, .good): return true
-      case (.great, .great): return true
       case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
       default: return false
     }
@@ -50,11 +50,11 @@ public enum ToolCondition: RawRepresentable, Equatable, Hashable, CaseIterable, 
 
   public static var allCases: [ToolCondition] {
     return [
+      .great,
+      .good,
+      .new,
       .poor,
       .fair,
-      .new,
-      .good,
-      .great,
     ]
   }
 }
@@ -66,13 +66,12 @@ public struct NewToolInput: GraphQLMapConvertible {
   ///   - condition
   ///   - description
   ///   - hourlyCost
-  ///   - images: URL of uploaded image. Must have at least 1
   ///   - location
   ///   - name
   ///   - ownerId
   ///   - tags: Tags (ie handtool, powertool, etc). Must have at least 1
-  public init(condition: ToolCondition, description: String, hourlyCost: Double, images: [String], location: GeoLocationInput, name: String, ownerId: Int, tags: [String]) {
-    graphQLMap = ["condition": condition, "description": description, "hourlyCost": hourlyCost, "images": images, "location": location, "name": name, "ownerId": ownerId, "tags": tags]
+  public init(condition: ToolCondition, description: String, hourlyCost: Double, location: GeoLocationInput, name: String, ownerId: Int, tags: [String]) {
+    graphQLMap = ["condition": condition, "description": description, "hourlyCost": hourlyCost, "location": location, "name": name, "ownerId": ownerId, "tags": tags]
   }
 
   public var condition: ToolCondition {
@@ -99,16 +98,6 @@ public struct NewToolInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "hourlyCost")
-    }
-  }
-
-  /// URL of uploaded image. Must have at least 1
-  public var images: [String] {
-    get {
-      return graphQLMap["images"] as! [String]
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "images")
     }
   }
 
@@ -196,7 +185,6 @@ public final class ToolByIdQuery: GraphQLQuery {
         condition
         hourly_cost
         tags
-        images
       }
     }
     """
@@ -254,7 +242,6 @@ public final class ToolByIdQuery: GraphQLQuery {
           GraphQLField("condition", type: .nonNull(.scalar(ToolCondition.self))),
           GraphQLField("hourly_cost", type: .nonNull(.scalar(Double.self))),
           GraphQLField("tags", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
-          GraphQLField("images", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
         ]
       }
 
@@ -264,8 +251,8 @@ public final class ToolByIdQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(name: String, description: String, location: Location, condition: ToolCondition, hourlyCost: Double, tags: [String], images: [String]) {
-        self.init(unsafeResultMap: ["__typename": "Tool", "name": name, "description": description, "location": location.resultMap, "condition": condition, "hourly_cost": hourlyCost, "tags": tags, "images": images])
+      public init(name: String, description: String, location: Location, condition: ToolCondition, hourlyCost: Double, tags: [String]) {
+        self.init(unsafeResultMap: ["__typename": "Tool", "name": name, "description": description, "location": location.resultMap, "condition": condition, "hourly_cost": hourlyCost, "tags": tags])
       }
 
       public var __typename: String {
@@ -328,15 +315,6 @@ public final class ToolByIdQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "tags")
-        }
-      }
-
-      public var images: [String] {
-        get {
-          return resultMap["images"]! as! [String]
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "images")
         }
       }
 
@@ -539,7 +517,7 @@ public final class GetBorrowsQuery: GraphQLQuery {
           public static var selections: [GraphQLSelection] {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLField("start", type: .nonNull(.scalar(String.self))),
+              GraphQLField("start", type: .nonNull(.scalar(Double.self))),
             ]
           }
 
@@ -549,7 +527,7 @@ public final class GetBorrowsQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(start: String) {
+          public init(start: Double) {
             self.init(unsafeResultMap: ["__typename": "TimeSlot", "start": start])
           }
 
@@ -562,9 +540,10 @@ public final class GetBorrowsQuery: GraphQLQuery {
             }
           }
 
-          public var start: String {
+          /// Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate
+          public var start: Double {
             get {
-              return resultMap["start"]! as! String
+              return resultMap["start"]! as! Double
             }
             set {
               resultMap.updateValue(newValue, forKey: "start")
@@ -770,8 +749,8 @@ public final class BorrowByIdQuery: GraphQLQuery {
         public static var selections: [GraphQLSelection] {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("start", type: .nonNull(.scalar(String.self))),
-            GraphQLField("end", type: .nonNull(.scalar(String.self))),
+            GraphQLField("start", type: .nonNull(.scalar(Double.self))),
+            GraphQLField("end", type: .nonNull(.scalar(Double.self))),
           ]
         }
 
@@ -781,7 +760,7 @@ public final class BorrowByIdQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(start: String, end: String) {
+        public init(start: Double, end: Double) {
           self.init(unsafeResultMap: ["__typename": "TimeSlot", "start": start, "end": end])
         }
 
@@ -794,18 +773,20 @@ public final class BorrowByIdQuery: GraphQLQuery {
           }
         }
 
-        public var start: String {
+        /// Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate
+        public var start: Double {
           get {
-            return resultMap["start"]! as! String
+            return resultMap["start"]! as! Double
           }
           set {
             resultMap.updateValue(newValue, forKey: "start")
           }
         }
 
-        public var end: String {
+        /// Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate
+        public var end: Double {
           get {
-            return resultMap["end"]! as! String
+            return resultMap["end"]! as! Double
           }
           set {
             resultMap.updateValue(newValue, forKey: "end")

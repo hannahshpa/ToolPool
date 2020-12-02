@@ -91,7 +91,7 @@ struct AddToolView: View {
         Button(action: {
           let loca = GeoLocationInput(lat: Double(lat)!, lon: Double(lon)!)
           let cond = ToolCondition(rawValue: selectedCondition.rawValue)
-          let newInput = NewToolInput(condition: cond!, description: description, hourlyCost: Double(cost)!, images: ["test"], location: loca, name: name, ownerId: ownerId, tags: ["test"])
+          let newInput = NewToolInput(condition: cond!, description: description, hourlyCost: Double(cost)!, location: loca, name: name, ownerId: ownerId, tags: ["test"])
           
           //let new_id = addTool(input: newInput)
           self.newTool.load(input: newInput, newImage: self.image)

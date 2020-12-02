@@ -33,16 +33,31 @@ public struct Resolver{
     public struct NearbyArgs: Codable{
         public let center: GeoLocationInput
         public let radius: Double
+        public let category: String?
     }
     public func nearby(context: Context, arguments: NearbyArgs) -> EventLoopFuture<[Tool]>{
         // This is pretty insecure, but unfortunately there is no support for polygons in Postgrekit
         // Graphql *should* prevent anything other than the correct data types from coming in, but still...
-        conn.getDB().query(
-            "SELECT * FROM tools WHERE circle '<(\(arguments.center.lat),\(arguments.center.lon)) \(arguments.radius)>' @> location;").map{result -> [Tool] in
-                return result.rows.map{row -> Tool in
-                    try! row.sql().decode(model: DBTool.self).toTool()
+        if let category = arguments.category{
+            return conn.getDB().query("""
+                SELECT *, location[0] as lat, location[1] as lon
+                FROM tools
+                JOIN tool_tags ON tool = tool_id
+                WHERE circle '<(\(arguments.center.lat),\(arguments.center.lon)) \(arguments.radius)>' @> location
+                      AND tag = $1;
+                """, [category.postgresData!]).map{result in
+                    result.rows.map{row in
+                        try! row.sql().decode(model: DBTool.self).toTool()
+                    }
                 }
-            }
+        }else{
+            return conn.getDB().query(
+                "SELECT *, location[0] as lat, location[1] as lon FROM tools WHERE circle '<(\(arguments.center.lat),\(arguments.center.lon)) \(arguments.radius)>' @> location;").map{result -> [Tool] in
+                    result.rows.map{row -> Tool in
+                        try! row.sql().decode(model: DBTool.self).toTool()
+                    }
+                }
+        }
     }
     
     // Mutations
@@ -57,20 +72,18 @@ public struct Resolver{
         if user.id != tool.ownerId{
             return self.conn.getDB().eventLoop.makeFailedFuture(Abort(.badRequest))
         }
-        if tool.tags.count == 0 || tool.images.count == 0{
+        if tool.tags.count == 0 {
             return self.conn.getDB().eventLoop.makeFailedFuture(Abort(.badRequest,
                                                                       headers: .init(),
-                                                                      reason: "At least 1 tag and 1 image must be attached!",
+                                                                      reason: "At least 1 tag must be attached!",
                                                                       suggestedFixes: []))
         }
         
         let query = """
             WITH id AS (INSERT INTO tools (name, description, condition, hourly_cost, location, owner) VALUES
                        ($1, $2, $3::toolcondition, $4, POINT($5, $6), $7) RETURNING tool_id),
-                _ AS (INSERT INTO tool_tags (tool, tag) VALUES
-                    \(tool.tags.enumerated().map{(i, _) in "((SELECT tool_id FROM id), $\(i + 8))"}.joined(separator: ",")))
-            INSERT INTO tool_images (tool, image_uri) VALUES
-                    \(tool.images.enumerated().map{(i, _) in "((SELECT tool_id FROM id), $\(i + 8 + tool.tags.count))"}.joined(separator: ",")) RETURNING tool;
+                INSERT INTO tool_tags (tool, tag) VALUES
+                    \(tool.tags.enumerated().map{(i, _) in "((SELECT tool_id FROM id), $\(i + 8))"}.joined(separator: ",")) RETURNING tool;
         """
         return conn.getDB().query(query, [ tool.name.postgresData!,
                                            tool.description.postgresData!,
@@ -78,8 +91,7 @@ public struct Resolver{
                                            tool.hourlyCost.postgresData!,
                                            tool.location.lat.postgresData!, tool.location.lon.postgresData!,
                                            tool.ownerId.postgresData!]
-                                    + tool.tags.map{tag in tag.postgresData!}
-                                    + tool.images.map{img in img.postgresData!}).map{result in
+                                    + tool.tags.map{tag in tag.postgresData!}).map{result in
                                         Tool(id: result.first!.column("tool")!.int!, description: tool.description, name: tool.name, condition: tool.condition, location: .init(lat: tool.location.lon, lon: tool.location.lon), ownerId: tool.ownerId, hourlyCost: tool.hourlyCost)
                                     }
     }
@@ -101,22 +113,27 @@ public struct Resolver{
     public struct BorrowArgs: Codable{
         public let toolId: Int
         public let userId: Int
-        public let startTime: Date
-        public let endTime: Date
+        public let startTime: Double
+        public let endTime: Double
     }
     
     public func requestBorrow(context: Context, arguments: BorrowArgs) -> EventLoopFuture<Int>{
         guard let user = context.getUser() else{
             return context.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
         }
-        if(user.id != arguments.userId){
+        if user.id != arguments.userId {
+            return context.getDB().eventLoop.makeFailedFuture(Abort(.badRequest))
+        }
+        let start = Date(timeIntervalSinceReferenceDate: arguments.startTime)
+        let end = Date(timeIntervalSinceReferenceDate: arguments.endTime)
+        if end < start{
             return context.getDB().eventLoop.makeFailedFuture(Abort(.badRequest))
         }
         return DBTool.getById(id: arguments.toolId, db: conn.getDB()).map{result in
-            result!.hourlyCost * arguments.endTime.timeIntervalSince(arguments.startTime) / 3600
+            result!.hourlyCost * end.timeIntervalSince(start) / 3600
         }.flatMap{cost in
             context.getDB().query("INSERT INTO borrow (tool, \"user\", cost, loan_period) VALUES ($1, $2, $3, tstzrange($4, $5)) RETURNING borrow_id",
-                                  [arguments.toolId.postgresData!, arguments.userId.postgresData!, cost.postgresData!, arguments.startTime.postgresData!, arguments.endTime.postgresData!])
+                                  [arguments.toolId.postgresData!, arguments.userId.postgresData!, cost.postgresData!, start.postgresData!, end.postgresData!])
         }.map{result in
             result.first!.column("borrow_id")!.int!
         }

@@ -34,6 +34,12 @@ public struct GeoLocationInput: Codable{
 public struct TimeSlot: Codable{
     public let start: Date
     public let end: Date
+    public var startDouble: Double{
+        get { return start.timeIntervalSinceReferenceDate}
+    }
+    public var endDouble: Double{
+        get {return end.timeIntervalSinceReferenceDate}
+    }
 }
 
 public struct NewToolInput: Codable{
@@ -43,6 +49,5 @@ public struct NewToolInput: Codable{
     public let location: GeoLocationInput
     public let ownerId: Int
     public let hourlyCost: Double
-    public let images: [String]
     public let tags: [String]
 }

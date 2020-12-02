@@ -215,4 +215,39 @@ public struct Resolver{
         return conn.getDB().query("DELETE FROM tool_ratings WHERE \"user\" = $1 AND tool = $2", [
                                     arguments.reviewerId.postgresData!, arguments.revieweeId.postgresData!]).map{_ in true}
     }
+    public struct returnToolArgs: Codable{
+        public let borrowId: Int
+    }
+    public func returnTool(context: Context, arguments: returnToolArgs) -> EventLoopFuture<Borrow?>{
+        guard let userId = context.getUser()?.id else{
+            return context.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+        }
+        return context.getDB().query("""
+            UPDATE borrow
+            SET time_returned = NOW()
+            WHERE time_returned IS NULL AND borrow_id = $1 AND \"user\" = $2
+            RETURNING *, LOWER(loan_period) AS loan_start, UPPER(loan_period) as loan_end;
+            """, [arguments.borrowId.postgresData!, userId.postgresData!]).map{result in
+            try? result.first?.sql().decode(model: DBBorrow.self).toBorrow()
+        }
+    }
+    public struct acceptArguments: Codable{
+        public let accept: Bool;
+        public let borrowId: Int
+    }
+    public func acceptReturn(context: Context, arguments: acceptArguments) -> EventLoopFuture<Borrow?>{
+        guard let userId = context.getUser()?.id else{
+            return context.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+        }
+        return context.getDB().query("""
+            UPDATE borrow
+            SET return_accepted = $1
+            WHERE borrow_id = (SELECT borrow_id
+                               FROM borrow JOIN tools ON tool = tool_id
+                               WHERE owner = $2 AND borrow_id = $3 AND return_accepted IS NULL)
+            RETURNING *, LOWER(loan_period) AS loan_start, UPPER(loan_period) as loan_end;
+            """, [arguments.accept.postgresData!, userId.postgresData!, arguments.borrowId.postgresData!]).map{result in
+                try? result.first?.sql().decode(model: DBBorrow.self).toBorrow()
+            }
+    }
 }

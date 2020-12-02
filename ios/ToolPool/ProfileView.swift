@@ -11,9 +11,9 @@ struct ProfileView: View {
   
   @ObservedObject var selfData: mySelf = mySelf()
   
-  init() {
+  /*init() {
     self.selfData.load()
-  }
+  }*/
   
     var body: some View {
       //NavigationView{
@@ -58,9 +58,9 @@ struct ProfileView: View {
                     }
                   }
                 }
-            }.onAppear(perform: selfData.load)
+            }//.onAppear(perform: selfData.load)
           }
-        }.onAppear(perform: selfData.load)
+        }//.onAppear(perform: selfData.load)
       }
 }
 

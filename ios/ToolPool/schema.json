@@ -903,33 +903,6 @@
             "__typename": "__InputValue"
           },
           {
-            "name": "images",
-            "description": "URL of uploaded image. Must have at least 1",
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null,
-                    "__typename": "__Type"
-                  },
-                  "__typename": "__Type"
-                },
-                "__typename": "__Type"
-              },
-              "__typename": "__Type"
-            },
-            "defaultValue": null,
-            "__typename": "__InputValue"
-          },
-          {
             "name": "location",
             "description": null,
             "type": {

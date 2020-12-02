@@ -9,7 +9,6 @@ query ToolById($id: Int) {
       condition
       hourly_cost
       tags
-      images
   }
 }
 query GetBorrows {
@@ -118,9 +117,9 @@ mutation AddTool($tool: NewToolInput!){
     }
 }
 
-mutation RequestBorrow($userId: Int, $startTime: Date, $endTime: Date, $toolId: Int){
-    requestBorrow(userId: $userId, startTime: $startTime, endTime: $endTime, toolId: $toolId)
-}
+#mutation RequestBorrow($userId: Int, $startTime: Date, $endTime: Date, $toolId: Int){
+#    requestBorrow(userId: $userId, startTime: $startTime, endTime: $endTime, toolId: $toolId)
+#}
 
 mutation DenyBorrow($id:Int) {
     denyBorrow(id: $id)

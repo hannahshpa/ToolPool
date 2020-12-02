@@ -25,20 +25,20 @@ struct OtherRentalView: View {
                                 }
                             }
                         }
-                        Section(header: Text("Upcoming Rentals"))
+                        Section(header: Text("Current Rentals"))
                         {
                             ForEach(borrowsData.data.borrows, id: \.id) { b in
-                                if b.status == .accepted {
+                                if b.status == .accepted && b.returnAccepted == nil{
                                     NavigationLink(destination: ManageOtherUpcomingResPage(borrow: b)) {
                                         Text(b.tool.name)
                                     }
                                 }
                             }
                         }
-                        Section(header: Text("Past (denied) Rentals"))
+                        Section(header: Text("Past Rentals"))
                         {
                             ForEach(borrowsData.data.borrows, id: \.id) { b in
-                                if b.status == .rejected {
+                                if b.status == .accepted && b.returnAccepted != nil {
                                 NavigationLink(destination: ManageOtherPastResPage(borrow: b)) {
                                     Text(b.tool.name)
                                 }
@@ -50,7 +50,7 @@ struct OtherRentalView: View {
                        //.navigationBarBackButtonHidden(true)
                     
                    }
-                .navigationBarTitle("Other Tool Rentals", displayMode: .automatic)
+                .navigationBarTitle("Others' Tool Rentals", displayMode: .automatic)
                }
             .edgesIgnoringSafeArea(.top)
             }

@@ -27,10 +27,10 @@ struct RentalView: View {
                                 }
                             }
                         }
-                        Section(header: Text("Upcoming Rentals"))
+                        Section(header: Text("Current Rentals"))
                         {
                             ForEach(borrowsData.data.borrows, id: \.id) { b in
-                                if b.status == .accepted {
+                                if b.status == .accepted && b.timeReturned == nil{
                                     NavigationLink(destination: ManageUpcomingResPage(borrow: b)) {
                                         Text(b.tool.name)
                                     }
@@ -40,7 +40,7 @@ struct RentalView: View {
                         Section(header: Text("Past Rentals"))
                         {
                             ForEach(borrowsData.data.borrows, id: \.id) { b in
-                                if b.status == .rejected {
+                                if b.status == .accepted && b.timeReturned != nil {
                                 NavigationLink(destination: ManagePastResPage(borrow: b)) {
                                     Text(b.tool.name)
                                 }

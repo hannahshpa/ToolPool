@@ -24,8 +24,9 @@ struct ManageOtherUpcomingResPage: View {
                 .foregroundColor(.black)
             Divider()
             Group {
-                Text("Start: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.start)!) )")
-                Text("End: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.end)!) )")
+                //Text("Start: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.start)!) )")
+                //Text("End: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.end)!) )")
+                Text("Id: \(borrow.id)") //temp
                 Text("Cost: \(borrow.cost)")
                 Text("Location: (insert map)")
                 Text("User: " + borrow.user.name)
@@ -33,7 +34,7 @@ struct ManageOtherUpcomingResPage: View {
                 Text("Phone Number: \(borrow.user.phoneNumber)")
             }
             Divider()
-            NavigationLink(destination: RateRental(toolName: "tool1")) {
+            NavigationLink(destination: RateUser(completed_borrow: borrow)) {
                 Text("Complete Rental")
                     .frame(minWidth:0, maxWidth:325)
                     .background(Color.orange)

@@ -7,20 +7,20 @@ import Foundation
 public enum ToolCondition: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
   public typealias RawValue = String
   case poor
+  case great
   case fair
   case new
   case good
-  case great
   /// Auto generated constant for unknown enum values
   case __unknown(RawValue)
 
   public init?(rawValue: RawValue) {
     switch rawValue {
       case "poor": self = .poor
+      case "great": self = .great
       case "fair": self = .fair
       case "new": self = .new
       case "good": self = .good
-      case "great": self = .great
       default: self = .__unknown(rawValue)
     }
   }
@@ -28,10 +28,10 @@ public enum ToolCondition: RawRepresentable, Equatable, Hashable, CaseIterable, 
   public var rawValue: RawValue {
     switch self {
       case .poor: return "poor"
+      case .great: return "great"
       case .fair: return "fair"
       case .new: return "new"
       case .good: return "good"
-      case .great: return "great"
       case .__unknown(let value): return value
     }
   }
@@ -39,10 +39,10 @@ public enum ToolCondition: RawRepresentable, Equatable, Hashable, CaseIterable, 
   public static func == (lhs: ToolCondition, rhs: ToolCondition) -> Bool {
     switch (lhs, rhs) {
       case (.poor, .poor): return true
+      case (.great, .great): return true
       case (.fair, .fair): return true
       case (.new, .new): return true
       case (.good, .good): return true
-      case (.great, .great): return true
       case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
       default: return false
     }
@@ -51,10 +51,10 @@ public enum ToolCondition: RawRepresentable, Equatable, Hashable, CaseIterable, 
   public static var allCases: [ToolCondition] {
     return [
       .poor,
+      .great,
       .fair,
       .new,
       .good,
-      .great,
     ]
   }
 }
@@ -506,6 +506,8 @@ public final class GetBorrowsQuery: GraphQLQuery {
             start
             end
           }
+          returnAccepted
+          timeReturned
           tool {
             __typename
             id
@@ -604,6 +606,8 @@ public final class GetBorrowsQuery: GraphQLQuery {
             GraphQLField("cost", type: .nonNull(.scalar(Double.self))),
             GraphQLField("id", type: .nonNull(.scalar(Int.self))),
             GraphQLField("loanPeriod", type: .nonNull(.object(LoanPeriod.selections))),
+            GraphQLField("returnAccepted", type: .scalar(Bool.self)),
+            GraphQLField("timeReturned", type: .scalar(Double.self)),
             GraphQLField("tool", type: .nonNull(.object(Tool.selections))),
             GraphQLField("status", type: .nonNull(.scalar(BorrowStatus.self))),
           ]
@@ -615,8 +619,8 @@ public final class GetBorrowsQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(cost: Double, id: Int, loanPeriod: LoanPeriod, tool: Tool, status: BorrowStatus) {
-          self.init(unsafeResultMap: ["__typename": "Borrow", "cost": cost, "id": id, "loanPeriod": loanPeriod.resultMap, "tool": tool.resultMap, "status": status])
+        public init(cost: Double, id: Int, loanPeriod: LoanPeriod, returnAccepted: Bool? = nil, timeReturned: Double? = nil, tool: Tool, status: BorrowStatus) {
+          self.init(unsafeResultMap: ["__typename": "Borrow", "cost": cost, "id": id, "loanPeriod": loanPeriod.resultMap, "returnAccepted": returnAccepted, "timeReturned": timeReturned, "tool": tool.resultMap, "status": status])
         }
 
         public var __typename: String {
@@ -655,6 +659,26 @@ public final class GetBorrowsQuery: GraphQLQuery {
           }
         }
 
+        /// Whether or not the return was accepted by the tool owner
+        public var returnAccepted: Bool? {
+          get {
+            return resultMap["returnAccepted"] as? Bool
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "returnAccepted")
+          }
+        }
+
+        /// Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate
+        public var timeReturned: Double? {
+          get {
+            return resultMap["timeReturned"] as? Double
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "timeReturned")
+          }
+        }
+
         public var tool: Tool {
           get {
             return Tool(unsafeResultMap: resultMap["tool"]! as! ResultMap)
@@ -679,8 +703,8 @@ public final class GetBorrowsQuery: GraphQLQuery {
           public static var selections: [GraphQLSelection] {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-              GraphQLField("start", type: .nonNull(.scalar(String.self))),
-              GraphQLField("end", type: .nonNull(.scalar(String.self))),
+              GraphQLField("start", type: .nonNull(.scalar(Double.self))),
+              GraphQLField("end", type: .nonNull(.scalar(Double.self))),
             ]
           }
 
@@ -690,7 +714,7 @@ public final class GetBorrowsQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(start: String, end: String) {
+          public init(start: Double, end: Double) {
             self.init(unsafeResultMap: ["__typename": "TimeSlot", "start": start, "end": end])
           }
 
@@ -703,18 +727,20 @@ public final class GetBorrowsQuery: GraphQLQuery {
             }
           }
 
-          public var start: String {
+          /// Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate
+          public var start: Double {
             get {
-              return resultMap["start"]! as! String
+              return resultMap["start"]! as! Double
             }
             set {
               resultMap.updateValue(newValue, forKey: "start")
             }
           }
 
-          public var end: String {
+          /// Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate
+          public var end: Double {
             get {
-              return resultMap["end"]! as! String
+              return resultMap["end"]! as! Double
             }
             set {
               resultMap.updateValue(newValue, forKey: "end")
@@ -871,12 +897,18 @@ public final class GetOtherBorrowsQuery: GraphQLQuery {
               __typename
               id
               name
+              owner {
+                __typename
+                id
+              }
             }
             loanPeriod {
               __typename
               start
               end
             }
+            returnAccepted
+            timeReturned
             status
             user {
               __typename
@@ -1011,6 +1043,8 @@ public final class GetOtherBorrowsQuery: GraphQLQuery {
               GraphQLField("id", type: .nonNull(.scalar(Int.self))),
               GraphQLField("tool", type: .nonNull(.object(Tool.selections))),
               GraphQLField("loanPeriod", type: .nonNull(.object(LoanPeriod.selections))),
+              GraphQLField("returnAccepted", type: .scalar(Bool.self)),
+              GraphQLField("timeReturned", type: .scalar(Double.self)),
               GraphQLField("status", type: .nonNull(.scalar(BorrowStatus.self))),
               GraphQLField("user", type: .nonNull(.object(User.selections))),
             ]
@@ -1022,8 +1056,8 @@ public final class GetOtherBorrowsQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(cost: Double, id: Int, tool: Tool, loanPeriod: LoanPeriod, status: BorrowStatus, user: User) {
-            self.init(unsafeResultMap: ["__typename": "Borrow", "cost": cost, "id": id, "tool": tool.resultMap, "loanPeriod": loanPeriod.resultMap, "status": status, "user": user.resultMap])
+          public init(cost: Double, id: Int, tool: Tool, loanPeriod: LoanPeriod, returnAccepted: Bool? = nil, timeReturned: Double? = nil, status: BorrowStatus, user: User) {
+            self.init(unsafeResultMap: ["__typename": "Borrow", "cost": cost, "id": id, "tool": tool.resultMap, "loanPeriod": loanPeriod.resultMap, "returnAccepted": returnAccepted, "timeReturned": timeReturned, "status": status, "user": user.resultMap])
           }
 
           public var __typename: String {
@@ -1071,6 +1105,26 @@ public final class GetOtherBorrowsQuery: GraphQLQuery {
             }
           }
 
+          /// Whether or not the return was accepted by the tool owner
+          public var returnAccepted: Bool? {
+            get {
+              return resultMap["returnAccepted"] as? Bool
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "returnAccepted")
+            }
+          }
+
+          /// Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate
+          public var timeReturned: Double? {
+            get {
+              return resultMap["timeReturned"] as? Double
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "timeReturned")
+            }
+          }
+
           public var status: BorrowStatus {
             get {
               return resultMap["status"]! as! BorrowStatus
@@ -1097,6 +1151,7 @@ public final class GetOtherBorrowsQuery: GraphQLQuery {
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
                 GraphQLField("id", type: .nonNull(.scalar(Int.self))),
                 GraphQLField("name", type: .nonNull(.scalar(String.self))),
+                GraphQLField("owner", type: .nonNull(.object(Owner.selections))),
               ]
             }
 
@@ -1106,8 +1161,8 @@ public final class GetOtherBorrowsQuery: GraphQLQuery {
               self.resultMap = unsafeResultMap
             }
 
-            public init(id: Int, name: String) {
-              self.init(unsafeResultMap: ["__typename": "Tool", "id": id, "name": name])
+            public init(id: Int, name: String, owner: Owner) {
+              self.init(unsafeResultMap: ["__typename": "Tool", "id": id, "name": name, "owner": owner.resultMap])
             }
 
             public var __typename: String {
@@ -1136,6 +1191,54 @@ public final class GetOtherBorrowsQuery: GraphQLQuery {
                 resultMap.updateValue(newValue, forKey: "name")
               }
             }
+
+            public var owner: Owner {
+              get {
+                return Owner(unsafeResultMap: resultMap["owner"]! as! ResultMap)
+              }
+              set {
+                resultMap.updateValue(newValue.resultMap, forKey: "owner")
+              }
+            }
+
+            public struct Owner: GraphQLSelectionSet {
+              public static let possibleTypes: [String] = ["User"]
+
+              public static var selections: [GraphQLSelection] {
+                return [
+                  GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("id", type: .nonNull(.scalar(Int.self))),
+                ]
+              }
+
+              public private(set) var resultMap: ResultMap
+
+              public init(unsafeResultMap: ResultMap) {
+                self.resultMap = unsafeResultMap
+              }
+
+              public init(id: Int) {
+                self.init(unsafeResultMap: ["__typename": "User", "id": id])
+              }
+
+              public var __typename: String {
+                get {
+                  return resultMap["__typename"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "__typename")
+                }
+              }
+
+              public var id: Int {
+                get {
+                  return resultMap["id"]! as! Int
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "id")
+                }
+              }
+            }
           }
 
           public struct LoanPeriod: GraphQLSelectionSet {
@@ -1144,8 +1247,8 @@ public final class GetOtherBorrowsQuery: GraphQLQuery {
             public static var selections: [GraphQLSelection] {
               return [
                 GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-                GraphQLField("start", type: .nonNull(.scalar(String.self))),
-                GraphQLField("end", type: .nonNull(.scalar(String.self))),
+                GraphQLField("start", type: .nonNull(.scalar(Double.self))),
+                GraphQLField("end", type: .nonNull(.scalar(Double.self))),
               ]
             }
 
@@ -1155,7 +1258,7 @@ public final class GetOtherBorrowsQuery: GraphQLQuery {
               self.resultMap = unsafeResultMap
             }
 
-            public init(start: String, end: String) {
+            public init(start: Double, end: Double) {
               self.init(unsafeResultMap: ["__typename": "TimeSlot", "start": start, "end": end])
             }
 
@@ -1168,18 +1271,20 @@ public final class GetOtherBorrowsQuery: GraphQLQuery {
               }
             }
 
-            public var start: String {
+            /// Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate
+            public var start: Double {
               get {
-                return resultMap["start"]! as! String
+                return resultMap["start"]! as! Double
               }
               set {
                 resultMap.updateValue(newValue, forKey: "start")
               }
             }
 
-            public var end: String {
+            /// Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate
+            public var end: Double {
               get {
-                return resultMap["end"]! as! String
+                return resultMap["end"]! as! Double
               }
               set {
                 resultMap.updateValue(newValue, forKey: "end")
@@ -1415,8 +1520,8 @@ public final class BorrowByIdQuery: GraphQLQuery {
         public static var selections: [GraphQLSelection] {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("start", type: .nonNull(.scalar(String.self))),
-            GraphQLField("end", type: .nonNull(.scalar(String.self))),
+            GraphQLField("start", type: .nonNull(.scalar(Double.self))),
+            GraphQLField("end", type: .nonNull(.scalar(Double.self))),
           ]
         }
 
@@ -1426,7 +1531,7 @@ public final class BorrowByIdQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(start: String, end: String) {
+        public init(start: Double, end: Double) {
           self.init(unsafeResultMap: ["__typename": "TimeSlot", "start": start, "end": end])
         }
 
@@ -1439,18 +1544,20 @@ public final class BorrowByIdQuery: GraphQLQuery {
           }
         }
 
-        public var start: String {
+        /// Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate
+        public var start: Double {
           get {
-            return resultMap["start"]! as! String
+            return resultMap["start"]! as! Double
           }
           set {
             resultMap.updateValue(newValue, forKey: "start")
           }
         }
 
-        public var end: String {
+        /// Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate
+        public var end: Double {
           get {
-            return resultMap["end"]! as! String
+            return resultMap["end"]! as! Double
           }
           set {
             resultMap.updateValue(newValue, forKey: "end")
@@ -2501,6 +2608,392 @@ public final class ApproveBorrowMutation: GraphQLMutation {
       }
       set {
         resultMap.updateValue(newValue, forKey: "approveBorrow")
+      }
+    }
+  }
+}
+
+public final class AcceptReturnMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    mutation AcceptReturn($borrowId: Int!, $accept: Boolean!) {
+      acceptReturn(borrowId: $borrowId, accept: $accept) {
+        __typename
+        id
+      }
+    }
+    """
+
+  public let operationName: String = "AcceptReturn"
+
+  public var borrowId: Int
+  public var accept: Bool
+
+  public init(borrowId: Int, accept: Bool) {
+    self.borrowId = borrowId
+    self.accept = accept
+  }
+
+  public var variables: GraphQLMap? {
+    return ["borrowId": borrowId, "accept": accept]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Mutation"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("acceptReturn", arguments: ["borrowId": GraphQLVariable("borrowId"), "accept": GraphQLVariable("accept")], type: .object(AcceptReturn.selections)),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(acceptReturn: AcceptReturn? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "acceptReturn": acceptReturn.flatMap { (value: AcceptReturn) -> ResultMap in value.resultMap }])
+    }
+
+    public var acceptReturn: AcceptReturn? {
+      get {
+        return (resultMap["acceptReturn"] as? ResultMap).flatMap { AcceptReturn(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "acceptReturn")
+      }
+    }
+
+    public struct AcceptReturn: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["Borrow"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(Int.self))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: Int) {
+        self.init(unsafeResultMap: ["__typename": "Borrow", "id": id])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: Int {
+        get {
+          return resultMap["id"]! as! Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
+        }
+      }
+    }
+  }
+}
+
+public final class ReturnToolMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    mutation ReturnTool($borrowId: Int!) {
+      returnTool(borrowId: $borrowId) {
+        __typename
+        id
+      }
+    }
+    """
+
+  public let operationName: String = "ReturnTool"
+
+  public var borrowId: Int
+
+  public init(borrowId: Int) {
+    self.borrowId = borrowId
+  }
+
+  public var variables: GraphQLMap? {
+    return ["borrowId": borrowId]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Mutation"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("returnTool", arguments: ["borrowId": GraphQLVariable("borrowId")], type: .object(ReturnTool.selections)),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(returnTool: ReturnTool? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "returnTool": returnTool.flatMap { (value: ReturnTool) -> ResultMap in value.resultMap }])
+    }
+
+    public var returnTool: ReturnTool? {
+      get {
+        return (resultMap["returnTool"] as? ResultMap).flatMap { ReturnTool(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "returnTool")
+      }
+    }
+
+    public struct ReturnTool: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["Borrow"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(Int.self))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: Int) {
+        self.init(unsafeResultMap: ["__typename": "Borrow", "id": id])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: Int {
+        get {
+          return resultMap["id"]! as! Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
+        }
+      }
+    }
+  }
+}
+
+public final class CreateToolRatingMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    mutation CreateToolRating($revieweeId: Int!, $review: String, $reviewerId: Int!, $rating: Int!) {
+      createToolRating(revieweeId: $revieweeId, review: $review, reviewerId: $reviewerId, rating: $rating) {
+        __typename
+        rating
+      }
+    }
+    """
+
+  public let operationName: String = "CreateToolRating"
+
+  public var revieweeId: Int
+  public var review: String?
+  public var reviewerId: Int
+  public var rating: Int
+
+  public init(revieweeId: Int, review: String? = nil, reviewerId: Int, rating: Int) {
+    self.revieweeId = revieweeId
+    self.review = review
+    self.reviewerId = reviewerId
+    self.rating = rating
+  }
+
+  public var variables: GraphQLMap? {
+    return ["revieweeId": revieweeId, "review": review, "reviewerId": reviewerId, "rating": rating]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Mutation"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("createToolRating", arguments: ["revieweeId": GraphQLVariable("revieweeId"), "review": GraphQLVariable("review"), "reviewerId": GraphQLVariable("reviewerId"), "rating": GraphQLVariable("rating")], type: .nonNull(.object(CreateToolRating.selections))),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(createToolRating: CreateToolRating) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "createToolRating": createToolRating.resultMap])
+    }
+
+    public var createToolRating: CreateToolRating {
+      get {
+        return CreateToolRating(unsafeResultMap: resultMap["createToolRating"]! as! ResultMap)
+      }
+      set {
+        resultMap.updateValue(newValue.resultMap, forKey: "createToolRating")
+      }
+    }
+
+    public struct CreateToolRating: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["ToolRating"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("rating", type: .nonNull(.scalar(Int.self))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(rating: Int) {
+        self.init(unsafeResultMap: ["__typename": "ToolRating", "rating": rating])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var rating: Int {
+        get {
+          return resultMap["rating"]! as! Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "rating")
+        }
+      }
+    }
+  }
+}
+
+public final class CreateUserRatingMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    mutation CreateUserRating($revieweeId: Int!, $review: String, $reviewerId: Int!, $rating: Int!) {
+      createUserRating(revieweeId: $revieweeId, review: $review, reviewerId: $reviewerId, rating: $rating) {
+        __typename
+        rating
+      }
+    }
+    """
+
+  public let operationName: String = "CreateUserRating"
+
+  public var revieweeId: Int
+  public var review: String?
+  public var reviewerId: Int
+  public var rating: Int
+
+  public init(revieweeId: Int, review: String? = nil, reviewerId: Int, rating: Int) {
+    self.revieweeId = revieweeId
+    self.review = review
+    self.reviewerId = reviewerId
+    self.rating = rating
+  }
+
+  public var variables: GraphQLMap? {
+    return ["revieweeId": revieweeId, "review": review, "reviewerId": reviewerId, "rating": rating]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Mutation"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("createUserRating", arguments: ["revieweeId": GraphQLVariable("revieweeId"), "review": GraphQLVariable("review"), "reviewerId": GraphQLVariable("reviewerId"), "rating": GraphQLVariable("rating")], type: .nonNull(.object(CreateUserRating.selections))),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(createUserRating: CreateUserRating) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "createUserRating": createUserRating.resultMap])
+    }
+
+    public var createUserRating: CreateUserRating {
+      get {
+        return CreateUserRating(unsafeResultMap: resultMap["createUserRating"]! as! ResultMap)
+      }
+      set {
+        resultMap.updateValue(newValue.resultMap, forKey: "createUserRating")
+      }
+    }
+
+    public struct CreateUserRating: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["UserRating"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("rating", type: .nonNull(.scalar(Int.self))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(rating: Int) {
+        self.init(unsafeResultMap: ["__typename": "UserRating", "rating": rating])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var rating: Int {
+        get {
+          return resultMap["rating"]! as! Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "rating")
+        }
       }
     }
   }

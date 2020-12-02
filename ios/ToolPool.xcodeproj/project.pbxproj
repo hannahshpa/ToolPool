@@ -21,7 +21,6 @@
 		45817F48255E214F0045EB3E /* ManagePendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F47255E214F0045EB3E /* ManagePendingResPage.swift */; };
 		45817F50255E23E50045EB3E /* ManageUpcomingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F4F255E23E50045EB3E /* ManageUpcomingResPage.swift */; };
 		45817F58255E24E70045EB3E /* ManagePastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F57255E24E70045EB3E /* ManagePastResPage.swift */; };
-		45817F66255EFE210045EB3E /* RateRental.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F65255EFE210045EB3E /* RateRental.swift */; };
 		45836786256F5A76002609A9 /* MyToolListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45836785256F5A76002609A9 /* MyToolListingView.swift */; };
 		4583678B2570DB5B002609A9 /* ManageOtherPendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */; };
 		458367902570DBBB002609A9 /* ManageOtherUpcomingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678F2570DBBB002609A9 /* ManageOtherUpcomingResPage.swift */; };
@@ -31,6 +30,8 @@
 		45F62BAF2575777B00A0E685 /* ManageOtherPastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */; };
 		45F62BB12575778000A0E685 /* ManageOtherUpcomingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678F2570DBBB002609A9 /* ManageOtherUpcomingResPage.swift */; };
 		45F62BB32575778400A0E685 /* ManageOtherPendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */; };
+		45F62BBB2578379500A0E685 /* RateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBA2578379500A0E685 /* RateTool.swift */; };
+		45F62BC0257839DD00A0E685 /* RateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBF257839DD00A0E685 /* RateUser.swift */; };
 		F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */; };
 		F53CE3792571C9C20085415A /* ImageUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53CE3782571C9C20085415A /* ImageUpload.swift */; };
 		F545E739255DD89700CEC060 /* ToolListingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E737255DD89700CEC060 /* ToolListingPage.swift */; };
@@ -74,7 +75,6 @@
 		F5A461912572FF59005F154A /* ManagePastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F57255E24E70045EB3E /* ManagePastResPage.swift */; };
 		F5A461942572FF60005F154A /* MakeReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E5525670C7E004ADBD4 /* MakeReservationView.swift */; };
 		F5A461972572FF69005F154A /* ToolPool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F5755E5325670C7E004ADBD4 /* ToolPool.xcdatamodeld */; };
-		F5A4619A2572FF7E005F154A /* RateRental.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45817F65255EFE210045EB3E /* RateRental.swift */; };
 		F5A4619D2572FF8E005F154A /* RentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECBE25437411007423B0 /* RentalView.swift */; };
 		F5A461A02572FF91005F154A /* OtherRentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FEF25685EE4008529A9 /* OtherRentalView.swift */; };
 		F5A461B32573008C005F154A /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = F5A461B22573008C005F154A /* Apollo */; };
@@ -146,13 +146,14 @@
 		45817F47255E214F0045EB3E /* ManagePendingResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePendingResPage.swift; sourceTree = "<group>"; };
 		45817F4F255E23E50045EB3E /* ManageUpcomingResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageUpcomingResPage.swift; sourceTree = "<group>"; };
 		45817F57255E24E70045EB3E /* ManagePastResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePastResPage.swift; sourceTree = "<group>"; };
-		45817F65255EFE210045EB3E /* RateRental.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateRental.swift; sourceTree = "<group>"; };
 		45836785256F5A76002609A9 /* MyToolListingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyToolListingView.swift; sourceTree = "<group>"; };
 		4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageOtherPendingResPage.swift; sourceTree = "<group>"; };
 		4583678F2570DBBB002609A9 /* ManageOtherUpcomingResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageOtherUpcomingResPage.swift; sourceTree = "<group>"; };
 		458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageOtherPastResPage.swift; sourceTree = "<group>"; };
 		45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfilePage.swift; sourceTree = "<group>"; };
 		45C44FEF25685EE4008529A9 /* OtherRentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherRentalView.swift; sourceTree = "<group>"; };
+		45F62BBA2578379500A0E685 /* RateTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateTool.swift; sourceTree = "<group>"; };
+		45F62BBF257839DD00A0E685 /* RateUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateUser.swift; sourceTree = "<group>"; };
 		F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolCategoryPage.swift; sourceTree = "<group>"; };
 		F53CE370256E30970085415A /* MyToolListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyToolListingView.swift; sourceTree = "<group>"; };
 		F53CE3782571C9C20085415A /* ImageUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUpload.swift; sourceTree = "<group>"; };
@@ -243,7 +244,8 @@
 				F545E737255DD89700CEC060 /* ToolListingPage.swift */,
 				F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */,
 				28A7EC6C2543688E007423B0 /* ToolPoolApp.swift */,
-				45817F65255EFE210045EB3E /* RateRental.swift */,
+				45F62BBA2578379500A0E685 /* RateTool.swift */,
+				45F62BBF257839DD00A0E685 /* RateUser.swift */,
 				45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */,
 				45817F47255E214F0045EB3E /* ManagePendingResPage.swift */,
 				4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */,
@@ -499,7 +501,9 @@
 				28A7EC6F2543688E007423B0 /* ContentView.swift in Sources */,
 				F545E745255DD8AD00CEC060 /* ToolPool.xcdatamodeld in Sources */,
 				28A7ECA825436DA7007423B0 /* ProfileViewController.swift in Sources */,
+				45F62BC0257839DD00A0E685 /* RateUser.swift in Sources */,
 				45817F58255E24E70045EB3E /* ManagePastResPage.swift in Sources */,
+				45F62BBB2578379500A0E685 /* RateTool.swift in Sources */,
 				28A7ECA325436D7F007423B0 /* SearchViewController.swift in Sources */,
 				F5755E5625670C7E004ADBD4 /* RentalViewController.swift in Sources */,
 				F545E739255DD89700CEC060 /* ToolListingPage.swift in Sources */,
@@ -513,7 +517,6 @@
 				45C44FF025685EE4008529A9 /* OtherRentalView.swift in Sources */,
 				F5755E3B2563A792004ADBD4 /* API.swift in Sources */,
 				F53CE3792571C9C20085415A /* ImageUpload.swift in Sources */,
-				45817F66255EFE210045EB3E /* RateRental.swift in Sources */,
 				F545E73A255DD89700CEC060 /* FilterView.swift in Sources */,
 				F58B264525536965000389E3 /* Landing.swift in Sources */,
 				4583678B2570DB5B002609A9 /* ManageOtherPendingResPage.swift in Sources */,
@@ -544,7 +547,6 @@
 				F5A4616D2572FED6005F154A /* InAppView.swift in Sources */,
 				45F62BB32575778400A0E685 /* ManageOtherPendingResPage.swift in Sources */,
 				F5A461942572FF60005F154A /* MakeReservationView.swift in Sources */,
-				F5A4619A2572FF7E005F154A /* RateRental.swift in Sources */,
 				F5A461702572FED9005F154A /* ImageUpload.swift in Sources */,
 				F5A461732572FEFE005F154A /* Landing.swift in Sources */,
 				F5A461822572FF3A005F154A /* ToolListingPage.swift in Sources */,

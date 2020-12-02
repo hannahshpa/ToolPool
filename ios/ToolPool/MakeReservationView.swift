@@ -46,9 +46,9 @@ struct MakeReservationView: View {
                     .foregroundColor(.white)
                     .cornerRadius(40)
             }
-            /*.simultaneousGesture(TapGesture().onEnded{
-                requestRental(userId: selfData.data.id, startTime: $startDate, endTime: $endDate, toolId: 0)
-            })*/
+            .simultaneousGesture(TapGesture().onEnded{
+                requestRental(userId:selfData.data.id, startTime:String(startDate.timeIntervalSinceReferenceDate), endTime:String(endDate.timeIntervalSinceReferenceDate), toolId: toolId)
+            })
         }
         .navigationTitle("Reservation Details")
     }

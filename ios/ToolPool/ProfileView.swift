@@ -8,14 +8,12 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @ObservedObject var selfData = mySelf()
-    let columns = [
-        GridItem(.fixed(100)),
-        GridItem(.fixed(100)),
-        GridItem(.fixed(100))
-    ]
   
-    let numbers1 = [Int](repeating: 0, count: 100)
+  @ObservedObject var selfData: mySelf = mySelf()
+  
+  init() {
+    self.selfData.load()
+  }
   
     var body: some View {
       //NavigationView{
@@ -23,12 +21,22 @@ struct ProfileView: View {
             geometry in
           VStack {
             HStack {
-              Image("profile")
+              if (loadImage(fileName: String(selfData.data.name)) != nil) {
+                Image(uiImage: loadImage(fileName: String(selfData.data.name))!)
                   .resizable()
-                  .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
+                  .frame(width: geometry.size.width * 0.35, height: geometry.size.width * 0.35)
                   .aspectRatio(contentMode: .fit)
+              } else {
+                Image("profile")
+                  .resizable()
+                  .frame(width: geometry.size.width * 0.35, height: geometry.size.width * 0.35)
+                  .aspectRatio(contentMode: .fit)
+              }
               Text(selfData.data.name + "'s ToolBox")
                 .font(.largeTitle)
+                .onAppear() {
+                  self.selfData.objectWillChange.send()
+                }
             }
             Divider()
             NavigationLink(destination: AddToolView(ownerId: selfData.data.id)) {
@@ -40,59 +48,41 @@ struct ProfileView: View {
                     .cornerRadius(40)
             }
             Divider()
-            ScrollView {
-                VStack {
-                    MyToolCategoryRow(geometry: geometry, toolNameLeft: "tool", toolNameMiddle: "tool", toolNameRight: "tool")
-                      MyToolCategoryRow(geometry: geometry, toolNameLeft: "tool", toolNameMiddle: "tool", toolNameRight: "tool")
-                      MyToolCategoryRow(geometry: geometry, toolNameLeft: "tool", toolNameMiddle: "tool", toolNameRight: "tool")
-                      MyToolCategoryRow(geometry: geometry, toolNameLeft: "tool", toolNameMiddle: "tool", toolNameRight: "tool")
-                      MyToolCategoryRow(geometry: geometry, toolNameLeft: "tool", toolNameMiddle: "tool", toolNameRight: "tool")
+            //TestView(geometry: geometry, myTools: selfData.data.ownedTools)
+            ScrollView(.vertical) {
+                LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 3), alignment: .center) {
+                  
+                  ForEach(selfData.data.ownedTools, id: \.id) { t in
+                    NavigationLink(destination: MyToolListingView(t.id)) {
+                      MyToolCategorySquare(geometry: geometry, toolName: t.name, toolId: t.id)
+                    }
                   }
-              }
-              
-          }//.padding()
-        }
-        .navigationBarTitle(Text("Your toolbox"), displayMode: .inline)
-        .navigationBarHidden(false)
-        .navigationBarItems(trailing:
-                              NavigationLink(destination: AddToolView(ownerId: selfData.data.id)) {
-                                Text("Add Tool")
-                             }
-        )
+                }
+            }.onAppear(perform: selfData.load)
+          }
+        }.onAppear(perform: selfData.load)
       }
 }
 
 
-struct MyToolCategoryRow: View {
-    let geometry: GeometryProxy
-    let toolNameLeft: String
-    let toolNameMiddle: String
-    let toolNameRight: String
-    var body: some View {
-        HStack { // position views horizontally
-          NavigationLink(destination: ToolListingPage(listingName: toolNameLeft, categoryName: "tool")) {
-                MyToolCategorySquare(geometry: geometry, categoryName: toolNameLeft)
-            }
-            NavigationLink(destination: ToolListingPage(listingName: toolNameMiddle, categoryName: "tool")) {
-                MyToolCategorySquare(geometry: geometry, categoryName: toolNameMiddle)
-            }
-            NavigationLink(destination: ToolListingPage(listingName: toolNameRight, categoryName: "tool")) {
-                MyToolCategorySquare(geometry: geometry, categoryName: toolNameRight)
-            }
-        }
-    }
-}
-
 struct MyToolCategorySquare: View {
     let geometry: GeometryProxy
-    let categoryName: String
+    let toolName: String
+    let toolId: Int
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            Image(categoryName.lowercased())
-                .resizable()
-                .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
-                .aspectRatio(contentMode: .fit)
-            Text(categoryName).bold()
+          if (loadImage(fileName: String(toolId)) != nil) {
+            Image(uiImage: loadImage(fileName: String(toolId))!)
+                  .resizable()
+                  .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
+                  .aspectRatio(contentMode: .fit)
+          } else {
+            Image("tool")
+                  .resizable()
+                  .frame(width: geometry.size.width * 0.3, height: geometry.size.width * 0.3)
+                  .aspectRatio(contentMode: .fit)
+          }
+            Text(toolName).bold()
                 .padding(6)
                 .font(.headline)
                 .foregroundColor(Color.white)
@@ -113,20 +103,27 @@ class selfObj {
   var name: String = ""
   var email: String = ""
   var id: Int = 0
+  var ownedTools: [GetSelfQuery.Data.Self.OwnedTool] = []
+  //var myTools = [GetSelfQuery.Data.Self.OwnedTool]()
   
-  init(n: String, e: String, i: Int) {
+  init(n: String, e: String, i: Int, ot: [GetSelfQuery.Data.Self.OwnedTool]) {
     self.name = n
     self.email = e
     self.id = i
+    self.ownedTools = ot
   }
 }
 
 class mySelf: ObservableObject {
 
-    @Published var data: selfObj
-
+  @Published var data: selfObj {
+    willSet {
+        objectWillChange.send()
+    }
+  }
+    
     init() {
-      self.data = selfObj(n: "test", e: "test", i: 0)
+      self.data = selfObj(n: "test", e: "test", i: 0, ot: [])
       self.load()
     }
   
@@ -136,9 +133,10 @@ class mySelf: ObservableObject {
        case .success(let graphQLResult):
           print("Success! Result: \(graphQLResult)")
           if let self_temp = graphQLResult.data?.`self` {
-            self.data = selfObj(n: self_temp.name, e: self_temp.email, i: self_temp.id)
-            print(self_temp.name)
-            print(self_temp.email)
+            self.objectWillChange.send()
+            self.data = selfObj(n: self_temp.name, e: self_temp.email, i: self_temp.id, ot: self_temp.ownedTools)
+            print("updated-----------------")
+            
           }
        case .failure(let error):
          print("Failure! Error: \(error)")
@@ -147,3 +145,31 @@ class mySelf: ObservableObject {
     }
   
 }
+
+func loadImage(fileName: String) -> UIImage? {
+    let fileURL = documentsUrl.appendingPathComponent(fileName)
+    do {
+        let imageData = try Data(contentsOf: fileURL)
+        return UIImage(data: imageData)
+    } catch {
+        print("Error loading image : \(error)")
+    }
+    return nil
+}
+
+/*
+struct TestView: View {
+    let geometry: GeometryProxy
+    let myTools: [GetSelfQuery.Data.Self.OwnedTool]
+
+    var body: some View {
+        ScrollView(.vertical) {
+            LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 3), alignment: .center) {
+
+              ForEach(myTools, id: \.id) { t in
+                MyToolCategorySquare(geometry: geometry, toolName: t.name, toolId: t.id)
+              }
+            }
+        }
+    }
+}*/

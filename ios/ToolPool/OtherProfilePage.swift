@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OtherProfilePage: View {
-    let user: BorrowByIdQuery.Data.Borrow.User!
+    let user: GetBorrowsQuery.Data.Self.BorrowHistory.User!
     let columns = [
         GridItem(.fixed(100)),
         GridItem(.fixed(100)),
@@ -31,6 +31,7 @@ struct OtherProfilePage: View {
                 .font(.largeTitle)
             }
             Divider()
+            /*
             ScrollView {
                 VStack {
                     MyToolCategoryRow(geometry: geometry, toolNameLeft: "tool", toolNameMiddle: "tool", toolNameRight: "tool")
@@ -39,7 +40,7 @@ struct OtherProfilePage: View {
                       MyToolCategoryRow(geometry: geometry, toolNameLeft: "tool", toolNameMiddle: "tool", toolNameRight: "tool")
                       MyToolCategoryRow(geometry: geometry, toolNameLeft: "tool", toolNameMiddle: "tool", toolNameRight: "tool")
                   }
-              }
+              }*/
               //.padding()
           }
         }

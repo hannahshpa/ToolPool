@@ -29,11 +29,11 @@ struct ContentView: View {
 //                    Image(systemName: "person")
 //                    Text("Profile")
 //                }
-            MapViewManager()
-                .tabItem {
-                    Image(systemName: "map")
-                    Text("Map")
-                }
+//            MapViewManager()
+//                .tabItem {
+//                    Image(systemName: "map")
+//                    Text("Map")
+//                }
             Landing()
                 .tabItem {
                     Image(systemName: "person")

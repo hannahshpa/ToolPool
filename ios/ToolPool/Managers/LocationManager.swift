@@ -7,12 +7,23 @@
 
 import Foundation
 import MapKit
+import CoreLocation
+import Combine
 //responsible for getting the locaiton and updating the location
 
 class LocationManager: NSObject, ObservableObject {
     
     private let locationManager = CLLocationManager()
-    @Published var location: CLLocation? = nil
+//    @Published var location: CLLocation? = nil
+    //makes location a publisher variable, so whenever it updates, subscribers are alerted
+    @Published var location: CLLocation? {
+        willSet {
+            objectWillChange.send()
+        }
+    }
+    //published to all subscribers
+    let objectWillChange = PassthroughSubject<Void, Never>()
+
     
     override init() {
         
@@ -27,6 +38,20 @@ class LocationManager: NSObject, ObservableObject {
         
     }
     
+    func getUserLocation(completion: (_ lat: String, _ lng: String) -> Void) {
+        var currentLocation: CLLocation!
+        currentLocation = locationManager.location
+        
+        let latitude = String(format: "%.7f", currentLocation.coordinate.latitude)
+        let longitude = String(format: "%.7f", currentLocation.coordinate.longitude)
+        location = CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+
+
+        debugPrint("Latitude:", latitude)
+        debugPrint("Longitude:", longitude)
+
+        completion(latitude, longitude)  // your block of code you passed to this function will run in this way
+    }
 }
 
 extension LocationManager: CLLocationManagerDelegate {

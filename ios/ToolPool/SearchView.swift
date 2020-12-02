@@ -33,10 +33,10 @@ struct ToolCategoryRow: View {
     let categoryNameRight: String
     var body: some View {
         HStack { // position views horizontally
-            NavigationLink(destination: ToolCategoryPage(categoryName:categoryNameLeft)) {
+            NavigationLink(destination: ToolCategoryPage(categoryNameLeft)) {
                 ToolCategorySquare(geometry: geometry, categoryName: categoryNameLeft)
             }
-            NavigationLink(destination: ToolCategoryPage(categoryName:categoryNameRight)) {
+            NavigationLink(destination: ToolCategoryPage(categoryNameRight)) {
                 ToolCategorySquare(geometry: geometry, categoryName: categoryNameRight)
             }
         }

@@ -6,21 +6,62 @@ query ToolById($id: Int) {
         lon
     }
       description
+      location {
+        lat
+        lon
+      }
       condition
+      hourly_cost
+      tags
+      images
+      averageRating
+      owner {
+        name
+        }
   }
 }
 query GetBorrows {
     self {
         borrowHistory {
-            loanPeriod {
-                start
-            }
+            cost
+            id
             tool {
+                id
                 name
+            }
+            status
+            user {
+                id
+                name
+                phoneNumber
+                email
             }
         }
     }
 }
+
+query GetOtherBorrows {
+    self {
+        ownedTools {
+            borrowHistory {
+                cost
+                id
+                tool {
+                    id
+                    name
+                }
+                status
+                user {
+                    id
+                    name
+                    phoneNumber
+                    email
+                }
+            }
+        }
+    }
+}
+
 query BorrowById($id: Int) {
     borrow(id: $id){
         cost
@@ -30,7 +71,6 @@ query BorrowById($id: Int) {
             end
         }
         tool {
-            id
             name
         }
         user {
@@ -63,11 +103,44 @@ query GetSelf {
     name
     email
     id
+    ownedTools {
+      name
+      id
+    }
   }
+}
+
+query GetNearby($center: GeoLocationInput!, $radius: Float!) {
+    nearby(center: $center, radius: $radius) {
+          id
+          name
+          description
+          location {
+            lat
+            lon
+          }
+          condition
+          hourly_cost
+          tags
+          images
+          averageRating
+    }
 }
 
 mutation AddTool($tool: NewToolInput!){
     addTool(tool: $tool){
         id
     }
+}
+
+mutation RequestBorrow($userId: Int, $startTime: Date, $endTime: Date, $toolId: Int){
+    requestBorrow(userId: $userId, startTime: $startTime, endTime: $endTime, toolId: $toolId)
+}
+
+mutation DenyBorrow($id:Int) {
+    denyBorrow(id: $id)
+}
+
+mutation ApproveBorrow($id:Int) {
+    approveBorrow(id: $id)
 }

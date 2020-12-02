@@ -14,11 +14,15 @@ struct MapViewManager: View {
     @ObservedObject var locationManager = LocationManager()
     @State private var tools: [ToolModel] = [ToolModel]()
     @State private var search: String = ""
+    var toolId: Int
     
+    init(id: Int) {
+        self.toolId = id
+    }
   
 // instiantiaing ToolModel annotation from database
 private func loadTools() {
-    Network.shared.apollo.fetch(query: ToolByIdQuery(id: 9)) { result in
+    Network.shared.apollo.fetch(query: ToolByIdQuery(id: self.toolId)) { result in
        switch result {
        case .success(let graphQLResult):
          print("Success! Result: \(graphQLResult)")

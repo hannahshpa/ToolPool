@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ManagePastResPage: View {
-    let borrow: BorrowByIdQuery.Data.Borrow!
+    let borrow: GetBorrowsQuery.Data.Self.BorrowHistory!
     var body: some View {
       ScrollView {
         GeometryReader {
@@ -23,16 +23,16 @@ struct ManagePastResPage: View {
                 .foregroundColor(.black)
             Divider()
             Group {
-                Text("Date: " + borrow.loanPeriod.start)
+                //Text("Date: " + borrow.loanPeriod.start)
                 Text("Cost: \(borrow.cost)")
                 Text("Location: (insert map)")
                 Text("Rental Rating: (insert rating)")
-                NavigationLink(destination:OtherProfilePage(user: borrow.user)) {
-                    Text("User: " + borrow.user.name)
-                }
+                Text("User: " + borrow.user.name)
+                Text("Email: \( borrow.user.email)")
+                Text("Phone Number: \(borrow.user.phoneNumber)")
             }
             Divider()
-            NavigationLink(destination: ToolListingPage(listingName: borrow.tool.name, categoryName: "")) {
+            NavigationLink(destination: ToolListingPage(borrow.tool.name,id: borrow.tool.id, category: "")) {
                 Text("Rent Again")
                     .frame(minWidth:0, maxWidth:325)
                     .background(Color.orange)

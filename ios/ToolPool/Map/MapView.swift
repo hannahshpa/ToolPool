@@ -8,14 +8,14 @@ import Foundation
 import SwiftUI
 import MapKit
 
-class Coordinator: NSObject, MKMapViewDelegate {
+class MapCoordinator: NSObject, MKMapViewDelegate {
     var control: MapView
     init(_ control: MapView) {
         self.control = control
     }
     // initializes map to view of user's location
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-        
+
         if let annotationView = views.first {
             if let annotation = annotationView.annotation {
                 if annotation is MKUserLocation {
@@ -58,9 +58,9 @@ struct MapView: UIViewRepresentable {
         return map
     }
 
-    func makeCoordinator() -> Coordinator {
+    func makeCoordinator() -> MapCoordinator {
         // handles Map UI interactions, like scrolling in, clicking, zooming in.
-        Coordinator(self)
+        MapCoordinator(self)
     }
 
     func updateUIView(_ uiView: MKMapView, context: UIViewRepresentableContext<MapView>) {

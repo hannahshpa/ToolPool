@@ -33,7 +33,7 @@ struct MakeReservationView: View {
                 }
                 
             }
-            NavigationLink(destination:SearchView()) { // todo: change to make reservation
+            NavigationLink(destination:InAppView()) { // todo: change to make reservation
                 Text("Make Reservation")
                     .frame(minWidth:0, maxWidth:300)
                     .background(Color.orange)

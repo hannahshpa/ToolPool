@@ -65,6 +65,7 @@ class TestTool {
   }
 }
 
+/*
 class ToolData: ObservableObject {
 
     @Published var data: TestTool
@@ -89,3 +90,4 @@ class ToolData: ObservableObject {
     }
   
 }
+*/

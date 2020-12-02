@@ -5,10 +5,10 @@
 //  Created by Alissa McNerney on 11/19/20.
 //
 
-import SwiftUI
+/*import SwiftUI
 
 struct OtherProfilePage: View {
-    let user: BorrowByIdQuery.Data.Borrow.User!
+    let user: GetBorrowsQuery.Data.Self.BorrowHistory.User!
     let columns = [
         GridItem(.fixed(100)),
         GridItem(.fixed(100)),
@@ -53,3 +53,4 @@ struct OtherProfilePage_Previews: PreviewProvider {
         OtherProfilePage(user: nil)
     }
 }
+*/

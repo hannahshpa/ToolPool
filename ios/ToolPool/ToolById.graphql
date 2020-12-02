@@ -9,7 +9,6 @@ query ToolById($id: Int) {
       condition
       hourly_cost
       tags
-      images
   }
 }
 query GetBorrows {

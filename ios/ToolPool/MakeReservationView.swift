@@ -9,12 +9,17 @@ import SwiftUI
 
 struct MakeReservationView: View {
     let date: Date
+    let toolId: Int
     @State var startDate = Date()
     @State var endDate = Date()
-    init(date: Date) {
+    @ObservedObject var selfData: mySelf = mySelf()
+
+    init(date: Date, toolId:Int) {
         self.date = date
+        self.toolId = toolId
         self._startDate = State(initialValue: date)
         self._endDate = State(initialValue: date)
+        self.selfData.load()
     }
     var body: some View {
         VStack {
@@ -34,13 +39,16 @@ struct MakeReservationView: View {
                 
             }
             NavigationLink(destination:InAppView()) { // todo: change to make reservation
-                Text("Make Reservation")
+                Text("Request Reservation")
                     .frame(minWidth:0, maxWidth:300)
                     .background(Color.orange)
                     .font(.title)
                     .foregroundColor(.white)
                     .cornerRadius(40)
             }
+            /*.simultaneousGesture(TapGesture().onEnded{
+                requestRental(userId: selfData.data.id, startTime: $startDate, endTime: $endDate, toolId: 0)
+            })*/
         }
         .navigationTitle("Reservation Details")
     }
@@ -48,6 +56,18 @@ struct MakeReservationView: View {
 
 struct MakeReservationView_Previews: PreviewProvider {
     static var previews: some View {
-        MakeReservationView(date:Date())
+        MakeReservationView(date:Date(), toolId: 0)
     }
+}
+
+func requestRental(userId:Int, startTime:String, endTime:String, toolId:Int) {
+  
+  Network.shared.apollo.perform(mutation: RequestBorrowMutation(userId: userId, startTime: startTime, endTime: endTime, toolId: toolId)) { result in
+    switch result {
+    case .success(let graphQLResult):
+      print("Success! Result: \(graphQLResult)")
+    case .failure(let error):
+      print("Failure! Error: \(error)")
+    }
+  }
 }

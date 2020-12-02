@@ -23,13 +23,13 @@ struct ManagePastResPage: View {
                 .foregroundColor(.black)
             Divider()
             Group {
-                //Text("Date: " + borrow.loanPeriod.start)
+                Text("Start: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.start)!) )")
                 Text("Cost: \(borrow.cost)")
                 Text("Location: (insert map)")
                 Text("Rental Rating: (insert rating)")
-                Text("User: " + borrow.user.name)
-                Text("Email: \( borrow.user.email)")
-                Text("Phone Number: \(borrow.user.phoneNumber)")
+                Text("Owner: " + borrow.tool.owner.name)
+                Text("Email: \( borrow.tool.owner.email)")
+                Text("Phone Number: \(borrow.tool.owner.phoneNumber)")
             }
             Divider()
             NavigationLink(destination: ToolListingPage(borrow.tool.name,id: borrow.tool.id, category: "")) {

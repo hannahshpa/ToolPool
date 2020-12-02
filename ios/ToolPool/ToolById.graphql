@@ -21,17 +21,22 @@ query GetBorrows {
         borrowHistory {
             cost
             id
+            loanPeriod {
+                start
+                end
+            }
             tool {
                 id
                 name
+                owner {
+                    id
+                    name
+                    phoneNumber
+                    email
+                }
             }
             status
-            user {
-                id
-                name
-                phoneNumber
-                email
-            }
+
         }
     }
 }
@@ -45,6 +50,10 @@ query GetOtherBorrows {
                 tool {
                     id
                     name
+                }
+                loanPeriod {
+                    start
+                    end
                 }
                 status
                 user {

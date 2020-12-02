@@ -28,8 +28,10 @@
 		458367952570DBFE002609A9 /* ManageOtherPastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */; };
 		45C44FDD25674BDE008529A9 /* OtherProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */; };
 		45C44FF025685EE4008529A9 /* OtherRentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FEF25685EE4008529A9 /* OtherRentalView.swift */; };
+		45F62BAF2575777B00A0E685 /* ManageOtherPastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */; };
+		45F62BB12575778000A0E685 /* ManageOtherUpcomingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678F2570DBBB002609A9 /* ManageOtherUpcomingResPage.swift */; };
+		45F62BB32575778400A0E685 /* ManageOtherPendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */; };
 		F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */; };
-		F53CE371256E30970085415A /* MyToolListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53CE370256E30970085415A /* MyToolListingView.swift */; };
 		F53CE3792571C9C20085415A /* ImageUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53CE3782571C9C20085415A /* ImageUpload.swift */; };
 		F545E739255DD89700CEC060 /* ToolListingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E737255DD89700CEC060 /* ToolListingPage.swift */; };
 		F545E73A255DD89700CEC060 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E738255DD89700CEC060 /* FilterView.swift */; };
@@ -540,6 +542,7 @@
 				F5A461972572FF69005F154A /* ToolPool.xcdatamodeld in Sources */,
 				F5A461A02572FF91005F154A /* OtherRentalView.swift in Sources */,
 				F5A4616D2572FED6005F154A /* InAppView.swift in Sources */,
+				45F62BB32575778400A0E685 /* ManageOtherPendingResPage.swift in Sources */,
 				F5A461942572FF60005F154A /* MakeReservationView.swift in Sources */,
 				F5A4619A2572FF7E005F154A /* RateRental.swift in Sources */,
 				F5A461702572FED9005F154A /* ImageUpload.swift in Sources */,
@@ -553,7 +556,9 @@
 				F5A461762572FF00005F154A /* SignInView.swift in Sources */,
 				F5A461852572FF3D005F154A /* FilterView.swift in Sources */,
 				F5A4615B2572FE98005F154A /* API.swift in Sources */,
+				45F62BB12575778000A0E685 /* ManageOtherUpcomingResPage.swift in Sources */,
 				F5A4615F2572FEA1005F154A /* MyToolListingView.swift in Sources */,
+				45F62BAF2575777B00A0E685 /* ManageOtherPastResPage.swift in Sources */,
 				F5A4617C2572FF0B005F154A /* SearchView.swift in Sources */,
 				F5A4619D2572FF8E005F154A /* RentalView.swift in Sources */,
 				F5A4618E2572FF57005F154A /* ManageUpcomingResPage.swift in Sources */,

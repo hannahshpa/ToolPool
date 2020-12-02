@@ -25,6 +25,8 @@ query GetBorrows {
                 start
                 end
             }
+            returnAccepted
+            timeReturned
             tool {
                 id
                 name
@@ -50,11 +52,16 @@ query GetOtherBorrows {
                 tool {
                     id
                     name
+                    owner {
+                        id
+                    }
                 }
                 loanPeriod {
                     start
                     end
                 }
+                returnAccepted
+                timeReturned
                 status
                 user {
                     id
@@ -148,4 +155,28 @@ mutation DenyBorrow($id:Int) {
 
 mutation ApproveBorrow($id:Int) {
     approveBorrow(id: $id)
+}
+
+mutation AcceptReturn ($borrowId: Int!, $accept: Boolean!) {
+    acceptReturn(borrowId: $borrowId, accept: $accept) {
+        id
+    }
+}
+
+mutation ReturnTool ($borrowId: Int!) {
+    returnTool(borrowId: $borrowId) {
+        id
+    }
+}
+
+mutation CreateToolRating ($revieweeId: Int!, $review: String, $reviewerId: Int!, $rating: Int!){
+    createToolRating (revieweeId: $revieweeId, review: $review, reviewerId: $reviewerId, rating: $rating){
+        rating
+    }
+}
+
+mutation CreateUserRating ($revieweeId: Int!, $review: String, $reviewerId: Int!, $rating: Int!){
+    createUserRating (revieweeId: $revieweeId, review: $review, reviewerId: $reviewerId, rating: $rating){
+        rating
+    }
 }

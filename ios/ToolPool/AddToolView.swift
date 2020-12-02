@@ -51,10 +51,11 @@ struct AddToolView: View {
               }
             }
           }
-          Section(header: Text("Location")) {
-            TextField("Longitude", text: $lon).keyboardType(.numberPad)
-            TextField("Latitude", text: $lat).keyboardType(.numberPad)
-          }
+//            going to get userLocation Data from map location
+//          Section(header: Text("Location")) {
+//            TextField("Longitude", text: $lon).keyboardType(.numberPad)
+//            TextField("Latitude", text: $lat).keyboardType(.numberPad)
+//          }
           Section(header: Text("Condition")) {
             Picker(selection: $selectedCondition, label: Text("Condition")) /*@START_MENU_TOKEN@*/{
               Text("New").tag(Condition.new)
@@ -89,7 +90,9 @@ struct AddToolView: View {
             }
         }
         Button(action: {
-          let loca = GeoLocationInput(lat: Double(lat)!, lon: Double(lon)!)
+          let userLocation = UserLocation()
+          let location = userLocation.getLocation()
+          let loca = GeoLocationInput(lat: location.coordinate.latitude, lon: location.coordinate.longitude)
           let cond = ToolCondition(rawValue: selectedCondition.rawValue)
           let newInput = NewToolInput(condition: cond!, description: description, hourlyCost: Double(cost)!, images: ["test"], location: loca, name: name, ownerId: ownerId, tags: ["test"])
           

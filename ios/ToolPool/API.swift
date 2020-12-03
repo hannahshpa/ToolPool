@@ -221,6 +221,11 @@ public final class ToolByIdQuery: GraphQLQuery {
       tool(id: $id) {
         __typename
         name
+        location {
+          __typename
+          lat
+          lon
+        }
         description
         location {
           __typename
@@ -288,6 +293,7 @@ public final class ToolByIdQuery: GraphQLQuery {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("name", type: .nonNull(.scalar(String.self))),
+          GraphQLField("location", type: .nonNull(.object(Location.selections))),
           GraphQLField("description", type: .nonNull(.scalar(String.self))),
           GraphQLField("location", type: .nonNull(.object(Location.selections))),
           GraphQLField("condition", type: .nonNull(.scalar(ToolCondition.self))),
@@ -305,8 +311,8 @@ public final class ToolByIdQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(name: String, description: String, location: Location, condition: ToolCondition, hourlyCost: Double, tags: [String], images: [String], averageRating: Double, owner: Owner) {
-        self.init(unsafeResultMap: ["__typename": "Tool", "name": name, "description": description, "location": location.resultMap, "condition": condition, "hourly_cost": hourlyCost, "tags": tags, "images": images, "averageRating": averageRating, "owner": owner.resultMap])
+      public init(name: String, location: Location, description: String, condition: ToolCondition, hourlyCost: Double, tags: [String], images: [String], averageRating: Double, owner: Owner) {
+        self.init(unsafeResultMap: ["__typename": "Tool", "name": name, "location": location.resultMap, "description": description, "condition": condition, "hourly_cost": hourlyCost, "tags": tags, "images": images, "averageRating": averageRating, "owner": owner.resultMap])
       }
 
       public var __typename: String {
@@ -327,21 +333,21 @@ public final class ToolByIdQuery: GraphQLQuery {
         }
       }
 
-      public var description: String {
-        get {
-          return resultMap["description"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "description")
-        }
-      }
-
       public var location: Location {
         get {
           return Location(unsafeResultMap: resultMap["location"]! as! ResultMap)
         }
         set {
           resultMap.updateValue(newValue.resultMap, forKey: "location")
+        }
+      }
+
+      public var description: String {
+        get {
+          return resultMap["description"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "description")
         }
       }
 
@@ -404,6 +410,9 @@ public final class ToolByIdQuery: GraphQLQuery {
 
         public static var selections: [GraphQLSelection] {
           return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("lat", type: .nonNull(.scalar(Double.self))),
+            GraphQLField("lon", type: .nonNull(.scalar(Double.self))),
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("lat", type: .nonNull(.scalar(Double.self))),
             GraphQLField("lon", type: .nonNull(.scalar(Double.self))),

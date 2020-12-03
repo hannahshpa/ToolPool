@@ -32,6 +32,17 @@
 		45F62BB32575778400A0E685 /* ManageOtherPendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */; };
 		45F62BBB2578379500A0E685 /* RateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBA2578379500A0E685 /* RateTool.swift */; };
 		45F62BC0257839DD00A0E685 /* RateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBF257839DD00A0E685 /* RateUser.swift */; };
+		530B16F32572184200594A84 /* MapViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F12572184200594A84 /* MapViewManager.swift */; };
+		530B16F42572184200594A84 /* MapViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F12572184200594A84 /* MapViewManager.swift */; };
+		530B16F52572184200594A84 /* MapViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F12572184200594A84 /* MapViewManager.swift */; };
+		530B16F62572184200594A84 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F22572184200594A84 /* MapView.swift */; };
+		530B16F72572184200594A84 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F22572184200594A84 /* MapView.swift */; };
+		530B16F82572184200594A84 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F22572184200594A84 /* MapView.swift */; };
+		5329ABF92565D7AA00A38798 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
+		5329ABFA2565D7AA00A38798 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
+		5329ABFB2565D7AA00A38798 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
+		53F280592565E7A400ED54D0 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F280582565E7A400ED54D0 /* Tool.swift */; };
+		53F2805E2565E84200ED54D0 /* ToolAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */; };
 		F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */; };
 		F53CE3792571C9C20085415A /* ImageUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53CE3782571C9C20085415A /* ImageUpload.swift */; };
 		F545E739255DD89700CEC060 /* ToolListingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E737255DD89700CEC060 /* ToolListingPage.swift */; };
@@ -154,6 +165,11 @@
 		45C44FEF25685EE4008529A9 /* OtherRentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherRentalView.swift; sourceTree = "<group>"; };
 		45F62BBA2578379500A0E685 /* RateTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateTool.swift; sourceTree = "<group>"; };
 		45F62BBF257839DD00A0E685 /* RateUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateUser.swift; sourceTree = "<group>"; };
+		530B16F12572184200594A84 /* MapViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewManager.swift; sourceTree = "<group>"; };
+		530B16F22572184200594A84 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		5329ABF82565D7AA00A38798 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		53F280582565E7A400ED54D0 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
+		53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolAnnotation.swift; sourceTree = "<group>"; };
 		F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolCategoryPage.swift; sourceTree = "<group>"; };
 		F53CE370256E30970085415A /* MyToolListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyToolListingView.swift; sourceTree = "<group>"; };
 		F53CE3782571C9C20085415A /* ImageUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUpload.swift; sourceTree = "<group>"; };
@@ -230,6 +246,9 @@
 		28A7EC6B2543688E007423B0 /* ToolPool */ = {
 			isa = PBXGroup;
 			children = (
+				530B16F02572184200594A84 /* Map */,
+				53F280572565E78E00ED54D0 /* Models */,
+				5329AC0C2565D86B00A38798 /* Managers */,
 				45836785256F5A76002609A9 /* MyToolListingView.swift */,
 				F5755E5525670C7E004ADBD4 /* MakeReservationView.swift */,
 				F5755E5225670C7E004ADBD4 /* RentalViewController.swift */,
@@ -299,6 +318,33 @@
 				F5E716152572E8D500480DF0 /* ProfileViewTest.swift */,
 			);
 			path = ToolPoolUITests;
+			sourceTree = "<group>";
+		};
+		530B16F02572184200594A84 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				530B16F12572184200594A84 /* MapViewManager.swift */,
+				530B16F22572184200594A84 /* MapView.swift */,
+			);
+			name = Map;
+			path = ToolPool/Map;
+			sourceTree = SOURCE_ROOT;
+		};
+		5329AC0C2565D86B00A38798 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				5329ABF82565D7AA00A38798 /* LocationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		53F280572565E78E00ED54D0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				53F280582565E7A400ED54D0 /* Tool.swift */,
+				53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		F58B264925537509000389E3 /* Login */ = {
@@ -499,7 +545,11 @@
 				45C44FDD25674BDE008529A9 /* OtherProfilePage.swift in Sources */,
 				F58B2668255478BB000389E3 /* AddToolView.swift in Sources */,
 				28A7EC6F2543688E007423B0 /* ContentView.swift in Sources */,
+				530B16F62572184200594A84 /* MapView.swift in Sources */,
+				5329ABF92565D7AA00A38798 /* LocationManager.swift in Sources */,
+				53F280592565E7A400ED54D0 /* Tool.swift in Sources */,
 				F545E745255DD8AD00CEC060 /* ToolPool.xcdatamodeld in Sources */,
+				530B16F32572184200594A84 /* MapViewManager.swift in Sources */,
 				28A7ECA825436DA7007423B0 /* ProfileViewController.swift in Sources */,
 				45F62BC0257839DD00A0E685 /* RateUser.swift in Sources */,
 				45817F58255E24E70045EB3E /* ManagePastResPage.swift in Sources */,
@@ -514,6 +564,7 @@
 				45836786256F5A76002609A9 /* MyToolListingView.swift in Sources */,
 				28A7ECC925437428007423B0 /* SearchView.swift in Sources */,
 				28A7ECBF25437411007423B0 /* RentalView.swift in Sources */,
+				53F2805E2565E84200ED54D0 /* ToolAnnotation.swift in Sources */,
 				45C44FF025685EE4008529A9 /* OtherRentalView.swift in Sources */,
 				F5755E3B2563A792004ADBD4 /* API.swift in Sources */,
 				F53CE3792571C9C20085415A /* ImageUpload.swift in Sources */,
@@ -532,7 +583,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				530B16F42572184200594A84 /* MapViewManager.swift in Sources */,
+				530B16F72572184200594A84 /* MapView.swift in Sources */,
 				28A7EC7F2543688F007423B0 /* ToolPoolTests.swift in Sources */,
+				5329ABFA2565D7AA00A38798 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,6 +594,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				530B16F52572184200594A84 /* MapViewManager.swift in Sources */,
+				530B16F82572184200594A84 /* MapView.swift in Sources */,
 				F5E716162572E8D500480DF0 /* ProfileViewTest.swift in Sources */,
 				F5A4617F2572FF37005F154A /* ToolCategoryPage.swift in Sources */,
 				F5A461972572FF69005F154A /* ToolPool.xcdatamodeld in Sources */,
@@ -568,6 +624,7 @@
 				F5A461912572FF59005F154A /* ManagePastResPage.swift in Sources */,
 				F5A461642572FEC7005F154A /* Network.swift in Sources */,
 				28A7EC8A2543688F007423B0 /* ToolPoolUITests.swift in Sources */,
+				5329ABFB2565D7AA00A38798 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

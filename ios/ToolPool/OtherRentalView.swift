@@ -20,7 +20,7 @@ struct OtherRentalView: View {
                             ForEach(borrowsData.data.borrows, id: \.id) { b in
                                 if b.status == .pending {
                                     NavigationLink(destination: ManageOtherPendingResPage(borrow: b)) {
-                                        Text(b.tool.name)
+                                        Text("\(NSDate(timeIntervalSinceReferenceDate: TimeInterval(b.loanPeriod.start))) : \(b.tool.name)")
                                     }
                                 }
                             }
@@ -30,7 +30,7 @@ struct OtherRentalView: View {
                             ForEach(borrowsData.data.borrows, id: \.id) { b in
                                 if b.status == .accepted && b.returnAccepted == nil{
                                     NavigationLink(destination: ManageOtherUpcomingResPage(borrow: b)) {
-                                        Text(b.tool.name)
+                                        Text("\(NSDate(timeIntervalSinceReferenceDate: TimeInterval(b.loanPeriod.start))) : \(b.tool.name)")
                                     }
                                 }
                             }
@@ -40,7 +40,7 @@ struct OtherRentalView: View {
                             ForEach(borrowsData.data.borrows, id: \.id) { b in
                                 if b.status == .accepted && b.returnAccepted != nil {
                                 NavigationLink(destination: ManageOtherPastResPage(borrow: b)) {
-                                    Text(b.tool.name)
+                                    Text("\(NSDate(timeIntervalSinceReferenceDate: TimeInterval(b.loanPeriod.start))) : \(b.tool.name)")
                                 }
                             }
                         }

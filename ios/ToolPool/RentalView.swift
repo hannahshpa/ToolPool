@@ -22,7 +22,7 @@ struct RentalView: View {
                             ForEach(borrowsData.data.borrows, id: \.id) { b in
                                 if b.status == .pending {
                                     NavigationLink(destination: ManagePendingResPage(borrow: b)) {
-                                        Text(b.tool.name)
+                                        Text("\(NSDate(timeIntervalSinceReferenceDate: TimeInterval(b.loanPeriod.start))) : \(b.tool.name)")
                                     }
                                 }
                             }
@@ -32,7 +32,7 @@ struct RentalView: View {
                             ForEach(borrowsData.data.borrows, id: \.id) { b in
                                 if b.status == .accepted && b.timeReturned == nil{
                                     NavigationLink(destination: ManageUpcomingResPage(borrow: b)) {
-                                        Text(b.tool.name)
+                                        Text("\(NSDate(timeIntervalSinceReferenceDate: TimeInterval(b.loanPeriod.start))) : \(b.tool.name)")
                                     }
                                 }
                             }
@@ -42,7 +42,7 @@ struct RentalView: View {
                             ForEach(borrowsData.data.borrows, id: \.id) { b in
                                 if b.status == .accepted && b.timeReturned != nil {
                                 NavigationLink(destination: ManagePastResPage(borrow: b)) {
-                                    Text(b.tool.name)
+                                    Text("\(NSDate(timeIntervalSinceReferenceDate: TimeInterval(b.loanPeriod.start))) : \(b.tool.name)")
                                 }
                             }
                 

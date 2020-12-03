@@ -128,8 +128,12 @@ public struct Resolver{
         if end < start{
             return ctx.eventLoop.makeFailedFuture(Abort(.badRequest))
         }
-        return DBTool.getById(id: arguments.toolId, db: ctx.db).map{result in
-            result!.hourlyCost * end.timeIntervalSince(start) / 3600
+        return DBTool.getById(id: arguments.toolId, db: ctx.db).flatMap{result -> EventLoopFuture<Double>in
+            if let result = result{
+                return ctx.eventLoop.makeSucceededFuture(result.hourlyCost * end.timeIntervalSince(start) / 3600)
+            }else{
+                return ctx.eventLoop.makeFailedFuture(Abort(.notFound))
+            }
         }.flatMap{cost in
             ctx.db.query("INSERT INTO borrow (tool, \"user\", cost, loan_period) VALUES ($1, $2, $3, tstzrange($4, $5)) RETURNING borrow_id",
                                   [arguments.toolId.postgresData!, arguments.userId.postgresData!, cost.postgresData!, start.postgresData!, end.postgresData!])
@@ -217,11 +221,11 @@ public struct Resolver{
     public struct returnToolArgs: Codable{
         public let borrowId: Int
     }
-    public func returnTool(context: Context, arguments: returnToolArgs) -> EventLoopFuture<Borrow?>{
-        guard let userId = context.getUser()?.id else{
-            return context.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+    public func returnTool(ctx: Context, arguments: returnToolArgs) -> EventLoopFuture<Borrow?>{
+        guard let userId = ctx.user?.id else{
+            return ctx.eventLoop.makeFailedFuture(Abort(.forbidden))
         }
-        return context.getDB().query("""
+        return ctx.db.query("""
             UPDATE borrow
             SET time_returned = NOW()
             WHERE time_returned IS NULL AND borrow_id = $1 AND \"user\" = $2
@@ -234,11 +238,11 @@ public struct Resolver{
         public let accept: Bool;
         public let borrowId: Int
     }
-    public func acceptReturn(context: Context, arguments: acceptArguments) -> EventLoopFuture<Borrow?>{
-        guard let userId = context.getUser()?.id else{
-            return context.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+    public func acceptReturn(ctx: Context, arguments: acceptArguments) -> EventLoopFuture<Borrow?>{
+        guard let userId = ctx.user?.id else{
+            return ctx.eventLoop.makeFailedFuture(Abort(.forbidden))
         }
-        return context.getDB().query("""
+        return ctx.db.query("""
             UPDATE borrow
             SET return_accepted = $1
             WHERE borrow_id = (SELECT borrow_id

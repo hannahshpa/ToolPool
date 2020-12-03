@@ -122,7 +122,6 @@ class mySelf: ObservableObject {
     }
   
     func load() {
-     Network.shared.apollo.clearCache()
      Network.shared.apollo.fetch(query: GetSelfQuery()) { result in
        switch result {
        case .success(let graphQLResult):

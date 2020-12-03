@@ -116,7 +116,7 @@ struct GQLAPI : API {
                     Argument("tool", at: \.tool)
                 }.description("Adds a new tool with the given properties, and returns the created Tool object")
                 Field("deleteTool", at: Resolver.deleteTool){
-                    Argument("toolId", at: \.id)
+                    Argument("id", at: \.id)
                 }
                 Field("requestBorrow", at: Resolver.requestBorrow){
                     Argument("toolId", at: \.toolId)

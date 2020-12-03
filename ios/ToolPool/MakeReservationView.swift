@@ -10,12 +10,17 @@ import Foundation
 
 struct MakeReservationView: View {
     let date: Date
+    let toolId: Int
     @State var startDate = Date()
     @State var endDate = Date()
-    init(date: Date) {
+    @ObservedObject var selfData: mySelf = mySelf()
+
+    init(date: Date, toolId:Int) {
         self.date = date
+        self.toolId = toolId
         self._startDate = State(initialValue: date)
         self._endDate = State(initialValue: date)
+        self.selfData.load()
     }
     var body: some View {
         VStack {
@@ -34,14 +39,17 @@ struct MakeReservationView: View {
                 }
                 
             }
-            NavigationLink(destination:SearchView()) { // todo: change to make reservation
-                Text("Make Reservation")
+            NavigationLink(destination:InAppView()) { // todo: change to make reservation
+                Text("Request Reservation")
                     .frame(minWidth:0, maxWidth:300)
                     .background(Color.orange)
                     .font(.title)
                     .foregroundColor(.white)
                     .cornerRadius(40)
             }
+            .simultaneousGesture(TapGesture().onEnded{
+                requestRental(userId:selfData.data.id, startTime:Double(startDate.timeIntervalSinceReferenceDate), endTime:Double(endDate.timeIntervalSinceReferenceDate), toolId: toolId)
+            })
         }
         .navigationTitle("Reservation Details")
     }
@@ -49,6 +57,18 @@ struct MakeReservationView: View {
 
 struct MakeReservationView_Previews: PreviewProvider {
     static var previews: some View {
-        MakeReservationView(date:Date())
+        MakeReservationView(date:Date(), toolId: 0)
     }
+}
+
+func requestRental(userId:Int, startTime:Double, endTime:Double, toolId:Int) {
+  
+  Network.shared.apollo.perform(mutation: RequestBorrowMutation(userId: userId, startTime: startTime, endTime: endTime, toolId: toolId)) { result in
+    switch result {
+    case .success(let graphQLResult):
+      print("Success! Result: \(graphQLResult)")
+    case .failure(let error):
+      print("Failure! Error: \(error)")
+    }
+  }
 }

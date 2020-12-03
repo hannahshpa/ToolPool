@@ -41,10 +41,17 @@ struct ToolListingPage: View {
         GeometryReader { geometry in
             ScrollView {
                 VStack {
-                    Image(listingName.lowercased()) // listingName.lowercased()
-                        .resizable()
+                    if (loadImage(fileName: String(listingId)) != nil) {
+                      Image(uiImage: loadImage(fileName: String(listingId))!)
+                            .resizable()
                         .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
-                        .aspectRatio(contentMode: .fit)
+                            .aspectRatio(contentMode: .fit)
+                    } else {
+                      Image("tool")
+                            .resizable()
+                        .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
+                            .aspectRatio(contentMode: .fit)
+                    }
                     Text(listingName)
                         .font(.title)
                         .foregroundColor(.black)

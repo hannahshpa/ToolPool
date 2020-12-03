@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import MapKit
+import CoreLocation
 
 struct ToolListingPage: View {
+    @ObservedObject var locationManager = LocationManager()//.location ?? CLLocation(latitude: 32, longitude: -132)
     let listingName: String
     let listingId: Int
     let categoryName: String
@@ -37,10 +40,12 @@ struct ToolListingPage: View {
         self.displayTool.load(tool_id:listingId)
     }
     @State private var date = Date()
+
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
                 VStack {
+                    // note you can only have 10 different elements within a stack
                     Image(listingName.lowercased()) // listingName.lowercased()
                         .resizable()
                         .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
@@ -54,9 +59,18 @@ struct ToolListingPage: View {
                             .padding(2)
                     Text("Category: " + categoryName)
                     Text("Cost per hour: $" + String(displayTool.data!.hourlyCost))
-                    Text("Distance: 0.3 mi") // hard coded for now
+                    //calculates distance from current user location and location of tool in miles
+                    Text("Distance: " + String(format: "%.1f", (locationManager.location?.distance(from: CLLocation(latitude: self.displayTool.data!.location.lat, longitude: self.displayTool.data!.location.lon)) ?? 2) / 1609.34 ) + " mi")
                     Text("Condition: " + displayTool.data!.condition.rawValue.uppercased())
-                    Text("Owner: " + displayTool.data!.owner.name)
+//                    Text("Owner: " + displayTool.data!.owner.name)
+                    NavigationLink(destination: MapViewManager(id: self.listingId)) {
+                        Text("Get Directions To Tool")
+                            .frame(minWidth:0, maxWidth:325)
+                            .background(Color.orange)
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .cornerRadius(40)
+                    }
                     DatePicker(
                           "Start Date",
                           selection: $date,

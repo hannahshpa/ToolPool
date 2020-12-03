@@ -15,14 +15,14 @@ struct RateUser: View {
     @State var description: String = ""
     var body: some View {
         if imDoneUser {
-          RentalView()
+          OtherRentalView()
         } else {
         VStack {
             Text("Rate This Tool").font(.largeTitle)
             Divider()
-            Form {
+            /*Form {
                 TextField("Review", text: $description)
-                  .frame(height: 100.0)
+                  .frame(height: 100.0)*/
                 HStack { // position views horizontally
                     Button(action: {
                         
@@ -69,7 +69,7 @@ struct RateUser: View {
                 }
             }.navigationBarHidden(true)
         }
-    }
+    //}
 }
 
 func rateUser(borrow_id: Int, other_user_id: Int, rev: String, user_id: Int, num_rating: Int, completed: @escaping () -> ()) {

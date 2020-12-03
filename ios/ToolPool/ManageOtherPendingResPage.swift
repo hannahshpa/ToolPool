@@ -13,7 +13,7 @@ struct ManageOtherPendingResPage: View {
     @State var imDoneApp: Bool = false
     var body: some View {
         if imDoneApp {
-          RentalView()
+          OtherRentalView()
         } else {
         GeometryReader {
             geometry in
@@ -58,7 +58,6 @@ struct ManageOtherPendingResPage: View {
             Text(" ")
             Button(action: {
                 denyRental(borrow_id: borrow.id){}
-                RentalView()
                 self.imDoneApp = true
             }) { Text("Deny Rental")
                 .frame(minWidth:0, maxWidth:325)
@@ -70,7 +69,8 @@ struct ManageOtherPendingResPage: View {
           }
         }
       }
-      .navigationBarTitle(Text("Pending Rental"), displayMode: .inline)
+            .navigationBarTitle(Text("Pending Rental"), displayMode: .inline)
+        //.navigationBarHidden(true)
     }
     }
 }
@@ -99,10 +99,12 @@ func denyRental(borrow_id: Int, completed: @escaping () -> ()) {
     Network.shared.apollo.clearCache()
   Network.shared.apollo.perform(mutation: DenyBorrowMutation(id: borrow_id)) { result in
     switch result {
-    case .success(let graphQLResult):
+    case .success(let graphQLResult): do{
       print("Success! Result: \(graphQLResult)")
-    case .failure(let error):
+        completed()}
+    case .failure(let error): do{
       print("Failure! Error: \(error)")
+        completed()}
     }
   }
 }

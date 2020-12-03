@@ -82,8 +82,9 @@ public struct DBBorrow: Codable{
     public let loan_start: Date
     public let loan_end: Date
     public let time_returned: Date?
+    public let return_accepted: Bool?
     public let status: BorrowStatus
     public func toBorrow() -> Borrow{
-        Borrow(id: borrow_id, toolId: tool, userId: user, cost: Double(cost), loanPeriod: .init(start: loan_start, end: loan_end), timeReturned: time_returned, status: status)
+        Borrow(id: borrow_id, toolId: tool, userId: user, cost: Double(cost), loanPeriod: .init(start: loan_start, end: loan_end), timeReturned: time_returned, returnAccepted: return_accepted, status: status)
     }
 }

@@ -23,8 +23,8 @@ struct ManagePendingResPage: View {
                 .foregroundColor(.black)
             Divider()
             Group {
-                Text("Start: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.start)!) )")
-                Text("End: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.end)!) )")
+               // Text("Start: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.start)!) )")
+                //Text("End: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.end)!) )")
                 Text("Cost: \(borrow.cost)")
                 Text("Location: (insert map)")
                 Text("Owner: " + borrow.tool.owner.name)

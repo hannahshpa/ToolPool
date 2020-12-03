@@ -38,14 +38,14 @@ struct ManagePastResPage: View {
                 Text("Phone Number: \(borrow.tool.owner.phoneNumber)")
             }
             Divider()
-            NavigationLink(destination: ToolListingPage(borrow.tool.name,id: borrow.tool.id, category: "")) {
+            /*NavigationLink(destination: ToolListingPage(borrow.tool.name,id: borrow.tool.id, category: "")) {
                 Text("Rent Again")
                     .frame(minWidth:0, maxWidth:325)
                     .background(Color.orange)
                     .font(.title)
                     .foregroundColor(.white)
                     .cornerRadius(40)
-            }
+            }*/
           }
         }
       }

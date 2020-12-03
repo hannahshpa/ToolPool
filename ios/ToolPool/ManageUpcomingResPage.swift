@@ -10,8 +10,11 @@ import SwiftUI
 struct ManageUpcomingResPage: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     let borrow: GetBorrowsQuery.Data.Self.BorrowHistory!
+    @State var imDone4: Bool = false
     var body: some View {
-      
+        if imDone4 {
+          RentalView()
+        } else {
         GeometryReader {
             geometry in
         ScrollView {
@@ -49,7 +52,10 @@ struct ManageUpcomingResPage: View {
                     .cornerRadius(40)
             }
             Divider()
-            NavigationLink(destination: RateTool(completed_borrow: borrow)) {
+            Button(action: {
+                returnTool(completed_borrow: borrow){}
+                self.imDone4 = true
+            }) {
                 Text("Complete Rental")
                     .frame(minWidth:0, maxWidth:325)
                     .background(Color.orange)
@@ -57,10 +63,12 @@ struct ManageUpcomingResPage: View {
                     .foregroundColor(.white)
                     .cornerRadius(40)
             }
+          
           }
         }
       }
       .navigationBarTitle(Text("Upcoming Rental"), displayMode: .inline)
+    }
     }
 }
 
@@ -68,4 +76,19 @@ struct ManageUpcomingResPage_Previews: PreviewProvider {
     static var previews: some View {
         ManageUpcomingResPage(borrow: nil)
     }
+}
+
+func returnTool (completed_borrow: GetBorrowsQuery.Data.Self.BorrowHistory!, completed: @escaping () -> ()) {
+    Network.shared.apollo.clearCache()
+    Network.shared.apollo.perform(mutation: ReturnToolMutation(borrowId: completed_borrow.id)) { result in
+      switch result {
+      case .success(let graphQLResult):
+        print("Success! Result: \(graphQLResult)")
+        completed()
+      case .failure(let error):
+        print("Failure! Error: \(error)")
+          completed()
+      }
+    }
+
 }

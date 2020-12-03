@@ -17,7 +17,7 @@ struct MyToolListingView: View {
   
   init(_ id: Int) {
     self.toolId = id
-    self.displayTool.load(tool_id: toolId)
+    self.displayTool.load(tool_id: toolId) {}
   }
   
     var body: some View {
@@ -51,7 +51,8 @@ struct MyToolListingView: View {
                   //          .padding(2)
                   Text("Description: " + displayTool.data!.description)
                   Text("Cost per hour: $" + String(displayTool.data!.hourlyCost))
-                  Text("Location: 0.3 mi")
+                  Text("Category: " + String(displayTool.data!.tags[0]))
+                  //Text("Location: 0.3 mi")
                   //Text("Condition: " + displayTool.data!.condition.rawValue)
 
                 }
@@ -85,14 +86,14 @@ class myTool: ObservableObject {
     
   init(id: Int) {
     self.data = nil
-    self.load(tool_id: id)
+    self.load(tool_id: id) {}
   }
   
   init() {
     self.data = nil
   }
   
-  func load(tool_id: Int) {
+  func load(tool_id: Int, completed:  @escaping () -> ()) {
       Network.shared.apollo.fetch(query: ToolByIdQuery(id: tool_id)) { result in
        switch result {
        case .success(let graphQLResult):
@@ -101,8 +102,10 @@ class myTool: ObservableObject {
             self.objectWillChange.send()
             self.data = tool_temp
           }
+        completed()
        case .failure(let error):
          print("Failure! Error: \(error)")
+         completed()
        }
      }
     }

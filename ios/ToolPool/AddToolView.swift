@@ -43,7 +43,7 @@ struct AddToolView: View {
         Form {
           Section(header: Text("Tool information")) {
             TextField("Tool Name", text: $name)
-            TextField("Cost Per Hour", text: $cost).keyboardType(.numberPad)
+            TextField("Cost Per Hour", text: $cost)
             TextField("Description", text: $description)
               .frame(height: 100.0)
             Picker(selection: $selectedCategory, label: Text("Category")) /*@START_MENU_TOKEN@*/{
@@ -55,13 +55,13 @@ struct AddToolView: View {
               Text("Outdoor").tag(Category.Outdoor)
               Text("Painting").tag(Category.Painting)
               Text("Power Tools").tag(Category.Power_Tools)
-              Text("Hand_Tools").tag(Category.Hand_Tools)
               Text("Safety").tag(Category.Safety)
+              Text("Miscellaneous").tag(Category.Miscellaneous)
             }/*@END_MENU_TOKEN@*/
           }
           Section(header: Text("Location")) {
-            TextField("Longitude", text: $lon).keyboardType(.numberPad)
-            TextField("Latitude", text: $lat).keyboardType(.numberPad)
+            TextField("Longitude", text: $lon)
+            TextField("Latitude", text: $lat)
           }
           Section(header: Text("Condition")) {
             Picker(selection: $selectedCondition, label: Text("Condition")) /*@START_MENU_TOKEN@*/{
@@ -103,19 +103,12 @@ struct AddToolView: View {
           
           
           let group = DispatchGroup()
-          //let new_id = addTool(input: newInput)
           group.enter()
           self.newTool.load(input: newInput, newImage: self.image) {
             group.leave()
-            print("left")
           }
-          //self.newTool.load(input: newInput, newImage: self.image)
-          print("here")
-          
-          //self.showInApp = true
+
           group.notify(queue: .main) {
-            print("dont adding tool")
-            print("next page")
             self.showInApp = true
           }
           

@@ -10,7 +10,7 @@ extension Application{
             }
         }
         func initialize(){
-            self.application.storage[Key.self] = DatabaseController(application.eventLoopGroup)
+            self.application.storage[Key.self] = DatabaseController(application.eventLoopGroup, env: self.application.environment.name)
             self.application.lifecycle.use(Lifecycle())
         }
         struct Key: StorageKey {

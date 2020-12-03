@@ -68,7 +68,6 @@ func routes(_ app: Application) throws {
 
     // GraphQL queries
     app.post("graphql"){req -> EventLoopFuture<Response> in
-        let promise = req.eventLoop.makePromise(of: Response.self)
 
         let authTokenGiven: Bool = req.headers["Authorization"].count != 0
         let httpBody = try req.content.decode(GraphQLHTTPBody.self)
@@ -76,6 +75,7 @@ func routes(_ app: Application) throws {
             Context(app: req.application, user: try Authenticator.instance.validateToken(req.headers["Authorization"][0])) :
             Context(app: req.application)
 
+        let promise = req.eventLoop.makePromise(of: Response.self)
         let graphQLFuture = api.schema.execute(
             request: httpBody.query,
             resolver: resolver,
@@ -84,7 +84,7 @@ func routes(_ app: Application) throws {
             variables: httpBody.variables,
             operationName: httpBody.operationName
         )
-        
+
         graphQLFuture.whenFailure({ error in
             promise.fail(error)
         })

@@ -217,11 +217,11 @@ public struct Resolver{
     public struct returnToolArgs: Codable{
         public let borrowId: Int
     }
-    public func returnTool(context: Context, arguments: returnToolArgs) -> EventLoopFuture<Borrow?>{
-        guard let userId = context.getUser()?.id else{
-            return context.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+    public func returnTool(ctx: Context, arguments: returnToolArgs) -> EventLoopFuture<Borrow?>{
+        guard let userId = ctx.user?.id else{
+            return ctx.eventLoop.makeFailedFuture(Abort(.forbidden))
         }
-        return context.getDB().query("""
+        return ctx.db.query("""
             UPDATE borrow
             SET time_returned = NOW()
             WHERE time_returned IS NULL AND borrow_id = $1 AND \"user\" = $2
@@ -234,11 +234,11 @@ public struct Resolver{
         public let accept: Bool;
         public let borrowId: Int
     }
-    public func acceptReturn(context: Context, arguments: acceptArguments) -> EventLoopFuture<Borrow?>{
-        guard let userId = context.getUser()?.id else{
-            return context.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+    public func acceptReturn(ctx: Context, arguments: acceptArguments) -> EventLoopFuture<Borrow?>{
+        guard let userId = ctx.user?.id else{
+            return ctx.eventLoop.makeFailedFuture(Abort(.forbidden))
         }
-        return context.getDB().query("""
+        return ctx.db.query("""
             UPDATE borrow
             SET return_accepted = $1
             WHERE borrow_id = (SELECT borrow_id

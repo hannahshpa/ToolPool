@@ -31,7 +31,7 @@ struct ToolCategoryPage: View {
                       
                       ForEach(myCategoryTools.data.tools, id: \.id) { t in
                         NavigationLink(destination: ToolListingPage(t.name, id: t.id, category:categoryName)) {
-                            ToolListingSquare(geometry: geometry, listingName: t.name)
+                            ToolListingSquare(geometry: geometry, listingName: t.name, listingId: t.id)
                         }
                       }
                     }
@@ -54,13 +54,22 @@ struct ToolCategoryPage: View {
 struct ToolListingSquare: View {
     let geometry: GeometryProxy
     let listingName: String
+    let listingId:Int
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            Image("tool")   // hard coded right now, but can do listingName.lowercased() if it's one of the hard coded ones like hammer
-                .resizable()
-                .frame(width: geometry.size.width * 0.45, height: geometry.size.width * 0.45)
-                .aspectRatio(contentMode: .fit)
+            if (loadImage(fileName: String(listingId)) != nil) {
+              Image(uiImage: loadImage(fileName: String(listingId))!)
+                    .resizable()
+                    .frame(width: geometry.size.width * 0.45, height: geometry.size.width * 0.45)
+                    .aspectRatio(contentMode: .fit)
+            } else {
+              Image("tool")
+                    .resizable()
+                    .frame(width: geometry.size.width * 0.45, height: geometry.size.width * 0.45)
+                    .aspectRatio(contentMode: .fit)
+            }
+
             VStack {
                 Text(listingName).bold()
                     .padding(1)

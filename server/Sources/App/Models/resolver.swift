@@ -128,8 +128,12 @@ public struct Resolver{
         if end < start{
             return ctx.eventLoop.makeFailedFuture(Abort(.badRequest))
         }
-        return DBTool.getById(id: arguments.toolId, db: ctx.db).map{result in
-            result!.hourlyCost * end.timeIntervalSince(start) / 3600
+        return DBTool.getById(id: arguments.toolId, db: ctx.db).flatMap{result -> EventLoopFuture<Double>in
+            if let result = result{
+                return ctx.eventLoop.makeSucceededFuture(result.hourlyCost * end.timeIntervalSince(start) / 3600)
+            }else{
+                return ctx.eventLoop.makeFailedFuture(Abort(.notFound))
+            }
         }.flatMap{cost in
             ctx.db.query("INSERT INTO borrow (tool, \"user\", cost, loan_period) VALUES ($1, $2, $3, tstzrange($4, $5)) RETURNING borrow_id",
                                   [arguments.toolId.postgresData!, arguments.userId.postgresData!, cost.postgresData!, start.postgresData!, end.postgresData!])

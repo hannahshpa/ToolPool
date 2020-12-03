@@ -37,6 +37,13 @@ struct ManageOtherPastResPage: View {
                 Text("User: " + borrow.user.name)
                 Text("Email: \( borrow.user.email)")
                 Text("Phone Number: \(borrow.user.phoneNumber)")
+                if (borrow.returnAccepted == true) {
+                    Text("This rental return has been accepted")
+                        .font(.caption)
+                } else {
+                    Text("This rental was reported as unreturned")
+                        .font(.caption)
+                }
             }
           }
         }

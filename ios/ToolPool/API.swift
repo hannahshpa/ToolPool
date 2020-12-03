@@ -519,6 +519,7 @@ public final class GetBorrowsQuery: GraphQLQuery {
               phoneNumber
               email
             }
+            tags
           }
           status
         }
@@ -757,6 +758,7 @@ public final class GetBorrowsQuery: GraphQLQuery {
               GraphQLField("id", type: .nonNull(.scalar(Int.self))),
               GraphQLField("name", type: .nonNull(.scalar(String.self))),
               GraphQLField("owner", type: .nonNull(.object(Owner.selections))),
+              GraphQLField("tags", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
             ]
           }
 
@@ -766,8 +768,8 @@ public final class GetBorrowsQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(id: Int, name: String, owner: Owner) {
-            self.init(unsafeResultMap: ["__typename": "Tool", "id": id, "name": name, "owner": owner.resultMap])
+          public init(id: Int, name: String, owner: Owner, tags: [String]) {
+            self.init(unsafeResultMap: ["__typename": "Tool", "id": id, "name": name, "owner": owner.resultMap, "tags": tags])
           }
 
           public var __typename: String {
@@ -803,6 +805,15 @@ public final class GetBorrowsQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue.resultMap, forKey: "owner")
+            }
+          }
+
+          public var tags: [String] {
+            get {
+              return resultMap["tags"]! as! [String]
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "tags")
             }
           }
 

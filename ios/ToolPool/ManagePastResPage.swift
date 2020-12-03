@@ -38,14 +38,24 @@ struct ManagePastResPage: View {
                 Text("Phone Number: \(borrow.tool.owner.phoneNumber)")
             }
             Divider()
-            /*NavigationLink(destination: ToolListingPage(borrow.tool.name,id: borrow.tool.id, category: "")) {
+            if (borrow.returnAccepted == true) {
+                Text("This return has been completed and accepted")
+                    .font(.caption)
+            } else if (borrow.returnAccepted == false) {
+                Text("This rental has been reported as unreturned by the owner")
+                    .font(.caption)
+            } else {
+                Text("This return is awaiting approval by the owner")
+                    .font(.caption)
+            }
+            NavigationLink(destination: ToolListingPage(borrow.tool.name,id: borrow.tool.id, category: borrow.tool.tags[0])) {
                 Text("Rent Again")
                     .frame(minWidth:0, maxWidth:325)
                     .background(Color.orange)
                     .font(.title)
                     .foregroundColor(.white)
                     .cornerRadius(40)
-            }*/
+            }
           }
         }
       }

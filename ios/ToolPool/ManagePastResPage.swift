@@ -32,10 +32,18 @@ struct ManagePastResPage: View {
             Group {
                 Text("Start: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.start)))")
                 Text("End: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.end)))")
-                Text("Location: (insert map)")
+//                Text("Location: (insert map)")
                 Text("Owner: " + borrow.tool.owner.name)
                 Text("Email: \( borrow.tool.owner.email)")
                 Text("Phone Number: \(borrow.tool.owner.phoneNumber)")
+            }
+            NavigationLink(destination: MapViewManager(id: borrow.tool.id)) {
+                Text("Get Directions To Tool")
+                    .frame(minWidth:0, maxWidth:325)
+                    .background(Color.orange)
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .cornerRadius(40)
             }
             Divider()
             if (borrow.returnAccepted == true) {

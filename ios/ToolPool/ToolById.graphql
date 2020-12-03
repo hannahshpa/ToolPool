@@ -1,6 +1,10 @@
 query ToolById($id: Int) {
   tool(id: $id){
       name
+      location {
+        lat
+        lon
+    }
       description
       location {
         lat

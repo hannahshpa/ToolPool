@@ -29,12 +29,11 @@ struct SignInView: View {
                         loginAuth(un: username, pw: password)
                         self.showInApp = true
                     }) { Text("Enter")
-                        .foregroundColor(Color.black)
-                        .lineLimit(nil)
-                        .frame(width: 200.0)
-                        .background(Color.white)
-                        .padding()
-                        .border(Color.black, width:2)
+                        .frame(minWidth:0, maxWidth:325)
+                        .background(Color.orange)
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .cornerRadius(40)
                     }
             }
         }

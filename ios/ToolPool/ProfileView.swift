@@ -12,9 +12,9 @@ struct ProfileView: View {
   @ObservedObject var selfData: mySelf = mySelf()
   var myName: String = ""
   
-  init() {
+  /*init() {
     self.selfData.load()
-  }
+  }*/
   
     var body: some View {
       //NavigationView{

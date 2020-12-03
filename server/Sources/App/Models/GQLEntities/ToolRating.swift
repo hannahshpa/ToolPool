@@ -16,9 +16,9 @@ public struct ToolRating: Codable{
     public let rating: Int
     public let review: String?
     public func getTool(context: Context, arguments: NoArguments) -> EventLoopFuture<Tool>{
-        DBTool.getById(id: self.toolId, db: context.getDB()).map{tool in tool!}
+        DBTool.getById(id: self.toolId, db: context.db).map{tool in tool!}
     }
     public func getUser(context: Context, arguments: NoArguments) -> EventLoopFuture<User>{
-        DBUser.getById(id: self.userId, db: context.getDB()).map{user in user!}
+        DBUser.getById(id: self.userId, db: context.db).map{user in user!}
     }
 }

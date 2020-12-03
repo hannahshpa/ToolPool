@@ -17,9 +17,9 @@ public struct UserRating: Codable{
     public let review: String?
     
     public func getReviewer(context: Context, arguments: NoArguments) -> EventLoopFuture<User>{
-        DBUser.getById(id: self.reviewerId, db: context.getDB()).map{ user in user!}
+        DBUser.getById(id: self.reviewerId, db: context.db).map{ user in user!}
     }
     public func getReviewee(context: Context, arguments: NoArguments) -> EventLoopFuture<User>{
-        DBUser.getById(id: self.revieweeId, db: context.getDB()).map{ user in user!}
+        DBUser.getById(id: self.revieweeId, db: context.db).map{ user in user!}
     }
 }

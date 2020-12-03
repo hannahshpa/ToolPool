@@ -22,14 +22,12 @@ struct GraphQLHTTPBody: Decodable {
     let variables: [String: Map]
 }
 
-var db: DatabaseConnection? = nil
 var userController: UserController? = nil
 
 func routes(_ app: Application) throws {
-    db = DatabaseConnection(loop: app.eventLoopGroup)
-    userController = UserController(conn: db!)
+    userController = UserController(db: app.database)
     
-    let resolver = Resolver(conn: db!)
+    let resolver = Resolver()
     let api = try! GQLAPI(resolver: resolver)
     app.get { req in
         return "It works!"
@@ -86,7 +84,7 @@ func routes(_ app: Application) throws {
                     throw RequestError.invalidAuthToken
                 }
                 let authToken = tokenStringArray[1]
-                context = try Context(authToken: authToken, conn: db!) // TODO: User authentication
+                context = try Context(authToken: authToken, db: req.application.database)
             } catch AuthenticationError.invalidToken, RequestError.invalidAuthToken {
                 promise.fail(RequestError.invalidAuthToken)
                 return promise.futureResult
@@ -95,7 +93,7 @@ func routes(_ app: Application) throws {
                 return promise.futureResult
             }
         } else {
-            context = Context(conn: db!)
+            context = Context(db: req.application.database)
         }
 
         let graphQLFuture = api.schema.execute(

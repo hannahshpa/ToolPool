@@ -4,12 +4,12 @@ import NIO
 
 
 final class UserController {
-    private let conn: DatabaseConnection
+    private let db: PostgresDatabase
     private let authenticator: Authenticator
 
-    init(conn: DatabaseConnection) {
-        self.conn = conn
-        self.authenticator = try! Authenticator(conn: self.conn)
+    init(db: PostgresDatabase) {
+        self.db = db
+        self.authenticator = try! Authenticator(db: db)
     }
 
     func login(_ data: LoginHTTPBody) -> EventLoopFuture<String>{
@@ -17,13 +17,13 @@ final class UserController {
         let password: String? = data.password
         let hashedPassword = secureHashFunc(plainText: password!)
 
-        return conn.getDB().query("SELECT * FROM users WHERE email = $1", [PostgresData(string: email!)]).flatMap{result in
+        return self.db.query("SELECT * FROM users WHERE email = $1", [PostgresData(string: email!)]).flatMap{result in
             let user = result.first
             if user == nil {
-                return self.conn.getDB().eventLoop.makeFailedFuture(Abort(.notFound))
+                return self.db.eventLoop.makeFailedFuture(Abort(.notFound))
             }
             if user!.column("password")!.string! != hashedPassword{
-                return self.conn.getDB().eventLoop.makeFailedFuture(Abort(.forbidden))
+                return self.db.eventLoop.makeFailedFuture(Abort(.forbidden))
             }
 
             let id = Int(user!.column("user_id")!.string!)!
@@ -32,9 +32,9 @@ final class UserController {
             let phoneNumber = user!.column("phone_number")!.string!
             do {
                 let authToken = try self.authenticator.createToken(id: id, name: name, email: email, phoneNumber: phoneNumber)
-                return self.conn.getDB().eventLoop.makeSucceededFuture(authToken)
+                return self.db.eventLoop.makeSucceededFuture(authToken)
             } catch {
-                return self.conn.getDB().eventLoop.makeFailedFuture(Abort(.internalServerError))
+                return self.db.eventLoop.makeFailedFuture(Abort(.internalServerError))
             }
         }
     }
@@ -45,17 +45,17 @@ final class UserController {
         let name: String? = data.name
         let phoneNumber: String? = data.phoneNumber
         let hashedPassword = secureHashFunc(plainText: password!)
-        return self.conn.getDB().query("SELECT user_id FROM users WHERE email = $1;",
+        return db.query("SELECT user_id FROM users WHERE email = $1;",
             [PostgresData(string: email!)]).flatMap{result in
                 let user = result.first
                 if user == nil {
-                    return self.conn.getDB().query("INSERT INTO users (name, password, phone_number, email) VALUES ($1, $2, $3, $4);",
+                    return self.db.query("INSERT INTO users (name, password, phone_number, email) VALUES ($1, $2, $3, $4);",
                                               [PostgresData(string: name!),
                                                PostgresData(string: hashedPassword),
                                                PostgresData(string: phoneNumber!),
                                                PostgresData(string: email!)]).map{_ in true }
                 } else {
-                    return self.conn.getDB().eventLoop.makeFailedFuture(Abort(.conflict))
+                    return self.db.eventLoop.makeFailedFuture(Abort(.conflict))
                 }
         }
     }

@@ -59,10 +59,11 @@ struct AddToolView: View {
               Text("Miscellaneous").tag(Category.Miscellaneous)
             }/*@END_MENU_TOKEN@*/
           }
+          /*
           Section(header: Text("Location")) {
             TextField("Longitude", text: $lon)
             TextField("Latitude", text: $lat)
-          }
+          }*/
           Section(header: Text("Condition")) {
             Picker(selection: $selectedCondition, label: Text("Condition")) /*@START_MENU_TOKEN@*/{
               Text("New").tag(Condition.new)
@@ -97,7 +98,9 @@ struct AddToolView: View {
             }
         }
         Button(action: {
-          let loca = GeoLocationInput(lat: Double(lat)!, lon: Double(lon)!)
+          let userLocation = UserLocation()
+          let location = userLocation.getLocation()
+          let loca = GeoLocationInput(lat: location.coordinate.latitude, lon: location.coordinate.longitude)
           let cond = ToolCondition(rawValue: selectedCondition.rawValue)
           let newInput = NewToolInput(condition: cond!, description: description, hourlyCost: Double(cost)!, location: loca, name: name, ownerId: ownerId, tags: [selectedCategory.rawValue])
           

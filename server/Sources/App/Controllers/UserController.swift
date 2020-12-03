@@ -14,7 +14,7 @@ final class UserController {
                 let authToken = try Authenticator.instance.createToken(id: user.user_id, name: user.name, email: user.email, phoneNumber: user.phone_number)
                 return db.eventLoop.makeSucceededFuture(authToken)
             } catch {
-                return db.eventLoop.makeFailedFuture(Abort(.internalServerError))
+                return db.eventLoop.makeFailedFuture(error)
             }
         }
     }

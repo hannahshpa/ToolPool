@@ -10,7 +10,11 @@ import SwiftUI
 struct ManageOtherPendingResPage: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     let borrow: GetOtherBorrowsQuery.Data.Self.OwnedTool.BorrowHistory!
+    @State var imDoneApp: Bool = false
     var body: some View {
+        if imDoneApp {
+          OtherRentalView()
+        } else {
         GeometryReader {
             geometry in
             ScrollView {
@@ -42,8 +46,8 @@ struct ManageOtherPendingResPage: View {
             }
             Divider()
             Button(action: {
-                approveRental(borrow_id: borrow.id)
-                self.mode.wrappedValue.dismiss()
+                approveRental(borrow_id: borrow.id){}
+                self.imDoneApp = true
             }) { Text("Accept Rental")
                 .frame(minWidth:0, maxWidth:325)
                 .background(Color.orange)
@@ -53,9 +57,8 @@ struct ManageOtherPendingResPage: View {
             }//simultaneously mutate rental obj to approve/deny?
             Text(" ")
             Button(action: {
-                denyRental(borrow_id: borrow.id)
-                RentalView()
-                self.mode.wrappedValue.dismiss()
+                denyRental(borrow_id: borrow.id){}
+                self.imDoneApp = true
             }) { Text("Deny Rental")
                 .frame(minWidth:0, maxWidth:325)
                 .background(Color.gray)
@@ -66,7 +69,9 @@ struct ManageOtherPendingResPage: View {
           }
         }
       }
-      .navigationBarTitle(Text("Pending Rental"), displayMode: .inline)
+            .navigationBarTitle(Text("Pending Rental"), displayMode: .inline)
+        //.navigationBarHidden(true)
+    }
     }
 }
 
@@ -76,25 +81,30 @@ struct ManageOtherPendingResPage_Previews: PreviewProvider {
     }
 }
 
-func approveRental(borrow_id: Int) {
-  
+func approveRental(borrow_id: Int, completed: @escaping () -> ()) {
+    Network.shared.apollo.clearCache()
   Network.shared.apollo.perform(mutation: ApproveBorrowMutation(id: borrow_id)) { result in
     switch result {
-    case .success(let graphQLResult):
+    case .success(let graphQLResult): do {
       print("Success! Result: \(graphQLResult)")
-    case .failure(let error):
-      print("Failure! Error: \(error)")
+        completed()}
+    case .failure(let error):do {
+        print("Failure! Error: \(error)")
+        completed()
+    }
     }
   }
 }
-func denyRental(borrow_id: Int) {
-  
+func denyRental(borrow_id: Int, completed: @escaping () -> ()) {
+    Network.shared.apollo.clearCache()
   Network.shared.apollo.perform(mutation: DenyBorrowMutation(id: borrow_id)) { result in
     switch result {
-    case .success(let graphQLResult):
+    case .success(let graphQLResult): do{
       print("Success! Result: \(graphQLResult)")
-    case .failure(let error):
+        completed()}
+    case .failure(let error): do{
       print("Failure! Error: \(error)")
+        completed()}
     }
   }
 }

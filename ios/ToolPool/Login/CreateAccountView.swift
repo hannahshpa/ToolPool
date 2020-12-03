@@ -41,7 +41,7 @@ struct CreateAccountView: View {
                                         .font(.headline)
                                 }
                                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 50)
-                                .background(Color.blue)
+                                .background(Color.gray)
                                 .foregroundColor(.white)
                                 .cornerRadius(20)
                                 .padding(.horizontal)
@@ -61,12 +61,11 @@ struct CreateAccountView: View {
             print(filename)
              // self.mode.wrappedValue.dismiss()
           }) { Text("Enter")
-              .foregroundColor(Color.black)
-              .lineLimit(nil)
-              .frame(width: 200.0)
-              .background(Color.white)
-              .padding()
-              .border(Color.black, width:2)
+            .frame(minWidth:0, maxWidth:325)
+            .background(Color.orange)
+            .font(.title)
+            .foregroundColor(.white)
+            .cornerRadius(40)
           }
             
         }

@@ -10,7 +10,11 @@ import SwiftUI
 struct ManageOtherPendingResPage: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     let borrow: GetOtherBorrowsQuery.Data.Self.OwnedTool.BorrowHistory!
+    @State var imDoneApp: Bool = false
     var body: some View {
+        if imDoneApp {
+          RentalView()
+        } else {
         GeometryReader {
             geometry in
             ScrollView {
@@ -34,16 +38,24 @@ struct ManageOtherPendingResPage: View {
                 Text("Start: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.start)))")
                 Text("End: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.end)))")
                 Text("Cost: " + String(format: "%.2f", borrow.cost))
-                Text("Location: (insert map)")
+//                Text("Location: (insert map)")
                 Text("User: " + borrow.user.name)
                 Text("Email: \( borrow.user.email)")
                 Text("Phone Number: \(borrow.user.phoneNumber)")
                 
             }
+            NavigationLink(destination: MapViewManager(id: borrow.tool.id)) {
+                Text("Get Directions To Tool")
+                    .frame(minWidth:0, maxWidth:325)
+                    .background(Color.orange)
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .cornerRadius(40)
+            }
             Divider()
             Button(action: {
-                approveRental(borrow_id: borrow.id)
-                self.mode.wrappedValue.dismiss()
+                approveRental(borrow_id: borrow.id){}
+                self.imDoneApp = true
             }) { Text("Accept Rental")
                 .frame(minWidth:0, maxWidth:325)
                 .background(Color.orange)
@@ -53,9 +65,9 @@ struct ManageOtherPendingResPage: View {
             }//simultaneously mutate rental obj to approve/deny?
             Text(" ")
             Button(action: {
-                denyRental(borrow_id: borrow.id)
+                denyRental(borrow_id: borrow.id){}
                 RentalView()
-                self.mode.wrappedValue.dismiss()
+                self.imDoneApp = true
             }) { Text("Deny Rental")
                 .frame(minWidth:0, maxWidth:325)
                 .background(Color.gray)
@@ -68,6 +80,7 @@ struct ManageOtherPendingResPage: View {
       }
       .navigationBarTitle(Text("Pending Rental"), displayMode: .inline)
     }
+    }
 }
 
 struct ManageOtherPendingResPage_Previews: PreviewProvider {
@@ -76,19 +89,22 @@ struct ManageOtherPendingResPage_Previews: PreviewProvider {
     }
 }
 
-func approveRental(borrow_id: Int) {
-  
+func approveRental(borrow_id: Int, completed: @escaping () -> ()) {
+    Network.shared.apollo.clearCache()
   Network.shared.apollo.perform(mutation: ApproveBorrowMutation(id: borrow_id)) { result in
     switch result {
-    case .success(let graphQLResult):
+    case .success(let graphQLResult): do {
       print("Success! Result: \(graphQLResult)")
-    case .failure(let error):
-      print("Failure! Error: \(error)")
+        completed()}
+    case .failure(let error):do {
+        print("Failure! Error: \(error)")
+        completed()
+    }
     }
   }
 }
-func denyRental(borrow_id: Int) {
-  
+func denyRental(borrow_id: Int, completed: @escaping () -> ()) {
+    Network.shared.apollo.clearCache()
   Network.shared.apollo.perform(mutation: DenyBorrowMutation(id: borrow_id)) { result in
     switch result {
     case .success(let graphQLResult):

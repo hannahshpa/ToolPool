@@ -5,7 +5,7 @@ import SwiftJWT
 
 
 class Authenticator{
-    private let conn: DatabaseConnection
+    private let db: PostgresDatabase
 
     private let privateKey: Data
     private let publicKey: Data
@@ -20,8 +20,8 @@ class Authenticator{
         let exp: Date
     }
 
-    init(conn: DatabaseConnection) throws {
-        self.conn = conn
+    init(db: PostgresDatabase) throws {
+        self.db = db
         let env = ProcessInfo.processInfo.environment["ENV"]
         var privateKeyPath: URL
         var publicKeyPath: URL

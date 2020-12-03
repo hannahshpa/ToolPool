@@ -2458,19 +2458,19 @@ public final class RequestBorrowMutation: GraphQLMutation {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    mutation RequestBorrow($userId: Int, $startTime: String, $endTime: String, $toolId: Int) {
+    mutation RequestBorrow($userId: Int!, $startTime: Float!, $endTime: Float!, $toolId: Int!) {
       requestBorrow(userId: $userId, startTime: $startTime, endTime: $endTime, toolId: $toolId)
     }
     """
 
   public let operationName: String = "RequestBorrow"
 
-  public var userId: Int?
-  public var startTime: String?
-  public var endTime: String?
-  public var toolId: Int?
+  public var userId: Int
+  public var startTime: Double
+  public var endTime: Double
+  public var toolId: Int
 
-  public init(userId: Int? = nil, startTime: String? = nil, endTime: String? = nil, toolId: Int? = nil) {
+  public init(userId: Int, startTime: Double, endTime: Double, toolId: Int) {
     self.userId = userId
     self.startTime = startTime
     self.endTime = endTime

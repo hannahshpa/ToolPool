@@ -48,7 +48,7 @@ struct MakeReservationView: View {
                     .cornerRadius(40)
             }
             .simultaneousGesture(TapGesture().onEnded{
-                requestRental(userId:selfData.data.id, startTime:String(startDate.timeIntervalSinceReferenceDate), endTime:String(endDate.timeIntervalSinceReferenceDate), toolId: toolId)
+                requestRental(userId:selfData.data.id, startTime:Double(startDate.timeIntervalSinceReferenceDate), endTime:Double(endDate.timeIntervalSinceReferenceDate), toolId: toolId)
             })
         }
         .navigationTitle("Reservation Details")
@@ -61,7 +61,7 @@ struct MakeReservationView_Previews: PreviewProvider {
     }
 }
 
-func requestRental(userId:Int, startTime:String, endTime:String, toolId:Int) {
+func requestRental(userId:Int, startTime:Double, endTime:Double, toolId:Int) {
   
   Network.shared.apollo.perform(mutation: RequestBorrowMutation(userId: userId, startTime: startTime, endTime: endTime, toolId: toolId)) { result in
     switch result {

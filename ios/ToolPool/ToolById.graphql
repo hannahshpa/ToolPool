@@ -145,7 +145,7 @@ mutation AddTool($tool: NewToolInput!){
     }
 }
 
-mutation RequestBorrow($userId: Int, $startTime: String, $endTime: String, $toolId: Int){
+mutation RequestBorrow($userId: Int!, $startTime: Float!, $endTime: Float!, $toolId: Int!){
     requestBorrow(userId: $userId, startTime: $startTime, endTime: $endTime, toolId: $toolId)
 }
 

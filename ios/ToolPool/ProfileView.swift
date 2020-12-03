@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileView: View {
   
   @ObservedObject var selfData: mySelf = mySelf()
+  var myName: String = ""
   
   /*init() {
     self.selfData.load()
@@ -34,9 +35,6 @@ struct ProfileView: View {
               }
               Text(selfData.data.name + "'s ToolBox")
                 .font(.largeTitle)
-                .onAppear() {
-                  self.selfData.objectWillChange.send()
-                }
             }
             Divider()
             NavigationLink(destination: AddToolView(ownerId: selfData.data.id)) {
@@ -58,9 +56,9 @@ struct ProfileView: View {
                     }
                   }
                 }
-            }//.onAppear(perform: selfData.load)
+            }
           }
-        }//.onAppear(perform: selfData.load)
+        }
       }
 }
 
@@ -116,14 +114,10 @@ class selfObj {
 
 class mySelf: ObservableObject {
 
-  @Published var data: selfObj {
-    willSet {
-        objectWillChange.send()
-    }
-  }
-    
+  @Published var data: selfObj
+      
     init() {
-      self.data = selfObj(n: "test", e: "test", i: 0, ot: [])
+      self.data = selfObj(n: "Casey", e: "test", i: 0, ot: [])
       self.load()
     }
   

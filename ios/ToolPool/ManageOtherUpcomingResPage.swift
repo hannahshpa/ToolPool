@@ -10,7 +10,11 @@ import SwiftUI
 struct ManageOtherUpcomingResPage: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     let borrow: GetOtherBorrowsQuery.Data.Self.OwnedTool.BorrowHistory!
+    @State var imDoneUp: Bool = false
     var body: some View {
+        if imDoneUp {
+          OtherRentalView()
+        } else {
         GeometryReader {
             geometry in
           ScrollView {
@@ -40,6 +44,7 @@ struct ManageOtherUpcomingResPage: View {
                 Text("Phone Number: \(borrow.user.phoneNumber)")
             }
             Divider()
+            if(borrow.timeReturned != nil) {
             NavigationLink(destination: RateUser(completed_borrow: borrow)) {
                 Text("Complete Rental")
                     .frame(minWidth:0, maxWidth:325)
@@ -47,16 +52,44 @@ struct ManageOtherUpcomingResPage: View {
                     .font(.title)
                     .foregroundColor(.white)
                     .cornerRadius(40)
+            }} else {
+                Text("Awaiting Return by Rentee")
+                    .font(.caption)
+            }
+            Divider()
+            Button(action: {
+                denyReturn(borrow_id: borrow.id){}
+                self.imDoneUp = true
+            }) { Text("Report Unreturned Tool")
+                .frame(minWidth:0, maxWidth:325)
+                .background(Color.orange)
+                .font(.title)
+                .foregroundColor(.white)
+                .cornerRadius(40)
             }
           }
         }
       }
       .navigationBarTitle(Text("Upcoming Rental"), displayMode: .inline)
     }
+    }
 }
 
 struct ManageOtherUpcomingResPage_Previews: PreviewProvider {
     static var previews: some View {
         ManageOtherUpcomingResPage(borrow: nil)
+    }
+}
+
+func denyReturn(borrow_id: Int, completed: @escaping () -> ()) {
+    Network.shared.apollo.clearCache()
+    Network.shared.apollo.perform(mutation: AcceptReturnMutation(borrowId: borrow_id, accept: false)) { result in
+      switch result {
+      case .success(let graphQLResult):
+        print("Success! Result: \(graphQLResult)")
+      case .failure(let error):
+        print("Failure! Error: \(error)")
+        completed()
+      }
     }
 }

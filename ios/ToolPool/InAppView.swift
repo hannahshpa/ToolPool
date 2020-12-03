@@ -26,12 +26,12 @@ struct InAppView: View {
         RentalView()
             .tabItem {
                 Image(systemName: "briefcase") // or toolbox "briefcase"
-                Text("My Rentals")
+                Text("Borrowing")
             }
         OtherRentalView()
             .tabItem {
                 Image(systemName: "wrench") // or toolbox "briefcase"
-                Text("Others' Rentals")
+                Text("Lending")
             }
         ProfileView()
             .tabItem {

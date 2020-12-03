@@ -36,6 +36,7 @@ query GetBorrows {
                     phoneNumber
                     email
                 }
+                tags
             }
             status
 

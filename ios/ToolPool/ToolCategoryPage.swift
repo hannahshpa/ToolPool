@@ -6,17 +6,22 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ToolCategoryPage: View {
     let categoryName: String
 
     @ObservedObject var myCategoryTools: categoryTools = categoryTools()
+    @ObservedObject var locationManager = LocationManager()
+    var userLocation = UserLocation()
     
     init(_ name: String) {
+        
         self.categoryName = name
-        self.myCategoryTools.load(c:GeoLocationInput(lat:32,lon:32), r:100.0, cat:name)
+        let location = userLocation.getLocation()
+        self.myCategoryTools.load(c:GeoLocationInput(lat: location.coordinate.latitude, lon: location.coordinate.longitude), r:50.0, cat: name)
     }
-    
+        
     var body: some View {
             GeometryReader {
                 geometry in
@@ -76,6 +81,29 @@ struct ToolCategoryPage_Previews: PreviewProvider {
     }
 }
 
+//class to get user location from locationManager
+class UserLocation {
+    @ObservedObject var locationManager = LocationManager()
+    var lat: String
+    var lon: String
+    init() {
+        lat = "32.0"
+        lon = "-132.0"
+    }
+
+    // this is a completion to ensure latitude and longitude is initialized! :)
+    func getLocation() -> CLLocation {
+        locationManager.getUserLocation { (lat, lng) in
+        self.lat = lat
+        self.lon = lng
+        debugPrint("Latitude:", lat)
+        debugPrint("Longitude:", lng)
+
+        }
+        return CLLocation(latitude: Double(self.lat) ?? 32.0, longitude: Double(self.lon) ?? -132.0)
+    }
+}
+
 class toolsObj {
     var tools: [GetNearbyQuery.Data.Nearby] = []
   
@@ -85,16 +113,21 @@ class toolsObj {
 }
 
 class categoryTools: ObservableObject {
-
+    @ObservedObject var locationManager = LocationManager()
+    var userLocation = UserLocation()
   @Published var data: toolsObj {
     willSet {
         objectWillChange.send()
     }
   }
-    
+
+
     init() {
-      self.data = toolsObj(t: [])
-       // self.load(c:GeoLocationInput(lat:32,lon:32), r:50.0)
+
+        self.data = toolsObj(t: [])
+//        self.load(c:GeoLocationInput(lat:32,lon:32), r:50.0)
+        //let location = userLocation.getLocation()
+        //self.load(c:GeoLocationInput(lat: location.coordinate.latitude, lon: location.coordinate.longitude), r:50.0)
     }
   
     func load(c:GeoLocationInput, r:Double, cat:String) {

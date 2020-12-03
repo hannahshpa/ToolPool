@@ -122,8 +122,8 @@ query GetSelf {
   }
 }
 
-query GetNearby($center: GeoLocationInput!, $radius: Float!) {
-    nearby(center: $center, radius: $radius) {
+query GetNearby($center: GeoLocationInput!, $radius: Float!, $category: String) {
+    nearby(center: $center, radius: $radius, category:$category) {
           id
           name
           description

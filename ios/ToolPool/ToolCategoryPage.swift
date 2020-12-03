@@ -14,23 +14,13 @@ struct ToolCategoryPage: View {
     
     init(_ name: String) {
         self.categoryName = name
-      self.myCategoryTools.load(c:GeoLocationInput(lat:32,lon:32), r:50.0)
+        self.myCategoryTools.load(c:GeoLocationInput(lat:32,lon:32), r:100.0, cat:name)
     }
     
     var body: some View {
             GeometryReader {
                 geometry in
-                /*
-                ScrollView {
-                    VStack {
-                        ToolListingRow(geometry: geometry, listingNameLeft: "Hammer", listingNameRight: "Wrench", categoryName: categoryName)
-                        
-                        ForEach(myCategoryTools.data.tools, id: \.id) { t in
-                            ToolListingRow(geometry: geometry, listingNameLeft: t.name, listingNameRight: "Wrench", categoryName: categoryName)
-                            
-                        }
-                    }
-                }*/
+                
                 ScrollView(.vertical) {
                     LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 2), alignment: .center) {
                       
@@ -41,10 +31,10 @@ struct ToolCategoryPage: View {
                       }
                     }
                 }
-                //.onAppear(perform: myCategoryTools.load(c:GeoLocationInput(lat:32,lon:32), r:50.0))
+
                 .padding()
             }
-            //.onAppear(perform: myCategoryTools.load(c:GeoLocationInput(lat:32,lon:32), r:50.0))
+
             .navigationBarTitle(categoryName, displayMode: .inline)
             .navigationBarItems(trailing:
                                   NavigationLink(destination: FilterView()) {
@@ -54,24 +44,8 @@ struct ToolCategoryPage: View {
         }
     
 }
-/*
-struct ToolListingRow: View {
-    let geometry: GeometryProxy
-    let listingNameLeft: String
-    let listingNameRight: String
-    let categoryName: String
-    var body: some View {
-        HStack { // position views horizontally
-            NavigationLink(destination: ToolListingPage(listingName:listingNameLeft, categoryName:categoryName)) {
-                ToolListingSquare(geometry: geometry, listingName: listingNameLeft)
-            }
-            NavigationLink(destination: ToolListingPage(listingName:listingNameRight, categoryName:categoryName)) {
-                ToolListingSquare(geometry: geometry, listingName: listingNameRight)
-            }
-        }
-    }
-}
-*/
+
+
 struct ToolListingSquare: View {
     let geometry: GeometryProxy
     let listingName: String
@@ -120,11 +94,11 @@ class categoryTools: ObservableObject {
     
     init() {
       self.data = toolsObj(t: [])
-        self.load(c:GeoLocationInput(lat:32,lon:32), r:50.0)
+       // self.load(c:GeoLocationInput(lat:32,lon:32), r:50.0)
     }
   
-    func load(c:GeoLocationInput, r:Double) {
-        Network.shared.apollo.fetch(query: GetNearbyQuery(center:c, radius:r)) { result in
+    func load(c:GeoLocationInput, r:Double, cat:String) {
+        Network.shared.apollo.fetch(query: GetNearbyQuery(center:c, radius:r, category: cat)) { result in
        switch result {
        case .success(let graphQLResult):
           print("Success! Result: \(graphQLResult)")

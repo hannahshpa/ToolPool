@@ -2127,8 +2127,8 @@ public final class GetNearbyQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    query GetNearby($center: GeoLocationInput!, $radius: Float!) {
-      nearby(center: $center, radius: $radius) {
+    query GetNearby($center: GeoLocationInput!, $radius: Float!, $category: String) {
+      nearby(center: $center, radius: $radius, category: $category) {
         __typename
         id
         name
@@ -2151,14 +2151,16 @@ public final class GetNearbyQuery: GraphQLQuery {
 
   public var center: GeoLocationInput
   public var radius: Double
+  public var category: String?
 
-  public init(center: GeoLocationInput, radius: Double) {
+  public init(center: GeoLocationInput, radius: Double, category: String? = nil) {
     self.center = center
     self.radius = radius
+    self.category = category
   }
 
   public var variables: GraphQLMap? {
-    return ["center": center, "radius": radius]
+    return ["center": center, "radius": radius, "category": category]
   }
 
   public struct Data: GraphQLSelectionSet {
@@ -2166,7 +2168,7 @@ public final class GetNearbyQuery: GraphQLQuery {
 
     public static var selections: [GraphQLSelection] {
       return [
-        GraphQLField("nearby", arguments: ["center": GraphQLVariable("center"), "radius": GraphQLVariable("radius")], type: .nonNull(.list(.nonNull(.object(Nearby.selections))))),
+        GraphQLField("nearby", arguments: ["center": GraphQLVariable("center"), "radius": GraphQLVariable("radius"), "category": GraphQLVariable("category")], type: .nonNull(.list(.nonNull(.object(Nearby.selections))))),
       ]
     }
 

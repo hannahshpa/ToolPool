@@ -111,6 +111,13 @@ query GetSelf {
   }
 }
 
+query GetName {
+  self {
+    name
+    id
+  }
+}
+
 mutation AddTool($tool: NewToolInput!){
     addTool(tool: $tool){
         id

@@ -16,10 +16,10 @@ public struct UserRating: Codable{
     public let rating: Int
     public let review: String?
     
-    public func getReviewer(context: Context, arguments: NoArguments) -> EventLoopFuture<User>{
-        DBUser.getById(id: self.reviewerId, db: context.db).map{ user in user!}
+    public func getReviewer(ctx: Context, arguments: NoArguments) -> EventLoopFuture<User>{
+        DBUser.getById(id: self.reviewerId, db: ctx.db).map{ user in user!}
     }
-    public func getReviewee(context: Context, arguments: NoArguments) -> EventLoopFuture<User>{
-        DBUser.getById(id: self.revieweeId, db: context.db).map{ user in user!}
+    public func getReviewee(ctx: Context, arguments: NoArguments) -> EventLoopFuture<User>{
+        DBUser.getById(id: self.revieweeId, db: ctx.db).map{ user in user!}
     }
 }

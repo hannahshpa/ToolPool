@@ -18,7 +18,7 @@ struct RateUser: View {
           OtherRentalView()
         } else {
         VStack {
-            Text("Rate This Tool").font(.largeTitle)
+            Text("Rate This User").font(.largeTitle)
             Divider()
             /*Form {
                 TextField("Review", text: $description)

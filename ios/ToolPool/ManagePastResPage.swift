@@ -49,6 +49,14 @@ struct ManagePastResPage: View {
             if (borrow.returnAccepted == true) {
                 Text("This return has been completed and accepted")
                     .font(.caption)
+                NavigationLink(destination: RateTool(completed_borrow: borrow)) {
+                    Text("Rate Tool")
+                        .frame(minWidth:0, maxWidth:325)
+                        .background(Color.orange)
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .cornerRadius(40)
+                }
             } else if (borrow.returnAccepted == false) {
                 Text("This rental has been reported as unreturned by the owner")
                     .font(.caption)

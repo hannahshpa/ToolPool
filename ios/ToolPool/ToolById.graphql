@@ -43,6 +43,9 @@ query GetBorrows {
                 tags
             }
             status
+            user {
+                id
+            }
 
         }
     }

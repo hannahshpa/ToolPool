@@ -11,9 +11,10 @@ struct ManageUpcomingResPage: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     let borrow: GetBorrowsQuery.Data.Self.BorrowHistory!
     var body: some View {
-      ScrollView {
+      
         GeometryReader {
             geometry in
+        ScrollView {
           VStack {
             if (loadImage(fileName: String(borrow.tool.id)) != nil) {
                 Image(uiImage: loadImage(fileName: String(borrow.tool.id))!)
@@ -33,7 +34,7 @@ struct ManageUpcomingResPage: View {
             Group {
                 Text("Start: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.start)))")
                 Text("End: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.end)))")
-                Text("Cost: \(borrow.cost)")
+                Text("Cost: " + String(format: "%.2f", borrow.cost))
                 Text("Location: (insert map)")
                 Text("Owner: " + borrow.tool.owner.name)
                 Text("Email: \( borrow.tool.owner.email)")

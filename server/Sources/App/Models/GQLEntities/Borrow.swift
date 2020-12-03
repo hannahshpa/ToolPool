@@ -19,6 +19,7 @@ public struct Borrow: Codable{
     public var timeReturnedDouble: Double? {
         get{return timeReturned?.timeIntervalSinceReferenceDate}
     }
+    public let returnAccepted: Bool?
     public let status: BorrowStatus
     
     public func getTool(ctx: Context, arguments: NoArguments) -> EventLoopFuture<Tool>{

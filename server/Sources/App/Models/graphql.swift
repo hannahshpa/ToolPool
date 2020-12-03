@@ -57,6 +57,7 @@ struct GQLAPI : API {
                 Field("status", at: \.status)
                 Field("loanPeriod", at: \.loanPeriod)
                 Field("timeReturned", at: \.timeReturnedDouble).description("Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate")
+                Field("returnAccepted", at: \.returnAccepted).description("Whether or not the return was accepted by the tool owner")
             }
             Type(ToolRating.self){
                 Field("rating", at: \.rating)
@@ -148,6 +149,13 @@ struct GQLAPI : API {
                 Field("deleteToolRating", at: Resolver.deleteToolRating){
                     Argument("reviewerId", at: \.reviewerId)
                     Argument("revieweeId", at: \.revieweeId)
+                }
+                Field("returnTool", at: Resolver.returnTool){
+                    Argument("borrowId", at: \.borrowId)
+                }
+                Field("acceptReturn", at: Resolver.acceptReturn){
+                    Argument("borrowId", at: \.borrowId)
+                    Argument("accept", at: \.accept)
                 }
             }
         }

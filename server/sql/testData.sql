@@ -9,9 +9,9 @@ INSERT INTO tools (name, description, condition, hourly_cost, location, owner) V
     ('Blender', 'Oscar blender, blends perfect smoothies', 'fair', 0.95, point(34.0445, -118.44878), 1),
     ('Hammer', 'Pretty self-explanatory', 'fair', 0.25, point(34.0449, -118.4486), 2);
 
-INSERT INTO borrow (tool, "user", cost, loan_period, status, time_returned) VALUES 
-    (1, 2, 5.99, '[2020-11-06 14:30, 2020-11-07 14:30]', 'accepted', '2020-11-07 12:51'),
-    (3, 3, 12.08, '[2020-11-09 8:00, 2020-11-12 12:00]', 'pending', null);
+INSERT INTO borrow (tool, "user", cost, loan_period, status, time_returned, return_accepted) VALUES 
+    (1, 2, 5.99, '[2020-11-06 14:30, 2020-11-07 14:30]', 'accepted', '2020-11-07 12:51', TRUE),
+    (3, 3, 12.08, '[2020-11-09 8:00, 2020-11-12 12:00]', 'pending', null, null);
 
 INSERT INTO tool_schedule (tool, period) VALUES 
     (1, '[2020-11-07 14:30, 2020-11-20 14:30]');

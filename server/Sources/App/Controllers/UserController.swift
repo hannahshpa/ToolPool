@@ -8,7 +8,7 @@ final class UserController {
     static func login(_ data: LoginHTTPBody, db: PostgresDatabase) -> EventLoopFuture<String>{
         db.query("SELECT * FROM users WHERE email = $1 AND password = $2", [data.email.postgresData!, secureHashFunc(data.password).postgresData!]).flatMap{result in
             guard let user = try! result.first?.sql().decode(model: DBUser.self) else {
-                return db.eventLoop.makeFailedFuture(Abort(.internalServerError))
+                return db.eventLoop.makeFailedFuture(Abort(.notFound))
             }
             do {
                 let authToken = try Authenticator.instance.createToken(id: user.user_id, name: user.name, email: user.email, phoneNumber: user.phone_number)

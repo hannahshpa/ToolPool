@@ -21,10 +21,10 @@ public struct Borrow: Codable{
     }
     public let status: BorrowStatus
     
-    public func getTool(context: Context, arguments: NoArguments) -> EventLoopFuture<Tool>{
-        DBTool.getById(id: self.toolId, db: context.db).map{tool in tool!}
+    public func getTool(ctx: Context, arguments: NoArguments) -> EventLoopFuture<Tool>{
+        DBTool.getById(id: self.toolId, db: ctx.db).map{tool in tool!}
     }
-    public func getUser(context: Context, arguments: NoArguments) -> EventLoopFuture<User>{
-        DBUser.getById(id: self.userId, db: context.db).map{ user in user!}
+    public func getUser(ctx: Context, arguments: NoArguments) -> EventLoopFuture<User>{
+        DBUser.getById(id: self.userId, db: ctx.db).map{ user in user!}
     }
 }

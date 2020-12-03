@@ -7,25 +7,22 @@
 
 import Foundation
 import PostgresKit
-
+import Vapor
 public final class Context {
-    private var authedUser: User?
-    private let _db: PostgresDatabase
+    private let _user: User?
+    private let _app: Application
     public var db: PostgresDatabase {
-        get{_db}
+        _app.database
     }
-    init(authToken: String, db: PostgresDatabase) throws {
-        _db = db
-        let authenticator = try! Authenticator(db: self.db)
-        self.authedUser = try authenticator.validateToken(token: authToken)
+    public var eventLoop: EventLoop{
+        _app.eventLoopGroup.next()
     }
-
-    init(db: PostgresDatabase) {
-        _db = db
-        self.authedUser = nil
+    public var user: User?{
+        _user
     }
     
-    public func getUser() -> User? {
-        self.authedUser
+    init(app: Application, user: User? = nil) {
+        self._app = app
+        self._user = user
     }
 }

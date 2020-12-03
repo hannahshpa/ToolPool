@@ -32,7 +32,7 @@ struct ManagePendingResPage: View {
             Group {
                 Text("Start: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.start)))")
                 Text("End: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.end)))")
-                Text("Cost: \(borrow.cost)")
+                Text("Cost: " + String(format: "%.2f", borrow.cost))
                 Text("Location: (insert map)")
                 Text("Owner: " + borrow.tool.owner.name)
                 Text("Email: \( borrow.tool.owner.email)")

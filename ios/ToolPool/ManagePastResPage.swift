@@ -10,9 +10,9 @@ import SwiftUI
 struct ManagePastResPage: View {
     let borrow: GetBorrowsQuery.Data.Self.BorrowHistory!
     var body: some View {
-      ScrollView {
         GeometryReader {
             geometry in
+            ScrollView {
           VStack {
             if (loadImage(fileName: String(borrow.tool.id)) != nil) {
                 Image(uiImage: loadImage(fileName: String(borrow.tool.id))!)

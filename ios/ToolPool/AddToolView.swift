@@ -15,6 +15,7 @@ struct AddToolView: View {
   @Environment(\.managedObjectContext) var moc
   
   @State private var selectedCondition = Condition.new
+  @State private var selectedCategory = Category.Camping
   let ownerId: Int
   @State var showInApp: Bool = false
   @ObservedObject var newTool = NewTool()
@@ -30,7 +31,7 @@ struct AddToolView: View {
   @State var lat: String = ""
   @State var category: String = ""
   @State var condition: String = ""
-  var categoryOptions = ["Camping", "Cleaning", "Cleaning", "Gardening", "Hand Tools", "Kitchen", "Outdoor", "Painting", "Power Tools", "Safety", "Miscellaneous"]
+  var categoryOptions = ["Camping", "Cleaning", "Gardening", "Hand Tools", "Kitchen", "Outdoor", "Painting", "Power Tools", "Safety", "Miscellaneous"]
   
     var body: some View {
       if showInApp {
@@ -45,11 +46,18 @@ struct AddToolView: View {
             TextField("Cost Per Hour", text: $cost).keyboardType(.numberPad)
             TextField("Description", text: $description)
               .frame(height: 100.0)
-            Picker(selection: $category, label: Text("Category")) {
-              ForEach(0 ..< categoryOptions.count) {
-                Text(self.categoryOptions[$0])
-              }
-            }
+            Picker(selection: $selectedCategory, label: Text("Category")) /*@START_MENU_TOKEN@*/{
+              Text("Camping").tag(Category.Camping)
+              Text("Cleaning").tag(Category.Cleaning)
+              Text("Gardening").tag(Category.Gardening)
+              Text("Hand Tools").tag(Category.Hand_Tools)
+              Text("Kitchen").tag(Category.Kitchen)
+              Text("Outdoor").tag(Category.Outdoor)
+              Text("Painting").tag(Category.Painting)
+              Text("Power Tools").tag(Category.Power_Tools)
+              Text("Hand_Tools").tag(Category.Hand_Tools)
+              Text("Safety").tag(Category.Safety)
+            }/*@END_MENU_TOKEN@*/
           }
           Section(header: Text("Location")) {
             TextField("Longitude", text: $lon).keyboardType(.numberPad)
@@ -91,22 +99,26 @@ struct AddToolView: View {
         Button(action: {
           let loca = GeoLocationInput(lat: Double(lat)!, lon: Double(lon)!)
           let cond = ToolCondition(rawValue: selectedCondition.rawValue)
-          let newInput = NewToolInput(condition: cond!, description: description, hourlyCost: Double(cost)!, location: loca, name: name, ownerId: ownerId, tags: ["test"])
+          let newInput = NewToolInput(condition: cond!, description: description, hourlyCost: Double(cost)!, location: loca, name: name, ownerId: ownerId, tags: [selectedCategory.rawValue])
           
+          
+          let group = DispatchGroup()
           //let new_id = addTool(input: newInput)
-          self.newTool.load(input: newInput, newImage: self.image)
+          group.enter()
+          self.newTool.load(input: newInput, newImage: self.image) {
+            group.leave()
+            print("left")
+          }
+          //self.newTool.load(input: newInput, newImage: self.image)
           print("here")
           
-          /*
-          //self.newTool.data
-          do {
-            try AddImage(tool_id: 5, addImage: self.image)
-            print("Adding Image worked?")
-            print(self.newTool.data)
-          } catch {
-              print("Adding Image Failed.")
-          }*/
-          self.showInApp = true
+          //self.showInApp = true
+          group.notify(queue: .main) {
+            print("dont adding tool")
+            print("next page")
+            self.showInApp = true
+          }
+          
         }){
           Text("Submit Tool")
         }
@@ -131,8 +143,6 @@ func addTool(input: NewToolInput) -> Int {
     case .success(let graphQLResult):
       print("Success! Result: \(graphQLResult)")
       if let newTool = graphQLResult.data?.addTool {
-        print("inn tool")
-        print(newTool.id)
         newToolId = newTool.id
       }
       
@@ -140,8 +150,6 @@ func addTool(input: NewToolInput) -> Int {
       print("Failure! Error: \(error)")
     }
   }
-  print("TOOLID")
-  print(newToolId)
   return newToolId
 }
 
@@ -156,6 +164,20 @@ enum Condition: String, CaseIterable, Identifiable {
     var id: String { self.rawValue }
 }
 
+enum Category: String, CaseIterable, Identifiable {
+    case Camping
+    case Cleaning
+    case Hand_Tools
+    case Gardening
+    case Kitchen
+    case Outdoor
+    case Painting
+    case Power_Tools
+    case Safety
+    case Miscellaneous
+
+    var id: String { self.rawValue }
+}
 
 struct ImagePicker: UIViewControllerRepresentable {
 
@@ -211,15 +233,14 @@ class NewTool: ObservableObject {
     init() {
       self.data = 0
     }
-  
-  func load(input: NewToolInput, newImage: UIImage) {
+
+  func load(input: NewToolInput, newImage: UIImage, completed:  @escaping () -> ()) {
+      Network.shared.apollo.clearCache()
       Network.shared.apollo.perform(mutation: AddToolMutation(tool: input)) { result in
         switch result {
         case .success(let graphQLResult):
           print("Success! Result: \(graphQLResult)")
           if let newTool = graphQLResult.data?.addTool {
-            print("in tool")
-            print(newTool.id)
             self.data = newTool.id
             
             do {
@@ -230,12 +251,15 @@ class NewTool: ObservableObject {
             } catch {
                 print("Adding Image Failed.")
             }
+            completed()
           }
-          
         case .failure(let error):
           print("Failure! Error: \(error)")
+          print("completed")
+          completed()
         }
       }
+    
     }
   
 }

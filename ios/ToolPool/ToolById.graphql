@@ -139,6 +139,13 @@ query GetNearby($center: GeoLocationInput!, $radius: Float!) {
     }
 }
 
+query GetName {
+  self {
+    name
+    id
+  }
+}
+
 mutation AddTool($tool: NewToolInput!){
     addTool(tool: $tool){
         id

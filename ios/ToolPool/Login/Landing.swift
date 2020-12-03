@@ -26,7 +26,7 @@ struct Landing: View {
           NavigationLink(destination: SignInView()) {
             Text("Sign In")
               .lineLimit(nil)
-                .frame(width: 225.0)
+                .frame(width: 260.0, height: 60)
                 .background(Color.orange)
                   .cornerRadius(40)
               .foregroundColor(.white)
@@ -36,7 +36,7 @@ struct Landing: View {
           NavigationLink(destination: CreateAccountView()) {
             Text("Create Account")
               .lineLimit(nil)
-              .frame(width: 225.0)
+              .frame(width: 260.0, height: 60)
               .background(Color.gray)
                 .cornerRadius(40)
             .foregroundColor(.white)

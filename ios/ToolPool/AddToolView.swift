@@ -46,6 +46,7 @@ struct AddToolView: View {
             TextField("Cost Per Hour", text: $cost)
             TextField("Description", text: $description)
               .frame(height: 100.0)
+              .lineLimit(3)
             Picker(selection: $selectedCategory, label: Text("Category")) /*@START_MENU_TOKEN@*/{
               Text("Camping").tag(Category.Camping)
               Text("Cleaning").tag(Category.Cleaning)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28468246257AC99C00C6B503 /* MapViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536E2E9F2578C81E00522E27 /* MapViewTest.swift */; };
 		285ED3FA257A105F00D4168D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
 		288D19B825798A1F00466723 /* SearchTabTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288D19B725798A1F00466723 /* SearchTabTest.swift */; };
 		288D19BF2579A79300466723 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F280582565E7A400ED54D0 /* Tool.swift */; };
@@ -98,7 +99,6 @@
 		F5A75FEF2579893A0070A9D5 /* ToolPoolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC6C2543688E007423B0 /* ToolPoolApp.swift */; };
 		F5A75FF52579894C0070A9D5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC6E2543688E007423B0 /* ContentView.swift */; };
 		F5A75FF725798ADA0070A9D5 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F280582565E7A400ED54D0 /* Tool.swift */; };
-		F5A7601225798BE00070A9D5 /* ManageOtherPendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */; };
 		F5A7603325798D110070A9D5 /* ToolAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */; };
 		F5A760552579956B0070A9D5 /* LoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A760542579956B0070A9D5 /* LoginTest.swift */; };
 /* End PBXBuildFile section */
@@ -178,6 +178,7 @@
 		530B16F12572184200594A84 /* MapViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewManager.swift; sourceTree = "<group>"; };
 		530B16F22572184200594A84 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		5329ABF82565D7AA00A38798 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		536E2E9F2578C81E00522E27 /* MapViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewTest.swift; sourceTree = "<group>"; };
 		53F280582565E7A400ED54D0 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolAnnotation.swift; sourceTree = "<group>"; };
 		F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolCategoryPage.swift; sourceTree = "<group>"; };
@@ -328,6 +329,7 @@
 				28A7EC892543688F007423B0 /* ToolPoolUITests.swift */,
 				288D19B725798A1F00466723 /* SearchTabTest.swift */,
 				28A7EC8B2543688F007423B0 /* Info.plist */,
+				536E2E9F2578C81E00522E27 /* MapViewTest.swift */,
 				F5A760542579956B0070A9D5 /* LoginTest.swift */,
 			);
 			path = ToolPoolUITests;
@@ -596,7 +598,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5A7601225798BE00070A9D5 /* ManageOtherPendingResPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,6 +626,7 @@
 				F5A75FF725798ADA0070A9D5 /* Tool.swift in Sources */,
 				F5A461582572F6FD005F154A /* ProfileView.swift in Sources */,
 				F5A75FF52579894C0070A9D5 /* ContentView.swift in Sources */,
+				28468246257AC99C00C6B503 /* MapViewTest.swift in Sources */,
 				F5A461882572FF52005F154A /* ManagePendingResPage.swift in Sources */,
 				F5A461792572FF02005F154A /* CreateAccountView.swift in Sources */,
 				F5A461762572FF00005F154A /* SignInView.swift in Sources */,
@@ -792,6 +794,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ToolPool/Preview Content\"";
 				DEVELOPMENT_TEAM = Q8W84ZP54M;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				INFOPLIST_FILE = ToolPool/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -814,6 +817,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ToolPool/Preview Content\"";
 				DEVELOPMENT_TEAM = Q8W84ZP54M;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				INFOPLIST_FILE = ToolPool/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (

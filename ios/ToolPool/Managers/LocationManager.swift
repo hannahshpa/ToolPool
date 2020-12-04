@@ -42,15 +42,23 @@ class LocationManager: NSObject, ObservableObject {
         var currentLocation: CLLocation!
         currentLocation = locationManager.location
         
-        let latitude = String(format: "%.7f", currentLocation.coordinate.latitude)
-        let longitude = String(format: "%.7f", currentLocation.coordinate.longitude)
-        location = CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+        if currentLocation != nil {
+            let latitude = String(format: "%.7f", currentLocation.coordinate.latitude)
+            let longitude = String(format: "%.7f", currentLocation.coordinate.longitude)
+            location = CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
 
 
-        debugPrint("Latitude:", latitude)
-        debugPrint("Longitude:", longitude)
+            debugPrint("Latitude:", latitude)
+            debugPrint("Longitude:", longitude)
 
-        completion(latitude, longitude)  // your block of code you passed to this function will run in this way
+            completion(latitude, longitude)  // your block of code you passed to this function will run in this way
+        } else {
+            let latitude = String(format: "%.7f", 37.781434)
+            let longitude = String(format: "%.7f", -122.402411)
+            location = CLLocation(latitude: 37.781434, longitude: -122.402411)
+            completion(latitude, longitude)
+        }
+
     }
 }
 

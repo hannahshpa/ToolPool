@@ -24,6 +24,7 @@ class DatabaseController{
 
         pools = EventLoopGroupConnectionPool(
             source: PostgresConnectionSource(configuration: configuration),
+            maxConnectionsPerEventLoop: 5,
             on: loop
         )
         db = pools.database(logger: Logger(label: "Database Logger"))

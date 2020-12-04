@@ -67,7 +67,7 @@ struct ManageUpcomingResPage: View {
           }
         }
       }
-      .navigationBarTitle(Text("Upcoming Rental"), displayMode: .inline)
+      .navigationBarTitle(Text("Current Rental"), displayMode: .inline)
     }
     }
 }

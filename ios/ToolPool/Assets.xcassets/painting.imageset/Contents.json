@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "david-pisnoy-46juD4zY1XA-unsplash.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "david-pisnoy-46juD4zY1XA-unsplash-1.jpg",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "david-pisnoy-46juD4zY1XA-unsplash-2.jpg",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

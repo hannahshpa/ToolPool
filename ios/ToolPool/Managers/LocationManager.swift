@@ -41,7 +41,7 @@ class LocationManager: NSObject, ObservableObject {
     func getUserLocation(completion: (_ lat: String, _ lng: String) -> Void) {
         var currentLocation: CLLocation!
         currentLocation = locationManager.location
-        
+        if currentLocation != nil {
         let latitude = String(format: "%.7f", currentLocation.coordinate.latitude)
         let longitude = String(format: "%.7f", currentLocation.coordinate.longitude)
         location = CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
@@ -50,7 +50,7 @@ class LocationManager: NSObject, ObservableObject {
         debugPrint("Latitude:", latitude)
         debugPrint("Longitude:", longitude)
 
-        completion(latitude, longitude)  // your block of code you passed to this function will run in this way
+            completion(latitude, longitude) } // your block of code you passed to this function will run in this way
     }
 }
 

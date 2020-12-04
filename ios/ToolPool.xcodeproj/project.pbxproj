@@ -28,6 +28,7 @@
 		459FB64425797AD100B6D362 /* RateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBA2578379500A0E685 /* RateTool.swift */; };
 		45C44FDD25674BDE008529A9 /* OtherProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */; };
 		45C44FF025685EE4008529A9 /* OtherRentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FEF25685EE4008529A9 /* OtherRentalView.swift */; };
+		45DC18B9257A17B1007B37AB /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
 		45F62BAF2575777B00A0E685 /* ManageOtherPastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */; };
 		45F62BB12575778000A0E685 /* ManageOtherUpcomingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678F2570DBBB002609A9 /* ManageOtherUpcomingResPage.swift */; };
 		45F62BB32575778400A0E685 /* ManageOtherPendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */; };
@@ -41,7 +42,6 @@
 		530B16F82572184200594A84 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F22572184200594A84 /* MapView.swift */; };
 		5329ABF92565D7AA00A38798 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
 		5329ABFA2565D7AA00A38798 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
-		5329ABFB2565D7AA00A38798 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
 		53F280592565E7A400ED54D0 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F280582565E7A400ED54D0 /* Tool.swift */; };
 		53F2805E2565E84200ED54D0 /* ToolAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */; };
 		F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */; };
@@ -617,6 +617,7 @@
 				F5A461702572FED9005F154A /* ImageUpload.swift in Sources */,
 				F5A75FF2257989400070A9D5 /* RateUser.swift in Sources */,
 				F5A461732572FEFE005F154A /* Landing.swift in Sources */,
+				45DC18B9257A17B1007B37AB /* LocationManager.swift in Sources */,
 				F5A461822572FF3A005F154A /* ToolListingPage.swift in Sources */,
 				F5A4618B2572FF54005F154A /* OtherProfilePage.swift in Sources */,
 				F5A4616A2572FED1005F154A /* StarRatingView.swift in Sources */,

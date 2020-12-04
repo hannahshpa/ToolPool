@@ -11,7 +11,10 @@ INSERT INTO tools (name, description, condition, hourly_cost, location, owner) V
 
 INSERT INTO borrow (tool, "user", cost, loan_period, status, time_returned, return_accepted) VALUES 
     (1, 2, 5.99, '[2020-11-06 14:30, 2020-11-07 14:30]', 'accepted', '2020-11-07 12:51', TRUE),
-    (3, 3, 12.08, '[2020-11-09 8:00, 2020-11-12 12:00]', 'pending', null, null);
+    (3, 2, 9.50, '[2020-11-08 14:30, 2020-11-08 16:30]', 'pending', null, null),
+    (2, 2, 4.17, '[2020-11-17 15:30, 2020-11-17 16:30]', 'accepted', null, null),
+    (1, 2, 16.02, '[2020-11-15 8:00, 2020-11-15 12:00]', 'accepted', '2020-11-15 12:01', TRUE),
+    (3, 3, 12.08, '[2020-11-09 8:00, 2020-11-12 12:00]', 'accepted', '2020-11-12 12:01', null);
 
 INSERT INTO tool_schedule (tool, period) VALUES 
     (1, '[2020-11-07 14:30, 2020-11-20 14:30]');

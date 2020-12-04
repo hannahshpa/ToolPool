@@ -39,14 +39,6 @@ struct ManagePendingResPage: View {
                 Text("Phone Number: \(borrow.tool.owner.phoneNumber)")
                 
             }
-            NavigationLink(destination: MapViewManager(id: borrow.tool.id)) {
-                Text("Get Directions To Tool")
-                    .frame(minWidth:0, maxWidth:325)
-                    .background(Color.orange)
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .cornerRadius(40)
-            }
             Divider()
             Text("Awaiting Owner Approval")
                 .font(.caption)

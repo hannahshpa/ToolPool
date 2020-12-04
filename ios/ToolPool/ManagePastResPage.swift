@@ -37,23 +37,34 @@ struct ManagePastResPage: View {
                 Text("Email: \( borrow.tool.owner.email)")
                 Text("Phone Number: \(borrow.tool.owner.phoneNumber)")
             }
-            NavigationLink(destination: MapViewManager(id: borrow.tool.id)) {
-                Text("Get Directions To Tool")
-                    .frame(minWidth:0, maxWidth:325)
-                    .background(Color.orange)
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .cornerRadius(40)
+            Divider()
+            if (borrow.returnAccepted == true) {
+                Text("This return has been completed and accepted")
+                    .font(.caption)
+                NavigationLink(destination: RateTool(completed_borrow: borrow)) {
+                    Text("Rate Tool")
+                        .frame(minWidth:0, maxWidth:325)
+                        .background(Color.orange)
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .cornerRadius(40)
+                }
+            } else if (borrow.returnAccepted == false) {
+                Text("This rental has been reported as unreturned by the owner")
+                    .font(.caption)
+            } else {
+                Text("This return is awaiting approval by the owner")
+                    .font(.caption)
             }
             Divider()
-            /*NavigationLink(destination: ToolListingPage(borrow.tool.name,id: borrow.tool.id, category: "")) {
+            NavigationLink(destination: ToolListingPage(borrow.tool.name,id: borrow.tool.id, category: borrow.tool.tags[0])) {
                 Text("Rent Again")
                     .frame(minWidth:0, maxWidth:325)
                     .background(Color.orange)
                     .font(.title)
                     .foregroundColor(.white)
                     .cornerRadius(40)
-            }*/
+            }
           }
         }
       }

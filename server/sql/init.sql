@@ -19,38 +19,38 @@ CREATE TABLE IF NOT EXISTS tools(
     description TEXT NOT NULL,
     condition ToolCondition NOT NULL,
     location POINT NOT NULL,
-    owner BIGINT NOT NULL REFERENCES users (user_id)
+    owner BIGINT NOT NULL REFERENCES users (user_id) ON DELETE CASCADE
     );
 
 CREATE TABLE IF NOT EXISTS tool_schedule(
-    tool BIGINT NOT NULL REFERENCES tools (tool_id),
+    tool BIGINT NOT NULL REFERENCES tools (tool_id) ON DELETE CASCADE,
     period TSTZRANGE NOT NULL,
     PRIMARY KEY(tool, period)
 );
 
 CREATE TABLE IF NOT EXISTS tool_ratings(
-    tool BIGINT NOT NULL REFERENCES tools (tool_id),
-    "user" BIGINT NOT NULL REFERENCES users (user_id),
+    tool BIGINT NOT NULL REFERENCES tools (tool_id) ON DELETE CASCADE,
+    "user" BIGINT NOT NULL REFERENCES users (user_id) ON DELETE CASCADE,
     rating SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 5),
     review TEXT,
     PRIMARY KEY(tool, "user")
 );
 
 CREATE TABLE IF NOT EXISTS tool_images(
-    tool BIGINT NOT NULL REFERENCES tools (tool_id),
+    tool BIGINT NOT NULL REFERENCES tools (tool_id) ON DELETE CASCADE,
     image_uri TEXT NOT NULL,
     PRIMARY KEY (tool, image_uri)
 );
 
 CREATE TABLE IF NOT EXISTS tool_tags(
-    tool BIGINT NOT NULL REFERENCES tools (tool_id),
+    tool BIGINT NOT NULL REFERENCES tools (tool_id) ON DELETE CASCADE,
     tag VARCHAR(128) NOT NULL,
     PRIMARY KEY (tool, tag)
 );
 
 CREATE TABLE IF NOT EXISTS user_ratings(
-    reviewer BIGINT NOT NULL REFERENCES users (user_id),
-    reviewee BIGINT NOT NULL REFERENCES users (user_id),
+    reviewer BIGINT NOT NULL REFERENCES users (user_id) ON DELETE CASCADE,
+    reviewee BIGINT NOT NULL REFERENCES users (user_id) ON DELETE CASCADE,
     rating SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 5),
     review TEXT,
     PRIMARY KEY(reviewer, reviewee)
@@ -58,12 +58,13 @@ CREATE TABLE IF NOT EXISTS user_ratings(
 
 CREATE TABLE IF NOT EXISTS borrow(
     borrow_id BIGSERIAL PRIMARY KEY,
-    tool BIGINT NOT NULL REFERENCES tools (tool_id),
-    "user" BIGINT NOT NULL REFERENCES users (user_id),
+    tool BIGINT NOT NULL REFERENCES tools (tool_id) ON DELETE CASCADE,
+    "user" BIGINT NOT NULL REFERENCES users (user_id) ON DELETE CASCADE,
     cost FLOAT NOT NULL,
     status BorrowStatus NOT NULL DEFAULT 'pending',
     loan_period TSTZRANGE NOT NULL,
     time_returned TIMESTAMPTZ,
+    return_accepted BOOLEAN,
     CONSTRAINT overlapping_times EXCLUDE USING GIST (
         tool WITH =,
         loan_period WITH &&

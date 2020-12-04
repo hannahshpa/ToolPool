@@ -34,14 +34,16 @@
 		45F62BBB2578379500A0E685 /* RateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBA2578379500A0E685 /* RateTool.swift */; };
 		45F62BC0257839DD00A0E685 /* RateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBF257839DD00A0E685 /* RateUser.swift */; };
 		530B16F32572184200594A84 /* MapViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F12572184200594A84 /* MapViewManager.swift */; };
-		530B16F42572184200594A84 /* MapViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F12572184200594A84 /* MapViewManager.swift */; };
 		530B16F52572184200594A84 /* MapViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F12572184200594A84 /* MapViewManager.swift */; };
 		530B16F62572184200594A84 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F22572184200594A84 /* MapView.swift */; };
-		530B16F72572184200594A84 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F22572184200594A84 /* MapView.swift */; };
 		530B16F82572184200594A84 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F22572184200594A84 /* MapView.swift */; };
 		5329ABF92565D7AA00A38798 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
-		5329ABFA2565D7AA00A38798 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
-		5329ABFB2565D7AA00A38798 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
+		536622672579A7C5000F5B96 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F22572184200594A84 /* MapView.swift */; };
+		5366226B2579A7CB000F5B96 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F280582565E7A400ED54D0 /* Tool.swift */; };
+		5366226D2579A7CE000F5B96 /* ToolAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */; };
+		536E2EA02578C81E00522E27 /* MapViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536E2E9F2578C81E00522E27 /* MapViewTest.swift */; };
+		53818805257A173E0006519D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
+		53A21C9F257A123500FEA80A /* MapViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536E2E9F2578C81E00522E27 /* MapViewTest.swift */; };
 		53F280592565E7A400ED54D0 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F280582565E7A400ED54D0 /* Tool.swift */; };
 		53F2805E2565E84200ED54D0 /* ToolAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */; };
 		F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */; };
@@ -98,7 +100,6 @@
 		F5A75FF2257989400070A9D5 /* RateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBF257839DD00A0E685 /* RateUser.swift */; };
 		F5A75FF52579894C0070A9D5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC6E2543688E007423B0 /* ContentView.swift */; };
 		F5A75FF725798ADA0070A9D5 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F280582565E7A400ED54D0 /* Tool.swift */; };
-		F5A7601225798BE00070A9D5 /* ManageOtherPendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */; };
 		F5A7603325798D110070A9D5 /* ToolAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */; };
 		F5A760552579956B0070A9D5 /* LoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A760542579956B0070A9D5 /* LoginTest.swift */; };
 /* End PBXBuildFile section */
@@ -177,6 +178,7 @@
 		530B16F12572184200594A84 /* MapViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewManager.swift; sourceTree = "<group>"; };
 		530B16F22572184200594A84 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		5329ABF82565D7AA00A38798 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		536E2E9F2578C81E00522E27 /* MapViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewTest.swift; sourceTree = "<group>"; };
 		53F280582565E7A400ED54D0 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolAnnotation.swift; sourceTree = "<group>"; };
 		F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolCategoryPage.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				F5A75FEB257988670070A9D5 /* CreateAccountTest.swift */,
 				28A7EC892543688F007423B0 /* ToolPoolUITests.swift */,
 				28A7EC8B2543688F007423B0 /* Info.plist */,
+				536E2E9F2578C81E00522E27 /* MapViewTest.swift */,
 				F5A760542579956B0070A9D5 /* LoginTest.swift */,
 			);
 			path = ToolPoolUITests;
@@ -561,6 +564,7 @@
 				53F280592565E7A400ED54D0 /* Tool.swift in Sources */,
 				F545E745255DD8AD00CEC060 /* ToolPool.xcdatamodeld in Sources */,
 				530B16F32572184200594A84 /* MapViewManager.swift in Sources */,
+				53A21C9F257A123500FEA80A /* MapViewTest.swift in Sources */,
 				28A7ECA825436DA7007423B0 /* ProfileViewController.swift in Sources */,
 				45F62BC0257839DD00A0E685 /* RateUser.swift in Sources */,
 				45817F58255E24E70045EB3E /* ManagePastResPage.swift in Sources */,
@@ -594,10 +598,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5A7601225798BE00070A9D5 /* ManageOtherPendingResPage.swift in Sources */,
-				530B16F42572184200594A84 /* MapViewManager.swift in Sources */,
-				530B16F72572184200594A84 /* MapView.swift in Sources */,
-				5329ABFA2565D7AA00A38798 /* LocationManager.swift in Sources */,
+				536622672579A7C5000F5B96 /* MapView.swift in Sources */,
+				5366226B2579A7CB000F5B96 /* Tool.swift in Sources */,
+				5366226D2579A7CE000F5B96 /* ToolAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,6 +612,7 @@
 				530B16F82572184200594A84 /* MapView.swift in Sources */,
 				F5A4617F2572FF37005F154A /* ToolCategoryPage.swift in Sources */,
 				F5A461972572FF69005F154A /* ToolPool.xcdatamodeld in Sources */,
+				536E2EA02578C81E00522E27 /* MapViewTest.swift in Sources */,
 				F5A461A02572FF91005F154A /* OtherRentalView.swift in Sources */,
 				F5A75FEF2579893A0070A9D5 /* ToolPoolApp.swift in Sources */,
 				F5A4616D2572FED6005F154A /* InAppView.swift in Sources */,
@@ -629,6 +633,7 @@
 				F5A75FF12579893D0070A9D5 /* RateTool.swift in Sources */,
 				F5A461852572FF3D005F154A /* FilterView.swift in Sources */,
 				F5A4615B2572FE98005F154A /* API.swift in Sources */,
+				53818805257A173E0006519D /* LocationManager.swift in Sources */,
 				45F62BB12575778000A0E685 /* ManageOtherUpcomingResPage.swift in Sources */,
 				F5A4615F2572FEA1005F154A /* MyToolListingView.swift in Sources */,
 				45F62BAF2575777B00A0E685 /* ManageOtherPastResPage.swift in Sources */,
@@ -789,6 +794,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ToolPool/Preview Content\"";
 				DEVELOPMENT_TEAM = Q8W84ZP54M;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				INFOPLIST_FILE = ToolPool/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -811,6 +817,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ToolPool/Preview Content\"";
 				DEVELOPMENT_TEAM = Q8W84ZP54M;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				INFOPLIST_FILE = ToolPool/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (

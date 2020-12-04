@@ -14,7 +14,7 @@ struct MakeReservationView: View {
     @State var startDate = Date()
     @State var endDate = Date()
     @ObservedObject var selfData: mySelf = mySelf()
-
+    @State var imDoneRes: Bool = false
     init(date: Date, toolId:Int) {
         self.date = date
         self.toolId = toolId
@@ -23,6 +23,9 @@ struct MakeReservationView: View {
         self.selfData.load()
     }
     var body: some View {
+        if imDoneRes {
+          InAppView()
+        } else {
         VStack {
             Form {
                 Section {
@@ -39,19 +42,19 @@ struct MakeReservationView: View {
                 }
                 
             }
-            NavigationLink(destination:InAppView()) { // todo: change to make reservation
-                Text("Request Reservation")
-                    .frame(minWidth:0, maxWidth:300)
-                    .background(Color.orange)
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .cornerRadius(40)
+            Button(action: {
+                requestRental(userId:selfData.data.id, startTime:Double(startDate.timeIntervalSinceReferenceDate), endTime:Double(endDate.timeIntervalSinceReferenceDate), toolId: toolId){}
+                self.imDoneRes = true
+            }) { Text("Request Reservation")
+                .frame(minWidth:0, maxWidth:300)
+                .background(Color.orange)
+                .font(.title)
+                .foregroundColor(.white)
+                .cornerRadius(40)
             }
-            .simultaneousGesture(TapGesture().onEnded{
-                requestRental(userId:selfData.data.id, startTime:Double(startDate.timeIntervalSinceReferenceDate), endTime:Double(endDate.timeIntervalSinceReferenceDate), toolId: toolId)
-            })
         }
         .navigationTitle("Reservation Details")
+    }
     }
 }
 
@@ -61,14 +64,16 @@ struct MakeReservationView_Previews: PreviewProvider {
     }
 }
 
-func requestRental(userId:Int, startTime:Double, endTime:Double, toolId:Int) {
-  
+func requestRental(userId:Int, startTime:Double, endTime:Double, toolId:Int, completed: @escaping () -> ()) {
+    Network.shared.apollo.clearCache()
   Network.shared.apollo.perform(mutation: RequestBorrowMutation(userId: userId, startTime: startTime, endTime: endTime, toolId: toolId)) { result in
     switch result {
     case .success(let graphQLResult):
       print("Success! Result: \(graphQLResult)")
+        completed()
     case .failure(let error):
       print("Failure! Error: \(error)")
+        completed()
     }
   }
 }

@@ -40,8 +40,12 @@ query GetBorrows {
                     phoneNumber
                     email
                 }
+                tags
             }
             status
+            user {
+                id
+            }
 
         }
     }

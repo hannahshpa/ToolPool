@@ -50,8 +50,10 @@ struct OtherRentalView: View {
                        //.navigationBarBackButtonHidden(true)
                     
                    }
-                .navigationBarTitle("Others' Tool Rentals", displayMode: .automatic)
+                .navigationBarTitle("Lending", displayMode: .automatic)
+                //.navigationBarBackButtonHidden(true)
                }
+            .navigationBarHidden(true)
             .edgesIgnoringSafeArea(.top)
             }
     

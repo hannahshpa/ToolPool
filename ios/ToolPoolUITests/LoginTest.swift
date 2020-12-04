@@ -95,10 +95,9 @@ class LoginTest: XCTestCase {
     tablesQuery/*@START_MENU_TOKEN@*/.buttons["Photo library"]/*[[".cells[\"Photo library\"].buttons[\"Photo library\"]",".buttons[\"Photo library\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
     
     app.scrollViews.otherElements.images["Photo, March 12, 2011, 4:17 PM"].tap()
-    app/*@START_MENU_TOKEN@*/.tables.containing(.cell, identifier:"Hand Tools").element/*[[".tables.containing(.cell, identifier:\"Photo library\").element",".tables.containing(.cell, identifier:\"Good\").element",".tables.containing(.cell, identifier:\"Hand Tools\").element"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
     
-    //app.buttons["Submit Tool"].tap()
-    app.buttons["Submit Tool"].swipeUp()
+    app.buttons["Submit Tool"].tap()
+    //app.buttons["Submit Tool"].swipeUp()
 
     //sleep(5)
     

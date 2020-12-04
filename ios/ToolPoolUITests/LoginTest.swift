@@ -72,7 +72,7 @@ class LoginTest: XCTestCase {
     let toolNameTextField = tablesQuery/*@START_MENU_TOKEN@*/.textFields["Tool Name"]/*[[".cells[\"Tool Name\"].textFields[\"Tool Name\"]",".textFields[\"Tool Name\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
     toolNameTextField.tap()
     toolNameTextField.tap()
-    toolNameTextField.typeText("Hammer")
+    toolNameTextField.typeText("New Hammer")
     
     let costPerHourTextField = tablesQuery/*@START_MENU_TOKEN@*/.textFields["Cost Per Hour"]/*[[".cells[\"Cost Per Hour\"].textFields[\"Cost Per Hour\"]",".textFields[\"Cost Per Hour\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
     costPerHourTextField.tap()
@@ -101,8 +101,10 @@ class LoginTest: XCTestCase {
 
     //sleep(5)
     
-    let scrollViewsQuery = app.scrollViews
-    scrollViewsQuery.children(matching: .button).element(boundBy: 1).tap()
+  // let scrollViewsQuery = app.scrollViews
+    //scrollViewsQuery.children(matching: .button).element(boundBy: 1).tap()
+    let elementsQuery = app.scrollViews.otherElements
+    elementsQuery.buttons["New Hammer"].tap()
     app/*@START_MENU_TOKEN@*/.buttons["Back To My Toolbox"]/*[[".scrollViews.buttons[\"Back To My Toolbox\"]",".buttons[\"Back To My Toolbox\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
     
     

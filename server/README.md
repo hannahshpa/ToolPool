@@ -84,6 +84,32 @@ Return Value:
 
 ---
 
+### Upload Tool Image
+
+route: POST /uploadImage
+
+required header:
+| Key | Value |
+|----------------|--------------------|
+| Authentication | Bearer < AuthToken > |
+
+required request parameters: `None`
+
+required request body:
+
+```
+{
+   "toolId | userId": <int>,
+   "imageFile": <String (base64 image String)>
+}
+```
+
+Return Value:
+
+- Success: 200 status
+
+---
+
 ### GraphQL API
 
 route: POST /graphql

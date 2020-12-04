@@ -217,7 +217,7 @@ public final class ToolByIdQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    query ToolById($id: Int) {
+    query ToolById($id: Int!) {
       tool(id: $id) {
         __typename
         name
@@ -247,9 +247,9 @@ public final class ToolByIdQuery: GraphQLQuery {
 
   public let operationName: String = "ToolById"
 
-  public var id: Int?
+  public var id: Int
 
-  public init(id: Int? = nil) {
+  public init(id: Int) {
     self.id = id
   }
 
@@ -1379,7 +1379,7 @@ public final class BorrowByIdQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    query BorrowById($id: Int) {
+    query BorrowById($id: Int!) {
       borrow(id: $id) {
         __typename
         cost
@@ -1406,9 +1406,9 @@ public final class BorrowByIdQuery: GraphQLQuery {
 
   public let operationName: String = "BorrowById"
 
-  public var id: Int?
+  public var id: Int
 
-  public init(id: Int? = nil) {
+  public init(id: Int) {
     self.id = id
   }
 
@@ -1689,7 +1689,7 @@ public final class BorrowDummyQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    query BorrowDummy($id: Int) {
+    query BorrowDummy($id: Int!) {
       borrow(id: $id) {
         __typename
         id
@@ -1703,9 +1703,9 @@ public final class BorrowDummyQuery: GraphQLQuery {
 
   public let operationName: String = "BorrowDummy"
 
-  public var id: Int?
+  public var id: Int
 
-  public init(id: Int? = nil) {
+  public init(id: Int) {
     self.id = id
   }
 
@@ -2623,16 +2623,16 @@ public final class DenyBorrowMutation: GraphQLMutation {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    mutation DenyBorrow($id: Int) {
+    mutation DenyBorrow($id: Int!) {
       denyBorrow(id: $id)
     }
     """
 
   public let operationName: String = "DenyBorrow"
 
-  public var id: Int?
+  public var id: Int
 
-  public init(id: Int? = nil) {
+  public init(id: Int) {
     self.id = id
   }
 
@@ -2674,16 +2674,16 @@ public final class ApproveBorrowMutation: GraphQLMutation {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    mutation ApproveBorrow($id: Int) {
+    mutation ApproveBorrow($id: Int!) {
       approveBorrow(id: $id)
     }
     """
 
   public let operationName: String = "ApproveBorrow"
 
-  public var id: Int?
+  public var id: Int
 
-  public init(id: Int? = nil) {
+  public init(id: Int) {
     self.id = id
   }
 

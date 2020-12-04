@@ -1,4 +1,4 @@
-query ToolById($id: Int) {
+query ToolById($id: Int!) {
   tool(id: $id){
       name
       location {
@@ -78,7 +78,7 @@ query GetOtherBorrows {
     }
 }
 
-query BorrowById($id: Int) {
+query BorrowById($id: Int!) {
     borrow(id: $id){
         cost
         id
@@ -97,7 +97,7 @@ query BorrowById($id: Int) {
         }
     }
 }
-query BorrowDummy($id: Int) {
+query BorrowDummy($id: Int!) {
     borrow(id: $id){
         id
         tool {
@@ -160,11 +160,11 @@ mutation RequestBorrow($userId: Int!, $startTime: Float!, $endTime: Float!, $too
     requestBorrow(userId: $userId, startTime: $startTime, endTime: $endTime, toolId: $toolId)
 }
 
-mutation DenyBorrow($id:Int) {
+mutation DenyBorrow($id:Int!) {
     denyBorrow(id: $id)
 }
 
-mutation ApproveBorrow($id:Int) {
+mutation ApproveBorrow($id:Int!) {
     approveBorrow(id: $id)
 }
 

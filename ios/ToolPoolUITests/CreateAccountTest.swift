@@ -31,6 +31,8 @@ class CreateAccountTest: XCTestCase {
       
       
       let app = XCUIApplication()
+      app.launch()
+      
       app.buttons["Create Account"].tap()
       
       let tablesQuery = app.tables

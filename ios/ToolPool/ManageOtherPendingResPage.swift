@@ -36,21 +36,13 @@ struct ManageOtherPendingResPage: View {
             Divider()
             Group {
                 Text("Start: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.start)))")
-                Text("End: \(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.end)))")
+                Text("End:\(NSDate(timeIntervalSinceReferenceDate: TimeInterval(borrow.loanPeriod.end)))")
                 Text("Cost: " + String(format: "%.2f", borrow.cost))
 //                Text("Location: (insert map)")
                 Text("User: " + borrow.user.name)
                 Text("Email: \( borrow.user.email)")
                 Text("Phone Number: \(borrow.user.phoneNumber)")
                 
-            }
-            NavigationLink(destination: MapViewManager(id: borrow.tool.id)) {
-                Text("Get Directions To Tool")
-                    .frame(minWidth:0, maxWidth:325)
-                    .background(Color.orange)
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .cornerRadius(40)
             }
             Divider()
             Button(action: {

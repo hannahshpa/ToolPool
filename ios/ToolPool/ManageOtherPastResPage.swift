@@ -37,14 +37,13 @@ struct ManageOtherPastResPage: View {
                 Text("User: " + borrow.user.name)
                 Text("Email: \( borrow.user.email)")
                 Text("Phone Number: \(borrow.user.phoneNumber)")
-            }
-            NavigationLink(destination: MapViewManager(id: borrow.tool.id)) {
-                Text("Get Directions To Tool")
-                    .frame(minWidth:0, maxWidth:325)
-                    .background(Color.orange)
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .cornerRadius(40)
+                if (borrow.returnAccepted == true) {
+                    Text("This rental return has been accepted")
+                        .font(.caption)
+                } else {
+                    Text("This rental was reported as unreturned")
+                        .font(.caption)
+                }
             }
           }
         }

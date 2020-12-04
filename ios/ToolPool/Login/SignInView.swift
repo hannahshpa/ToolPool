@@ -12,16 +12,17 @@ struct SignInView: View {
     @State var username: String = ""
     @State var password: String = ""
     @State var showInApp: Bool = false
+  
     var body: some View {
         VStack {
             if showInApp {
                 InAppView()
             } else {
-                  Text(/*@START_MENU_TOKEN@*/"ToolPool"/*@END_MENU_TOKEN@*/)
+                  Text("Sign In")
                     .font(.largeTitle)
                   Form {
                     Section(header: Text("Log in info")) {
-                      TextField("Username", text: $username)
+                      TextField("Email", text: $username)
                       TextField("Password", text: $password)
                     }
                   }

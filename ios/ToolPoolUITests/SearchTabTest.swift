@@ -34,7 +34,7 @@ class SearchTabTest: XCTestCase {
         let tablesQuery2 = app.tables
         let tablesQuery = tablesQuery2
         
-        let usernameTextField = tablesQuery/*@START_MENU_TOKEN@*/.textFields["Username"]/*[[".cells[\"Username\"].textFields[\"Username\"]",".textFields[\"Username\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        let usernameTextField = tablesQuery.textFields["Email"]
         usernameTextField.tap()
         usernameTextField.typeText("jane@example.org")
 
@@ -48,7 +48,7 @@ class SearchTabTest: XCTestCase {
         let toolNameTextField = tablesQuery/*@START_MENU_TOKEN@*/.textFields["Tool Name"]/*[[".cells[\"Tool Name\"].textFields[\"Tool Name\"]",".textFields[\"Tool Name\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         toolNameTextField.tap()
         toolNameTextField.tap()
-        toolNameTextField.typeText("Blender")
+        toolNameTextField.typeText("Test Blender")
         
         let costPerHourTextField = tablesQuery/*@START_MENU_TOKEN@*/.textFields["Cost Per Hour"]/*[[".cells[\"Cost Per Hour\"].textFields[\"Cost Per Hour\"]",".textFields[\"Cost Per Hour\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         costPerHourTextField.tap()
@@ -70,7 +70,9 @@ class SearchTabTest: XCTestCase {
         tablesQuery2.cells["Good"].children(matching: .other).element(boundBy: 0).tap()
         tablesQuery2/*@START_MENU_TOKEN@*/.buttons["Photo library"]/*[[".cells[\"Photo library\"].buttons[\"Photo library\"]",".buttons[\"Photo library\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         
-         app.scrollViews.children(matching: .other).element.children(matching: .other).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .image).matching(identifier: "Photo, December 02, 8:22 PM").element(boundBy: 1).tap()
+            app.scrollViews.otherElements.images["Photo, March 12, 2011, 4:17 PM"].tap()
+
+         //app.scrollViews.children(matching: .other).element.children(matching: .other).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .image).matching(identifier: "Photo, December 02, 8:22 PM").element(boundBy: 1).tap()
        //  app/*@START_MENU_TOKEN@*/.tables.containing(.cell, identifier:"Hand Tools").element/*[[".tables.containing(.cell, identifier:\"Photo library\").element",".tables.containing(.cell, identifier:\"Good\").element",".tables.containing(.cell, identifier:\"Hand Tools\").element"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         
         app.buttons["Submit Tool"].tap()
@@ -87,7 +89,7 @@ class SearchTabTest: XCTestCase {
         
         let elementsQuery = app.scrollViews.otherElements
         elementsQuery.buttons["Kitchen"].tap()
-        elementsQuery.buttons["Blender"].tap()
+        elementsQuery.buttons["Test Blender"].tap()
         elementsQuery.datePickers["Start Date"].buttons["Month"].swipeUp()
         elementsQuery.buttons["Set Reservation Details"].tap()
         app.buttons["Request Reservation"].tap()

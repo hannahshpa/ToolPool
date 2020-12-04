@@ -22,7 +22,7 @@ struct CreateAccountView: View {
         if showInApp {
             InAppView()
         } else {
-            Text(/*@START_MENU_TOKEN@*/"ToolPool"/*@END_MENU_TOKEN@*/)
+            Text("Create Account")
               .font(.largeTitle)
             Form {
               Section(header: Text("Log in information")) {

@@ -72,7 +72,7 @@ class LoginTest: XCTestCase {
     let toolNameTextField = tablesQuery/*@START_MENU_TOKEN@*/.textFields["Tool Name"]/*[[".cells[\"Tool Name\"].textFields[\"Tool Name\"]",".textFields[\"Tool Name\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
     toolNameTextField.tap()
     toolNameTextField.tap()
-    toolNameTextField.typeText("New Hammer")
+    toolNameTextField.typeText("Hammer")
     
     let costPerHourTextField = tablesQuery/*@START_MENU_TOKEN@*/.textFields["Cost Per Hour"]/*[[".cells[\"Cost Per Hour\"].textFields[\"Cost Per Hour\"]",".textFields[\"Cost Per Hour\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
     costPerHourTextField.tap()
@@ -95,16 +95,15 @@ class LoginTest: XCTestCase {
     tablesQuery/*@START_MENU_TOKEN@*/.buttons["Photo library"]/*[[".cells[\"Photo library\"].buttons[\"Photo library\"]",".buttons[\"Photo library\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
     
     app.scrollViews.otherElements.images["Photo, March 12, 2011, 4:17 PM"].tap()
+    app/*@START_MENU_TOKEN@*/.tables.containing(.cell, identifier:"Hand Tools").element/*[[".tables.containing(.cell, identifier:\"Photo library\").element",".tables.containing(.cell, identifier:\"Good\").element",".tables.containing(.cell, identifier:\"Hand Tools\").element"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
     
-    app.buttons["Submit Tool"].tap()
-    //app.buttons["Submit Tool"].swipeUp()
+    //app.buttons["Submit Tool"].tap()
+    app.buttons["Submit Tool"].swipeUp()
 
     //sleep(5)
     
-  // let scrollViewsQuery = app.scrollViews
-    //scrollViewsQuery.children(matching: .button).element(boundBy: 1).tap()
-    let elementsQuery = app.scrollViews.otherElements
-    elementsQuery.buttons["New Hammer"].tap()
+    let scrollViewsQuery = app.scrollViews
+    scrollViewsQuery.children(matching: .button).element(boundBy: 1).tap()
     app/*@START_MENU_TOKEN@*/.buttons["Back To My Toolbox"]/*[[".scrollViews.buttons[\"Back To My Toolbox\"]",".buttons[\"Back To My Toolbox\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
     
     

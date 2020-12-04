@@ -117,7 +117,7 @@ class mySelf: ObservableObject {
   @Published var data: selfObj
       
     init() {
-      self.data = selfObj(n: "Casey", e: "test", i: 0, ot: [])
+      self.data = selfObj(n: "Joe", e: "test", i: 0, ot: [])
       self.load()
     }
   

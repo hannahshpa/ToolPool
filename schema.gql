@@ -15,8 +15,8 @@ type Borrow {
 
 enum BorrowStatus {
   accepted
-  rejected
   pending
+  rejected
 }
 
 type GeoLocation {
@@ -35,20 +35,20 @@ type Mutation {
   # Adds a new tool with the given properties, and returns the created Tool object
   addTool(tool: NewToolInput!): Tool!
   approveBorrow(id: Int!): Boolean!
-  createToolRating(revieweeId: Int!, review: String, reviewerId: Int!, rating: Int!): ToolRating!
-  createUserRating(revieweeId: Int!, review: String, rating: Int!, reviewerId: Int!): UserRating!
-  deleteTool(toolId: Int!): Boolean!
-  deleteToolRating(reviewerId: Int!, revieweeId: Int!): Boolean!
-  deleteUserRating(revieweeId: Int!, reviewerId: Int!): Boolean!
+  createToolRating(revieweeId: Int!, reviewerId: Int!, review: String, rating: Int!): ToolRating!
+  createUserRating(reviewerId: Int!, rating: Int!, review: String, revieweeId: Int!): UserRating!
+  deleteTool(id: Int!): Boolean!
+  deleteToolRating(revieweeId: Int!, reviewerId: Int!): Boolean!
+  deleteUserRating(reviewerId: Int!, revieweeId: Int!): Boolean!
   denyBorrow(id: Int!): Boolean!
   requestBorrow(
     # Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate
     startTime: Float!
+    toolId: Int!
+    userId: Int!
 
     # Number of seconds since Jan 01, 2001. I.e. timeIntervalSinceReferenceDate
     endTime: Float!
-    toolId: Int!
-    userId: Int!
   ): Int!
   returnTool(borrowId: Int!): Borrow
 }
@@ -72,10 +72,10 @@ type Query {
   # Find all tools within a given radius, centered at a point
   nearby(
     center: GeoLocationInput!
+    radius: Float!
 
     # Optional string to specify a category to filter by (ie "outdoor")
     category: String
-    radius: Float!
   ): [Tool!]!
   self: User
 
@@ -110,11 +110,11 @@ type Tool {
 }
 
 enum ToolCondition {
-  poor
-  great
   fair
-  new
+  poor
   good
+  great
+  new
 }
 
 type ToolRating {

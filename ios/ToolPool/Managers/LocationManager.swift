@@ -47,7 +47,6 @@ class LocationManager: NSObject, ObservableObject {
             let longitude = String(format: "%.7f", currentLocation.coordinate.longitude)
             location = CLLocation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
 
-
             debugPrint("Latitude:", latitude)
             debugPrint("Longitude:", longitude)
 
@@ -59,6 +58,7 @@ class LocationManager: NSObject, ObservableObject {
             completion(latitude, longitude)
         }
 
+        //   completion(latitude, longitude)  // your block of code you passed to this function will run in this way
     }
 }
 

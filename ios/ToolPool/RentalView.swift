@@ -55,12 +55,13 @@ struct RentalView: View {
                     
                    }
                 //.onAppear(perform: borrowsData.load)
-                .navigationBarTitle("My Tool Rentals", displayMode: .automatic)
+                .navigationBarTitle("Borrowing", displayMode: .automatic)
                 .navigationBarBackButtonHidden(true)
                 //.navigationBarBackButtonHidden(true)
                    //.navigationViewStyle(StackNavigationViewStyle())
                    .edgesIgnoringSafeArea(.top)
                }
+            .navigationBarHidden(true)
             .edgesIgnoringSafeArea(.top)
             }
     

@@ -24,6 +24,8 @@
 		4583678B2570DB5B002609A9 /* ManageOtherPendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */; };
 		458367902570DBBB002609A9 /* ManageOtherUpcomingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678F2570DBBB002609A9 /* ManageOtherUpcomingResPage.swift */; };
 		458367952570DBFE002609A9 /* ManageOtherPastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */; };
+		459FB64225797ACF00B6D362 /* RateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBF257839DD00A0E685 /* RateUser.swift */; };
+		459FB64425797AD100B6D362 /* RateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBA2578379500A0E685 /* RateTool.swift */; };
 		45C44FDD25674BDE008529A9 /* OtherProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */; };
 		45C44FF025685EE4008529A9 /* OtherRentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FEF25685EE4008529A9 /* OtherRentalView.swift */; };
 		45F62BAF2575777B00A0E685 /* ManageOtherPastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */; };
@@ -653,8 +655,9 @@
 				F5A461912572FF59005F154A /* ManagePastResPage.swift in Sources */,
 				F5A75FEC257988670070A9D5 /* CreateAccountTest.swift in Sources */,
 				F5A461642572FEC7005F154A /* Network.swift in Sources */,
+				459FB64225797ACF00B6D362 /* RateUser.swift in Sources */,
 				28A7EC8A2543688F007423B0 /* ToolPoolUITests.swift in Sources */,
-				5329ABFB2565D7AA00A38798 /* LocationManager.swift in Sources */,
+				459FB64425797AD100B6D362 /* RateTool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		285ED3FA257A105F00D4168D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
+		288D19B825798A1F00466723 /* SearchTabTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288D19B725798A1F00466723 /* SearchTabTest.swift */; };
+		288D19BF2579A79300466723 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F280582565E7A400ED54D0 /* Tool.swift */; };
+		288D19C12579A79D00466723 /* RateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBA2578379500A0E685 /* RateTool.swift */; };
+		288D19C32579A7A700466723 /* RateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBF257839DD00A0E685 /* RateUser.swift */; };
+		288D19C52579A7B200466723 /* ToolAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */; };
 		28A7EC6D2543688E007423B0 /* ToolPoolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC6C2543688E007423B0 /* ToolPoolApp.swift */; };
 		28A7EC6F2543688E007423B0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC6E2543688E007423B0 /* ContentView.swift */; };
 		28A7EC712543688F007423B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28A7EC702543688F007423B0 /* Assets.xcassets */; };
@@ -29,19 +35,17 @@
 		45C44FDD25674BDE008529A9 /* OtherProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */; };
 		45C44FF025685EE4008529A9 /* OtherRentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FEF25685EE4008529A9 /* OtherRentalView.swift */; };
 		45DC18B9257A17B1007B37AB /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
+		45DC18BD257A2007007B37AB /* lendingtest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DC18BC257A2007007B37AB /* lendingtest.swift */; };
 		45F62BAF2575777B00A0E685 /* ManageOtherPastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */; };
 		45F62BB12575778000A0E685 /* ManageOtherUpcomingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678F2570DBBB002609A9 /* ManageOtherUpcomingResPage.swift */; };
 		45F62BB32575778400A0E685 /* ManageOtherPendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */; };
 		45F62BBB2578379500A0E685 /* RateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBA2578379500A0E685 /* RateTool.swift */; };
 		45F62BC0257839DD00A0E685 /* RateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBF257839DD00A0E685 /* RateUser.swift */; };
 		530B16F32572184200594A84 /* MapViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F12572184200594A84 /* MapViewManager.swift */; };
-		530B16F42572184200594A84 /* MapViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F12572184200594A84 /* MapViewManager.swift */; };
 		530B16F52572184200594A84 /* MapViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F12572184200594A84 /* MapViewManager.swift */; };
 		530B16F62572184200594A84 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F22572184200594A84 /* MapView.swift */; };
-		530B16F72572184200594A84 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F22572184200594A84 /* MapView.swift */; };
 		530B16F82572184200594A84 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530B16F22572184200594A84 /* MapView.swift */; };
 		5329ABF92565D7AA00A38798 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
-		5329ABFA2565D7AA00A38798 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
 		53F280592565E7A400ED54D0 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F280582565E7A400ED54D0 /* Tool.swift */; };
 		53F2805E2565E84200ED54D0 /* ToolAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */; };
 		F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */; };
@@ -94,8 +98,6 @@
 		F5A461C1257300FF005F154A /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = F5755E4A25662D78004ADBD4 /* schema.json */; };
 		F5A75FEC257988670070A9D5 /* CreateAccountTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A75FEB257988670070A9D5 /* CreateAccountTest.swift */; };
 		F5A75FEF2579893A0070A9D5 /* ToolPoolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC6C2543688E007423B0 /* ToolPoolApp.swift */; };
-		F5A75FF12579893D0070A9D5 /* RateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBA2578379500A0E685 /* RateTool.swift */; };
-		F5A75FF2257989400070A9D5 /* RateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBF257839DD00A0E685 /* RateUser.swift */; };
 		F5A75FF52579894C0070A9D5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC6E2543688E007423B0 /* ContentView.swift */; };
 		F5A75FF725798ADA0070A9D5 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F280582565E7A400ED54D0 /* Tool.swift */; };
 		F5A7601225798BE00070A9D5 /* ManageOtherPendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */; };
@@ -144,6 +146,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		288D19B725798A1F00466723 /* SearchTabTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTabTest.swift; sourceTree = "<group>"; };
 		28943E13255C69480042533E /* ToolListingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolListingPage.swift; sourceTree = "<group>"; };
 		28943E18255C6F3F0042533E /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		28A7EC692543688E007423B0 /* ToolPool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToolPool.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,6 +175,7 @@
 		458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageOtherPastResPage.swift; sourceTree = "<group>"; };
 		45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfilePage.swift; sourceTree = "<group>"; };
 		45C44FEF25685EE4008529A9 /* OtherRentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherRentalView.swift; sourceTree = "<group>"; };
+		45DC18BC257A2007007B37AB /* lendingtest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lendingtest.swift; sourceTree = "<group>"; };
 		45F62BBA2578379500A0E685 /* RateTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateTool.swift; sourceTree = "<group>"; };
 		45F62BBF257839DD00A0E685 /* RateUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateUser.swift; sourceTree = "<group>"; };
 		530B16F12572184200594A84 /* MapViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewManager.swift; sourceTree = "<group>"; };
@@ -325,8 +329,10 @@
 			children = (
 				F5A75FEB257988670070A9D5 /* CreateAccountTest.swift */,
 				28A7EC892543688F007423B0 /* ToolPoolUITests.swift */,
+				288D19B725798A1F00466723 /* SearchTabTest.swift */,
 				28A7EC8B2543688F007423B0 /* Info.plist */,
 				F5A760542579956B0070A9D5 /* LoginTest.swift */,
+				45DC18BC257A2007007B37AB /* lendingtest.swift */,
 			);
 			path = ToolPoolUITests;
 			sourceTree = "<group>";
@@ -595,9 +601,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5A7601225798BE00070A9D5 /* ManageOtherPendingResPage.swift in Sources */,
-				530B16F42572184200594A84 /* MapViewManager.swift in Sources */,
-				530B16F72572184200594A84 /* MapView.swift in Sources */,
-				5329ABFA2565D7AA00A38798 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,8 +609,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				530B16F52572184200594A84 /* MapViewManager.swift in Sources */,
+				288D19C52579A7B200466723 /* ToolAnnotation.swift in Sources */,
 				530B16F82572184200594A84 /* MapView.swift in Sources */,
+				285ED3FA257A105F00D4168D /* LocationManager.swift in Sources */,
 				F5A4617F2572FF37005F154A /* ToolCategoryPage.swift in Sources */,
+				288D19BF2579A79300466723 /* Tool.swift in Sources */,
 				F5A461972572FF69005F154A /* ToolPool.xcdatamodeld in Sources */,
 				F5A461A02572FF91005F154A /* OtherRentalView.swift in Sources */,
 				F5A75FEF2579893A0070A9D5 /* ToolPoolApp.swift in Sources */,
@@ -615,10 +621,11 @@
 				45F62BB32575778400A0E685 /* ManageOtherPendingResPage.swift in Sources */,
 				F5A461942572FF60005F154A /* MakeReservationView.swift in Sources */,
 				F5A461702572FED9005F154A /* ImageUpload.swift in Sources */,
-				F5A75FF2257989400070A9D5 /* RateUser.swift in Sources */,
+				288D19C32579A7A700466723 /* RateUser.swift in Sources */,
 				F5A461732572FEFE005F154A /* Landing.swift in Sources */,
 				45DC18B9257A17B1007B37AB /* LocationManager.swift in Sources */,
 				F5A461822572FF3A005F154A /* ToolListingPage.swift in Sources */,
+				45DC18BD257A2007007B37AB /* lendingtest.swift in Sources */,
 				F5A4618B2572FF54005F154A /* OtherProfilePage.swift in Sources */,
 				F5A4616A2572FED1005F154A /* StarRatingView.swift in Sources */,
 				F5A75FF725798ADA0070A9D5 /* Tool.swift in Sources */,
@@ -627,7 +634,7 @@
 				F5A461882572FF52005F154A /* ManagePendingResPage.swift in Sources */,
 				F5A461792572FF02005F154A /* CreateAccountView.swift in Sources */,
 				F5A461762572FF00005F154A /* SignInView.swift in Sources */,
-				F5A75FF12579893D0070A9D5 /* RateTool.swift in Sources */,
+				288D19C12579A79D00466723 /* RateTool.swift in Sources */,
 				F5A461852572FF3D005F154A /* FilterView.swift in Sources */,
 				F5A4615B2572FE98005F154A /* API.swift in Sources */,
 				45F62BB12575778000A0E685 /* ManageOtherUpcomingResPage.swift in Sources */,
@@ -639,6 +646,7 @@
 				F5A4619D2572FF8E005F154A /* RentalView.swift in Sources */,
 				F5A4618E2572FF57005F154A /* ManageUpcomingResPage.swift in Sources */,
 				F5A4615E2572FE9E005F154A /* AddToolView.swift in Sources */,
+				288D19B825798A1F00466723 /* SearchTabTest.swift in Sources */,
 				F5A461912572FF59005F154A /* ManagePastResPage.swift in Sources */,
 				F5A75FEC257988670070A9D5 /* CreateAccountTest.swift in Sources */,
 				F5A461642572FEC7005F154A /* Network.swift in Sources */,

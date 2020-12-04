@@ -11,7 +11,6 @@
 		28A7EC6F2543688E007423B0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC6E2543688E007423B0 /* ContentView.swift */; };
 		28A7EC712543688F007423B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28A7EC702543688F007423B0 /* Assets.xcassets */; };
 		28A7EC742543688F007423B0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28A7EC732543688F007423B0 /* Preview Assets.xcassets */; };
-		28A7EC7F2543688F007423B0 /* ToolPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC7E2543688F007423B0 /* ToolPoolTests.swift */; };
 		28A7EC8A2543688F007423B0 /* ToolPoolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC892543688F007423B0 /* ToolPoolUITests.swift */; };
 		28A7ECA325436D7F007423B0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECA225436D7F007423B0 /* SearchViewController.swift */; };
 		28A7ECA825436DA7007423B0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7ECA725436DA7007423B0 /* ProfileViewController.swift */; };
@@ -94,6 +93,17 @@
 		F5A461B32573008C005F154A /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = F5A461B22573008C005F154A /* Apollo */; };
 		F5A461BF2573008C005F154A /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = F5A461BE2573008C005F154A /* ApolloWebSocket */; };
 		F5A461C1257300FF005F154A /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = F5755E4A25662D78004ADBD4 /* schema.json */; };
+
+		F5A75FEC257988670070A9D5 /* CreateAccountTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A75FEB257988670070A9D5 /* CreateAccountTest.swift */; };
+		F5A75FEF2579893A0070A9D5 /* ToolPoolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC6C2543688E007423B0 /* ToolPoolApp.swift */; };
+		F5A75FF12579893D0070A9D5 /* RateTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBA2578379500A0E685 /* RateTool.swift */; };
+		F5A75FF2257989400070A9D5 /* RateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F62BBF257839DD00A0E685 /* RateUser.swift */; };
+		F5A75FF52579894C0070A9D5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7EC6E2543688E007423B0 /* ContentView.swift */; };
+		F5A75FF725798ADA0070A9D5 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F280582565E7A400ED54D0 /* Tool.swift */; };
+		F5A7601225798BE00070A9D5 /* ManageOtherPendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */; };
+		F5A7603325798D110070A9D5 /* ToolAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */; };
+		F5A760552579956B0070A9D5 /* LoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A760542579956B0070A9D5 /* LoginTest.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,6 +202,9 @@
 		F58B265A25538E5C000389E3 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
 		F58B265F2553AAA7000389E3 /* InAppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppView.swift; sourceTree = "<group>"; };
 		F58B2667255478BB000389E3 /* AddToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToolView.swift; sourceTree = "<group>"; };
+		F5A75FEB257988670070A9D5 /* CreateAccountTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountTest.swift; sourceTree = "<group>"; };
+		F5A760542579956B0070A9D5 /* LoginTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTest.swift; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,9 +328,11 @@
 		28A7EC882543688F007423B0 /* ToolPoolUITests */ = {
 			isa = PBXGroup;
 			children = (
+				F5A75FEB257988670070A9D5 /* CreateAccountTest.swift */,
 				28A7EC892543688F007423B0 /* ToolPoolUITests.swift */,
 				28A7EC8B2543688F007423B0 /* Info.plist */,
 				536E2E9F2578C81E00522E27 /* MapViewTest.swift */,
+				F5A760542579956B0070A9D5 /* LoginTest.swift */,
 			);
 			path = ToolPoolUITests;
 			sourceTree = "<group>";
@@ -587,6 +602,9 @@
 			files = (
 				28A7EC7F2543688F007423B0 /* ToolPoolTests.swift in Sources */,
 				536622672579A7C5000F5B96 /* MapView.swift in Sources */,
+				F5A7601225798BE00070A9D5 /* ManageOtherPendingResPage.swift in Sources */,
+				530B16F42572184200594A84 /* MapViewManager.swift in Sources */,
+				530B16F72572184200594A84 /* MapView.swift in Sources */,
 				5329ABFA2565D7AA00A38798 /* LocationManager.swift in Sources */,
 				5366226B2579A7CB000F5B96 /* Tool.swift in Sources */,
 				5366226D2579A7CE000F5B96 /* ToolAnnotation.swift in Sources */,
@@ -604,28 +622,36 @@
 				F5A461972572FF69005F154A /* ToolPool.xcdatamodeld in Sources */,
 				536E2EA02578C81E00522E27 /* MapViewTest.swift in Sources */,
 				F5A461A02572FF91005F154A /* OtherRentalView.swift in Sources */,
+				F5A75FEF2579893A0070A9D5 /* ToolPoolApp.swift in Sources */,
 				F5A4616D2572FED6005F154A /* InAppView.swift in Sources */,
 				45F62BB32575778400A0E685 /* ManageOtherPendingResPage.swift in Sources */,
 				F5A461942572FF60005F154A /* MakeReservationView.swift in Sources */,
 				F5A461702572FED9005F154A /* ImageUpload.swift in Sources */,
+				F5A75FF2257989400070A9D5 /* RateUser.swift in Sources */,
 				F5A461732572FEFE005F154A /* Landing.swift in Sources */,
 				F5A461822572FF3A005F154A /* ToolListingPage.swift in Sources */,
 				F5A4618B2572FF54005F154A /* OtherProfilePage.swift in Sources */,
 				F5A4616A2572FED1005F154A /* StarRatingView.swift in Sources */,
+				F5A75FF725798ADA0070A9D5 /* Tool.swift in Sources */,
 				F5A461582572F6FD005F154A /* ProfileView.swift in Sources */,
+				F5A75FF52579894C0070A9D5 /* ContentView.swift in Sources */,
 				F5A461882572FF52005F154A /* ManagePendingResPage.swift in Sources */,
 				F5A461792572FF02005F154A /* CreateAccountView.swift in Sources */,
 				F5A461762572FF00005F154A /* SignInView.swift in Sources */,
+				F5A75FF12579893D0070A9D5 /* RateTool.swift in Sources */,
 				F5A461852572FF3D005F154A /* FilterView.swift in Sources */,
 				F5A4615B2572FE98005F154A /* API.swift in Sources */,
 				45F62BB12575778000A0E685 /* ManageOtherUpcomingResPage.swift in Sources */,
 				F5A4615F2572FEA1005F154A /* MyToolListingView.swift in Sources */,
 				45F62BAF2575777B00A0E685 /* ManageOtherPastResPage.swift in Sources */,
+				F5A760552579956B0070A9D5 /* LoginTest.swift in Sources */,
 				F5A4617C2572FF0B005F154A /* SearchView.swift in Sources */,
+				F5A7603325798D110070A9D5 /* ToolAnnotation.swift in Sources */,
 				F5A4619D2572FF8E005F154A /* RentalView.swift in Sources */,
 				F5A4618E2572FF57005F154A /* ManageUpcomingResPage.swift in Sources */,
 				F5A4615E2572FE9E005F154A /* AddToolView.swift in Sources */,
 				F5A461912572FF59005F154A /* ManagePastResPage.swift in Sources */,
+				F5A75FEC257988670070A9D5 /* CreateAccountTest.swift in Sources */,
 				F5A461642572FEC7005F154A /* Network.swift in Sources */,
 				28A7EC8A2543688F007423B0 /* ToolPoolUITests.swift in Sources */,
 				5329ABFB2565D7AA00A38798 /* LocationManager.swift in Sources */,

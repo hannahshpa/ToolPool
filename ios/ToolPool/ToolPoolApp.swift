@@ -11,7 +11,7 @@ import SwiftUI
 struct ToolPoolApp: App {
     var body: some Scene {
         WindowGroup {
-          ContentView()
+          Landing()
         }
     }
 }

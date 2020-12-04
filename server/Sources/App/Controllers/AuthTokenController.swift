@@ -5,7 +5,6 @@ import SwiftJWT
 
 
 class Authenticator{
-
     private let privateKey: Data
     private let publicKey: Data
     private let jwtSigner: JWTSigner
@@ -18,7 +17,6 @@ class Authenticator{
         let phoneNumber: String
         let exp: Date
     }
-
     
     public static let instance = Authenticator()
     
@@ -56,12 +54,11 @@ class Authenticator{
             throw error
         }
     }
-
     
     func validateToken(_ token: String) throws -> User {
         let tokenStringArray = token.components(separatedBy: " ")
         if tokenStringArray.count != 2 || tokenStringArray[0] != "Bearer" {
-            throw RequestError.invalidAuthToken
+            throw AuthenticationError.invalidToken
         }
         let presentedToken = tokenStringArray[1]
         do{

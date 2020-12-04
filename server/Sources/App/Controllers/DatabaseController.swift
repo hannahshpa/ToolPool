@@ -16,7 +16,7 @@ class DatabaseController{
         print(env)
         let configuration = PostgresConfiguration(
             hostname: env == "production" ? "psql" : "localhost",
-            port: env == "production" ? 5432 : 5432,
+            port: env == "production" ? 5432 : 5433,
             username: "postgres",
             password: "FIef#9ipSFE9*",
             database: env == "testing" ? "testing" : "postgres"

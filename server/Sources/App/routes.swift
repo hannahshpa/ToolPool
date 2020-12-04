@@ -16,9 +16,9 @@ struct SignupHTTPBody: Decodable {
     let phoneNumber: String
 }
 
-struct uploadImageHTTPBody: Decodable {
+struct uploadBase64ImageHTTPBody: Decodable {
     let toolId: Int
-    let imageFile: Data
+    let imageFile: String
 }
 
 struct GraphQLHTTPBody: Decodable {
@@ -27,13 +27,10 @@ struct GraphQLHTTPBody: Decodable {
     let variables: [String: Map]?
 }
 
-
 func routes(_ app: Application) throws {
     
     let resolver = Resolver()
     let api = try! GQLAPI(resolver: resolver)
-
-    let authenticator = try! Authenticator()
 
     // test endpoint
     app.get { req in
@@ -75,28 +72,17 @@ func routes(_ app: Application) throws {
         return promise.futureResult
     }
 
-    // Upload Tool Image
-    // uses app.on() to configure request body handling for modifying maxSize
+    // // Upload Tool Image
+    // // uses app.on() to configure request body handling for modifying maxSize
     app.on(.POST, "uploadImage", body: .collect(maxSize: "5mb")) { req -> EventLoopFuture<Response> in
+        let httpBody = try req.content.decode(uploadBase64ImageHTTPBody.self)
+        let authTokenGiven: Bool = req.headers["Authorization"].count != 0
+        let context = authTokenGiven ?
+            Context(app: req.application, user: try Authenticator.instance.validateToken(req.headers["Authorization"][0])) :
+            Context(app: req.application)
+
         let promise = req.eventLoop.makePromise(of: Response.self)
-        let httpBody = try req.content.decode(uploadImageHTTPBody.self)
-        var context: Context
-
-        do {
-            let userFromToken = try authenticator.validateToken(headers: req.headers)
-            if userFromToken == nil {
-                throw RequestError.missingAuthToken
-            }
-            context = Context(user: userFromToken, conn: db!)
-        } catch AuthenticationError.invalidToken {
-            promise.fail(AuthenticationError.invalidToken)
-            return promise.futureResult
-        } catch RequestError.missingAuthToken {
-            promise.fail(RequestError.missingAuthToken)
-            return promise.futureResult
-        }
-
-        let uploadImage = try imageController!.uploadImage(httpBody, context: context)
+        let uploadImage = try ImageController.instance.uploadImage(httpBody, context: context)
 
         uploadImage.whenFailure({ error in
             promise.fail(error)
@@ -112,7 +98,6 @@ func routes(_ app: Application) throws {
 
     // GraphQL queries
     app.post("graphql"){req -> EventLoopFuture<Response> in
-
 
         let authTokenGiven: Bool = req.headers["Authorization"].count != 0
         let httpBody = try req.content.decode(GraphQLHTTPBody.self)

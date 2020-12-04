@@ -55,7 +55,7 @@ services:
       - ./sql/testData.sql:/docker-entrypoint-initdb.d/9000.sql
       - ./sql/integrationTest.sql:/docker-entrypoint-initdb.d/9001.sql
     ports:
-      - '5432:5432'
+      - "5433:5432"
   nginx:
     image: nginx:alpine
     volumes:

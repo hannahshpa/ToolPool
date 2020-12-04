@@ -9,22 +9,22 @@ import Foundation
 import PostgresKit
 import NIO
 
-class DatabaseConnection{
+class DatabaseController{
     let db: PostgresDatabase;
     let pools: EventLoopGroupConnectionPool<PostgresConnectionSource>;
-    private static let instance: DatabaseConnection? = nil
-    init(loop: EventLoopGroup) {
-        let env = ProcessInfo.processInfo.environment["ENV"]
+    init(_ loop: EventLoopGroup, env: String) {
+        print(env)
         let configuration = PostgresConfiguration(
             hostname: env == "production" ? "psql" : "localhost",
             port: env == "production" ? 5432 : 5432,
             username: "postgres",
             password: "FIef#9ipSFE9*",
-            database: "postgres"
+            database: env == "testing" ? "testing" : "postgres"
         )
 
         pools = EventLoopGroupConnectionPool(
             source: PostgresConnectionSource(configuration: configuration),
+            maxConnectionsPerEventLoop: 5,
             on: loop
         )
         db = pools.database(logger: Logger(label: "Database Logger"))
@@ -32,5 +32,8 @@ class DatabaseConnection{
     
     public func getDB() -> PostgresDatabase{
         db
+    }
+    public func shutdown(){
+        pools.shutdown()
     }
 }

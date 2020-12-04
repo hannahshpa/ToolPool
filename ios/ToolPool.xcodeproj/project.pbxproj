@@ -36,7 +36,6 @@
 		45C44FF025685EE4008529A9 /* OtherRentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FEF25685EE4008529A9 /* OtherRentalView.swift */; };
 		45DC18B9257A17B1007B37AB /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
 		45DC18BD257A2007007B37AB /* lendingtest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DC18BC257A2007007B37AB /* lendingtest.swift */; };
-		45ED2660257AA85700238CB7 /* ratetool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45ED265F257AA85700238CB7 /* ratetool.swift */; };
 		45F62BAF2575777B00A0E685 /* ManageOtherPastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */; };
 		45F62BB12575778000A0E685 /* ManageOtherUpcomingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678F2570DBBB002609A9 /* ManageOtherUpcomingResPage.swift */; };
 		45F62BB32575778400A0E685 /* ManageOtherPendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */; };
@@ -177,7 +176,6 @@
 		45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfilePage.swift; sourceTree = "<group>"; };
 		45C44FEF25685EE4008529A9 /* OtherRentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherRentalView.swift; sourceTree = "<group>"; };
 		45DC18BC257A2007007B37AB /* lendingtest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lendingtest.swift; sourceTree = "<group>"; };
-		45ED265F257AA85700238CB7 /* ratetool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ratetool.swift; sourceTree = "<group>"; };
 		45F62BBA2578379500A0E685 /* RateTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateTool.swift; sourceTree = "<group>"; };
 		45F62BBF257839DD00A0E685 /* RateUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateUser.swift; sourceTree = "<group>"; };
 		530B16F12572184200594A84 /* MapViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewManager.swift; sourceTree = "<group>"; };
@@ -335,7 +333,6 @@
 				28A7EC8B2543688F007423B0 /* Info.plist */,
 				F5A760542579956B0070A9D5 /* LoginTest.swift */,
 				45DC18BC257A2007007B37AB /* lendingtest.swift */,
-				45ED265F257AA85700238CB7 /* ratetool.swift */,
 			);
 			path = ToolPoolUITests;
 			sourceTree = "<group>";
@@ -656,7 +653,6 @@
 				459FB64225797ACF00B6D362 /* RateUser.swift in Sources */,
 				28A7EC8A2543688F007423B0 /* ToolPoolUITests.swift in Sources */,
 				459FB64425797AD100B6D362 /* RateTool.swift in Sources */,
-				45ED2660257AA85700238CB7 /* ratetool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

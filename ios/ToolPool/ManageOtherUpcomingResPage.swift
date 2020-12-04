@@ -43,14 +43,6 @@ struct ManageOtherUpcomingResPage: View {
                 Text("Email: \( borrow.user.email)")
                 Text("Phone Number: \(borrow.user.phoneNumber)")
             }
-            NavigationLink(destination: MapViewManager(id: borrow.tool.id)) {
-                Text("Get Directions To Tool")
-                    .frame(minWidth:0, maxWidth:325)
-                    .background(Color.orange)
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .cornerRadius(40)
-            }
             Divider()
             if(borrow.timeReturned != nil) {
             NavigationLink(destination: RateUser(completed_borrow: borrow)) {
@@ -78,7 +70,7 @@ struct ManageOtherUpcomingResPage: View {
           }
         }
       }
-      .navigationBarTitle(Text("Upcoming Rental"), displayMode: .inline)
+      .navigationBarTitle(Text("Current Rental"), displayMode: .inline)
     }
     }
 }

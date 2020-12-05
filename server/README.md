@@ -15,6 +15,25 @@ For request authentication, we need to create a RSA private/public keyfile. To d
 
 This keyfile will be used for both dockerized/ local dev setup.
 
+For AWS setup, we need to create a credentials file with AWS keys
+
+1. `cd` into your home directory, `cd ~`
+2. Create a aws directory, `mkdir .aws`
+3. `cd` into the directory, `cd .aws`
+4. create a 'credentials' file, `touch credentials`
+5. Open the credentials file, and add the following:
+
+```
+[default]
+aws_access_key_id = <assigned aws access key>
+aws_secret_access_key = <assigned secret access key>
+```
+
+- Just type the literal \[default] at the top, it's syntactical
+- Put in the assigned keys within <> tags
+
+6. AWS keys are set to go, they'll automatically be imported & used by the AWS SDK
+
 ### **Client setup**
 
 For simply building the server, build and run the docker-compose network:
@@ -81,6 +100,34 @@ Return Value:
 
 - Success: 200 status, "< AuthToken >"
   - note that the token expires after 60 minutes
+
+---
+
+### Image Upload
+
+route: POST /uploadImage
+
+required header:
+| Key | Value |
+|----------------|--------------------|
+| Authentication | Bearer < AuthToken > |
+
+required request paramters: `None`
+
+required request body:
+
+```
+{
+   "toolId" : <int>,
+   "imageFile": <png | jpg | webp | heic File>
+}
+```
+
+- note that the owner of the tool has to match the user in authToken
+
+Return Value:
+
+- Success: 200 status
 
 ---
 

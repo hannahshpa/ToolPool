@@ -1,0 +1,197 @@
+query ToolById($id: Int) {
+  tool(id: $id){
+      name
+      location {
+        lat
+        lon
+    }
+      description
+      location {
+        lat
+        lon
+      }
+      condition
+      hourly_cost
+      tags
+      images
+      averageRating
+      owner {
+        name
+        }
+  }
+}
+query GetBorrows {
+    self {
+        borrowHistory {
+            cost
+            id
+            loanPeriod {
+                start
+                end
+            }
+            returnAccepted
+            timeReturned
+            tool {
+                id
+                name
+                owner {
+                    id
+                    name
+                    phoneNumber
+                    email
+                }
+                tags
+            }
+            status
+            user {
+                id
+            }
+
+        }
+    }
+}
+
+query GetOtherBorrows {
+    self {
+        ownedTools {
+            borrowHistory {
+                cost
+                id
+                tool {
+                    id
+                    name
+                    owner {
+                        id
+                    }
+                }
+                loanPeriod {
+                    start
+                    end
+                }
+                returnAccepted
+                timeReturned
+                status
+                user {
+                    id
+                    name
+                    phoneNumber
+                    email
+                }
+            }
+        }
+    }
+}
+
+query BorrowById($id: Int) {
+    borrow(id: $id){
+        cost
+        id
+        loanPeriod {
+            start
+            end
+        }
+        tool {
+            name
+        }
+        user {
+            id
+            name
+            phoneNumber
+            email
+        }
+    }
+}
+query BorrowDummy($id: Int) {
+    borrow(id: $id){
+        id
+        tool {
+            name
+        }
+    }
+}
+
+query GetMyTools {
+  self {
+    ownedTools {
+      name
+    }
+  }
+}
+
+query GetSelf {
+  self {
+    name
+    email
+    id
+    ownedTools {
+      name
+      id
+    }
+  }
+}
+
+query GetNearby($center: GeoLocationInput!, $radius: Float!, $category: String) {
+    nearby(center: $center, radius: $radius, category:$category) {
+          id
+          name
+          description
+          location {
+            lat
+            lon
+          }
+          condition
+          hourly_cost
+          tags
+          images
+          averageRating
+    }
+}
+
+query GetName {
+  self {
+    name
+    id
+  }
+}
+
+mutation AddTool($tool: NewToolInput!){
+    addTool(tool: $tool){
+        id
+    }
+}
+
+mutation RequestBorrow($userId: Int!, $startTime: Float!, $endTime: Float!, $toolId: Int!){
+    requestBorrow(userId: $userId, startTime: $startTime, endTime: $endTime, toolId: $toolId)
+}
+
+mutation DenyBorrow($id:Int) {
+    denyBorrow(id: $id)
+}
+
+mutation ApproveBorrow($id:Int) {
+    approveBorrow(id: $id)
+}
+
+mutation AcceptReturn ($borrowId: Int!, $accept: Boolean!) {
+    acceptReturn(borrowId: $borrowId, accept: $accept) {
+        id
+    }
+}
+
+mutation ReturnTool ($borrowId: Int!) {
+    returnTool(borrowId: $borrowId) {
+        id
+    }
+}
+
+mutation CreateToolRating ($revieweeId: Int!, $review: String, $reviewerId: Int!, $rating: Int!){
+    createToolRating (revieweeId: $revieweeId, review: $review, reviewerId: $reviewerId, rating: $rating){
+        rating
+    }
+}
+
+mutation CreateUserRating ($revieweeId: Int!, $review: String, $reviewerId: Int!, $rating: Int!){
+    createUserRating (revieweeId: $revieweeId, review: $review, reviewerId: $reviewerId, rating: $rating){
+        rating
+    }
+}

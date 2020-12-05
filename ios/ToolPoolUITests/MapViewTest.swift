@@ -85,7 +85,7 @@ class MapViewTest: XCTestCase {
         wait(for: [expectation], timeout: 10.0)
     }
 
-    func getDirectionsToToolTest() throws {
+    func testDirectionsToToolTest() throws {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         // if app doesn't crash at the end then apple maps did not return a nil

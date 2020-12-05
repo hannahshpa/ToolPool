@@ -41,6 +41,7 @@ services:
     volumes:
       - ./privateKey.key:/app/privateKey.key:ro
       - ./privateKey.key.pub:/app/privateKey.key.pub:ro
+      - ~/.aws:/root/.aws:ro
     depends_on:
       - "psql"
   psql:
@@ -54,7 +55,7 @@ services:
       - ./sql/testData.sql:/docker-entrypoint-initdb.d/9000.sql
       - ./sql/integrationTest.sql:/docker-entrypoint-initdb.d/9001.sql
     ports:
-      - '5433:5432'
+      - "5433:5432"
   nginx:
     image: nginx:alpine
     volumes:
@@ -62,7 +63,7 @@ services:
     ports:
       - 80:80
       - 443:443
-    depends_on: 
+    depends_on:
       - app
 volumes:
   database-data:

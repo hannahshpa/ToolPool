@@ -12,8 +12,7 @@ let package = Package(
         .package(url: "https://github.com/GraphQLSwift/Graphiti.git", from: "0.22.0"),
         .package(url: "https://github.com/vapor/postgres-kit.git", from: "2.0.0"),
         .package(url: "https://github.com/apple/swift-nio.git", from: "2.0.0"),
-        .package(name:"SwiftJWT", url: "https://github.com/Kitura/Swift-JWT.git", from: "3.0.0"),
-        .package(name: "AWSSDKSwift", url: "https://github.com/soto-project/soto.git", from: "4.0.0")
+        .package(name:"SwiftJWT", url: "https://github.com/Kitura/Swift-JWT.git", from: "3.0.0")
     ],
     targets: [
         .target(
@@ -23,10 +22,7 @@ let package = Package(
                 .product(name: "Graphiti", package: "Graphiti"),
                 .product(name: "PostgresKit", package: "postgres-kit"),
                 .product(name: "NIO", package: "swift-nio"),
-                .product(name: "SwiftJWT", package: "SwiftJWT"),
-                .product(name: "S3", package: "AWSSDKSwift"),
-                .product(name: "SES", package: "AWSSDKSwift"),
-                .product(name: "IAM", package: "AWSSDKSwift")
+                .product(name: "SwiftJWT", package: "SwiftJWT")
                     
             ],
             swiftSettings: [

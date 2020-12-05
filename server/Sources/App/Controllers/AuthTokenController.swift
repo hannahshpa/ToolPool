@@ -58,7 +58,7 @@ class Authenticator{
     func validateToken(_ token: String) throws -> User {
         let tokenStringArray = token.components(separatedBy: " ")
         if tokenStringArray.count != 2 || tokenStringArray[0] != "Bearer" {
-            throw AuthenticationError.invalidToken
+            throw RequestError.invalidAuthToken
         }
         let presentedToken = tokenStringArray[1]
         do{

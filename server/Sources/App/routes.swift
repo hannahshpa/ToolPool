@@ -16,23 +16,16 @@ struct SignupHTTPBody: Decodable {
     let phoneNumber: String
 }
 
-struct uploadBase64ImageHTTPBody: Decodable {
-    let toolId: Int
-    let imageFile: String
-}
-
 struct GraphQLHTTPBody: Decodable {
     let query: String
     let operationName: String?
-    let variables: [String: Map]?
+    let variables: [String: Map]
 }
 
 func routes(_ app: Application) throws {
     
     let resolver = Resolver()
     let api = try! GQLAPI(resolver: resolver)
-
-    // test endpoint
     app.get { req in
         return "It works!"
     }
@@ -56,7 +49,7 @@ func routes(_ app: Application) throws {
     }
 
     // Login
-    app.post("login") { req -> EventLoopFuture<Response> in
+    app.post("login"){req -> EventLoopFuture<Response> in
         let httpBody = try req.content.decode(LoginHTTPBody.self)
         let promise = req.eventLoop.makePromise(of: Response.self)
 
@@ -69,29 +62,6 @@ func routes(_ app: Application) throws {
             promise.succeed(.init(status: .ok, version: .init(major: 1, minor: 1), headers: .init([("Content-Type", "application/json")]), body: .init(string: map.description)))
         })
         
-        return promise.futureResult
-    }
-
-    // // Upload Tool Image
-    // // uses app.on() to configure request body handling for modifying maxSize
-    app.on(.POST, "uploadImage", body: .collect(maxSize: "5mb")) { req -> EventLoopFuture<Response> in
-        let httpBody = try req.content.decode(uploadBase64ImageHTTPBody.self)
-        let authTokenGiven: Bool = req.headers["Authorization"].count != 0
-        let context = authTokenGiven ?
-            Context(app: req.application, user: try Authenticator.instance.validateToken(req.headers["Authorization"][0])) :
-            Context(app: req.application)
-
-        let promise = req.eventLoop.makePromise(of: Response.self)
-        let uploadImage = try ImageController.instance.uploadImage(httpBody, context: context)
-
-        uploadImage.whenFailure({ error in
-            promise.fail(error)
-        })
-
-        uploadImage.whenSuccess { response in
-            promise.succeed(.init(status: .ok, version: .init(major: 1, minor: 1), headers: .init([("Content-Type", "application/json")]), body: .init(string: "success")))
-        }
-
         return promise.futureResult
     }
 
@@ -111,7 +81,7 @@ func routes(_ app: Application) throws {
             resolver: resolver,
             context: context,
             eventLoopGroup: req.eventLoop,
-            variables: httpBody.variables ?? [String: Map](),
+            variables: httpBody.variables,
             operationName: httpBody.operationName
         )
 

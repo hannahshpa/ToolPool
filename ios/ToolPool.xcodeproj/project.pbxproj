@@ -29,7 +29,6 @@
 		45C44FDD25674BDE008529A9 /* OtherProfilePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */; };
 		45C44FF025685EE4008529A9 /* OtherRentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C44FEF25685EE4008529A9 /* OtherRentalView.swift */; };
 		45DC18B9257A17B1007B37AB /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5329ABF82565D7AA00A38798 /* LocationManager.swift */; };
-		45DC18BD257A2007007B37AB /* lendingtest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DC18BC257A2007007B37AB /* lendingtest.swift */; };
 		45F62BAF2575777B00A0E685 /* ManageOtherPastResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */; };
 		45F62BB12575778000A0E685 /* ManageOtherUpcomingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678F2570DBBB002609A9 /* ManageOtherUpcomingResPage.swift */; };
 		45F62BB32575778400A0E685 /* ManageOtherPendingResPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4583678A2570DB5B002609A9 /* ManageOtherPendingResPage.swift */; };
@@ -50,6 +49,7 @@
 		53A21C9F257A123500FEA80A /* MapViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536E2E9F2578C81E00522E27 /* MapViewTest.swift */; };
 		53F280592565E7A400ED54D0 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F280582565E7A400ED54D0 /* Tool.swift */; };
 		53F2805E2565E84200ED54D0 /* ToolAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */; };
+		F505D943257B0626000C65BF /* LendTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F505D942257B0626000C65BF /* LendTest.swift */; };
 		F533A7F3255B7614003DDAEC /* ToolCategoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */; };
 		F53CE3792571C9C20085415A /* ImageUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53CE3782571C9C20085415A /* ImageUpload.swift */; };
 		F545E739255DD89700CEC060 /* ToolListingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F545E737255DD89700CEC060 /* ToolListingPage.swift */; };
@@ -58,6 +58,7 @@
 		F545E745255DD8AD00CEC060 /* ToolPool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F545E743255DD8AD00CEC060 /* ToolPool.xcdatamodeld */; };
 		F545E74B255F11E000CEC060 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = F545E74A255F11E000CEC060 /* Apollo */; };
 		F545E74D255F11E000CEC060 /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = F545E74C255F11E000CEC060 /* ApolloWebSocket */; };
+		F572EEBF257B009B0008E35F /* BorrowTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F572EEBE257B009B0008E35F /* BorrowTest.swift */; };
 		F5755E332563A6FE004ADBD4 /* ToolById.graphql in Resources */ = {isa = PBXBuildFile; fileRef = F5755E322563A6FE004ADBD4 /* ToolById.graphql */; settings = {ASSET_TAGS = (New, ); }; };
 		F5755E3B2563A792004ADBD4 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E3A2563A792004ADBD4 /* API.swift */; };
 		F5755E402563AB95004ADBD4 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5755E3F2563AB95004ADBD4 /* Network.swift */; };
@@ -106,6 +107,7 @@
 		F5A75FF725798ADA0070A9D5 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F280582565E7A400ED54D0 /* Tool.swift */; };
 		F5A7603325798D110070A9D5 /* ToolAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */; };
 		F5A760552579956B0070A9D5 /* LoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A760542579956B0070A9D5 /* LoginTest.swift */; };
+		F5B3BE2B257B08CD00EB80ED /* SearchTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B3BE2A257B08CD00EB80ED /* SearchTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,7 +179,6 @@
 		458367942570DBFE002609A9 /* ManageOtherPastResPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageOtherPastResPage.swift; sourceTree = "<group>"; };
 		45C44FDC25674BDE008529A9 /* OtherProfilePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfilePage.swift; sourceTree = "<group>"; };
 		45C44FEF25685EE4008529A9 /* OtherRentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherRentalView.swift; sourceTree = "<group>"; };
-		45DC18BC257A2007007B37AB /* lendingtest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lendingtest.swift; sourceTree = "<group>"; };
 		45F62BBA2578379500A0E685 /* RateTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateTool.swift; sourceTree = "<group>"; };
 		45F62BBF257839DD00A0E685 /* RateUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateUser.swift; sourceTree = "<group>"; };
 		530B16F12572184200594A84 /* MapViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewManager.swift; sourceTree = "<group>"; };
@@ -186,6 +187,7 @@
 		536E2E9F2578C81E00522E27 /* MapViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewTest.swift; sourceTree = "<group>"; };
 		53F280582565E7A400ED54D0 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		53F2805D2565E84200ED54D0 /* ToolAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolAnnotation.swift; sourceTree = "<group>"; };
+		F505D942257B0626000C65BF /* LendTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LendTest.swift; sourceTree = "<group>"; };
 		F533A7F2255B7614003DDAEC /* ToolCategoryPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolCategoryPage.swift; sourceTree = "<group>"; };
 		F53CE370256E30970085415A /* MyToolListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyToolListingView.swift; sourceTree = "<group>"; };
 		F53CE3782571C9C20085415A /* ImageUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUpload.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 		F545E738255DD89700CEC060 /* FilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		F545E73E255DD8A100CEC060 /* StarRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
 		F545E744255DD8AD00CEC060 /* ToolPool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToolPool.xcdatamodel; sourceTree = "<group>"; };
+		F572EEBE257B009B0008E35F /* BorrowTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorrowTest.swift; sourceTree = "<group>"; };
 		F5755E322563A6FE004ADBD4 /* ToolById.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = ToolById.graphql; sourceTree = "<group>"; };
 		F5755E3A2563A792004ADBD4 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		F5755E3F2563AB95004ADBD4 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
@@ -207,6 +210,7 @@
 		F58B2667255478BB000389E3 /* AddToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToolView.swift; sourceTree = "<group>"; };
 		F5A75FEB257988670070A9D5 /* CreateAccountTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountTest.swift; sourceTree = "<group>"; };
 		F5A760542579956B0070A9D5 /* LoginTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTest.swift; sourceTree = "<group>"; };
+		F5B3BE2A257B08CD00EB80ED /* SearchTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,7 +339,9 @@
 				28A7EC8B2543688F007423B0 /* Info.plist */,
 				536E2E9F2578C81E00522E27 /* MapViewTest.swift */,
 				F5A760542579956B0070A9D5 /* LoginTest.swift */,
-				45DC18BC257A2007007B37AB /* lendingtest.swift */,
+				F572EEBE257B009B0008E35F /* BorrowTest.swift */,
+				F505D942257B0626000C65BF /* LendTest.swift */,
+				F5B3BE2A257B08CD00EB80ED /* SearchTest.swift */,
 			);
 			path = ToolPoolUITests;
 			sourceTree = "<group>";
@@ -607,10 +613,8 @@
 				536622672579A7C5000F5B96 /* MapView.swift in Sources */,
 				5366226B2579A7CB000F5B96 /* Tool.swift in Sources */,
 				5366226D2579A7CE000F5B96 /* ToolAnnotation.swift in Sources */,
-				F5A7601225798BE00070A9D5 /* ManageOtherPendingResPage.swift in Sources */,
 				530B16F42572184200594A84 /* MapViewManager.swift in Sources */,
 				530B16F72572184200594A84 /* MapView.swift in Sources */,
-				5329ABFA2565D7AA00A38798 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -626,6 +630,7 @@
 				F5A461A02572FF91005F154A /* OtherRentalView.swift in Sources */,
 				F5A75FEF2579893A0070A9D5 /* ToolPoolApp.swift in Sources */,
 				F5A4616D2572FED6005F154A /* InAppView.swift in Sources */,
+				F505D943257B0626000C65BF /* LendTest.swift in Sources */,
 				45F62BB32575778400A0E685 /* ManageOtherPendingResPage.swift in Sources */,
 				F5A461942572FF60005F154A /* MakeReservationView.swift in Sources */,
 				F5A461702572FED9005F154A /* ImageUpload.swift in Sources */,
@@ -646,12 +651,14 @@
 				F5A4615B2572FE98005F154A /* API.swift in Sources */,
 				53818805257A173E0006519D /* LocationManager.swift in Sources */,
 				45F62BB12575778000A0E685 /* ManageOtherUpcomingResPage.swift in Sources */,
+				F5B3BE2B257B08CD00EB80ED /* SearchTest.swift in Sources */,
 				F5A4615F2572FEA1005F154A /* MyToolListingView.swift in Sources */,
 				45F62BAF2575777B00A0E685 /* ManageOtherPastResPage.swift in Sources */,
 				F5A760552579956B0070A9D5 /* LoginTest.swift in Sources */,
 				F5A4617C2572FF0B005F154A /* SearchView.swift in Sources */,
 				F5A7603325798D110070A9D5 /* ToolAnnotation.swift in Sources */,
 				F5A4619D2572FF8E005F154A /* RentalView.swift in Sources */,
+				F572EEBF257B009B0008E35F /* BorrowTest.swift in Sources */,
 				F5A4618E2572FF57005F154A /* ManageUpcomingResPage.swift in Sources */,
 				F5A4615E2572FE9E005F154A /* AddToolView.swift in Sources */,
 				F5A461912572FF59005F154A /* ManagePastResPage.swift in Sources */,

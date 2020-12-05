@@ -102,9 +102,9 @@ class LoginTest: XCTestCase {
 
     //sleep(5)
     
-    let scrollViewsQuery = app.scrollViews
-    scrollViewsQuery.children(matching: .button).element(boundBy: 1).tap()
-    app/*@START_MENU_TOKEN@*/.buttons["Back To My Toolbox"]/*[[".scrollViews.buttons[\"Back To My Toolbox\"]",".buttons[\"Back To My Toolbox\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+    //let scrollViewsQuery = app.scrollViews
+    //scrollViewsQuery.children(matching: .button).element(boundBy: 1).tap()
+    //app/*@START_MENU_TOKEN@*/.buttons["Back To My Toolbox"]/*[[".scrollViews.buttons[\"Back To My Toolbox\"]",".buttons[\"Back To My Toolbox\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
     
     
   }

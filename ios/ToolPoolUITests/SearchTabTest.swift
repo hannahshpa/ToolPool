@@ -73,7 +73,6 @@ class SearchTabTest: XCTestCase {
             app.scrollViews.otherElements.images["Photo, March 12, 2011, 4:17 PM"].tap()
 
          //app.scrollViews.children(matching: .other).element.children(matching: .other).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .image).matching(identifier: "Photo, December 02, 8:22 PM").element(boundBy: 1).tap()
-       //  app/*@START_MENU_TOKEN@*/.tables.containing(.cell, identifier:"Hand Tools").element/*[[".tables.containing(.cell, identifier:\"Photo library\").element",".tables.containing(.cell, identifier:\"Good\").element",".tables.containing(.cell, identifier:\"Hand Tools\").element"],[[[-1,2],[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         
         app.buttons["Submit Tool"].tap()
         //app.buttons["Submit Tool"].swipeUp()

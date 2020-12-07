@@ -10,12 +10,18 @@ ToolPool allows users to rent and lease household tools for a limited time. Tool
 
 # File Structure
     .
-    ├── server                 # Contains server and database code
+    ├── server                   # Contains server and database code
     |   └── ...             
-    ├── ios                    # Contains UI code
-    |   └── ...               
-    ├── schema.json            # graphql api schema in json format
-    ├── schema.gql             # graphql api schema
+    ├── ios                      # Contains frontend code
+    │   ├── ToolPool             # Contains SwiftUI Views and UI code
+    │   ├── ToolPoolUITests      # Contains UI tests 
+    |   └── ToolPool.xcodeproj   # XCode project to build app     
+    ├── schema.json              # graphql api schema in json format
+    ├── schema.gql               # graphql api schema
     └── README.md
 
-ToolPool is an iOS application written in Swift for both the front and back end. The project is oraganized with the backend code in the ```server``` file and the frontend code in the ```ios``` file. Information about each part can be found in the README files in the respective folders. 
+ToolPool is an iOS application written in Swift for both the front and back end. The project is oraganized with the backend code in the ```server``` file and the frontend code in the ```ios``` file. Information about how to build the server and database can be found in the README file in the ```server``` folder.
+
+To build the app, open the ```ios/ToolPool.xcodeproj``` file. Select a simulator to run the app on (the app has been tested and is working on iPhone 8, iPhone 11 and iPhone 11 Pro). Make sure the server is running and then build the app. The chosen simulator should open with the app.
+
+To run the UI tests, in XCode, select ```Product -> Tests``` and then the testing suite will be run on the selected simulator. In order for the tests to pass make sure in the simulator ```IO -> Keyboard -> Connect Hardware Keyboard``` is unchecked.
